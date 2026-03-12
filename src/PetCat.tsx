@@ -64,9 +64,13 @@ export function PetCat({ temperature, size = 80, blinking = false }: PetProps) {
       {/* ── Körper ── */}
       <ellipse cx="32" cy="65" rx="14" ry="9" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
-      {/* ── Pfoten  > ^ <  ── */}
+      {/* ── Pfoten (Arme)  > ^ <  ── */}
       <ellipse cx="12" cy="63" rx="7" ry="4.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="52" cy="63" rx="7" ry="4.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Füße (unter dem Körper, wie beim Pinguin) ── */}
+      <ellipse cx="23" cy="73" rx="8" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="41" cy="73" rx="8" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
       {/* ── Schnurrhaare ── */}
       <line x1="2"  y1="37" x2="17" y2="39" stroke={OUTLINE} strokeWidth="1"   strokeLinecap="round" opacity="0.6" />

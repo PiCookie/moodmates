@@ -66,9 +66,13 @@ export function PetFrog({ temperature, size = 80, blinking = false }: PetProps) 
       {/* ── Körper ── */}
       <ellipse cx="32" cy="65" rx="15" ry="10" fill={body} stroke={dark} strokeWidth="1.5" />
 
-      {/* ── Gliedmaßen (Arme + Beine) ── */}
+      {/* ── Gliedmaßen (Arme) ── */}
       <ellipse cx="11" cy="63" rx="8" ry="4.5" fill={body} stroke={dark} strokeWidth="1.5" />
       <ellipse cx="53" cy="63" rx="8" ry="4.5" fill={body} stroke={dark} strokeWidth="1.5" />
+
+      {/* ── Füße (unter dem Körper — Frösche haben breite Webfüße) ── */}
+      <ellipse cx="22" cy="74" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
+      <ellipse cx="42" cy="74" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
 
       {/* ── Augen-Kugeln — VOR dem Kopf, damit sie herausragen ── */}
       {/* Linker Augapfel */}
