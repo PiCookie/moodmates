@@ -3,6 +3,8 @@ import { PetCat }     from './PetCat';
 import { PetDog }     from './PetDog';
 import { PetPenguin } from './PetPenguin';
 import { PetFrog }    from './PetFrog';
+import { PetTurtle }  from './PetTurtle';
+import { PetLion }    from './PetLion';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from '@/contexts/SettingsContext';
@@ -116,6 +118,8 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
         {petType === 'dog'     && <PetDog     {...petProps} />}
         {petType === 'penguin' && <PetPenguin {...petProps} />}
         {petType === 'frog'    && <PetFrog    {...petProps} />}
+        {petType === 'turtle'  && <PetTurtle  {...petProps} />}
+        {petType === 'lion'    && <PetLion    {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
