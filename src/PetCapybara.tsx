@@ -113,26 +113,26 @@ export function PetCapybara({ temperature, size = 80, blinking = false }: PetPro
       />
 
       {/* ── Nasenlöcher ── */}
-      <ellipse cx="28" cy="43" rx="2" ry="1.5" fill={dark} opacity="0.55" />
-      <ellipse cx="38" cy="43" rx="2" ry="1.5" fill={dark} opacity="0.55" />
+      <ellipse cx="28" cy="40" rx="2" ry="1.5" fill={dark} opacity="0.55" />
+      <ellipse cx="38" cy="40" rx="2" ry="1.5" fill={dark} opacity="0.55" />
 
       <PetBlush mood={mood} leftCx={16} rightCx={50} cy={35} rx={5} ry={3} />
 
       {/* ── Mund ── */}
       {mood === 'neutral' && (
-        <path d="M26,45 Q33,49 40,45" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M26,42 Q33,46 40,42" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'warm' && (
         <>
-          <path d="M26,45 Q33,49 40,45" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          <ellipse cx="33" cy="47" rx="4" ry="2" fill="#f87171" opacity="0.85" />
+          <path d="M26,42 Q33,46 40,42" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          <ellipse cx="33" cy="44" rx="4" ry="2" fill="#f87171" opacity="0.85" />
         </>
       )}
       {mood === 'cold' && (
-        <path d="M26,47 Q33,43 40,47" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M26,44 Q33,40 40,44" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'frozen' && (
-        <path d="M24,45 Q27,42 30,45 Q33,48 36,45 Q39,42 42,45" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M24,42 Q27,39 30,42 Q33,45 36,42 Q39,39 42,42" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
       {/* small=true: thinner scarf to match the compact capybara proportions */}
