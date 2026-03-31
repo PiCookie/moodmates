@@ -14,7 +14,7 @@
 import type { Mood, PetProps } from './pet.shared';
 import { getMood, OUTLINE } from './pet.shared';
 import {
-  PetSvg, PetShadow, PetIcicles, PetSweat,
+  PetSvg, PetShadow, PetIcicles, PetSun, PetSweat,
   PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
@@ -65,16 +65,8 @@ export function PetLion({ temperature, size = 80, blinking = false }: PetProps) 
       {/* Lion only has a single snowflake group (mane occupies right corner) */}
       <PetSnowflakes mood={mood} left={{ x: 4, y: 18 }} />
 
-      {/* Lion sun is on the left side (right side occupied by tail quaste) */}
-      {mood === 'warm' && (
-        <g opacity="0.9">
-          <circle cx="8" cy="10" r="5" fill="#fbbf24" />
-          <line x1="8"  y1="2"  x2="8"  y2="0"   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="14" y1="5"  x2="16" y2="3.4"  stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="16" y1="11" x2="18" y2="11"   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="2"  y1="5"  x2="0"  y2="3.4"  stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-        </g>
-      )}
+      {/* Sonne links (cx=8) — Mähne belegt rechte Ecke */}
+      <PetSun mood={mood} cx={8} cy={10} />
 
       <PetSweat isHot={isHot} x={60} y={14} />
 
@@ -97,8 +89,8 @@ export function PetLion({ temperature, size = 80, blinking = false }: PetProps) 
         mood={mood}
         frame={{ y: 25, w: 14, h: 12, rx: 4 }}
         leftX={14} rightX={38}
-        leftBügel={[14, 31, 8, 34]}
-        rightBügel={[52, 31, 58, 34]}
+        leftTemple={[14, 31, 8, 34]}
+        rightTemple={[52, 31, 58, 34]}
       />
 
       <PetWorriedBrows

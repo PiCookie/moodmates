@@ -87,8 +87,8 @@ export function PetCapybara({ temperature, size = 80, blinking = false }: PetPro
         mood={mood}
         frame={{ y: 22, w: 12, h: 9, rx: 3.5 }}
         leftX={19} rightX={35}
-        leftBügel={[19, 26, 13, 28]}
-        rightBügel={[47, 26, 53, 28]}
+        leftTemple={[19, 26, 13, 28]}
+        rightTemple={[47, 26, 53, 28]}
         stegY={26}
       />
 

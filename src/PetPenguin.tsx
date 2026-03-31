@@ -70,8 +70,8 @@ export function PetPenguin({ temperature, size = 80, blinking = false }: PetProp
         mood={mood}
         frame={{ y: 24, w: 14, h: 12, rx: 4 }}
         leftX={14} rightX={38}
-        leftBügel={[14, 30, 8, 33]}
-        rightBügel={[52, 30, 58, 33]}
+        leftTemple={[14, 30, 8, 33]}
+        rightTemple={[52, 30, 58, 33]}
       />
 
       <PetWorriedBrows
