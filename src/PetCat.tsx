@@ -13,7 +13,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from './pet.shared';
+import type { PetProps } from './pet.shared';
 import { getMood, BODY_FILL, OUTLINE, PINK } from './pet.shared';
 
 export function PetCat({ temperature, size = 80, blinking = false }: PetProps) {

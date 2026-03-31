@@ -54,8 +54,10 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
   // Refs damit die Timers immer den aktuellen Zustand lesen, ohne neu zu starten
   const moodRef = useRef(getMood(temperature));
   const tempRef = useRef(temperature);
-  moodRef.current = getMood(temperature);
-  tempRef.current = temperature;
+  useEffect(() => {
+    moodRef.current = getMood(temperature);
+    tempRef.current = temperature;
+  });
 
   const mood      = getMood(temperature);
   const shivering = mood === 'cold' || mood === 'frozen';
