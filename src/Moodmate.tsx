@@ -80,7 +80,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
 
   // ── Hüpfen (nur neutral + warm) ──────────────────────────────────────────
   useEffect(() => {
-    if (!canHop) { setHopping(false); return; }
+    if (!canHop) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const schedule = () => {
       const t1 = setTimeout(() => {
@@ -91,7 +91,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
       timers.push(t1);
     };
     schedule();
-    return () => timers.forEach(clearTimeout);
+    return () => { timers.forEach(clearTimeout); setHopping(false); };
   }, [canHop]);
 
   // ── Sprechblase (alle 20-45 Sekunden, erste nach 10-18 s) ─────────────────
