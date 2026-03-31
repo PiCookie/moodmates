@@ -89,8 +89,8 @@ export function PetTurtle({ temperature, size = 80, blinking = false }: PetProps
         mood={mood}
         frame={{ y: 21, w: 13, h: 11, rx: 4 }}
         leftX={17} rightX={36}
-        leftBügel={[17, 27, 11, 30]}
-        rightBügel={[49, 27, 55, 30]}
+        leftTemple={[17, 27, 11, 30]}
+        rightTemple={[49, 27, 55, 30]}
       />
 
       <PetWorriedBrows

@@ -83,8 +83,8 @@ export function PetFrog({ temperature, size = 80, blinking = false }: PetProps) 
         mood={mood}
         frame={{ y: 20, w: 20, h: 16, rx: 6 }}
         leftX={10} rightX={36}
-        leftBügel={[10, 28, 4, 32]}
-        rightBügel={[56, 28, 62, 32]}
+        leftTemple={[10, 28, 4, 32]}
+        rightTemple={[56, 28, 62, 32]}
       />
 
       <PetWorriedBrows

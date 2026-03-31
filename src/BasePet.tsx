@@ -66,18 +66,19 @@ export function PetIcicles({ mood, y = 73, leftX = 19, rightX = 41 }: IciclesPro
 }
 
 // ─── Sun (warm) ──────────────────────────────────────────────────────────────
-// Standard right-corner position (cx=58, cy=12). Lion uses its own sun.
+// Default right-corner position (cx=58, cy=12).
+// Pass cx/cy to reposition — e.g. Lion uses cx=8, cy=10 (left corner, mane blocks right).
 
-export function PetSun({ mood }: { mood: Mood }) {
+export function PetSun({ mood, cx = 58, cy = 12 }: { mood: Mood; cx?: number; cy?: number }) {
   if (mood !== 'warm') return null;
   return (
     <g opacity="0.9">
-      <circle cx="58" cy="12" r="5" fill="#fbbf24" />
-      <line x1="58" y1="4"  x2="58" y2="2"   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="64" y1="7"  x2="66" y2="5.4"  stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="66" y1="13" x2="66" y2="13"   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="64" y1="18" x2="66" y2="20"   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="52" y1="7"  x2="50" y2="5.4"  stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx={cx}   cy={cy}   r="5"  fill="#fbbf24" />
+      <line x1={cx}     y1={cy-8} x2={cx}     y2={cy-10}  stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1={cx+6}   y1={cy-5} x2={cx+8}   y2={cy-6.6} stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1={cx+8}   y1={cy+1} x2={cx+8}   y2={cy+1}   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1={cx+6}   y1={cy+6} x2={cx+8}   y2={cy+8}   stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1={cx-6}   y1={cy-5} x2={cx-8}   y2={cy-6.6} stroke="#fbbf24" strokeWidth="1.5" strokeLinecap="round" />
     </g>
   );
 }
@@ -187,35 +188,35 @@ export function PetBlush({ mood, leftCx, rightCx, cy, rx = 7, ry = 4 }: BlushPro
 
 // ─── Sunglasses (warm) ───────────────────────────────────────────────────────
 // All animals share the same structural pattern; only positions/sizes differ.
-// leftBügel/rightBügel: [x1,y1,x2,y2] — the temple arms connecting frame to side.
-// stegY: y of the nose bridge; defaults to leftBügel[1] - 1.
+// leftTemple/rightTemple: [x1,y1,x2,y2] — the temple arms connecting frame to side.
+// stegY: y of the nose bridge; defaults to leftTemple[1] - 1.
 
 interface SunglassesProps {
   mood: Mood;
   frame: { y: number; w: number; h: number; rx: number };
   leftX: number;
   rightX: number;
-  leftBügel: [number, number, number, number];
-  rightBügel: [number, number, number, number];
+  leftTemple: [number, number, number, number];
+  rightTemple: [number, number, number, number];
   stegY?: number;
 }
 
 export function PetSunglasses({
-  mood, frame, leftX, rightX, leftBügel, rightBügel, stegY,
+  mood, frame, leftX, rightX, leftTemple, rightTemple, stegY,
 }: SunglassesProps) {
   if (mood !== 'warm') return null;
   const fy     = frame.y;
   const fw     = frame.w;
   const fh     = frame.h;
   const frx    = frame.rx;
-  const steg   = stegY ?? leftBügel[1] - 1;
+  const steg   = stegY ?? leftTemple[1] - 1;
   const stegX1 = leftX + fw;
   const stegX2 = rightX;
   return (
     <>
       {/* Temple arms */}
-      <line x1={leftBügel[0]}  y1={leftBügel[1]}  x2={leftBügel[2]}  y2={leftBügel[3]}  stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1={rightBügel[0]} y1={rightBügel[1]} x2={rightBügel[2]} y2={rightBügel[3]} stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1={leftTemple[0]}  y1={leftTemple[1]}  x2={leftTemple[2]}  y2={leftTemple[3]}  stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
+      <line x1={rightTemple[0]} y1={rightTemple[1]} x2={rightTemple[2]} y2={rightTemple[3]} stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
       {/* Lenses */}
       <rect x={leftX}  y={fy} width={fw} height={fh} rx={frx} fill={OUTLINE} />
       <rect x={rightX} y={fy} width={fw} height={fh} rx={frx} fill={OUTLINE} />

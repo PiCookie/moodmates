@@ -74,8 +74,8 @@ export function PetCat({ temperature, size = 80, blinking = false }: PetProps) {
         mood={mood}
         frame={{ y: 27, w: 14, h: 12, rx: 4 }}
         leftX={14} rightX={38}
-        leftBügel={[14, 33, 8, 36]}
-        rightBügel={[52, 33, 58, 36]}
+        leftTemple={[14, 33, 8, 36]}
+        rightTemple={[52, 33, 58, 36]}
       />
 
       <PetWorriedBrows
