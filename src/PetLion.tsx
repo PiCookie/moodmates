@@ -35,7 +35,7 @@ export function PetLion({ temperature, size = 80, blinking = false }: PetProps) 
   const body = LION_BODY[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Löwen-Maskottchen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Löwen-Pet: ${mood}`}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={74} />
 

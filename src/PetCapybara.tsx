@@ -39,7 +39,7 @@ export function PetCapybara({ temperature, size = 80, blinking = false }: PetPro
   const dark = CAPY_DARK[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Capybara-Maskottchen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Capybara-Pet: ${mood}`}>
       <PetShadow cx={33} />
       {/* Capybara icicles sit slightly higher and wider than other animals */}
       <PetIcicles mood={mood} y={70} leftX={17} rightX={43} />
