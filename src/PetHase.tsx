@@ -45,12 +45,12 @@ export function PetHase({ temperature, size = 80, blinking = false }: PetProps) 
       <ellipse cx="23" cy="14" rx="3"   ry="11" fill={HASE_EAR_INNER} />
       <ellipse cx="41" cy="14" rx="3"   ry="11" fill={HASE_EAR_INNER} />
 
+      {/* ── Schwanzstummel (hinter Arm und Körper) ── */}
+      <circle cx="46" cy="61" r="5" fill="white" stroke={OUTLINE} strokeWidth="1" />
+
       {/* ── Arme ── */}
       <ellipse cx="13" cy="61" rx="5" ry="8" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 13 61)" />
       <ellipse cx="51" cy="61" rx="5" ry="8" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 51 61)" />
-
-      {/* ── Schwanzstummel ── */}
-      <circle cx="46" cy="61" r="5" fill="white" stroke={OUTLINE} strokeWidth="1" />
 
       {/* ── Körper ── */}
       <ellipse cx="32" cy="65" rx="15" ry="11" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
