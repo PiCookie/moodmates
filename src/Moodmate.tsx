@@ -6,6 +6,8 @@ import { PetFrog }    from './PetFrog';
 import { PetTurtle }  from './PetTurtle';
 import { PetLion }    from './PetLion';
 import { PetCapybara } from './PetCapybara';
+import { PetHase }    from './PetHase';
+import { PetHamster } from './PetHamster';
 import { PetPanda }   from './PetPanda';
 import { PetDrache }  from './PetDrache';
 import { getMood }           from './pet.shared';
@@ -121,6 +123,8 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
       {speechText && <SpeechBubble text={speechText} />}
       <div className={hopping && !shivering ? 'animate-hop' : undefined}>
         {petType === 'dog'     && <PetDog     {...petProps} />}
+        {petType === 'rabbit'  && <PetHase    {...petProps} />}
+        {petType === 'hamster' && <PetHamster {...petProps} />}
         {petType === 'penguin' && <PetPenguin {...petProps} />}
         {petType === 'frog'    && <PetFrog    {...petProps} />}
         {petType === 'turtle'  && <PetTurtle  {...petProps} />}
