@@ -27,7 +27,7 @@ export function PetPenguin({ temperature, size = 80, blinking = false }: PetProp
   const face = BODY_FILL[mood];   // helles Bauch/Gesichts-Oval
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Pinguin-Maskottchen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Pinguin-Pet: ${mood}`}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 

@@ -39,7 +39,7 @@ export function PetTurtle({ temperature, size = 80, blinking = false }: PetProps
   const dark = TURTLE_DARK[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Schildkröten-Maskottchen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Schildkröten-Pet: ${mood}`}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 

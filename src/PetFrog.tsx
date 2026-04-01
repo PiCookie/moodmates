@@ -39,7 +39,7 @@ export function PetFrog({ temperature, size = 80, blinking = false }: PetProps) 
   const dark = FROG_DARK[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Frosch-Maskottchen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Frosch-Pet: ${mood}`}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={74} />
 

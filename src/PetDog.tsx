@@ -24,7 +24,7 @@ export function PetDog({ temperature, size = 80, blinking = false }: PetProps) {
   const body = BODY_FILL[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Hunde-Maskottchen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Hunde-Pet: ${mood}`}>
       <PetShadow cx={30} />
       <PetIcicles mood={mood} y={73} />
 
