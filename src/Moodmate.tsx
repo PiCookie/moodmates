@@ -9,6 +9,8 @@ import { PetCapybara } from './PetCapybara';
 import { PetHase }    from './PetHase';
 import { PetHamster } from './PetHamster';
 import { PetBaer }    from './PetBaer';
+import { PetTiger }        from './PetTiger';
+import { PetRoterPanda }   from './PetRoterPanda';
 import { PetPanda }        from './PetPanda';
 import { PetDrache }       from './PetDrache';
 import { PetElefant }      from './PetElefant';
@@ -139,7 +141,9 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
         {petType === 'elephant' && <PetElefant      {...petProps} />}
         {petType === 'hippo'    && <PetNilpferd     {...petProps} />}
         {petType === 'meerkat'  && <PetErdmaennchen {...petProps} />}
-        {petType === 'bear'     && <PetBaer         {...petProps} />}
+        {petType === 'bear'      && <PetBaer       {...petProps} />}
+        {petType === 'tiger'     && <PetTiger      {...petProps} />}
+        {petType === 'red-panda' && <PetRoterPanda {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
