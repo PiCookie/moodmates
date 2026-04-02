@@ -45,7 +45,8 @@ export function PetElefant({ temperature, size = 80, blinking = false }: PetProp
       <PetIcicles mood={mood} y={74} />
 
       {/* ── Schwanz ── */}
-      <path d="M44,62 Q53,56 51,48" stroke={fur} strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M44,62 Q53,56 51,48" stroke={OUTLINE} strokeWidth="5" strokeLinecap="round" fill="none" />
+      <path d="M44,62 Q53,56 51,48" stroke={fur}     strokeWidth="3" strokeLinecap="round" fill="none" />
 
       {/* ── Arme/Beine ── */}
       <ellipse cx="14" cy="63" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-8 14 63)" />
@@ -70,22 +71,28 @@ export function PetElefant({ temperature, size = 80, blinking = false }: PetProp
       {/* ── Schal ── */}
       <PetScarf mood={mood} x={11} y={50} width={42} knotCx={52} knotCy={55} />
 
-      {/* ── Rüssel (Hauptmerkmal) — nach Kopf + Schal, hängt weit nach links ── */}
-      {/* Startpunkt (32,45) liegt im Kopfkreis, starke Links-Kurve verhindert Halswirkung */}
-      <path d="M32,45 Q18,57 20,68" stroke={fur}     strokeWidth="9" strokeLinecap="round" fill="none" />
-      <path d="M32,45 Q18,57 20,68" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+      {/* ── Stoßzähne (neutral + warm) — vor dem Rüssel, damit Rüssel sie überdeckt ── */}
+      {(mood === 'neutral' || mood === 'warm') && (
+        <>
+          {/* Kubische Bézierkurve: Bogen nach außen, Spitze dreht nach innen */}
+          <path d="M29,45 C19,51 17,58 25,62" stroke="#f5efe0" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+          <path d="M35,45 C45,51 47,58 39,62" stroke="#f5efe0" strokeWidth="3.5" strokeLinecap="round" fill="none" />
+        </>
+      )}
+
+      {/* ── Rüssel (Hauptmerkmal) — Outline zuerst (breit), dann Füllfarbe drüber (schmal) ── */}
+      <path d="M32,40 Q18,54 20,68" stroke={OUTLINE} strokeWidth="12" strokeLinecap="round" fill="none" />
+      <path d="M32,40 Q18,54 20,68" stroke={fur}     strokeWidth="9"  strokeLinecap="round" fill="none" />
+      {/* Nur den allerobersten Ansatz abdecken (r=9 ≈ 60 % des Kopfradius),
+          damit die Kontur ab ca. y=44 sichtbar wird */}
+      <circle cx="32" cy="35" r="9" fill={fur} />
+      {/* Nüstern am Rüsselende — zwei kleine Ellipsen kurz vor der Spitze */}
+      <ellipse cx="18.5" cy="63" rx="1.5" ry="1"   fill={OUTLINE} opacity="0.5" />
+      <ellipse cx="21.5" cy="65.5" rx="1.5" ry="1" fill={OUTLINE} opacity="0.5" />
 
       <PetSnowflakes mood={mood} left={{ x: 4, y: 18 }} right={{ x: 61, y: 18 }} />
       <PetSun mood={mood} />
       <PetSweat isHot={isHot} y={13} />
-
-      {/* ── Stoßzähne (neutral + warm) ── */}
-      {(mood === 'neutral' || mood === 'warm') && (
-        <>
-          <path d="M25,47 Q18,53 17,57" stroke="#f5efe0" strokeWidth="3.5" strokeLinecap="round" fill="none" />
-          <path d="M39,47 Q46,53 47,57" stroke="#f5efe0" strokeWidth="3.5" strokeLinecap="round" fill="none" />
-        </>
-      )}
 
       {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
@@ -129,10 +136,6 @@ export function PetElefant({ temperature, size = 80, blinking = false }: PetProp
         leftBox={{ l: 22, t: 25, r: 31, b: 35 }}
         rightBox={{ l: 33, t: 25, r: 42, b: 35 }}
       />
-
-      {/* ── Nüstern (auf dem Rüsselansatz sichtbar) ── */}
-      <ellipse cx="29" cy="44" rx="2" ry="1.5" fill={OUTLINE} opacity="0.45" />
-      <ellipse cx="35" cy="44" rx="2" ry="1.5" fill={OUTLINE} opacity="0.45" />
 
       <PetBlush mood={mood} leftCx={18} rightCx={46} cy={42} rx={5} ry={3} />
     </PetSvg>
