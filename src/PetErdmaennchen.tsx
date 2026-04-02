@@ -45,26 +45,31 @@ export function PetErdmaennchen({ temperature, size = 80, blinking = false }: Pe
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Erdmännchen-Pet: ${mood}`}>
       <PetShadow cx={32} />
-      <PetIcicles mood={mood} y={74} />
+      <PetIcicles mood={mood} y={71} />
 
       {/* ── Schwanz (hinter Körper, leicht geschwungen) ── */}
-      <path d="M38,72 Q46,65 44,54 Q43,46 47,40" stroke={fur} strokeWidth="3" strokeLinecap="round" fill="none" />
+      <path d="M38,72 Q46,65 44,54 Q43,46 47,40" stroke={OUTLINE} strokeWidth="5" strokeLinecap="round" fill="none" />
+      <path d="M38,72 Q46,65 44,54 Q43,46 47,40" stroke={fur}     strokeWidth="3" strokeLinecap="round" fill="none" />
 
       {/* ── Hinterbeine/Füße ── */}
-      <ellipse cx="24" cy="76" rx="8"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="40" cy="76" rx="8"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="24" cy="73" rx="8"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="40" cy="73" rx="8"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
 
-      {/* ── Körper (aufrecht, schmal) ── */}
-      <ellipse cx="32" cy="58" rx="9" ry="16" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+      {/* ── Körper (aufrecht, schmal) — cy=55 damit Oberkante (y=39) in Kopf hineinragt ── */}
+      <ellipse cx="32" cy="55" rx="9" ry="16" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
 
       {/* ── Heller Bauch ── */}
-      <ellipse cx="32" cy="58" rx="5.5" ry="11" fill={belly} />
+      <ellipse cx="32" cy="55" rx="5.5" ry="11" fill={belly} />
 
       {/* ── Vorderpfoten (auf Brusthöhe, die charakteristische Wächter-Pose) ── */}
+      {/* Outline mit butt-Caps: Linie umrandet, aber keine Outline an den Verbindungspunkten */}
+      <line x1="22" y1="53" x2="15" y2="52" stroke={OUTLINE} strokeWidth="7" strokeLinecap="butt" />
+      <line x1="22" y1="53" x2="15" y2="52" stroke={fur}     strokeWidth="5" strokeLinecap="round" />
+      <line x1="42" y1="53" x2="49" y2="52" stroke={OUTLINE} strokeWidth="7" strokeLinecap="butt" />
+      <line x1="42" y1="53" x2="49" y2="52" stroke={fur}     strokeWidth="5" strokeLinecap="round" />
+      {/* Hand-Ellipsen über den Linien, damit der Linienabschluss verdeckt wird */}
       <ellipse cx="13" cy="52" rx="5" ry="4" fill={fur} stroke={OUTLINE} strokeWidth="1.3" transform="rotate(-20 13 52)" />
       <ellipse cx="51" cy="52" rx="5" ry="4" fill={fur} stroke={OUTLINE} strokeWidth="1.3" transform="rotate(20 51 52)" />
-      <line x1="22" y1="53" x2="15" y2="52" stroke={fur} strokeWidth="5" strokeLinecap="round" />
-      <line x1="42" y1="53" x2="49" y2="52" stroke={fur} strokeWidth="5" strokeLinecap="round" />
 
       {/* ── Spitze Ohren (hinter Kopf) ── */}
       <ellipse cx="23" cy="16" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.3" transform="rotate(-15 23 16)" />

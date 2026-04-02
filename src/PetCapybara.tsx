@@ -44,14 +44,16 @@ export function PetCapybara({ temperature, size = 80, blinking = false }: PetPro
       {/* Capybara icicles sit slightly higher and wider than other animals */}
       <PetIcicles mood={mood} y={70} leftX={17} rightX={43} />
 
-      {/* ── Füße + Vorderpfoten ── */}
-      <ellipse cx="19" cy="73" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
-      <ellipse cx="47" cy="73" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
-      <ellipse cx="11" cy="52" rx="8" ry="4"   fill={body} stroke={dark} strokeWidth="1.5" />
-      <ellipse cx="55" cy="52" rx="8" ry="4"   fill={body} stroke={dark} strokeWidth="1.5" />
+      {/* ── Füße ── */}
+      <ellipse cx="19" cy="70" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
+      <ellipse cx="47" cy="70" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
 
       {/* ── Körper ── */}
       <ellipse cx="33" cy="53" rx="19" ry="15" fill={body} stroke={dark} strokeWidth="1.5" />
+
+      {/* ── Vorderpfoten (vor Körper) ── */}
+      <ellipse cx="11" cy="52" rx="8" ry="4"   fill={body} stroke={dark} strokeWidth="1.5" />
+      <ellipse cx="55" cy="52" rx="8" ry="4"   fill={body} stroke={dark} strokeWidth="1.5" />
 
       <PetSnowflakes mood={mood} left={{ x: 3, y: 44 }} right={{ x: 62, y: 39 }} />
       <PetSun mood={mood} />

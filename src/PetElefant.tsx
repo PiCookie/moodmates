@@ -48,16 +48,16 @@ export function PetElefant({ temperature, size = 80, blinking = false }: PetProp
       <path d="M44,62 Q53,56 51,48" stroke={OUTLINE} strokeWidth="5" strokeLinecap="round" fill="none" />
       <path d="M44,62 Q53,56 51,48" stroke={fur}     strokeWidth="3" strokeLinecap="round" fill="none" />
 
-      {/* ── Arme/Beine ── */}
+      {/* ── Körper — cy=61 damit Oberkante (y=48) 2px in Kopf hineinragt ── */}
+      <ellipse cx="32" cy="61" rx="14" ry="13" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Arme/Beine (vor Körper) ── */}
       <ellipse cx="14" cy="63" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-8 14 63)" />
       <ellipse cx="50" cy="63" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(8 50 63)" />
 
-      {/* ── Körper — ry=13 damit Oberkante (y=50) bündig mit Kopfunterkante liegt ── */}
-      <ellipse cx="32" cy="63" rx="14" ry="13" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
-
       {/* ── Füße ── */}
-      <ellipse cx="22" cy="77" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="42" cy="77" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="22" cy="75" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="42" cy="75" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
 
       {/* ── Ohren (hinter Kopf, großes Fächer) ── */}
       <ellipse cx="12" cy="34" rx="11" ry="14" fill={fur}      stroke={OUTLINE} strokeWidth="1.5" />
@@ -87,8 +87,8 @@ export function PetElefant({ temperature, size = 80, blinking = false }: PetProp
           damit die Kontur ab ca. y=44 sichtbar wird */}
       <circle cx="32" cy="35" r="9" fill={fur} />
       {/* Nüstern am Rüsselende — zwei kleine Ellipsen kurz vor der Spitze */}
-      <ellipse cx="18.5" cy="63" rx="1.5" ry="1"   fill={OUTLINE} opacity="0.5" />
-      <ellipse cx="21.5" cy="65.5" rx="1.5" ry="1" fill={OUTLINE} opacity="0.5" />
+      <ellipse cx="18.5" cy="67" rx="1.5" ry="1" fill={OUTLINE} opacity="0.5" />
+      <ellipse cx="21.5" cy="67" rx="1.5" ry="1" fill={OUTLINE} opacity="0.5" />
 
       <PetSnowflakes mood={mood} left={{ x: 4, y: 18 }} right={{ x: 61, y: 18 }} />
       <PetSun mood={mood} />

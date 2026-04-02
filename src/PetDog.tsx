@@ -28,15 +28,6 @@ export function PetDog({ temperature, size = 80, blinking = false }: PetProps) {
       <PetShadow cx={30} />
       <PetIcicles mood={mood} y={73} />
 
-      {/* ── Hängeohren — vor dem Kopf, damit Kopf sie überlappt ── */}
-      <path d="M14,24 Q3,32 5,47 Q8,55 15,53 Q21,49 19,30 Z"  fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M14,28 Q7,35 9,46 Q11,51 15,50 Q19,46 18,33 Z"  fill={PINK} />
-      <path d="M52,24 Q63,32 61,47 Q58,55 51,53 Q45,49 47,30 Z" fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M52,28 Q59,35 57,46 Q55,51 51,50 Q47,46 48,33 Z" fill={PINK} />
-
-      {/* ── Kopf ── */}
-      <circle cx="32" cy="36" r="21" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
-
       {/* ── Schwanz ── */}
       <path d="M44,64 Q57,53 53,43" stroke={OUTLINE} strokeWidth="3" strokeLinecap="round" fill="none" />
 
@@ -48,6 +39,15 @@ export function PetDog({ temperature, size = 80, blinking = false }: PetProps) {
       <ellipse cx="52" cy="63" rx="7" ry="4.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="23" cy="73" rx="8" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="41" cy="73" rx="8" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Hängeohren — vor dem Kopf, damit Kopf sie überlappt ── */}
+      <path d="M14,24 Q3,32 5,47 Q8,55 15,53 Q21,49 19,30 Z"  fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M14,28 Q7,35 9,46 Q11,51 15,50 Q19,46 18,33 Z"  fill={PINK} />
+      <path d="M52,24 Q63,32 61,47 Q58,55 51,53 Q45,49 47,30 Z" fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M52,28 Q59,35 57,46 Q55,51 51,50 Q47,46 48,33 Z" fill={PINK} />
+
+      {/* ── Kopf ── */}
+      <circle cx="32" cy="36" r="21" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
       <PetSnowflakes mood={mood} left={{ x: 5, y: 18 }} right={{ x: 60, y: 17 }} />
       <PetSun mood={mood} />

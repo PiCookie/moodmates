@@ -45,12 +45,12 @@ export function PetNilpferd({ temperature, size = 80, blinking = false }: PetPro
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={73} />
 
-      {/* ── Arme ── */}
-      <ellipse cx="12" cy="64" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 12 64)" />
-      <ellipse cx="52" cy="64" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 52 64)" />
+      {/* ── Körper (rund, ähnlich Elefant) ── */}
+      <ellipse cx="32" cy="66" rx="15" ry="13" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
 
-      {/* ── Körper (rund und kompakt) ── */}
-      <ellipse cx="32" cy="68" rx="15" ry="10" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+      {/* ── Arme (vor Körper) ── */}
+      <ellipse cx="15" cy="64" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 15 64)" />
+      <ellipse cx="49" cy="64" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 49 64)" />
 
       {/* ── Füße ── */}
       <ellipse cx="22" cy="77" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />

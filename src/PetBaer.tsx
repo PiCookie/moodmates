@@ -19,39 +19,39 @@ import {
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
 
-const HAMSTER_FUR: Record<Mood, string> = {
-  frozen:  '#e0f2fe',
-  cold:    '#fef3c7',
-  neutral: '#fbbf24',
-  warm:    '#f59e0b',
+const BAER_FUR: Record<Mood, string> = {
+  frozen:  '#c8d8e8',
+  cold:    '#c8b090',
+  neutral: '#a07248',
+  warm:    '#8b5e30',
 };
 
-const HAMSTER_BELLY: Record<Mood, string> = {
-  frozen:  '#f0f9ff',
-  cold:    '#fffbeb',
-  neutral: '#fef9c3',
-  warm:    '#fef08a',
+const BAER_BELLY: Record<Mood, string> = {
+  frozen:  '#e4eef8',
+  cold:    '#e0d0b0',
+  neutral: '#c89860',
+  warm:    '#b48040',
 };
 
-const HAMSTER_EAR_INNER = '#fca5a5';
+const BAER_EAR_INNER = '#e8a090';
 
 export function PetBaer({ temperature, size = 80, blinking = false }: PetProps) {
   const mood = getMood(temperature);
   const isHot = temperature !== null && temperature >= 28;
-  const fur   = HAMSTER_FUR[mood];
-  const belly = HAMSTER_BELLY[mood];
+  const fur   = BAER_FUR[mood];
+  const belly = BAER_BELLY[mood];
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Bär-Pet: ${mood}`}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={72} />
 
-      {/* ── Arme ── */}
-      <ellipse cx="14" cy="60" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 14 60)" />
-      <ellipse cx="50" cy="60" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 50 60)" />
-
       {/* ── Körper ── */}
       <ellipse cx="32" cy="64" rx="14" ry="12" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Arme (vor Körper) ── */}
+      <ellipse cx="14" cy="60" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 14 60)" />
+      <ellipse cx="50" cy="60" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 50 60)" />
 
       {/* ── Füße ── */}
       <ellipse cx="23" cy="74" rx="8" ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
@@ -60,8 +60,8 @@ export function PetBaer({ temperature, size = 80, blinking = false }: PetProps) 
       {/* ── Ohren (hinter Kopf) ── */}
       <circle cx="19" cy="17" r="7" fill={fur}               stroke={OUTLINE} strokeWidth="1.5" />
       <circle cx="45" cy="17" r="7" fill={fur}               stroke={OUTLINE} strokeWidth="1.5" />
-      <circle cx="19" cy="17" r="4" fill={HAMSTER_EAR_INNER} />
-      <circle cx="45" cy="17" r="4" fill={HAMSTER_EAR_INNER} />
+      <circle cx="19" cy="17" r="4" fill={BAER_EAR_INNER} />
+      <circle cx="45" cy="17" r="4" fill={BAER_EAR_INNER} />
 
       {/* ── Kopf: breite Ellipse = natürlich volle Wangen ── */}
       <ellipse cx="32" cy="36" rx="21" ry="18" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
