@@ -8,8 +8,11 @@ import { PetLion }    from './PetLion';
 import { PetCapybara } from './PetCapybara';
 import { PetHase }    from './PetHase';
 import { PetHamster } from './PetHamster';
-import { PetPanda }   from './PetPanda';
-import { PetDrache }  from './PetDrache';
+import { PetPanda }        from './PetPanda';
+import { PetDrache }       from './PetDrache';
+import { PetElefant }      from './PetElefant';
+import { PetNilpferd }     from './PetNilpferd';
+import { PetErdmaennchen } from './PetErdmaennchen';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from '@/contexts/SettingsContext';
@@ -130,8 +133,11 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
         {petType === 'turtle'  && <PetTurtle  {...petProps} />}
         {petType === 'lion'    && <PetLion    {...petProps} />}
         {petType === 'capybara' && <PetCapybara {...petProps} />}
-        {petType === 'panda'    && <PetPanda   {...petProps} />}
-        {petType === 'dragon'   && <PetDrache  {...petProps} />}
+        {petType === 'panda'    && <PetPanda        {...petProps} />}
+        {petType === 'dragon'   && <PetDrache       {...petProps} />}
+        {petType === 'elephant' && <PetElefant      {...petProps} />}
+        {petType === 'hippo'    && <PetNilpferd     {...petProps} />}
+        {petType === 'meerkat'  && <PetErdmaennchen {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
