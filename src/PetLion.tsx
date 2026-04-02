@@ -55,10 +55,10 @@ export function PetLion({ temperature, size = 80, blinking = false }: PetProps) 
       <circle cx="32" cy="40" r="22" fill={LION_MANE} stroke="#ea580c" strokeWidth="1" />
 
       {/* ── Ohren ── */}
-      <circle cx="17" cy="18" r="7" fill={body}     stroke={OUTLINE} strokeWidth="1.5" />
-      <circle cx="17" cy="18" r="4" fill="#fca5a5" />
-      <circle cx="47" cy="18" r="7" fill={body}     stroke={OUTLINE} strokeWidth="1.5" />
-      <circle cx="47" cy="18" r="4" fill="#fca5a5" />
+      <circle cx="17" cy="23" r="7" fill={body}     stroke={OUTLINE} strokeWidth="1.5" />
+      <circle cx="17" cy="23" r="4" fill="#fca5a5" />
+      <circle cx="47" cy="23" r="7" fill={body}     stroke={OUTLINE} strokeWidth="1.5" />
+      <circle cx="47" cy="23" r="4" fill="#fca5a5" />
 
       {/* ── Kopf ── */}
       <circle cx="32" cy="40" r="16" fill={body} stroke={OUTLINE} strokeWidth="1.5" />

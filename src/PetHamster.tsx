@@ -50,11 +50,11 @@ export function PetHamster({ temperature, size = 80, blinking = false }: PetProp
       <ellipse cx="19" cy="59" rx="4" ry="5" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 19 59)" />
       <ellipse cx="47" cy="59" rx="4" ry="5" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 47 59)" />
 
-      {/* ── Ohren — cy=17 damit sie oben deutlich über Gesicht herausragen ── */}
-      <circle cx="21" cy="17" r="8"   fill={fur}      stroke={OUTLINE} strokeWidth="1.5" />
-      <circle cx="45" cy="17" r="8"   fill={fur}      stroke={OUTLINE} strokeWidth="1.5" />
-      <circle cx="21" cy="17" r="4.5" fill={EAR_INNER} />
-      <circle cx="45" cy="17" r="4.5" fill={EAR_INNER} />
+      {/* ── Ohren ── */}
+      <circle cx="21" cy="22" r="8"   fill={fur}      stroke={OUTLINE} strokeWidth="1.5" />
+      <circle cx="45" cy="22" r="8"   fill={fur}      stroke={OUTLINE} strokeWidth="1.5" />
+      <circle cx="21" cy="22" r="4.5" fill={EAR_INNER} />
+      <circle cx="45" cy="22" r="4.5" fill={EAR_INNER} />
 
       {/* ── Gesicht: breite Ellipse für volle Backentaschen, einfarbig ── */}
       <ellipse cx="33" cy="38" rx="22" ry="14" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
