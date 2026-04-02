@@ -1,7 +1,11 @@
 /**
  * Gen1-Style Turtle Pet
  *
- * Erkennungsmerkmale: Markanter Panzer, kleiner Kopf, kurze Stummel-Gliedmaßen.
+ * Bauchansicht: Brauner Panzer (Carapax) im Hintergrund, hellgelbes Plastron
+ * (Bauch) im Zentrum. Grüne Gliedmaßen lugen an den Seiten hervor.
+ *
+ * Schichten (hinten → vorne):
+ *   Panzer → Plastron → Muster → Gliedmaßen → Kopf
  *
  * Mood → temperature:
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
@@ -18,57 +22,75 @@ import {
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
 
-const TURTLE_BODY: Record<Mood, string> = {
-  frozen:  '#e0e7ff',
+/** Gliedmaßen + Kopf */
+const TURTLE_LIMB: Record<Mood, string> = {
+  frozen:  '#c7d2fe',
   cold:    '#ccfbf1',
-  neutral: '#bbf7d0',
+  neutral: '#86efac',
   warm:    '#d9f99d',
 };
 
-const TURTLE_DARK: Record<Mood, string> = {
+const TURTLE_LIMB_DARK: Record<Mood, string> = {
   frozen:  '#6366f1',
   cold:    '#0d9488',
   neutral: '#15803d',
   warm:    '#65a30d',
 };
 
+/** Panzer (Carapax) — braun/olive */
+const TURTLE_SHELL: Record<Mood, string> = {
+  frozen:  '#6878a0',
+  cold:    '#7a6030',
+  neutral: '#7a5c1e',
+  warm:    '#8b6014',
+};
+
+/** Plastron (Bauch) — gelblich-creme */
+const TURTLE_BELLY: Record<Mood, string> = {
+  frozen:  '#b8c8dc',
+  cold:    '#d8cc88',
+  neutral: '#d4c458',
+  warm:    '#dcc038',
+};
+
 export function PetTurtle({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+  const mood  = getMood(temperature);
   const isHot = temperature !== null && temperature >= 28;
-  const body = TURTLE_BODY[mood];
-  const dark = TURTLE_DARK[mood];
+  const limb  = TURTLE_LIMB[mood];
+  const lDark = TURTLE_LIMB_DARK[mood];
+  const shell = TURTLE_SHELL[mood];
+  const belly = TURTLE_BELLY[mood];
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Schildkröten-Pet: ${mood}`}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 
-      {/* ── Schwanz ── */}
-      <ellipse cx="50" cy="67" rx="5" ry="3" fill={body} stroke={dark} strokeWidth="1.5" />
+      {/* ── Panzer (Carapax) im Hintergrund — braun, breiter Rand um Plastron ── */}
+      <ellipse cx="32" cy="56" rx="22" ry="17" fill={shell} stroke={OUTLINE} strokeWidth="1.5" />
 
-      {/* ── Gliedmaßen + Füße ── */}
-      <ellipse cx="9"  cy="60" rx="7" ry="4.5" fill={body} stroke={dark} strokeWidth="1.5" />
-      <ellipse cx="57" cy="60" rx="7" ry="4.5" fill={body} stroke={dark} strokeWidth="1.5" />
-      <ellipse cx="22" cy="75" rx="8" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
-      <ellipse cx="42" cy="75" rx="8" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
+      {/* ── Plastron (Bauch) — gelblich, zentral vorne ── */}
+      <ellipse cx="32" cy="56" rx="14" ry="13" fill={belly} stroke={OUTLINE} strokeWidth="1" />
 
-      {/* ── Panzer-Kuppel ── */}
-      <ellipse cx="32" cy="58" rx="21" ry="14" fill={body} stroke={dark} strokeWidth="1.5" />
+      {/* ── Plastron-Muster (vereinfachtes Schildkröten-Muster) ── */}
+      <line x1="32" y1="44" x2="32" y2="68" stroke={OUTLINE} strokeWidth="0.9" opacity="0.3" />
+      <line x1="32" y1="51" x2="22" y2="49" stroke={OUTLINE} strokeWidth="0.9" opacity="0.25" />
+      <line x1="32" y1="51" x2="42" y2="49" stroke={OUTLINE} strokeWidth="0.9" opacity="0.25" />
+      <line x1="32" y1="61" x2="20" y2="63" stroke={OUTLINE} strokeWidth="0.9" opacity="0.25" />
+      <line x1="32" y1="61" x2="44" y2="63" stroke={OUTLINE} strokeWidth="0.9" opacity="0.25" />
 
-      {/* ── Panzer-Muster ── */}
-      <ellipse cx="32" cy="57" rx="7" ry="6"  fill="none" stroke={dark} strokeWidth="1" opacity="0.45" />
-      <path d="M24,47 Q32,44 40,47" fill="none" stroke={dark} strokeWidth="1" opacity="0.35" />
-      <path d="M12,55 Q18,50 25,52" fill="none" stroke={dark} strokeWidth="1" opacity="0.35" />
-      <path d="M39,52 Q46,50 52,55" fill="none" stroke={dark} strokeWidth="1" opacity="0.35" />
-      <path d="M15,63 Q22,68 30,65" fill="none" stroke={dark} strokeWidth="1" opacity="0.35" />
-      <path d="M34,65 Q42,68 49,63" fill="none" stroke={dark} strokeWidth="1" opacity="0.35" />
+      {/* ── Gliedmaßen (vor Panzer/Bauch, hinter Kopf) ── */}
+      <ellipse cx="11"  cy="57" rx="7" ry="4.5" fill={limb} stroke={lDark} strokeWidth="1.5" />
+      <ellipse cx="53" cy="57" rx="7" ry="4.5" fill={limb} stroke={lDark} strokeWidth="1.5" />
+      <ellipse cx="22" cy="72" rx="8" ry="3.5" fill={limb} stroke={lDark} strokeWidth="1.5" />
+      <ellipse cx="42" cy="72" rx="8" ry="3.5" fill={limb} stroke={lDark} strokeWidth="1.5" />
 
       <PetSnowflakes mood={mood} left={{ x: 3, y: 44 }} right={{ x: 62, y: 39 }} />
       <PetSun mood={mood} />
       <PetSweat isHot={isHot} y={36} />
 
-      {/* ── Kopf ── */}
-      <circle cx="32" cy="30" r="13" fill={body} stroke={dark} strokeWidth="1.5" />
+      {/* ── Kopf (grün, vorne) ── */}
+      <circle cx="32" cy="30" r="13" fill={limb} stroke={lDark} strokeWidth="1.5" />
 
       {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
@@ -114,8 +136,8 @@ export function PetTurtle({ temperature, size = 80, blinking = false }: PetProps
       />
 
       {/* ── Nasenlöcher ── */}
-      <circle cx="29.5" cy="33" r="1.3" fill={dark} opacity="0.6" />
-      <circle cx="34.5" cy="33" r="1.3" fill={dark} opacity="0.6" />
+      <circle cx="29.5" cy="33" r="1.3" fill={lDark} opacity="0.6" />
+      <circle cx="34.5" cy="33" r="1.3" fill={lDark} opacity="0.6" />
 
       <PetBlush mood={mood} leftCx={18} rightCx={46} cy={35} rx={5} ry={3} />
 
@@ -130,7 +152,6 @@ export function PetTurtle({ temperature, size = 80, blinking = false }: PetProps
         <path d="M24,37 Q27,34 30,37 Q33,40 36,37 Q39,34 42,37" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      {/* small=true: thinner scarf for the compact turtle neck */}
       <PetScarf mood={mood} x={16} y={40} width={32} knotCx={47} knotCy={44} small />
     </PetSvg>
   );

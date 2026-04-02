@@ -39,12 +39,12 @@ export function PetPanda({ temperature, size = 80, blinking = false }: PetProps)
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 
-      {/* ── Schwarze Arme ── */}
-      <ellipse cx="10" cy="57" rx="6" ry="10" fill={PANDA_BLACK} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-15 10 57)" />
-      <ellipse cx="54" cy="57" rx="6" ry="10" fill={PANDA_BLACK} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(15 54 57)" />
-
       {/* ── Körper ── */}
       <ellipse cx="32" cy="63" rx="16" ry="12" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Schwarze Arme (vor Körper) ── */}
+      <ellipse cx="14" cy="57" rx="6" ry="10" fill={PANDA_BLACK} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-15 14 57)" />
+      <ellipse cx="50" cy="57" rx="6" ry="10" fill={PANDA_BLACK} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(15 50 57)" />
 
       {/* ── Füße (schwarz) ── */}
       <ellipse cx="24" cy="74" rx="8" ry="3.5" fill={PANDA_BLACK} stroke={OUTLINE} strokeWidth="1" />

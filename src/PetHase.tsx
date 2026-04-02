@@ -48,16 +48,16 @@ export function PetHase({ temperature, size = 80, blinking = false }: PetProps) 
       {/* ── Schwanzstummel (hinter Arm und Körper) ── */}
       <circle cx="46" cy="61" r="5" fill="white" stroke={OUTLINE} strokeWidth="1" />
 
-      {/* ── Arme ── */}
-      <ellipse cx="13" cy="61" rx="5" ry="8" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 13 61)" />
-      <ellipse cx="51" cy="61" rx="5" ry="8" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 51 61)" />
-
       {/* ── Körper ── */}
       <ellipse cx="32" cy="65" rx="15" ry="11" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
 
       {/* ── Füße ── */}
       <ellipse cx="22" cy="75" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
       <ellipse cx="42" cy="75" rx="9"  ry="3.5" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+
+      {/* ── Arme (vor Körper) ── */}
+      <ellipse cx="13" cy="61" rx="5" ry="8" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(-10 13 61)" />
+      <ellipse cx="51" cy="61" rx="5" ry="8" fill={fur} stroke={OUTLINE} strokeWidth="1.5" transform="rotate(10 51 61)" />
 
       {/* ── Kopf (überdeckt Ohransatz) ── */}
       <circle cx="32" cy="37" r="18" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />

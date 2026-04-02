@@ -10,6 +10,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
+import { useRef } from 'react';
 import type { Mood, PetProps } from './pet.shared';
 import { getMood, OUTLINE } from './pet.shared';
 import {
@@ -33,10 +34,12 @@ const FROG_DARK: Record<Mood, string> = {
 };
 
 export function PetFrog({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
-  const isHot = temperature !== null && temperature >= 28;
-  const body = FROG_BODY[mood];
-  const dark = FROG_DARK[mood];
+  const mood   = getMood(temperature);
+  const isHot  = temperature !== null && temperature >= 28;
+  const body   = FROG_BODY[mood];
+  const dark   = FROG_DARK[mood];
+  // Eindeutige Mask-ID — mehrere SVG-Instanzen können gleichzeitig im DOM sein
+  const maskId = useRef(`fm-${Math.floor(Math.random() * 1e9)}`).current;
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Frosch-Pet: ${mood}`}>
@@ -52,12 +55,22 @@ export function PetFrog({ temperature, size = 80, blinking = false }: PetProps) 
       <ellipse cx="22" cy="74" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
       <ellipse cx="42" cy="74" rx="9" ry="3.5" fill={body} stroke={dark} strokeWidth="1.5" />
 
-      {/* ── Augen-Kugeln — VOR dem Kopf ── */}
-      <circle cx="20" cy="28" r="9" fill={body} stroke={dark} strokeWidth="1.5" />
-      <circle cx="44" cy="28" r="9" fill={body} stroke={dark} strokeWidth="1.5" />
-
       {/* ── Kopf ── */}
       <ellipse cx="32" cy="43" rx="21" ry="17" fill={body} stroke={dark} strokeWidth="1.5" />
+
+      {/* Mask: Augen-Outline nur außerhalb des Kopfes sichtbar */}
+      <defs>
+        <mask id={maskId}>
+          <rect x="0" y="0" width="66" height="88" fill="white" />
+          <ellipse cx="32" cy="43" rx="21" ry="17" fill="black" />
+        </mask>
+      </defs>
+
+      {/* ── Augen-Kugeln — Fill ohne Stroke (keine Trennlinie), Outline via Mask ── */}
+      <circle cx="20" cy="28" r="9" fill={body} />
+      <circle cx="44" cy="28" r="9" fill={body} />
+      <circle cx="20" cy="28" r="9" fill="none" stroke={dark} strokeWidth="1.5" mask={`url(#${maskId})`} />
+      <circle cx="44" cy="28" r="9" fill="none" stroke={dark} strokeWidth="1.5" mask={`url(#${maskId})`} />
 
       <PetSnowflakes mood={mood} left={{ x: 3, y: 52 }} right={{ x: 60, y: 51 }} />
       <PetSun mood={mood} />
