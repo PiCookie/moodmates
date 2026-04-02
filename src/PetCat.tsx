@@ -26,15 +26,6 @@ export function PetCat({ temperature, size = 80, blinking = false }: PetProps) {
       <PetShadow cx={30} />
       <PetIcicles mood={mood} y={73} />
 
-      {/* ── Ohren  /\_/\  ── */}
-      <polygon points="6,22 16,4 26,22"   fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
-      <polygon points="10,21 16,9 22,21"  fill={PINK} />
-      <polygon points="40,22 51,4 61,22"  fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
-      <polygon points="44,21 51,9 57,21"  fill={PINK} />
-
-      {/* ── Kopf ── */}
-      <circle cx="32" cy="38" r="23" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
-
       {/* ── Schwanz ── */}
       <path d="M46,66 Q62,58 58,46" stroke={OUTLINE} strokeWidth="3" strokeLinecap="round" fill="none" />
 
@@ -46,6 +37,15 @@ export function PetCat({ temperature, size = 80, blinking = false }: PetProps) {
       <ellipse cx="52" cy="63" rx="7"  ry="4.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="23" cy="73" rx="8"  ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="41" cy="73" rx="8"  ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Ohren  /\_/\  ── */}
+      <polygon points="6,22 16,4 26,22"   fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <polygon points="10,21 16,9 22,21"  fill={PINK} />
+      <polygon points="40,22 51,4 61,22"  fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <polygon points="44,21 51,9 57,21"  fill={PINK} />
+
+      {/* ── Kopf ── */}
+      <circle cx="32" cy="38" r="23" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
       {/* ── Schnurrhaare ── */}
       <line x1="2"  y1="37" x2="17" y2="39" stroke={OUTLINE} strokeWidth="1" strokeLinecap="round" opacity="0.6" />
