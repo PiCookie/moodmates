@@ -19,7 +19,7 @@ import { getMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
-  PetSunglasses, PetFrozenEyes, PetWorriedBrows,
+  PetSunglasses, PetWorriedBrows,
 } from './BasePet';
 
 const ROTER_PANDA_FUR: Record<Mood, string> = {
