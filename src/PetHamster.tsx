@@ -80,10 +80,10 @@ export function PetHamster({ temperature, size = 80, blinking = false }: PetProp
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 23, w: 11, h: 11, rx: 4 }}
-        leftX={17} rightX={30}
-        leftTemple={[17, 29, 8, 32]}
-        rightTemple={[41, 29, 50, 32]}
+        frame={{ y: 25, w: 11, h: 11, rx: 4 }}
+        leftX={23} rightX={32}
+        leftTemple={[23, 31, 8, 34]}
+        rightTemple={[43, 31, 52, 34]}
       />
 
       <PetWorriedBrows
