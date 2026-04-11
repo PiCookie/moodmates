@@ -73,6 +73,20 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
     tempRef.current = temperature;
   });
 
+  // Ref für den Auto-Clear-Timer der Sprechblase (damit Click den Timer resetten kann)
+  const speechClearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function showSpeech() {
+    if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
+    setSpeechText(pickMessage(moodRef.current, tempRef.current));
+    setHopping(true);
+    setTimeout(() => setHopping(false), 450);
+    speechClearTimerRef.current = setTimeout(() => {
+      setSpeechText(null);
+      speechClearTimerRef.current = null;
+    }, 4500);
+  }
+
   const mood      = getMood(temperature);
   const shivering = mood === 'cold' || mood === 'frozen';
   const canHop    = mood === 'neutral' || mood === 'warm';
@@ -113,17 +127,15 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
     const timers: ReturnType<typeof setTimeout>[] = [];
     const schedule = (delay: number) => {
       const t1 = setTimeout(() => {
-        setSpeechText(pickMessage(moodRef.current, tempRef.current));
-        const t2 = setTimeout(() => {
-          setSpeechText(null);
-          schedule(20000 + Math.random() * 25000);
-        }, 4500);
+        showSpeech();
+        const t2 = setTimeout(() => schedule(20000 + Math.random() * 25000), 4500);
         timers.push(t2);
       }, delay);
       timers.push(t1);
     };
     schedule(10000 + Math.random() * 8000);
     return () => timers.forEach(clearTimeout);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const petProps = { temperature, size, blinking };
@@ -131,7 +143,12 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
   return (
     <div className="relative inline-flex flex-col items-center gap-1">
       {speechText && <SpeechBubble text={speechText} />}
-      <div className={hopping && !shivering ? 'animate-hop' : undefined}>
+      <div
+        className={`cursor-pointer${hopping && !shivering ? ' animate-hop' : ''}`}
+        onClick={showSpeech}
+        role="button"
+        aria-label="Tier antippen"
+      >
         {petType === 'dog'     && <PetDog     {...petProps} />}
         {petType === 'rabbit'  && <PetHase    {...petProps} />}
         {petType === 'hamster' && <PetHamster {...petProps} />}
