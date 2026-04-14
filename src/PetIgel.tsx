@@ -14,6 +14,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
+import { useId } from 'react';
 import type { Mood, PetProps } from './pet.shared';
 import { getMood, OUTLINE } from './pet.shared';
 import {
@@ -23,10 +24,10 @@ import {
 } from './BasePet';
 
 const IGEL_FUR: Record<Mood, string> = {
-  frozen:  '#c7d2fe', // eisblau
-  cold:    '#94a3b8', // kühles Grau
-  neutral: '#a16207', // warmes Braun
-  warm:    '#b45309', // satteres Braun
+  frozen:  '#d3dcfe',
+  cold:    '#c2ccd8',
+  neutral: '#c8996a',
+  warm:    '#d89c49',
 };
 
 const IGEL_BELLY: Record<Mood, string> = {
@@ -36,19 +37,44 @@ const IGEL_BELLY: Record<Mood, string> = {
   warm:    '#fde68a',
 };
 
-const SPINE_COLOR: Record<Mood, string> = {
-  frozen:  '#6366f1',
-  cold:    '#64748b',
-  neutral: '#57534e',
-  warm:    '#44403c',
+const IGEL_HEAD: Record<Mood, string> = {
+  frozen:  '#d3dcfe', // EULE_FUR #c7d2fe + EULE_BELLY #e0e7ff @ 50%
+  cold:    '#c2ccd8', // EULE_FUR #94a3b8 + EULE_BELLY #f1f5f9 @ 50%
+  neutral: '#c8996a', // EULE_FUR #92400e + EULE_BELLY #fef3c7 @ 50%
+  warm:    '#d89c49', // EULE_FUR #b45309 + EULE_BELLY #fde68a @ 50%
+};
+
+const IGEL_SNOUT: Record<Mood, string> = {
+  frozen:  '#c7d2fe',
+  cold:    '#94a3b8',
+  neutral: '#a16207',
+  warm:    '#b45309',
+};
+
+const SPINE_BASE: Record<Mood, string> = {
+  frozen:  '#4338ca',
+  cold:    '#334155',
+  neutral: '#1c1917',
+  warm:    '#0c0a09',
+};
+
+const SPINE_TIP: Record<Mood, string> = {
+  frozen:  '#a5b4fc',
+  cold:    '#94a3b8',
+  neutral: '#a16207',
+  warm:    '#92400e',
 };
 
 export function PetIgel({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood  = getMood(temperature);
-  const isHot = temperature !== null && temperature >= 28;
-  const fur   = IGEL_FUR[mood];
-  const belly = IGEL_BELLY[mood];
-  const spine = SPINE_COLOR[mood];
+  const mood   = getMood(temperature);
+  const isHot  = temperature !== null && temperature >= 28;
+  const fur    = IGEL_FUR[mood];
+  const belly  = IGEL_BELLY[mood];
+  const head   = IGEL_HEAD[mood];
+  const snout  = IGEL_SNOUT[mood];
+  const spineBase  = SPINE_BASE[mood];
+  const spineTip   = SPINE_TIP[mood];
+  const clipId = useId();
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Igel-Pet: ${mood}`}>
@@ -57,106 +83,116 @@ export function PetIgel({ temperature, size = 80, blinking = false }: PetProps) 
 
       {/* ── Stacheln (hinter dem Körper) ── */}
       {/* Äußerer Stachel-Halbkreis als Basis */}
-      <ellipse cx="32" cy="54" rx="19" ry="16" fill={spine} />
+      <ellipse cx="32" cy="54" rx="19" ry="16" fill={`url(#${clipId}-spine)`} />
       {/* Einzelne Stachel-Linien, fächerförmig */}
-      <line x1="32" y1="38" x2="32" y2="26" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="38" y1="39" x2="40" y2="27" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="43" y1="42" x2="48" y2="31" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="47" y1="47" x2="54" y2="39" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="50" y1="54" x2="58" y2="50" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="26" y1="39" x2="24" y2="27" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="21" y1="42" x2="16" y2="31" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="17" y1="47" x2="10" y2="39" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="14" y1="54" x2="6"  y2="50" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="32" y1="38" x2="32" y2="26" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="38" y1="39" x2="40" y2="27" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="43" y1="42" x2="48" y2="31" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="47" y1="47" x2="54" y2="39" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="50" y1="54" x2="58" y2="50" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="26" y1="39" x2="24" y2="27" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="21" y1="42" x2="16" y2="31" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="17" y1="47" x2="10" y2="39" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="14" y1="54" x2="6"  y2="50" stroke={`url(#${clipId}-spine)`} strokeWidth="2.5" strokeLinecap="round" />
 
       {/* ── Füße ── */}
-      <ellipse cx="24" cy="76" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="40" cy="76" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="24" cy="72" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="40" cy="72" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
 
       {/* ── Körper (runder Bauch, überdeckt untere Stachelhälfte) ── */}
       <ellipse cx="32" cy="60" rx="16" ry="13" fill={fur}   stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="32" cy="63" rx="10" ry="8"  fill={belly} />
 
-      {/* ── Kleine Ohren ── */}
-      <ellipse cx="24" cy="37" rx="4" ry="5" fill={fur}   stroke={OUTLINE} strokeWidth="1.2" />
-      <ellipse cx="40" cy="37" rx="4" ry="5" fill={fur}   stroke={OUTLINE} strokeWidth="1.2" />
-      <ellipse cx="24" cy="37" rx="2.2" ry="3" fill={belly} />
-      <ellipse cx="40" cy="37" rx="2.2" ry="3" fill={belly} />
+      {/* ── Arme (vor dem Körper) ── */}
+      <ellipse cx="16" cy="61" rx="6" ry="4" fill={fur} stroke={OUTLINE} strokeWidth="1.2" />
+      <ellipse cx="48" cy="61" rx="6" ry="4" fill={fur} stroke={OUTLINE} strokeWidth="1.2" />
 
-      {/* ── Kopf ── */}
-      <ellipse cx="32" cy="46" rx="13" ry="12" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+      <defs>
+        <clipPath id={clipId}>
+          <path d="M24,38 Q32,32 40,38 Q44,48 38,57 Q32,63 26,57 Q20,48 24,38 Z" />
+        </clipPath>
+        <radialGradient id={`${clipId}-spine`} cx="32" cy="54" r="28" gradientUnits="userSpaceOnUse">
+          <stop offset="0%"   stopColor={spineBase} />
+          <stop offset="100%" stopColor={spineTip}  />
+        </radialGradient>
+      </defs>
 
-      {/* ── Helles Gesichtszentrum ── */}
-      <ellipse cx="33" cy="49" rx="9" ry="8" fill={belly} opacity="0.55" />
+      {/* ── Kleine Ohren (Kreise, oben an den Kopfseiten) ── */}
+      <circle cx="23" cy="40" r="4" fill={fur} stroke={OUTLINE} strokeWidth="1.2" />
+      <circle cx="41" cy="40" r="4" fill={fur} stroke={OUTLINE} strokeWidth="1.2" />
+
+      {/* ── Kopf (oben schmal, Wangen breiter, Schnauze spitz) ── */}
+      <path d="M24,38 Q32,32 40,38 Q44,48 38,57 Q32,63 26,57 Q20,48 24,38 Z" fill={head} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
 
       <PetSnowflakes mood={mood} left={{ x: 3, y: 30 }} right={{ x: 60, y: 30 }} />
       <PetSun mood={mood} />
       <PetSweat isHot={isHot} y={20} />
 
-      {/* ── Augen ── */}
+      {/* ── Schnauze (dunkel, untere Kopfhälfte) ── */}
+      <path d="M26,52 Q24,59 32,63 Q40,59 38,52 Q32,50 26,52 Z" fill={snout} />
+
+      {/* ── Augen (seitlich, auf Wangenhöhe) ── */}
       {mood === 'neutral' && (blinking ? (
         <>
-          <line x1="24" y1="44" x2="30" y2="44" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="34" y1="44" x2="40" y2="44" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="21" y1="49" x2="30" y2="49" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
+          <line x1="34" y1="49" x2="43" y2="49" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="27" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="37" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="25.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="35.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="26" cy="49" r="5.5" fill={snout} clipPath={`url(#${clipId})`} />
+          <circle cx="38" cy="49" r="5.5" fill={snout} clipPath={`url(#${clipId})`} />
+          <circle cx="26" cy="49" r="3.5" fill={OUTLINE} />
+          <circle cx="38" cy="49" r="3.5" fill={OUTLINE} />
+          <circle cx="24.8" cy="47.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="36.8" cy="47.8" r="1.2" fill="white" opacity="0.65" />
         </>
       ))}
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 38, w: 13, h: 11, rx: 4 }}
+        frame={{ y: 43, w: 13, h: 12, rx: 4 }}
         leftX={17} rightX={34}
-        leftTemple={[17, 44, 9, 47]}
-        rightTemple={[47, 44, 55, 47]}
+        leftTemple={[17, 49, 9, 52]}
+        rightTemple={[47, 49, 55, 52]}
       />
 
       <PetWorriedBrows
         mood={mood}
-        leftBrow={{ x1: 20, y1: 37, x2: 31, y2: 40 }}
-        rightBrow={{ x1: 33, y1: 40, x2: 44, y2: 37 }}
+        leftBrow={{ x1: 19, y1: 43, x2: 29, y2: 46 }}
+        rightBrow={{ x1: 35, y1: 46, x2: 45, y2: 43 }}
       />
       {mood === 'cold' && (
         <>
-          <circle cx="27" cy="45" r="3.5" fill={OUTLINE} />
-          <circle cx="37" cy="45" r="3.5" fill={OUTLINE} />
-          <circle cx="25.8" cy="43.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="35.8" cy="43.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="26" cy="50" r="5.5" fill={snout} clipPath={`url(#${clipId})`} />
+          <circle cx="38" cy="50" r="5.5" fill={snout} clipPath={`url(#${clipId})`} />
+          <circle cx="26" cy="50" r="3.5" fill={OUTLINE} />
+          <circle cx="38" cy="50" r="3.5" fill={OUTLINE} />
+          <circle cx="24.8" cy="48.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="36.8" cy="48.8" r="1.2" fill="white" opacity="0.65" />
         </>
       )}
 
       <PetFrozenEyes
         mood={mood}
-        leftBox={{ l: 21, t: 38, r: 33, b: 50 }}
-        rightBox={{ l: 31, t: 38, r: 43, b: 50 }}
+        leftBox={{ l: 19, t: 43, r: 33, b: 56 }}
+        rightBox={{ l: 31, t: 43, r: 45, b: 56 }}
       />
 
-      {/* ── Stupsnase ── */}
-      <ellipse cx="32" cy="51" rx="3" ry="2" fill={OUTLINE} opacity="0.7" />
-      <ellipse cx="31" cy="50.3" rx="1" ry="0.8" fill="white" opacity="0.3" />
+      {/* ── Nase (am äußersten Schnauzenspitz) ── */}
+      <ellipse cx="32" cy="62" rx="2.5" ry="1.8" fill={OUTLINE} opacity="0.9" />
+      <ellipse cx="31.2" cy="61.4" rx="0.9" ry="0.7" fill="white" opacity="0.4" />
 
-      <PetBlush mood={mood} leftCx={18} rightCx={46} cy={52} rx={5} ry={3} />
+      <PetBlush mood={mood} leftCx={19} rightCx={45} cy={54} rx={4} ry={3} />
 
-      {/* ── Mund ── */}
-      {mood === 'neutral' && (
-        <path d="M27,55 Q32,59 37,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {mood === 'warm' && (
-        <path d="M26,55 Q32,60 38,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {mood === 'cold' && (
-        <path d="M28,57 Q32,53 36,57" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {mood === 'frozen' && (
-        <path d="M26,56 Q29,52 32,56 Q35,60 38,56" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
+      {/* ── Schnurrhaare ── */}
+      <line x1="26" y1="55" x2="12" y2="52" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="26" y1="57" x2="12" y2="57" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="26" y1="59" x2="12" y2="62" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="38" y1="55" x2="52" y2="52" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="38" y1="57" x2="52" y2="57" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="38" y1="59" x2="52" y2="62" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
 
-      <PetScarf mood={mood} x={12} y={58} width={40} knotCx={51} knotCy={63} />
+      <PetScarf mood={mood} x={12} y={63} width={40} knotCx={51} knotCy={68} />
     </PetSvg>
   );
 }
