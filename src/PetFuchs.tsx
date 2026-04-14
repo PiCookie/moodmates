@@ -56,18 +56,26 @@ export function PetFuchs({ temperature, size = 80, blinking = false }: PetProps)
       <ellipse cx="32" cy="63" rx="15" ry="12" fill={fur}        stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="32" cy="66" rx="9"  ry="7.5" fill={FUCHS_WHITE} />
 
-      {/* ── Spitze Ohren (vor dem Kopf) ── */}
-      <path d="M20,33 L16,18 L26,27" fill={fur}        stroke={OUTLINE} strokeWidth="1.3" strokeLinejoin="round" />
-      <path d="M44,33 L48,18 L38,27" fill={fur}        stroke={OUTLINE} strokeWidth="1.3" strokeLinejoin="round" />
+      {/* ── Arme (vor dem Körper) ── */}
+      <ellipse cx="17" cy="64" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.2" transform="rotate(-10 17 64)" />
+      <ellipse cx="47" cy="64" rx="5" ry="7" fill={fur} stroke={OUTLINE} strokeWidth="1.2" transform="rotate(10 47 64)" />
+
+      {/* ── Spitze Ohren (hinter dem Kopf) ── */}
+      <path d="M20,38 L16,23 L26,32" fill={fur}        stroke={OUTLINE} strokeWidth="1.3" strokeLinejoin="round" />
+      <path d="M44,38 L48,23 L38,32" fill={fur}        stroke={OUTLINE} strokeWidth="1.3" strokeLinejoin="round" />
       {/* Weiße Ohrinnen */}
-      <path d="M20,31 L17,20 L25,28" fill={FUCHS_WHITE} />
-      <path d="M44,31 L47,20 L39,28" fill={FUCHS_WHITE} />
+      <path d="M20,36 L17,25 L25,33" fill={FUCHS_WHITE} />
+      <path d="M44,36 L47,25 L39,33" fill={FUCHS_WHITE} />
 
       {/* ── Kopf ── */}
       <ellipse cx="32" cy="42" rx="14" ry="13" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
 
-      {/* ── Weiße Gesichtsmaske (Hauptcharakter) ── */}
-      <ellipse cx="32" cy="46" rx="9" ry="8" fill={FUCHS_WHITE} opacity="0.85" />
+      {/* ── Spitze Schnauze (weiß) ── */}
+      <path d="M22,40 Q20,52 32,60 Q44,52 42,40 Q32,37 22,40 Z" fill={FUCHS_WHITE} opacity="0.9" />
+
+      {/* ── Nasenrücken von Augen bis Nasenspitze (orange) ── */}
+      <path d="M27,38 Q26,48 32,50 Q38,48 37,38 Q32,35 27,38 Z" fill={fur} />
+
 
       <PetSnowflakes mood={mood} left={{ x: 3, y: 28 }} right={{ x: 57, y: 28 }} />
       <PetSun mood={mood} />
@@ -116,27 +124,27 @@ export function PetFuchs({ temperature, size = 80, blinking = false }: PetProps)
         rightBox={{ l: 32, t: 33, r: 44, b: 45 }}
       />
 
-      {/* ── Nase (dunkel, fuchstypisch) ── */}
-      <ellipse cx="32" cy="47" rx="2.5" ry="1.8" fill={OUTLINE} opacity="0.8" />
-      <ellipse cx="31.2" cy="46.3" rx="0.9" ry="0.7" fill="white" opacity="0.3" />
+      {/* ── Nase (dunkel, prominent, an der Schnauzenspitze) ── */}
+      <ellipse cx="32" cy="52" rx="3.5" ry="2.5" fill={OUTLINE} opacity="0.9" />
+      <ellipse cx="31" cy="51" rx="1.2" ry="0.9" fill="white" opacity="0.3" />
 
       <PetBlush mood={mood} leftCx={17} rightCx={47} cy={49} rx={5} ry={3} />
 
       {/* ── Mund ── */}
       {mood === 'neutral' && (
-        <path d="M27,50 Q32,55 37,50" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M28,55 Q32,58 36,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'warm' && (
-        <path d="M26,50 Q32,56 38,50" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M27,55 Q32,59 37,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'cold' && (
-        <path d="M28,52 Q32,48 36,52" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M28,57 Q32,53 36,57" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'frozen' && (
-        <path d="M26,51 Q29,47 32,51 Q35,55 38,51" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M26,56 Q29,52 32,56 Q35,60 38,56" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      <PetScarf mood={mood} x={11} y={54} width={40} knotCx={50} knotCy={59} />
+      <PetScarf mood={mood} x={11} y={58} width={40} knotCx={50} knotCy={63} />
     </PetSvg>
   );
 }

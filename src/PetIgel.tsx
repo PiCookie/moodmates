@@ -23,10 +23,10 @@ import {
 } from './BasePet';
 
 const IGEL_FUR: Record<Mood, string> = {
-  frozen:  '#c7d2fe', // eisblau
-  cold:    '#94a3b8', // kühles Grau
-  neutral: '#a16207', // warmes Braun
-  warm:    '#b45309', // satteres Braun
+  frozen:  '#d3dcfe',
+  cold:    '#c2ccd8',
+  neutral: '#c8996a',
+  warm:    '#d89c49',
 };
 
 const IGEL_BELLY: Record<Mood, string> = {
@@ -34,6 +34,20 @@ const IGEL_BELLY: Record<Mood, string> = {
   cold:    '#e2e8f0',
   neutral: '#fef3c7',
   warm:    '#fde68a',
+};
+
+const IGEL_HEAD: Record<Mood, string> = {
+  frozen:  '#d3dcfe', // EULE_FUR #c7d2fe + EULE_BELLY #e0e7ff @ 50%
+  cold:    '#c2ccd8', // EULE_FUR #94a3b8 + EULE_BELLY #f1f5f9 @ 50%
+  neutral: '#c8996a', // EULE_FUR #92400e + EULE_BELLY #fef3c7 @ 50%
+  warm:    '#d89c49', // EULE_FUR #b45309 + EULE_BELLY #fde68a @ 50%
+};
+
+const IGEL_SNOUT: Record<Mood, string> = {
+  frozen:  '#c7d2fe',
+  cold:    '#94a3b8',
+  neutral: '#a16207',
+  warm:    '#b45309',
 };
 
 const SPINE_COLOR: Record<Mood, string> = {
@@ -48,6 +62,8 @@ export function PetIgel({ temperature, size = 80, blinking = false }: PetProps) 
   const isHot = temperature !== null && temperature >= 28;
   const fur   = IGEL_FUR[mood];
   const belly = IGEL_BELLY[mood];
+  const head  = IGEL_HEAD[mood];
+  const snout = IGEL_SNOUT[mood];
   const spine = SPINE_COLOR[mood];
 
   return (
@@ -70,12 +86,16 @@ export function PetIgel({ temperature, size = 80, blinking = false }: PetProps) 
       <line x1="14" y1="54" x2="6"  y2="50" stroke={spine} strokeWidth="2.5" strokeLinecap="round" />
 
       {/* ── Füße ── */}
-      <ellipse cx="24" cy="76" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="40" cy="76" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="24" cy="72" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
+      <ellipse cx="40" cy="72" rx="7" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" />
 
       {/* ── Körper (runder Bauch, überdeckt untere Stachelhälfte) ── */}
       <ellipse cx="32" cy="60" rx="16" ry="13" fill={fur}   stroke={OUTLINE} strokeWidth="1.5" />
       <ellipse cx="32" cy="63" rx="10" ry="8"  fill={belly} />
+
+      {/* ── Arme (vor dem Körper) ── */}
+      <ellipse cx="16" cy="61" rx="6" ry="4" fill={fur} stroke={OUTLINE} strokeWidth="1.2" />
+      <ellipse cx="48" cy="61" rx="6" ry="4" fill={fur} stroke={OUTLINE} strokeWidth="1.2" />
 
       {/* ── Kleine Ohren ── */}
       <ellipse cx="24" cy="37" rx="4" ry="5" fill={fur}   stroke={OUTLINE} strokeWidth="1.2" />
@@ -84,76 +104,88 @@ export function PetIgel({ temperature, size = 80, blinking = false }: PetProps) 
       <ellipse cx="40" cy="37" rx="2.2" ry="3" fill={belly} />
 
       {/* ── Kopf ── */}
-      <ellipse cx="32" cy="46" rx="13" ry="12" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
-
-      {/* ── Helles Gesichtszentrum ── */}
-      <ellipse cx="33" cy="49" rx="9" ry="8" fill={belly} opacity="0.55" />
+      <ellipse cx="32" cy="46" rx="13" ry="12" fill={head} stroke={OUTLINE} strokeWidth="1.5" />
 
       <PetSnowflakes mood={mood} left={{ x: 3, y: 30 }} right={{ x: 60, y: 30 }} />
       <PetSun mood={mood} />
       <PetSweat isHot={isHot} y={20} />
 
+      {/* ── Schnauze ── */}
+      <path d="M27,45 Q25,54 32,58 Q39,54 37,45 Q32,43 27,45 Z" fill={snout} />
+
       {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
         <>
-          <line x1="24" y1="44" x2="30" y2="44" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="34" y1="44" x2="40" y2="44" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="24" y1="43" x2="29" y2="43" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
+          <line x1="35" y1="43" x2="40" y2="43" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="27" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="37" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="25.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="35.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="26" cy="43" r="3.5" fill={snout} />
+          <circle cx="38" cy="43" r="3.5" fill={snout} />
+          <circle cx="26" cy="43" r="2" fill={OUTLINE} />
+          <circle cx="38" cy="43" r="2" fill={OUTLINE} />
+          <circle cx="25.5" cy="42.5" r="0.7" fill="white" opacity="0.65" />
+          <circle cx="37.5" cy="42.5" r="0.7" fill="white" opacity="0.65" />
         </>
       ))}
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 38, w: 13, h: 11, rx: 4 }}
+        frame={{ y: 37, w: 13, h: 11, rx: 4 }}
         leftX={17} rightX={34}
-        leftTemple={[17, 44, 9, 47]}
-        rightTemple={[47, 44, 55, 47]}
+        leftTemple={[17, 43, 9, 46]}
+        rightTemple={[47, 43, 55, 46]}
       />
 
       <PetWorriedBrows
         mood={mood}
-        leftBrow={{ x1: 20, y1: 37, x2: 31, y2: 40 }}
-        rightBrow={{ x1: 33, y1: 40, x2: 44, y2: 37 }}
+        leftBrow={{ x1: 18, y1: 36, x2: 28, y2: 39 }}
+        rightBrow={{ x1: 36, y1: 39, x2: 46, y2: 36 }}
       />
       {mood === 'cold' && (
         <>
-          <circle cx="27" cy="45" r="3.5" fill={OUTLINE} />
-          <circle cx="37" cy="45" r="3.5" fill={OUTLINE} />
-          <circle cx="25.8" cy="43.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="35.8" cy="43.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="26" cy="44" r="3.5" fill={snout} />
+          <circle cx="38" cy="44" r="3.5" fill={snout} />
+          <circle cx="26" cy="44" r="2" fill={OUTLINE} />
+          <circle cx="38" cy="44" r="2" fill={OUTLINE} />
+          <circle cx="25.5" cy="43.5" r="0.7" fill="white" opacity="0.65" />
+          <circle cx="37.5" cy="43.5" r="0.7" fill="white" opacity="0.65" />
         </>
       )}
 
       <PetFrozenEyes
         mood={mood}
-        leftBox={{ l: 21, t: 38, r: 33, b: 50 }}
-        rightBox={{ l: 31, t: 38, r: 43, b: 50 }}
+        leftBox={{ l: 19, t: 37, r: 30, b: 48 }}
+        rightBox={{ l: 34, t: 37, r: 45, b: 48 }}
       />
 
-      {/* ── Stupsnase ── */}
-      <ellipse cx="32" cy="51" rx="3" ry="2" fill={OUTLINE} opacity="0.7" />
-      <ellipse cx="31" cy="50.3" rx="1" ry="0.8" fill="white" opacity="0.3" />
+      {/* ── Nase ── */}
+      <ellipse cx="32" cy="53" rx="2.5" ry="1.8" fill={OUTLINE} opacity="0.9" />
+      <ellipse cx="31.2" cy="52.4" rx="0.9" ry="0.7" fill="white" opacity="0.4" />
 
       <PetBlush mood={mood} leftCx={18} rightCx={46} cy={52} rx={5} ry={3} />
 
+      {/* ── Schnurrhaare ── */}
+      <line x1="27" y1="50" x2="13" y2="47" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="27" y1="52" x2="13" y2="52" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="27" y1="54" x2="13" y2="57" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="37" y1="50" x2="51" y2="47" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="37" y1="52" x2="51" y2="52" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+      <line x1="37" y1="54" x2="51" y2="57" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.6" />
+
       {/* ── Mund ── */}
       {mood === 'neutral' && (
-        <path d="M27,55 Q32,59 37,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M29,55 Q32,57 35,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'warm' && (
-        <path d="M26,55 Q32,60 38,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M28,55 Q32,58 36,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'cold' && (
-        <path d="M28,57 Q32,53 36,57" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M29,56 Q32,53 35,56" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'frozen' && (
-        <path d="M26,56 Q29,52 32,56 Q35,60 38,56" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M27,55 Q29,52 32,55 Q35,58 37,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
       <PetScarf mood={mood} x={12} y={58} width={40} knotCx={51} knotCy={63} />
