@@ -50,7 +50,7 @@ export function PetDelfin({ temperature, size = 80, blinking = false }: PetProps
       <PetIcicles mood={mood} y={77} />
 
       {/* ── Schwanzflosse (V-Form) ── */}
-      <path d="M20,62 Q26,74 32,64 Q38,74 44,62" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M20,62 Q26,74 32,64 Q38,74 44,62 Z" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
 
       {/* ── Brustflossen ── */}
       <path d="M20,40 Q9,35 8,46 Q12,52 20,49"  fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
