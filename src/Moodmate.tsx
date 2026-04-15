@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import type { DetectedEvent, EventKind } from '@/hooks/useEventDetector';
+import { pickEventMessage } from './pet.events';
 import { PetCat }     from './PetCat';
 import { PetDog }     from './PetDog';
 import { PetPenguin } from './PetPenguin';
@@ -27,14 +29,35 @@ import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from '@/contexts/SettingsContext';
 
+type SpeechVariant = 'frost' | 'summer' | 'heat' | 'online';
+
+const VARIANT_BUBBLE: Record<SpeechVariant, { bubble: string; tail: string }> = {
+  frost:  { bubble: 'border-2 border-blue-400/70 bg-blue-50 text-blue-900',   tail: '#eff6ff' },
+  summer: { bubble: 'border-2 border-amber-400/70 bg-amber-50 text-amber-900', tail: '#fffbeb' },
+  heat:   { bubble: 'border-2 border-red-400/70 bg-red-50 text-red-900',       tail: '#fef2f2' },
+  online: { bubble: 'border-2 border-green-400/70 bg-green-50 text-green-900', tail: '#f0fdf4' },
+};
+
+const EVENT_TO_VARIANT: Record<EventKind, SpeechVariant> = {
+  'first-frost':  'frost',
+  'first-summer': 'summer',
+  'heat-record':  'heat',
+  'back-online':  'online',
+};
+
 interface Props {
   temperature: number | null;
   size?: number;
   petType?: PetType;
   name?: string;
+  event?: DetectedEvent | null;
 }
 
-function SpeechBubble({ text }: { text: string }) {
+function SpeechBubble({ text, variant }: { text: string; variant?: SpeechVariant | null }) {
+  const styles = variant ? VARIANT_BUBBLE[variant] : null;
+  const tailFill   = styles?.tail   ?? 'white';
+  const bubbleClass = styles?.bubble ?? 'bg-white text-slate-800';
+
   return (
     <div className="animate-bubble-in absolute -top-2 left-full ml-3 z-20 pointer-events-none origin-left">
       <div className="relative">
@@ -50,12 +73,12 @@ function SpeechBubble({ text }: { text: string }) {
           width="28"
           height="18"
           viewBox="0 0 28 18"
-          fill="white"
+          fill={tailFill}
         >
           <path d="M 26,0 C 18,3 4,9 0,18 L 6,0 Z" />
         </svg>
         {/* Bubble */}
-        <div className="relative z-10 bg-white text-slate-800 text-[11px] font-medium px-3 py-2 rounded-xl shadow-lg w-[175px] text-left leading-snug">
+        <div className={`relative z-10 text-[11px] font-medium px-3 py-2 rounded-xl shadow-lg w-[175px] text-left leading-snug ${bubbleClass}`}>
           {text}
         </div>
       </div>
@@ -63,10 +86,11 @@ function SpeechBubble({ text }: { text: string }) {
   );
 }
 
-export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Props) {
-  const [blinking,    setBlinking]    = useState(false);
-  const [hopping,     setHopping]     = useState(false);
-  const [speechText,  setSpeechText]  = useState<string | null>(null);
+export function Moodmate({ temperature, size = 80, petType = 'cat', name, event }: Props) {
+  const [blinking,       setBlinking]       = useState(false);
+  const [hopping,        setHopping]        = useState(false);
+  const [speechText,     setSpeechText]     = useState<string | null>(null);
+  const [speechVariant,  setSpeechVariant]  = useState<SpeechVariant | null>(null);
 
   // Refs damit die Timers immer den aktuellen Zustand lesen, ohne neu zu starten
   const moodRef = useRef(getMood(temperature));
@@ -79,9 +103,19 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
   // Ref für den Auto-Clear-Timer der Sprechblase (damit Click den Timer resetten kann)
   const speechClearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  function doTripleHop() {
+    [0, 400, 800].forEach((delay) => {
+      setTimeout(() => {
+        setHopping(true);
+        setTimeout(() => setHopping(false), 350);
+      }, delay);
+    });
+  }
+
   function showSpeech() {
     if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
     setSpeechText(pickMessage(moodRef.current, tempRef.current));
+    setSpeechVariant(null);
     setHopping(true);
     setTimeout(() => setHopping(false), 450);
     speechClearTimerRef.current = setTimeout(() => {
@@ -89,6 +123,21 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
       speechClearTimerRef.current = null;
     }, 4500);
   }
+
+  // ── Ereignis-Reaktion ──────────────────────────────────────────────────────
+  useEffect(() => {
+    if (!event) return;
+    if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
+    setSpeechText(pickEventMessage(event.kind));
+    setSpeechVariant(EVENT_TO_VARIANT[event.kind]);
+    doTripleHop();
+    speechClearTimerRef.current = setTimeout(() => {
+      setSpeechText(null);
+      setSpeechVariant(null);
+      speechClearTimerRef.current = null;
+    }, 8000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [event]);
 
   const mood      = getMood(temperature);
   const shivering = mood === 'cold' || mood === 'frozen';
@@ -145,7 +194,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name }: Prop
 
   return (
     <div className="relative inline-flex flex-col items-center gap-1">
-      {speechText && <SpeechBubble text={speechText} />}
+      {speechText && <SpeechBubble text={speechText} variant={speechVariant} />}
       <div
         className={`cursor-pointer${hopping && !shivering ? ' animate-hop' : ''}`}
         onClick={showSpeech}
