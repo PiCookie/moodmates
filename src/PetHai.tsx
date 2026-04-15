@@ -65,15 +65,15 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
       {/* ── Augen (seitlich am Körper) ── */}
       {mood === 'neutral' && (blinking ? (
         <>
-          <line x1="20" y1="43" x2="28" y2="43" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-          <line x1="36" y1="43" x2="44" y2="43" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
+          <line x1="19" y1="43" x2="29" y2="43" stroke={OUTLINE} strokeWidth="2.2" strokeLinecap="round" />
+          <line x1="35" y1="43" x2="45" y2="43" stroke={OUTLINE} strokeWidth="2.2" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="24" cy="43" r="3.5" fill={OUTLINE} />
-          <circle cx="40" cy="43" r="3.5" fill={OUTLINE} />
-          <circle cx="22.8" cy="41.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="38.8" cy="41.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="24" cy="43" r="4.5" fill={OUTLINE} />
+          <circle cx="40" cy="43" r="4.5" fill={OUTLINE} />
+          <circle cx="22.5" cy="41.5" r="1.6" fill="white" opacity="0.7" />
+          <circle cx="38.5" cy="41.5" r="1.6" fill="white" opacity="0.7" />
         </>
       ))}
 
@@ -109,12 +109,19 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
 
       {/* ── Mund ── */}
       {mood === 'neutral' && (
-        <path d="M25,58 Q32,63 39,58" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <>
+          {/* Maul-Innenraum */}
+          <path d="M25,58 Q32,65 39,58 Q36,63 32,63 Q28,63 25,58 Z" fill={OUTLINE} opacity="0.75" />
+          {/* Zähne (Hauptmerkmal) */}
+          <path d="M26,59 Q29,64 32,59 Q35,64 38,59" fill="white" stroke={OUTLINE} strokeWidth="0.8" />
+        </>
       )}
       {mood === 'warm' && (
         <>
-          <path d="M23,57 Q32,64 41,57" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-          <path d="M25,59 Q28.5,63 32,59 Q35.5,63 39,59" fill="white" stroke={OUTLINE} strokeWidth="0.8" />
+          {/* Maul-Innenraum, breiter */}
+          <path d="M23,57 Q32,66 41,57 Q38,63 32,64 Q26,63 23,57 Z" fill={OUTLINE} opacity="0.75" />
+          {/* Zähne */}
+          <path d="M24,59 Q27.5,64 31,59 Q34.5,64 38,59 Q39.5,62 41,59" fill="white" stroke={OUTLINE} strokeWidth="0.8" />
         </>
       )}
       {mood === 'cold' && (
