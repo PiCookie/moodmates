@@ -66,7 +66,7 @@ export function PetDelfin({ temperature, size = 80, blinking = false }: PetProps
       />
 
       {/* ── Bauch (heller Längsstreifen) ── */}
-      <ellipse cx="32" cy="44" rx="9" ry="22" fill={belly} />
+      <ellipse cx="32" cy="44" rx="9" ry="19" fill={belly} />
 
       {/* ── Rostrum (zentriert, zeigt nach vorne/unten) ── */}
       <path d="M24,33 Q32,50 40,33 Q36,30 32,29 Q28,30 24,33 Z"
@@ -139,10 +139,7 @@ export function PetDelfin({ temperature, size = 80, blinking = false }: PetProps
         <path d="M25,35 Q29,31 32,35 Q35,39 39,35" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      {/* ── Nasenspitze ── */}
-      <circle cx="32" cy="47" r="1.5" fill={OUTLINE} opacity="0.5" />
-
-      <PetScarf mood={mood} x={18} y={38} width={28} knotCx={45} knotCy={43} />
+<PetScarf mood={mood} x={18} y={38} width={28} knotCx={45} knotCy={43} />
     </PetSvg>
   );
 }
