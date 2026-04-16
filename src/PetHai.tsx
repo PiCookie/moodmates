@@ -1,12 +1,12 @@
 /**
  * Gen1-Style Hai Pet
  *
- * Erkennungsmerkmale: Dreieckige Rückenflosse (Hauptmerkmal), breite
- * Brustflossen, weißer Bauch, V-Schwanzflosse. Warm: sichtbare Zähne.
+ * Erkennungsmerkmale: Großer runder Kopf (Chibi-Stil), riesiges offenes Maul
+ * mit Zähnen und Zunge, dreieckige Rückenflosse, V-Schwanzflosse.
  *
  * Mood → temperature:
- *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Zähne
- *   neutral  8–22 °C  runde Augen, entspannter Ausdruck
+ *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + breites Grinsen
+ *   neutral  8–22 °C  runde Augen, offenes Maul mit Zähnen + Zunge
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
@@ -45,93 +45,105 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
       <PetIcicles mood={mood} y={77} />
 
       {/* ── Schwanzflosse (V-Form, unten) ── */}
-      <path d="M22,70 Q27,80 32,72 Q37,80 42,70" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
-
-      {/* ── Körper (Torpedo-oval) ── */}
-      <ellipse cx="32" cy="51" rx="16" ry="20" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
-      <ellipse cx="32" cy="56" rx="10" ry="13" fill={belly} />
-
-      {/* ── Brustflossen (seitlich, geschwungen) ── */}
-      <path d="M16,52 Q6,46 5,57 Q9,63 16,59" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
-      <path d="M48,52 Q58,46 59,57 Q55,63 48,59" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="M20,66 Q26,77 32,68 Q38,77 44,66 Z" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
 
       {/* ── Rückenflosse (dreieckig, Hauptmerkmal) ── */}
-      <path d="M26,33 L32,16 L38,33" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M26,22 L32,10 L38,22" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
 
-      <PetSnowflakes mood={mood} left={{ x: 2, y: 26 }} right={{ x: 56, y: 26 }} />
+      {/* ── Körper (großer runder Kopf, Chibi-Stil) ── */}
+      <ellipse cx="32" cy="44" rx="21" ry="23" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+      {/* Bauch: kompaktes Oval, Augen sitzen klar darüber */}
+      <ellipse cx="32" cy="40" rx="10" ry="9" fill={belly} />
+
+      {/* ── Brustflossen (seitlich, geschwungen) ── */}
+      <path d="M11,46 Q2,41 2,53 Q6,59 13,55" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
+      <path d="M53,46 Q62,41 62,53 Q58,59 51,55" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
+
+      <PetSnowflakes mood={mood} left={{ x: 2, y: 24 }} right={{ x: 54, y: 24 }} />
       <PetSun mood={mood} />
-      <PetSweat isHot={isHot} y={14} />
+      <PetSweat isHot={isHot} y={12} />
 
-      {/* ── Augen (seitlich am Körper) ── */}
+      {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
         <>
-          <line x1="19" y1="43" x2="29" y2="43" stroke={OUTLINE} strokeWidth="2.2" strokeLinecap="round" />
-          <line x1="35" y1="43" x2="45" y2="43" stroke={OUTLINE} strokeWidth="2.2" strokeLinecap="round" />
+          <line x1="17" y1="33" x2="28" y2="33" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="36" y1="33" x2="47" y2="33" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="24" cy="43" r="4.5" fill={OUTLINE} />
-          <circle cx="40" cy="43" r="4.5" fill={OUTLINE} />
-          <circle cx="22.5" cy="41.5" r="1.6" fill="white" opacity="0.7" />
-          <circle cx="38.5" cy="41.5" r="1.6" fill="white" opacity="0.7" />
+          <circle cx="22" cy="33" r="5.5" fill={OUTLINE} />
+          <circle cx="42" cy="33" r="5.5" fill={OUTLINE} />
+          <circle cx="20" cy="31" r="2" fill="white" opacity="0.7" />
+          <circle cx="40" cy="31" r="2" fill="white" opacity="0.7" />
         </>
       ))}
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 36, w: 13, h: 13, rx: 4 }}
-        leftX={14} rightX={33}
-        leftTemple={[14, 43, 6, 46]}
-        rightTemple={[46, 43, 54, 46]}
+        frame={{ y: 26, w: 14, h: 14, rx: 4 }}
+        leftX={13} rightX={35}
+        leftTemple={[13, 34, 4, 37]}
+        rightTemple={[49, 34, 58, 37]}
       />
 
       <PetWorriedBrows
         mood={mood}
-        leftBrow={{ x1: 17, y1: 36, x2: 28, y2: 40 }}
-        rightBrow={{ x1: 36, y1: 40, x2: 47, y2: 36 }}
+        leftBrow={{ x1: 14, y1: 26, x2: 28, y2: 30 }}
+        rightBrow={{ x1: 36, y1: 30, x2: 50, y2: 26 }}
       />
       {mood === 'cold' && (
         <>
-          <circle cx="24" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="40" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="22.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="38.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="22" cy="33" r="5" fill={OUTLINE} />
+          <circle cx="42" cy="33" r="5" fill={OUTLINE} />
+          <circle cx="20" cy="31" r="1.8" fill="white" opacity="0.65" />
+          <circle cx="40" cy="31" r="1.8" fill="white" opacity="0.65" />
         </>
       )}
 
       <PetFrozenEyes
         mood={mood}
-        leftBox={{ l: 17, t: 36, r: 31, b: 50 }}
-        rightBox={{ l: 33, t: 36, r: 47, b: 50 }}
+        leftBox={{ l: 13, t: 25, r: 31, b: 43 }}
+        rightBox={{ l: 33, t: 25, r: 51, b: 43 }}
       />
 
-      <PetBlush mood={mood} leftCx={15} rightCx={49} cy={52} rx={5} ry={3} />
+      <PetBlush mood={mood} leftCx={12} rightCx={52} cy={44} rx={7} ry={4} />
 
       {/* ── Mund ── */}
-      {mood === 'neutral' && (
+      {(mood === 'neutral' || mood === 'warm') && (
         <>
-          {/* Maul-Innenraum */}
-          <path d="M25,58 Q32,65 39,58 Q36,63 32,63 Q28,63 25,58 Z" fill={OUTLINE} opacity="0.75" />
-          {/* Zähne (Hauptmerkmal) */}
-          <path d="M26,59 Q29,64 32,59 Q35,64 38,59" fill="white" stroke={OUTLINE} strokeWidth="0.8" />
-        </>
-      )}
-      {mood === 'warm' && (
-        <>
-          {/* Maul-Innenraum, breiter */}
-          <path d="M23,57 Q32,66 41,57 Q38,63 32,64 Q26,63 23,57 Z" fill={OUTLINE} opacity="0.75" />
-          {/* Zähne */}
-          <path d="M24,59 Q27.5,64 31,59 Q34.5,64 38,59 Q39.5,62 41,59" fill="white" stroke={OUTLINE} strokeWidth="0.8" />
+          {/* Maul-Innenraum (bleibt innerhalb des Körpers) */}
+          <path
+            d={mood === 'warm'
+              ? "M12,46 Q32,65 52,46 Q46,61 32,64 Q18,61 12,46 Z"
+              : "M13,46 Q32,64 51,46 Q46,60 32,63 Q18,60 13,46 Z"}
+            fill={OUTLINE} opacity="0.85"
+          />
+          {/* Zunge (vor den unteren Zähnen gezeichnet → liegt dahinter) */}
+          <ellipse cx="32" cy="57" rx="8" ry="3.5" fill="#f87171" />
+          {/* Untere Zähne: entlang Kieferkurve, gleiche Zahnhöhe wie oben */}
+          <path
+            d={mood === 'warm'
+              ? "M12,46 Q17,59 18,59 Q21,55 24,60 Q27,56 30,61 Q33,57 36,61 Q39,56 42,60 Q45,59 48,59 Q51,59 52,46 Q47,62 32,65 Q17,62 12,46 Z"
+              : "M13,46 Q18,58 19,58 Q22,54 25,59 Q28,55 31,60 Q34,56 37,60 Q40,55 43,59 Q46,58 49,58 Q50,58 51,46 Q46,60 32,63 Q18,60 13,46 Z"}
+            fill="white" stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round"
+          />
+          {/* Obere Zähne + Lippe als eine Form: Z schließt die Oberkante = Lipplinie */}
+          <path
+            d={mood === 'warm'
+              ? "M12,46 Q15,54 18,46 Q21,54 24,46 Q27,54 30,46 Q33,54 36,46 Q39,54 42,46 Q45,54 48,46 Q50,53 52,46 Z"
+              : "M13,46 Q16,54 19,46 Q22,54 25,46 Q28,54 31,46 Q34,54 37,46 Q40,54 43,46 Q46,53 50,46 Z"}
+            fill="white" stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round"
+          />
         </>
       )}
       {mood === 'cold' && (
-        <path d="M27,59 Q32,56 37,59" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M24,55 Q32,52 40,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {mood === 'frozen' && (
-        <path d="M25,59 Q28,55 32,59 Q36,63 39,59" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M22,55 Q26,51 32,55 Q38,59 42,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      <PetScarf mood={mood} x={12} y={63} width={40} knotCx={51} knotCy={68} />
+      <PetScarf mood={mood} x={9} y={63} width={46} knotCx={55} knotCy={68} />
     </PetSvg>
   );
 }
