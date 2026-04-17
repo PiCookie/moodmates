@@ -120,11 +120,11 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
           />
           {/* Zunge (vor den unteren Zähnen gezeichnet → liegt dahinter) */}
           <ellipse cx="32" cy="57" rx="8" ry="3.5" fill="#f87171" />
-          {/* Untere Zähne: entlang Kieferkurve, gleiche Zahnhöhe wie oben */}
+          {/* Untere Zähne: entlang Kieferkurve, auf Körperform geclippt */}
           <path
             d={mood === 'warm'
-              ? "M12,46 Q17,59 18,59 Q21,55 24,60 Q27,56 30,61 Q33,57 36,61 Q39,56 42,60 Q45,59 48,59 Q51,59 52,46 Q47,62 32,65 Q17,62 12,46 Z"
-              : "M13,46 Q18,58 19,58 Q22,54 25,59 Q28,55 31,60 Q34,56 37,60 Q40,55 43,59 Q46,58 49,58 Q50,58 51,46 Q46,60 32,63 Q18,60 13,46 Z"}
+              ? "M12,46 Q15,54 18,54 Q21,53 25,58 Q28,55 32,60 Q36,55 39,58 Q43,53 46,54 Q49,54 52,46 Q46,61 32,64 Q18,61 12,46 Z"
+              : "M13,46 Q16,54 19,54 Q22,53 25,58 Q28,55 32,60 Q36,55 39,58 Q42,53 45,54 Q48,54 51,46 Q46,60 32,63 Q18,60 13,46 Z"}
             fill="white" stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round"
           />
           {/* Obere Zähne + Lippe als eine Form: Z schließt die Oberkante = Lipplinie */}
