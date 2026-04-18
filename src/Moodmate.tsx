@@ -25,6 +25,12 @@ import { PetFaultier }     from './PetFaultier';
 import { PetIgel }         from './PetIgel';
 import { PetEule }         from './PetEule';
 import { PetFuchs }        from './PetFuchs';
+import { PetTRex }          from './PetTRex';
+import { PetTriceratops }   from './PetTriceratops';
+import { PetStegosaurus }   from './PetStegosaurus';
+import { PetBrachiosaurus } from './PetBrachiosaurus';
+import { PetPteranodon }    from './PetPteranodon';
+import { PetAnkylosaurus }  from './PetAnkylosaurus';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from '@/contexts/SettingsContext';
@@ -224,6 +230,12 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {petType === 'hedgehog'   && <PetIgel      {...petProps} />}
         {petType === 'owl'        && <PetEule      {...petProps} />}
         {petType === 'fox'        && <PetFuchs     {...petProps} />}
+        {petType === 'trex'           && <PetTRex          {...petProps} />}
+        {petType === 'triceratops'    && <PetTriceratops   {...petProps} />}
+        {petType === 'stegosaurus'    && <PetStegosaurus   {...petProps} />}
+        {petType === 'brachiosaurus'  && <PetBrachiosaurus {...petProps} />}
+        {petType === 'pteranodon'     && <PetPteranodon    {...petProps} />}
+        {petType === 'ankylosaurus'   && <PetAnkylosaurus  {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
