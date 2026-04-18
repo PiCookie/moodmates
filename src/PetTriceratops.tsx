@@ -1,13 +1,12 @@
 /**
  * Gen1-Style Triceratops Pet
  *
- * Erkennungsmerkmale: 3 Hörner (2 lang, 1 kurz über Nase), breites Nackenschild,
- * gedrungener Körper, quadruped.
- * Mood-Details: Sonne auf Hornspitzen (warm), Nackenschild vereist (frozen).
+ * Erkennungsmerkmale: Farbiges Nackenschild (vor dem Kopf gezeichnet),
+ * 2 lange Stirnhörner + 1 kurzes Nasenhorn, runder Kopf.
  *
  * Mood → temperature:
- *   warm    ≥ 22 °C  Sonnenbrille zwischen Hörnern + Wangenrouge + Sonne
- *   neutral  8–22 °C  runde Augen, geschlossenes Lächeln
+ *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + leuchtende Hornspitzen
+ *   neutral  8–22 °C  runde Augen, Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
@@ -20,135 +19,129 @@ import {
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
 
-const TRIC_BODY: Record<Mood, string> = {
+const BODY: Record<Mood, string> = {
   frozen:  '#bfdbfe',
   cold:    '#d9f99d',
-  neutral: '#84cc16',
+  neutral: '#a3e635',
   warm:    '#fbbf24',
 };
 
-const TRIC_HORN: Record<Mood, string> = {
+const FRILL: Record<Mood, string> = {
   frozen:  '#93c5fd',
+  cold:    '#fb923c',
+  neutral: '#ef4444',
+  warm:    '#f97316',
+};
+
+const HORN: Record<Mood, string> = {
+  frozen:  '#7dd3fc',
   cold:    '#65a30d',
   neutral: '#4d7c0f',
-  warm:    '#d97706',
+  warm:    '#92400e',
 };
 
 export function PetTriceratops({ temperature, size = 80, blinking = false }: PetProps) {
   const mood  = getMood(temperature);
   const isHot = temperature !== null && temperature >= 28;
-  const body  = TRIC_BODY[mood];
-  const horn  = TRIC_HORN[mood];
+  const body  = BODY[mood];
+  const frill = FRILL[mood];
+  const horn  = HORN[mood];
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Triceratops-Pet: ${mood}`}>
       <PetShadow cx={32} />
-      <PetIcicles mood={mood} y={73} leftX={18} rightX={40} />
+      <PetIcicles mood={mood} y={74} />
 
       {/* ── Schwanz ── */}
-      <path d="M50,62 C60,58 62,48 56,42" stroke={body} strokeWidth="5" strokeLinecap="round" fill="none" />
-      <polygon points="53,39 57,45 61,40" fill={body} stroke={OUTLINE} strokeWidth="1" />
+      <path d="M44,66 Q58,60 54,48" stroke={body} strokeWidth="3.5" strokeLinecap="round" fill="none" />
 
-      {/* ── Körper (breit, gedrungen) ── */}
-      <ellipse cx="32" cy="62" rx="18" ry="12" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      {/* ── Nackenschild (vor dem Kopf, wird von Kopf überlagert) ── */}
+      <circle cx="32" cy="33" r="28" fill={frill} stroke={OUTLINE} strokeWidth="1.5" />
+      <circle cx="32" cy="33" r="22" fill={body} opacity="0.6" />
 
-      {/* ── Bauch (heller) ── */}
-      <ellipse cx="30" cy="64" rx="10" ry="8" fill="white" opacity="0.2" />
-
-      {/* ── Beine (alle 4 sichtbar) ── */}
-      <ellipse cx="18" cy="74" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="28" cy="75" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="38" cy="75" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="46" cy="73" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-
-      {/* ── Nackenschild (hinter Kopf) ── */}
-      <ellipse cx="24" cy="28" rx="15" ry="12" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
-      {/* Schild-Muster */}
-      <ellipse cx="24" cy="28" rx="10" ry="8" fill="none" stroke={OUTLINE} strokeWidth="0.8" opacity="0.35" />
-      <ellipse cx="24" cy="28" rx="5"  ry="4" fill="none" stroke={OUTLINE} strokeWidth="0.8" opacity="0.25" />
-
-      {/* ── Kopf ── */}
-      <ellipse cx="30" cy="38" rx="16" ry="14" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
-
-      {/* ── Hörner ── */}
-      {/* Linkes Haupthorn */}
-      <polygon points="20,28 24,28 21,12" fill={horn} stroke={OUTLINE} strokeWidth="1" />
-      {/* Rechtes Haupthorn */}
-      <polygon points="33,26 37,26 35,10" fill={horn} stroke={OUTLINE} strokeWidth="1" />
-      {/* Nasenhorn (kurz) */}
-      <polygon points="27,28 31,28 29,22" fill={horn} stroke={OUTLINE} strokeWidth="1" />
-
-      {/* Sonne reflektiert auf Hornspitzen (warm) */}
+      {/* ── 2 lange Stirnhörner (oben, Basen unter Kopf) ── */}
+      <polygon points="16,30 22,30 18,8"  fill={horn} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      <polygon points="42,30 48,30 46,8"  fill={horn} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      {/* Hornspitzen-Glanz bei warm */}
       {mood === 'warm' && (
         <>
-          <circle cx="21" cy="12" r="2.5" fill="#fef08a" opacity="0.8" />
-          <circle cx="35" cy="10" r="2.5" fill="#fef08a" opacity="0.8" />
+          <circle cx="18" cy="8"  r="2.5" fill="#fef08a" opacity="0.9" />
+          <circle cx="46" cy="8"  r="2.5" fill="#fef08a" opacity="0.9" />
         </>
       )}
 
-      <PetSnowflakes mood={mood} left={{ x: 4, y: 22 }} right={{ x: 54, y: 22 }} />
-      <PetSun mood={mood} cx={57} cy={12} />
-      <PetSweat isHot={isHot} x={5} y={14} />
+      {/* ── Kopf ── */}
+      <circle cx="32" cy="37" r="21" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Kurzes Nasenhorn (auf dem Kopf) ── */}
+      <polygon points="28,30 36,30 32,20" fill={horn} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+
+      <PetSnowflakes mood={mood} left={{ x: 5, y: 16 }} right={{ x: 58, y: 16 }} />
+      <PetSun mood={mood} />
+      <PetSweat isHot={isHot} y={14} />
 
       {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
         <>
-          <line x1="20" y1="36" x2="27" y2="36" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="33" y1="36" x2="40" y2="36" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="21" y1="34" x2="29" y2="34" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="35" y1="34" x2="43" y2="34" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="23" cy="36" r="4" fill={OUTLINE} />
-          <circle cx="37" cy="36" r="4" fill={OUTLINE} />
-          <circle cx="21.5" cy="34.5" r="1.2" fill="white" opacity="0.7" />
-          <circle cx="35.5" cy="34.5" r="1.2" fill="white" opacity="0.7" />
+          <circle cx="25" cy="34" r="4" fill={OUTLINE} />
+          <circle cx="39" cy="34" r="4" fill={OUTLINE} />
+          <circle cx="23.5" cy="32.5" r="1.3" fill="white" opacity="0.7" />
+          <circle cx="37.5" cy="32.5" r="1.3" fill="white" opacity="0.7" />
         </>
       ))}
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 29, w: 13, h: 11, rx: 4 }}
-        leftX={15} rightX={30}
-        leftTemple={[15, 35, 6, 38]}
-        rightTemple={[43, 35, 52, 38]}
+        frame={{ y: 27, w: 14, h: 12, rx: 4 }}
+        leftX={16} rightX={36}
+        leftTemple={[16, 33, 8, 36]}
+        rightTemple={[50, 33, 58, 36]}
       />
-
       <PetWorriedBrows
         mood={mood}
-        leftBrow={{ x1: 16, y1: 28, x2: 30, y2: 32 }}
-        rightBrow={{ x1: 32, y1: 32, x2: 44, y2: 28 }}
+        leftBrow={{ x1: 18, y1: 25, x2: 30, y2: 29 }}
+        rightBrow={{ x1: 36, y1: 29, x2: 48, y2: 25 }}
       />
       {mood === 'cold' && (
         <>
-          <circle cx="23" cy="37" r="4" fill={OUTLINE} />
-          <circle cx="37" cy="37" r="4" fill={OUTLINE} />
-          <circle cx="21.5" cy="35.5" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="35.5" cy="35.5" r="1.2" fill="white" opacity="0.65" />
+          <circle cx="25" cy="35" r="4" fill={OUTLINE} />
+          <circle cx="39" cy="35" r="4" fill={OUTLINE} />
+          <circle cx="23.5" cy="33.5" r="1.3" fill="white" opacity="0.65" />
+          <circle cx="37.5" cy="33.5" r="1.3" fill="white" opacity="0.65" />
         </>
       )}
-
       <PetFrozenEyes
         mood={mood}
-        leftBox={{ l: 17, t: 30, r: 29, b: 42 }}
-        rightBox={{ l: 31, t: 30, r: 43, b: 42 }}
+        leftBox={{ l: 18, t: 27, r: 32, b: 41 }}
+        rightBox={{ l: 34, t: 27, r: 48, b: 41 }}
       />
 
-      {/* ── Schnauze ── */}
-      <ellipse cx="30" cy="48" rx="8" ry="5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <circle cx="27" cy="46" r="1.5" fill={OUTLINE} opacity="0.45" />
-      <circle cx="33" cy="46" r="1.5" fill={OUTLINE} opacity="0.45" />
+      {/* ── Nase ── */}
+      <circle cx="32" cy="43" r="2.5" fill={OUTLINE} opacity="0.45" />
 
-      <PetBlush mood={mood} leftCx={14} rightCx={46} cy={46} rx={5} ry={3} />
+      <PetBlush mood={mood} leftCx={14} rightCx={50} cy={48} />
 
       {/* ── Mund ── */}
       {(mood === 'neutral' || mood === 'warm') && (
-        <path d="M24,52 Q30,56 36,52" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M22,48 Q32,54 42,48" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {(mood === 'cold' || mood === 'frozen') && (
-        <path d="M24,52 Q30,48 36,52" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M22,50 Q32,46 42,50" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      <PetScarf mood={mood} x={10} y={53} width={36} knotCx={44} knotCy={58} />
+      {/* ── Körper ── */}
+      <ellipse cx="32" cy="65" rx="13" ry="9" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Beine (4, kurz sichtbar) ── */}
+      <ellipse cx="22" cy="74" rx="7" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="42" cy="74" rx="7" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      <PetScarf mood={mood} x={10} y={54} width={44} knotCx={53} knotCy={59} />
     </PetSvg>
   );
 }

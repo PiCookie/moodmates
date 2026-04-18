@@ -1,16 +1,14 @@
 /**
  * Gen1-Style Ankylosaurus Pet
  *
- * Erkennungsmerkmale: Breiter gepanzerter Körper mit ovalen Schutzplatten auf
- * dem Rücken, markante Keule am Schwanzende (Thagomizer-Keule), kurze Beine,
- * kleiner Kopf mit seitlichen Hörnchen.
- * Mood-Details: Panzerplatten leuchten (warm), vereist (frozen).
+ * Erkennungsmerkmale: Gepanzerte Buckel-Reihe oben (sichtbarer Panzer),
+ * runder dicker Körper, auffällige Keule am Schwanzende.
  *
  * Mood → temperature:
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Panzer-Glanz
- *   neutral  8–22 °C  Standardpanzer, runde Augen, Lächeln
+ *   neutral  8–22 °C  runde Augen, Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
- *   frozen    < 0 °C  X-Augen, Eiszapfen, gefrorener Panzer, starkes Zittern
+ *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
 import type { Mood, PetProps } from './pet.shared';
@@ -21,139 +19,125 @@ import {
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
 
-const ANKY_BODY: Record<Mood, string> = {
+const BODY: Record<Mood, string> = {
   frozen:  '#bfdbfe',
-  cold:    '#d9f99d',
-  neutral: '#86efac',
-  warm:    '#fcd34d',
+  cold:    '#d4d4aa',
+  neutral: '#a8a29e',
+  warm:    '#fbbf24',
 };
 
-const ANKY_ARMOR: Record<Mood, string> = {
+const ARMOR: Record<Mood, string> = {
   frozen:  '#93c5fd',
-  cold:    '#4ade80',
-  neutral: '#16a34a',
+  cold:    '#78716c',
+  neutral: '#57534e',
   warm:    '#d97706',
 };
 
 export function PetAnkylosaurus({ temperature, size = 80, blinking = false }: PetProps) {
   const mood  = getMood(temperature);
   const isHot = temperature !== null && temperature >= 28;
-  const body  = ANKY_BODY[mood];
-  const armor = ANKY_ARMOR[mood];
+  const body  = BODY[mood];
+  const armor = ARMOR[mood];
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Ankylosaurus-Pet: ${mood}`}>
-      <PetShadow cx={30} />
-      <PetIcicles mood={mood} y={74} leftX={14} rightX={36} />
+      <PetShadow cx={32} />
+      <PetIcicles mood={mood} y={74} />
 
-      {/* ── Schwanz mit Keule ── */}
-      <path d="M50,62 C58,58 62,52 60,46" stroke={body} strokeWidth="5" strokeLinecap="round" fill="none" />
-      {/* Keule (oval) */}
-      <ellipse cx="62" cy="43" rx="7" ry="5" fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
-      {/* Keule-Stacheln */}
-      <line x1="62" y1="38" x2="62" y2="35" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="67" y1="41" x2="70" y2="39" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="67" y1="46" x2="70" y2="48" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
+      {/* ── Schwanz ── */}
+      <path d="M44,66 Q58,62 60,52" stroke={body} strokeWidth="4" strokeLinecap="round" fill="none" />
+      {/* Keule (groß und unverkennbar) */}
+      <ellipse cx="62" cy="49" rx="8" ry="6" fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
+      {/* Keulenstacheln */}
+      <line x1="62" y1="43" x2="62" y2="39" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
+      <line x1="68" y1="46" x2="72" y2="44" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
+      <line x1="68" y1="52" x2="72" y2="54" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
 
-      {/* ── Körper (breiter, abgeflachter) ── */}
-      <ellipse cx="30" cy="63" rx="22" ry="10" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
-
-      {/* ── Panzerplatten auf dem Rücken (ovale Schuppen in zwei Reihen) ── */}
-      {/* Hintere Reihe */}
-      <ellipse cx="44" cy="55" rx="5" ry="3.5" fill={armor} stroke={OUTLINE} strokeWidth="1" opacity="0.9" />
-      <ellipse cx="36" cy="54" rx="5" ry="3.5" fill={armor} stroke={OUTLINE} strokeWidth="1" opacity="0.9" />
-      <ellipse cx="28" cy="53" rx="5" ry="3.5" fill={armor} stroke={OUTLINE} strokeWidth="1" opacity="0.9" />
-      <ellipse cx="20" cy="54" rx="5" ry="3.5" fill={armor} stroke={OUTLINE} strokeWidth="1" opacity="0.9" />
-      {/* Vordere Reihe (kleiner) */}
-      <ellipse cx="40" cy="58" rx="3.5" ry="2.5" fill={armor} stroke={OUTLINE} strokeWidth="0.8" opacity="0.7" />
-      <ellipse cx="32" cy="57" rx="3.5" ry="2.5" fill={armor} stroke={OUTLINE} strokeWidth="0.8" opacity="0.7" />
-      <ellipse cx="24" cy="58" rx="3.5" ry="2.5" fill={armor} stroke={OUTLINE} strokeWidth="0.8" opacity="0.7" />
+      {/* ── Panzer-Buckel-Reihe (wie Stacheln, oben, Basen unter Kopf) ── */}
+      <ellipse cx="14" cy="22" rx="6" ry="8"  fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="24" cy="18" rx="6" ry="9"  fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="34" cy="16" rx="6" ry="10" fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="44" cy="18" rx="6" ry="9"  fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="54" cy="22" rx="6" ry="8"  fill={armor} stroke={OUTLINE} strokeWidth="1.5" />
 
       {/* Panzer-Glanz bei warm */}
       {mood === 'warm' && (
         <>
-          <ellipse cx="36" cy="53" rx="2" ry="1.2" fill="#fef9c3" opacity="0.5" />
-          <ellipse cx="28" cy="52" rx="2" ry="1.2" fill="#fef9c3" opacity="0.5" />
-          <ellipse cx="44" cy="54" rx="2" ry="1.2" fill="#fef9c3" opacity="0.5" />
+          <circle cx="24" cy="14" r="2" fill="#fef9c3" opacity="0.6" />
+          <circle cx="34" cy="10" r="2" fill="#fef9c3" opacity="0.6" />
+          <circle cx="44" cy="14" r="2" fill="#fef9c3" opacity="0.6" />
         </>
       )}
 
-      {/* ── 4 kurze, stämmige Beine ── */}
-      <ellipse cx="14" cy="73" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="24" cy="75" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="36" cy="75" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <ellipse cx="46" cy="73" rx="6" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1" />
+      {/* ── Kopf (überlagert Buckel-Basen) ── */}
+      <circle cx="32" cy="38" r="21" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
-      {/* ── Kleiner Kopf (links, tief positioniert) ── */}
-      <ellipse cx="11" cy="57" rx="10" ry="9" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
-
-      {/* ── Seitliche Kopfhörnchen ── */}
-      <polygon points="3,51 7,51 4,44"  fill={armor} stroke={OUTLINE} strokeWidth="1" />
-      <polygon points="15,51 19,51 17,44" fill={armor} stroke={OUTLINE} strokeWidth="1" />
-
-      <PetSnowflakes mood={mood} left={{ x: 3, y: 22 }} right={{ x: 52, y: 22 }} />
-      <PetSun mood={mood} cx={56} cy={12} />
-      <PetSweat isHot={isHot} x={3} y={14} />
+      <PetSnowflakes mood={mood} left={{ x: 5, y: 34 }} right={{ x: 56, y: 30 }} />
+      <PetSun mood={mood} />
+      <PetSweat isHot={isHot} y={14} />
 
       {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
         <>
-          <line x1="5"  y1="54" x2="10" y2="54" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="13" y1="54" x2="18" y2="54" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="21" y1="34" x2="29" y2="34" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="35" y1="34" x2="43" y2="34" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
         </>
       ) : (
         <>
-          <circle cx="7"  cy="54" r="3.5" fill={OUTLINE} />
-          <circle cx="16" cy="54" r="3.5" fill={OUTLINE} />
-          <circle cx="5.5" cy="52.5" r="1" fill="white" opacity="0.7" />
-          <circle cx="14.5" cy="52.5" r="1" fill="white" opacity="0.7" />
+          <circle cx="25" cy="34" r="4" fill={OUTLINE} />
+          <circle cx="39" cy="34" r="4" fill={OUTLINE} />
+          <circle cx="23.5" cy="32.5" r="1.3" fill="white" opacity="0.7" />
+          <circle cx="37.5" cy="32.5" r="1.3" fill="white" opacity="0.7" />
         </>
       ))}
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 48, w: 11, h: 10, rx: 3 }}
-        leftX={2} rightX={15}
-        leftTemple={[2, 53, -4, 56]}
-        rightTemple={[26, 53, 32, 56]}
+        frame={{ y: 27, w: 14, h: 12, rx: 4 }}
+        leftX={16} rightX={36}
+        leftTemple={[16, 33, 8, 36]}
+        rightTemple={[50, 33, 58, 36]}
       />
-
       <PetWorriedBrows
         mood={mood}
-        leftBrow={{ x1: 3, y1: 47, x2: 12, y2: 50 }}
-        rightBrow={{ x1: 14, y1: 50, x2: 21, y2: 47 }}
+        leftBrow={{ x1: 18, y1: 25, x2: 30, y2: 29 }}
+        rightBrow={{ x1: 36, y1: 29, x2: 48, y2: 25 }}
       />
       {mood === 'cold' && (
         <>
-          <circle cx="7"  cy="55" r="3.5" fill={OUTLINE} />
-          <circle cx="16" cy="55" r="3.5" fill={OUTLINE} />
-          <circle cx="5.5" cy="53.5" r="1" fill="white" opacity="0.65" />
-          <circle cx="14.5" cy="53.5" r="1" fill="white" opacity="0.65" />
+          <circle cx="25" cy="35" r="4" fill={OUTLINE} />
+          <circle cx="39" cy="35" r="4" fill={OUTLINE} />
+          <circle cx="23.5" cy="33.5" r="1.3" fill="white" opacity="0.65" />
+          <circle cx="37.5" cy="33.5" r="1.3" fill="white" opacity="0.65" />
         </>
       )}
-
       <PetFrozenEyes
         mood={mood}
-        leftBox={{ l: 2, t: 48, r: 12, b: 60 }}
-        rightBox={{ l: 13, t: 48, r: 23, b: 60 }}
+        leftBox={{ l: 18, t: 27, r: 32, b: 41 }}
+        rightBox={{ l: 34, t: 27, r: 48, b: 41 }}
       />
 
-      {/* ── Schnauze ── */}
-      <ellipse cx="11" cy="64" rx="6" ry="4" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      <circle cx="9"  cy="62.5" r="1.2" fill={OUTLINE} opacity="0.4" />
-      <circle cx="13" cy="62.5" r="1.2" fill={OUTLINE} opacity="0.4" />
+      {/* ── Nase ── */}
+      <circle cx="32" cy="43" r="2.5" fill={OUTLINE} opacity="0.45" />
 
-      <PetBlush mood={mood} leftCx={2} rightCx={20} cy={62} rx={3.5} ry={2.5} />
+      <PetBlush mood={mood} leftCx={14} rightCx={50} cy={48} />
 
       {/* ── Mund ── */}
       {(mood === 'neutral' || mood === 'warm') && (
-        <path d="M6,67 Q11,71 16,67" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M22,48 Q32,54 42,48" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
       {(mood === 'cold' || mood === 'frozen') && (
-        <path d="M6,67 Q11,64 16,67" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+        <path d="M22,50 Q32,46 42,50" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      <PetScarf mood={mood} x={-2} y={66} width={28} knotCx={24} knotCy={70} small />
+      {/* ── Kurzer breiter Körper ── */}
+      <ellipse cx="32" cy="65" rx="15" ry="9" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── 4 kurze stämmige Beine ── */}
+      <ellipse cx="20" cy="74" rx="8" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="44" cy="74" rx="8" ry="3.5" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      <PetScarf mood={mood} x={10} y={54} width={44} knotCx={53} knotCy={59} />
     </PetSvg>
   );
 }

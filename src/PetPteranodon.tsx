@@ -1,15 +1,15 @@
 /**
  * Gen1-Style Pteranodon Pet
  *
- * Erkennungsmerkmale: Große Lederflügel beiderseits, langer Schnabel,
- * spitzer Kopfkamm, kleiner Körper in der Mitte, kurze Füße.
- * Mood-Details: Flügel leuchten (warm), Flügel hängen schlaff (frozen).
+ * Erkennungsmerkmale: Zwei große Flügeldreiecke dominieren das Bild (wie
+ * überdimensionale Arme/Flossen), langer Kopfkamm, spitzer Schnabel.
+ * Frontansicht — Flügel sind sofort erkennbar.
  *
  * Mood → temperature:
- *   warm    ≥ 22 °C  Wangenrouge + Sonne + leuchtende Flügelränder
- *   neutral  8–22 °C  Flügel offen, runde Augen, Lächeln
+ *   warm    ≥ 22 °C  Flügelränder leuchten + Wangenrouge
+ *   neutral  8–22 °C  Flügel offen, runde Augen
  *   cold     0–8 °C  Flügel enger, Schal, Schneeflocken, Zittern
- *   frozen    < 0 °C  X-Augen, Eiszapfen, Flügel hängen, starkes Zittern
+ *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
 import type { Mood, PetProps } from './pet.shared';
@@ -20,131 +20,121 @@ import {
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
 
-const PTERO_BODY: Record<Mood, string> = {
+const BODY: Record<Mood, string> = {
   frozen:  '#bfdbfe',
   cold:    '#e0f2fe',
-  neutral: '#7dd3fc',
+  neutral: '#38bdf8',
   warm:    '#fbbf24',
 };
 
-const PTERO_WING: Record<Mood, string> = {
+const WING: Record<Mood, string> = {
   frozen:  '#93c5fd',
-  cold:    '#bae6fd',
-  neutral: '#38bdf8',
+  cold:    '#7dd3fc',
+  neutral: '#0ea5e9',
   warm:    '#f97316',
 };
 
 export function PetPteranodon({ temperature, size = 80, blinking = false }: PetProps) {
   const mood  = getMood(temperature);
   const isHot = temperature !== null && temperature >= 28;
-  const body  = PTERO_BODY[mood];
-  const wing  = PTERO_WING[mood];
+  const body  = BODY[mood];
+  const wing  = WING[mood];
 
-  // Flügelform hängt von Stimmung ab
-  const wingOpenLeft  = mood === 'warm' || mood === 'neutral';
-  const wingOpenRight = mood === 'warm' || mood === 'neutral';
+  // Flügel breiter bei warm/neutral, enger bei cold/frozen
+  const wingOpen = mood === 'warm' || mood === 'neutral';
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Pteranodon-Pet: ${mood}`}>
-      <PetShadow cx={33} />
-      <PetIcicles mood={mood} y={80} leftX={24} rightX={36} />
+      <PetShadow cx={32} />
+      <PetIcicles mood={mood} y={76} leftX={26} rightX={38} />
 
-      {/* ── Linker Flügel ── */}
-      {wingOpenLeft ? (
-        <polygon points="33,50 3,26 8,58" fill={wing} stroke={OUTLINE} strokeWidth="1.2" opacity="0.9" />
-      ) : (
-        <polygon points="33,50 10,40 14,62" fill={wing} stroke={OUTLINE} strokeWidth="1.2" opacity="0.9" />
-      )}
-
-      {/* ── Rechter Flügel ── */}
-      {wingOpenRight ? (
-        <polygon points="33,50 63,26 58,58" fill={wing} stroke={OUTLINE} strokeWidth="1.2" opacity="0.9" />
-      ) : (
-        <polygon points="33,50 56,40 52,62" fill={wing} stroke={OUTLINE} strokeWidth="1.2" opacity="0.9" />
-      )}
-
-      {/* Warm: leuchtender Flügelrand */}
-      {mood === 'warm' && (
+      {/* ── Flügel (vor Körper/Kopf, werden davon überlagert) ── */}
+      {wingOpen ? (
         <>
-          <line x1="3"  y1="26" x2="8"  y2="58" stroke="#fef08a" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-          <line x1="63" y1="26" x2="58" y2="58" stroke="#fef08a" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+          <polygon points="30,50  2,22  6,60" fill={wing} stroke={OUTLINE} strokeWidth="1.5" />
+          <polygon points="34,50  64,22  60,60" fill={wing} stroke={OUTLINE} strokeWidth="1.5" />
+        </>
+      ) : (
+        <>
+          <polygon points="30,50  10,32  12,62" fill={wing} stroke={OUTLINE} strokeWidth="1.5" />
+          <polygon points="34,50  56,32  54,62" fill={wing} stroke={OUTLINE} strokeWidth="1.5" />
         </>
       )}
 
-      {/* ── Körper ── */}
-      <ellipse cx="33" cy="57" rx="10" ry="8" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      {/* Warm: leuchtende Flügelkanten */}
+      {mood === 'warm' && (
+        <>
+          <line x1="2"  y1="22" x2="6"  y2="60" stroke="#fef9c3" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+          <line x1="64" y1="22" x2="60" y2="60" stroke="#fef9c3" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+        </>
+      )}
+
+      {/* ── Körper (klein, zwischen Flügeln) ── */}
+      <ellipse cx="32" cy="62" rx="9" ry="7" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
       {/* ── Kleine Füße ── */}
-      <line x1="28" y1="65" x2="26" y2="72" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-      <line x1="38" y1="65" x2="40" y2="72" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-      <line x1="26" y1="72" x2="23" y2="75" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="26" y1="72" x2="26" y2="76" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="40" y1="72" x2="43" y2="75" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-      <line x1="40" y1="72" x2="40" y2="76" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
+      <ellipse cx="27" cy="72" rx="6" ry="3" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      <ellipse cx="37" cy="72" rx="6" ry="3" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+
+      {/* ── Kopfkamm (vor dem Kopf, wird überlagert) ── */}
+      <polygon points="18,30 32,28 14,10" fill={wing} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
 
       {/* ── Kopf ── */}
-      <circle cx="33" cy="42" r="10" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
+      <circle cx="32" cy="38" r="18" fill={body} stroke={OUTLINE} strokeWidth="1.5" />
 
-      {/* ── Kopfkamm (spitz nach hinten-oben) ── */}
-      <polygon points="24,38 34,34 26,26" fill={body} stroke={OUTLINE} strokeWidth="1" />
+      {/* ── Langer Schnabel (nach unten spitz) ── */}
+      <polygon points="24,46 40,46 32,60" fill={body} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+      {/* Schnabelspitze etwas dunkler */}
+      <polygon points="28,54 36,54 32,60" fill={wing} opacity="0.4" />
 
-      {/* ── Langer Schnabel (nach rechts) ── */}
-      <polygon points="33,40 33,46 52,43" fill={body} stroke={OUTLINE} strokeWidth="1" />
-      {/* Schnabel-Nasenöffnung */}
-      <circle cx="46" cy="43" r="1" fill={OUTLINE} opacity="0.4" />
+      <PetSnowflakes mood={mood} left={{ x: 8, y: 22 }} right={{ x: 54, y: 18 }} />
+      <PetSun mood={mood} />
+      <PetSweat isHot={isHot} y={14} />
 
-      <PetSnowflakes mood={mood} left={{ x: 4, y: 16 }} right={{ x: 56, y: 16 }} />
-      <PetSun mood={mood} cx={56} cy={10} />
-      <PetSweat isHot={isHot} x={4} y={12} />
-
-      {/* ── Auge (nur links sichtbar — Seitenansicht) ── */}
+      {/* ── Augen ── */}
       {mood === 'neutral' && (blinking ? (
-        <line x1="26" y1="40" x2="31" y2="40" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+        <>
+          <line x1="22" y1="34" x2="29" y2="34" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+          <line x1="35" y1="34" x2="42" y2="34" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+        </>
       ) : (
         <>
-          <circle cx="28" cy="40" r="3.5" fill={OUTLINE} />
-          <circle cx="26.5" cy="38.5" r="1" fill="white" opacity="0.7" />
+          <circle cx="25" cy="34" r="3.5" fill={OUTLINE} />
+          <circle cx="39" cy="34" r="3.5" fill={OUTLINE} />
+          <circle cx="23.5" cy="32.5" r="1.1" fill="white" opacity="0.7" />
+          <circle cx="37.5" cy="32.5" r="1.1" fill="white" opacity="0.7" />
         </>
       ))}
 
       <PetSunglasses
         mood={mood}
-        frame={{ y: 34, w: 10, h: 9, rx: 3 }}
-        leftX={22} rightX={34}
-        leftTemple={[22, 39, 14, 42]}
-        rightTemple={[44, 39, 52, 42]}
-        stegY={38}
+        frame={{ y: 27, w: 13, h: 11, rx: 4 }}
+        leftX={17} rightX={32}
+        leftTemple={[17, 33, 10, 36]}
+        rightTemple={[45, 33, 52, 36]}
       />
-
       <PetWorriedBrows
         mood={mood}
-        leftBrow={{ x1: 22, y1: 33, x2: 32, y2: 36 }}
-        rightBrow={{ x1: 34, y1: 36, x2: 42, y2: 33 }}
+        leftBrow={{ x1: 19, y1: 26, x2: 30, y2: 29 }}
+        rightBrow={{ x1: 36, y1: 29, x2: 47, y2: 26 }}
       />
       {mood === 'cold' && (
         <>
-          <circle cx="28" cy="41" r="3.5" fill={OUTLINE} />
-          <circle cx="26.5" cy="39.5" r="1" fill="white" opacity="0.65" />
+          <circle cx="25" cy="35" r="3.5" fill={OUTLINE} />
+          <circle cx="39" cy="35" r="3.5" fill={OUTLINE} />
+          <circle cx="23.5" cy="33.5" r="1.1" fill="white" opacity="0.65" />
+          <circle cx="37.5" cy="33.5" r="1.1" fill="white" opacity="0.65" />
         </>
       )}
-
       <PetFrozenEyes
         mood={mood}
-        leftBox={{ l: 22, t: 34, r: 34, b: 46 }}
-        rightBox={{ l: 34, t: 34, r: 46, b: 46 }}
+        leftBox={{ l: 19, t: 28, r: 31, b: 40 }}
+        rightBox={{ l: 33, t: 28, r: 45, b: 40 }}
       />
 
-      <PetBlush mood={mood} leftCx={20} rightCx={42} cy={46} rx={4} ry={2.5} />
+      <PetBlush mood={mood} leftCx={16} rightCx={48} cy={44} rx={5} ry={3} />
 
-      {/* ── Mund (am Schnabelansatz) ── */}
-      {(mood === 'neutral' || mood === 'warm') && (
-        <path d="M28,47 Q33,50 38,47" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {(mood === 'cold' || mood === 'frozen') && (
-        <path d="M28,47 Q33,44 38,47" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-
-      <PetScarf mood={mood} x={20} y={51} width={24} knotCx={42} knotCy={56} small />
+      <PetScarf mood={mood} x={16} y={54} width={32} knotCx={46} knotCy={59} small />
     </PetSvg>
   );
 }
