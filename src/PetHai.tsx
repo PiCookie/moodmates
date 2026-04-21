@@ -119,7 +119,7 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
             fill={OUTLINE}
           />
           {/* Zunge (vor den unteren Zähnen gezeichnet → liegt dahinter) */}
-          <ellipse cx="32" cy="57" rx="8" ry="3.5" fill="#f87171" />
+          <ellipse cx="32" cy="57" rx="8" ry="3.5" fill="#f87171" stroke={OUTLINE} strokeWidth="1.2" />
           {/* Untere Zähne: entlang Kieferkurve, auf Körperform geclippt */}
           <path
             d={mood === 'warm'
