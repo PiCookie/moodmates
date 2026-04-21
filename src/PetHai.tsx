@@ -28,9 +28,9 @@ const HAI_FUR: Record<Mood, string> = {
 
 const HAI_BELLY: Record<Mood, string> = {
   frozen:  '#f0f9ff',
-  cold:    '#f0f9ff',
-  neutral: '#f8fafc',
-  warm:    '#f1f5f9',
+  cold:    '#e0f2fe',
+  neutral: '#e2e8f0',
+  warm:    '#cbd5e1',
 };
 
 export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
@@ -52,8 +52,8 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
 
       {/* ── Körper (großer runder Kopf, Chibi-Stil) ── */}
       <ellipse cx="32" cy="44" rx="21" ry="23" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
-      {/* Bauch: kompaktes Oval, Augen sitzen klar darüber */}
-      <ellipse cx="32" cy="40" rx="10" ry="9" fill={belly} />
+      {/* Bauch: heller Längsstreifen (wie Delfin) */}
+      <ellipse cx="32" cy="51" rx="14" ry="17" fill={belly} />
 
       {/* ── Brustflossen (seitlich, geschwungen) ── */}
       <path d="M11,46 Q2,41 2,53 Q6,59 13,55" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
@@ -116,7 +116,7 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
             d={mood === 'warm'
               ? "M12,46 Q32,65 52,46 Q46,61 32,64 Q18,61 12,46 Z"
               : "M13,46 Q32,64 51,46 Q46,60 32,63 Q18,60 13,46 Z"}
-            fill={OUTLINE} opacity="0.85"
+            fill={OUTLINE}
           />
           {/* Zunge (vor den unteren Zähnen gezeichnet → liegt dahinter) */}
           <ellipse cx="32" cy="57" rx="8" ry="3.5" fill="#f87171" />
