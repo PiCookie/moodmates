@@ -111,6 +111,13 @@ export function PetHai({ temperature, size = 80, blinking = false }: PetProps) {
       {/* ── Mund ── */}
       {(mood === 'neutral' || mood === 'warm') && (
         <>
+          {/* Gaumen: überdeckt helle Bauchfarbe im Mundbereich */}
+          <path
+            d={mood === 'warm'
+              ? "M12,46 L52,46 Q46,61 32,64 Q18,61 12,46 Z"
+              : "M13,46 L51,46 Q46,60 32,63 Q18,60 13,46 Z"}
+            fill="#94a3b8"
+          />
           {/* Maul-Innenraum (bleibt innerhalb des Körpers) */}
           <path
             d={mood === 'warm'
