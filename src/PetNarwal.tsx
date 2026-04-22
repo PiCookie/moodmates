@@ -181,7 +181,7 @@ export function PetNarwal({
                 {/* ── Blasloch ── */}
                 <ellipse
                     cx="22"
-                    cy="30"
+                    cy="31"
                     rx="2.5"
                     ry="1.5"
                     fill={OUTLINE}
@@ -192,37 +192,37 @@ export function PetNarwal({
                 {(mood === "neutral" || isWarm) && (
                     <>
                         <path
-                            d="M22,29 Q14,11 10,9 Q16,6 22,9 Q28,6 34,9 Q30,11 22,29 Z"
+                            d="M22,30 Q14,12 10,10 Q16,7 22,10 Q28,7 34,10 Q30,12 22,30 Z"
                             fill={water}
                             opacity="0.85"
                         />
-                        <circle cx="12" cy="7" r="1.5" fill={water} />
-                        <circle cx="22" cy="5" r="2" fill={water} />
-                        <circle cx="32" cy="7" r="1.5" fill={water} />
+                        <circle cx="12" cy="8" r="1.5" fill={water} />
+                        <circle cx="22" cy="6" r="2" fill={water} />
+                        <circle cx="32" cy="8" r="1.5" fill={water} />
                         <circle
                             cx="8"
-                            cy="11"
+                            cy="12"
                             r="1"
                             fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="36"
-                            cy="11"
+                            cy="12"
                             r="1"
                             fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="17"
-                            cy="3"
+                            cy="4"
                             r="1"
                             fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="27"
-                            cy="3"
+                            cy="4"
                             r="1"
                             fill={water}
                             opacity="0.7"
