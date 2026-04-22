@@ -60,6 +60,22 @@ export function PetWal({
             <PetShadow cx={33} />
             <PetIcicles mood={mood} y={72} />
 
+            {/* ── Schwanzstiel + Schwanzflosse — hinter Körper ── */}
+            <path
+                d="M56,44 Q62,40 65,38 Q64,50 57,51 Q55,48 56,44 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M76,39 Q70,28 64,37 Q58,28 52,39 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+            />
+
             {/* ── Körper — direkt vom Referenz-SVG skaliert ── */}
             <path
                 d="M4,46 Q4,21 34,28 Q47,31 56,43 Q62,50 53,53 Q39,59 19,56 Q7,54 4,46 Z"
@@ -99,15 +115,6 @@ export function PetWal({
                 fill={fur}
                 stroke={OUTLINE}
                 strokeWidth="1.2"
-                strokeLinejoin="round"
-            />
-
-            {/* ── Schwanzflosse (V-Form, 180° gedreht) ── */}
-            <path
-                d="M73,42 Q67,31 61,40 Q55,31 49,42 Z"
-                fill={fur}
-                stroke={OUTLINE}
-                strokeWidth="1.5"
                 strokeLinejoin="round"
             />
 
