@@ -64,13 +64,13 @@ export function PetNarwal({
     return (
         <PetSvg
             size={size}
-            viewBoxWidth={128}
+            viewBoxWidth={132}
             shivering={isCold || isFrozen}
             ariaLabel={`Narwal-Pet: ${mood}`}
         >
-            <PetShadow cx={55} />
-            {/* translate(14, -1): Körper nach rechts verschoben, links Platz für langen Stoßzahn */}
-            <g transform="scale(1.40) translate(14, -1)">
+            <PetShadow cx={58} />
+            {/* translate(18, -1): Körper nach rechts verschoben, links Platz für langen Stoßzahn */}
+            <g transform="scale(1.40) translate(18, -1)">
                 <PetIcicles mood={mood} y={72} />
 
                 {/* ── Schwanzstiel + Schwanzflosse — hinter Körper ── */}
@@ -125,7 +125,7 @@ export function PetNarwal({
 
                 {/* ── Stoßzahn — auf dem Körper gezeichnet, kommt aus dem Oberkiefer ── */}
                 <path
-                    d="M10,37 Q-2,34 -15,33 Q-5,36 10,40 Z"
+                    d="M8,37 Q-4,34 -17,33 Q-7,36 8,40 Z"
                     fill={TUSK}
                     stroke={OUTLINE}
                     strokeWidth="0.8"
@@ -133,36 +133,36 @@ export function PetNarwal({
                 />
                 {/* Spiralmarkierungen gleichmäßig entlang des Stoßzahns */}
                 <line
-                    x1="1.5"
+                    x1="-0.5"
                     y1="38.5"
-                    x2="0"
+                    x2="-2"
                     y2="36"
                     stroke={TUSK_SPIRAL}
                     strokeWidth="0.7"
                     strokeLinecap="round"
                 />
                 <line
-                    x1="-2"
+                    x1="-4"
                     y1="37.5"
-                    x2="-3.5"
+                    x2="-5.5"
                     y2="35"
                     stroke={TUSK_SPIRAL}
                     strokeWidth="0.7"
                     strokeLinecap="round"
                 />
                 <line
-                    x1="-5.5"
+                    x1="-7.5"
                     y1="36"
-                    x2="-7"
+                    x2="-9"
                     y2="34"
                     stroke={TUSK_SPIRAL}
                     strokeWidth="0.7"
                     strokeLinecap="round"
                 />
                 <line
-                    x1="-9"
+                    x1="-11"
                     y1="34.5"
-                    x2="-10.5"
+                    x2="-12.5"
                     y2="33"
                     stroke={TUSK_SPIRAL}
                     strokeWidth="0.6"
