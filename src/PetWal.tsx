@@ -1,137 +1,293 @@
 /**
- * Gen1-Style Wal Pet
+ * Gen1-Style Wal Pet (Seitenansicht)
  *
- * Erkennungsmerkmale: Breiter ovaler Körper, charakteristische Schwanzflosse
- * (Hauptmerkmal), kleines Blasloch oben, heller Bauch.
- * Warm-Mood: Wasserfontäne aus dem Blasloch.
+ * Körperstruktur exakt vom Referenz-SVG (300×200) skaliert auf 66×88 viewBox.
+ * Skalierungsfaktor 0.29, Zentrum des Originals (160, 117) → (33, 45).
  *
  * Mood → temperature:
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Wasserfontäne
- *   neutral  8–22 °C  runde Augen, entspannter Ausdruck
+ *   neutral  8–22 °C  Lächeln + Wasserfontäne
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import type { Mood, PetProps } from "./pet.shared";
+import { getMood, OUTLINE } from "./pet.shared";
 import {
-  PetSvg, PetShadow, PetIcicles, PetSun,
-  PetSweat, PetSnowflakes, PetScarf, PetBlush,
-  PetSunglasses, PetFrozenEyes, PetWorriedBrows,
-} from './BasePet';
+    PetSvg,
+    PetShadow,
+    PetIcicles,
+    PetSun,
+    PetSweat,
+    PetSnowflakes,
+    PetScarf,
+} from "./BasePet";
 
 const WAL_FUR: Record<Mood, string> = {
-  frozen:  '#bfdbfe',
-  cold:    '#93c5fd',
-  neutral: '#3b82f6',
-  warm:    '#1d4ed8',
+    frozen: "#a8c4e0",
+    cold: "#78a8d0",
+    neutral: "#4878b8",
+    warm: "#2c5ca0",
 };
 
 const WAL_BELLY: Record<Mood, string> = {
-  frozen:  '#f0f9ff',
-  cold:    '#dbeafe',
-  neutral: '#bfdbfe',
-  warm:    '#93c5fd',
+    frozen: "#e4f0fc",
+    cold: "#c0d8f0",
+    neutral: "#98c4e8",
+    warm: "#70b0e0",
 };
 
-export function PetWal({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood  = getMood(temperature);
-  const isHot = temperature !== null && temperature >= 28;
-  const fur   = WAL_FUR[mood];
-  const belly = WAL_BELLY[mood];
+export function PetWal({
+    temperature,
+    size = 80,
+    blinking = false,
+}: PetProps) {
+    const mood = getMood(temperature);
+    const isHot = temperature !== null && temperature >= 28;
+    const fur = WAL_FUR[mood];
+    const belly = WAL_BELLY[mood];
+    const isWarm = mood === "warm";
+    const isCold = mood === "cold";
+    const isFrozen = mood === "frozen";
 
-  return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Wal-Pet: ${mood}`}>
-      <PetShadow cx={32} />
-      <PetIcicles mood={mood} y={77} />
+    return (
+        <PetSvg
+            size={size}
+            shivering={isCold || isFrozen}
+            ariaLabel={`Wal-Pet: ${mood}`}
+        >
+            <PetShadow cx={33} />
+            <PetIcicles mood={mood} y={72} />
 
-      {/* ── Schwanzflosse (Hauptmerkmal, unten) ── */}
-      <path d="M16,68 Q24,80 32,70 Q40,80 48,68" fill={fur} stroke={OUTLINE} strokeWidth="1.5" strokeLinejoin="round" />
+            {/* ── Körper — direkt vom Referenz-SVG skaliert ── */}
+            <path
+                d="M4,46 Q4,21 34,28 Q47,31 56,43 Q62,50 53,53 Q39,59 19,56 Q7,54 4,46 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+            />
 
-      {/* ── Körper (breit, oval) ── */}
-      <ellipse cx="32" cy="50" rx="20" ry="17" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
-      <ellipse cx="32" cy="54" rx="13" ry="11" fill={belly} />
+            {/* ── Bauch — vom Referenz-SVG skaliert ── */}
+            <path
+                d="M5,46 Q19,52 42,50 Q33,59 16,54 Q7,53 5,46 Z"
+                fill={belly}
+            />
 
-      {/* ── Brustflossen (seitlich) ── */}
-      <path d="M12,50 Q4,44 4,56 Q8,62 14,58" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
-      <path d="M52,50 Q60,44 60,56 Q56,62 50,58" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
+            {/* ── Bauchstreifen — vom Referenz-SVG skaliert ── */}
+            <path
+                d="M13,49 Q21,53 30,52"
+                stroke={OUTLINE}
+                strokeWidth="0.9"
+                strokeLinecap="round"
+                fill="none"
+                opacity="0.4"
+            />
+            <path
+                d="M14,53 Q24,57 34,54"
+                stroke={OUTLINE}
+                strokeWidth="0.9"
+                strokeLinecap="round"
+                fill="none"
+                opacity="0.4"
+            />
 
-      {/* ── Blasloch ── */}
-      <ellipse cx="32" cy="34" rx="3" ry="2" fill={OUTLINE} opacity="0.5" />
+            {/* ── Flosse unten — vom Referenz-SVG skaliert ── */}
+            <path
+                d="M33,50 Q36,57 45,52 Q39,47 33,50 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+            />
 
-      {/* ── Wasserfontäne (warm) ── */}
-      {mood === 'warm' && (
-        <>
-          <path d="M30,34 Q26,24 28,16" stroke={belly} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          <path d="M32,34 Q32,22 32,14"  stroke={belly} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          <path d="M34,34 Q38,24 36,16" stroke={belly} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-        </>
-      )}
+            {/* ── Schwanzflosse rechts (Pet-Ergänzung) ── */}
+            <path
+                d="M54,41 Q58,28 64,32 Q62,44 54,52 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+            />
 
-      <PetSnowflakes mood={mood} left={{ x: 2, y: 28 }} right={{ x: 57, y: 28 }} />
-      <PetSun mood={mood} />
-      <PetSweat isHot={isHot} y={16} />
+            {/* ── Blasloch (Pet-Ergänzung) ── */}
+            <ellipse
+                cx="22"
+                cy="33"
+                rx="2.5"
+                ry="1.5"
+                fill={OUTLINE}
+                opacity="0.4"
+            />
 
-      {/* ── Augen (freundlich, auf Körperhöhe) ── */}
-      {mood === 'neutral' && (blinking ? (
-        <>
-          <line x1="19" y1="44" x2="27" y2="44" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-          <line x1="37" y1="44" x2="45" y2="44" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-        </>
-      ) : (
-        <>
-          <circle cx="23" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="41" cy="44" r="3.5" fill={OUTLINE} />
-          <circle cx="21.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="39.8" cy="42.8" r="1.2" fill="white" opacity="0.65" />
-        </>
-      ))}
+            {/* ── Wasserfontäne (neutral + warm) ── */}
+            {(mood === "neutral" || isWarm) && (
+                <>
+                    <path
+                        d="M18,32 Q14,23 16,16"
+                        stroke={belly}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <path
+                        d="M22,31 Q21,21 22,15"
+                        stroke={belly}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <path
+                        d="M26,32 Q29,23 27,16"
+                        stroke={belly}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <circle cx="15" cy="15" r="2" fill={belly} />
+                    <circle cx="22" cy="14" r="2.5" fill={belly} />
+                    <circle cx="28" cy="15" r="2" fill={belly} />
+                </>
+            )}
 
-      <PetSunglasses
-        mood={mood}
-        frame={{ y: 37, w: 14, h: 13, rx: 4 }}
-        leftX={13} rightX={33}
-        leftTemple={[13, 44, 5, 47]}
-        rightTemple={[47, 44, 55, 47]}
-      />
+            <PetSnowflakes
+                mood={mood}
+                left={{ x: 2, y: 32 }}
+                right={{ x: 52, y: 26 }}
+            />
+            <PetSun mood={mood} />
+            <PetSweat isHot={isHot} y={22} />
 
-      <PetWorriedBrows
-        mood={mood}
-        leftBrow={{ x1: 16, y1: 37, x2: 27, y2: 41 }}
-        rightBrow={{ x1: 37, y1: 41, x2: 48, y2: 37 }}
-      />
-      {mood === 'cold' && (
-        <>
-          <circle cx="23" cy="45" r="3.5" fill={OUTLINE} />
-          <circle cx="41" cy="45" r="3.5" fill={OUTLINE} />
-          <circle cx="21.8" cy="43.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="39.8" cy="43.8" r="1.2" fill="white" opacity="0.65" />
-        </>
-      )}
+            {/* ── Auge — vom Referenz-SVG skaliert (cx=21, cy=41) ── */}
+            {(mood === "neutral" || isWarm) &&
+                (blinking ? (
+                    <line
+                        x1="17"
+                        y1="41"
+                        x2="25"
+                        y2="41"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                ) : (
+                    <>
+                        <circle cx="21" cy="41" r="4" fill={OUTLINE} />
+                        <circle
+                            cx="22"
+                            cy="40"
+                            r="1.5"
+                            fill="white"
+                            opacity="0.65"
+                        />
+                    </>
+                ))}
 
-      <PetFrozenEyes
-        mood={mood}
-        leftBox={{ l: 16, t: 37, r: 30, b: 51 }}
-        rightBox={{ l: 34, t: 37, r: 48, b: 51 }}
-      />
+            {/* ── Sonnenbrille (warm) ── */}
+            {isWarm && (
+                <>
+                    <rect
+                        x="13"
+                        y="36"
+                        width="16"
+                        height="11"
+                        rx="3"
+                        fill={OUTLINE}
+                        opacity="0.9"
+                    />
+                    <rect
+                        x="14"
+                        y="37"
+                        width="14"
+                        height="9"
+                        rx="2"
+                        fill="#1e3a5f"
+                    />
+                    <line
+                        x1="13"
+                        y1="41"
+                        x2="6"
+                        y2="43"
+                        stroke={OUTLINE}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                    />
+                    <circle cx="21" cy="41" r="2" fill="white" opacity="0.15" />
+                </>
+            )}
 
-      <PetBlush mood={mood} leftCx={13} rightCx={51} cy={52} rx={5} ry={3} />
+            {/* ── Auge + Braue (cold) ── */}
+            {isCold && (
+                <>
+                    <path
+                        d="M14,36 Q20,32 26,36"
+                        stroke={OUTLINE}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <circle cx="21" cy="41" r="4" fill={OUTLINE} />
+                    <circle
+                        cx="22"
+                        cy="40"
+                        r="1.5"
+                        fill="white"
+                        opacity="0.65"
+                    />
+                </>
+            )}
 
-      {/* ── Mund ── */}
-      {mood === 'neutral' && (
-        <path d="M26,56 Q32,60 38,56" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {mood === 'warm' && (
-        <path d="M24,55 Q32,61 40,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {mood === 'cold' && (
-        <path d="M27,57 Q32,54 37,57" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
-      {mood === 'frozen' && (
-        <path d="M25,57 Q28,53 32,57 Q36,61 39,57" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      )}
+            {/* ── X-Auge + Braue (frozen) ── */}
+            {isFrozen && (
+                <>
+                    <path
+                        d="M14,36 Q20,32 26,36"
+                        stroke={OUTLINE}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <line
+                        x1="17"
+                        y1="38"
+                        x2="25"
+                        y2="46"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                    <line
+                        x1="25"
+                        y1="38"
+                        x2="17"
+                        y2="46"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                </>
+            )}
 
-      <PetScarf mood={mood} x={11} y={60} width={42} knotCx={52} knotCy={65} />
-    </PetSvg>
-  );
+            {/* ── Wangenrouge (warm) ── */}
+            {isWarm && (
+                <ellipse
+                    cx="18"
+                    cy="47"
+                    rx="4"
+                    ry="2.5"
+                    fill="#fca5a5"
+                    opacity="0.5"
+                />
+            )}
+
+            <PetScarf
+                mood={mood}
+                x={4}
+                y={52}
+                width={28}
+                knotCx={32}
+                knotCy={56}
+            />
+        </PetSvg>
+    );
 }
