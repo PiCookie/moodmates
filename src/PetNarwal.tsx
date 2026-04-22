@@ -114,24 +114,6 @@ export function PetNarwal({
                     fill={belly}
                 />
 
-                {/* ── Bauchstreifen ── */}
-                <path
-                    d="M13,48 Q21,52 30,51"
-                    stroke={OUTLINE}
-                    strokeWidth="0.9"
-                    strokeLinecap="round"
-                    fill="none"
-                    opacity="0.4"
-                />
-                <path
-                    d="M14,52 Q24,55 34,52"
-                    stroke={OUTLINE}
-                    strokeWidth="0.9"
-                    strokeLinecap="round"
-                    fill="none"
-                    opacity="0.4"
-                />
-
                 {/* ── Flosse unten ── */}
                 <path
                     d="M33,49 Q36,56 45,51 Q39,46 33,49 Z"
@@ -143,17 +125,49 @@ export function PetNarwal({
 
                 {/* ── Stoßzahn — auf dem Körper gezeichnet, kommt aus dem Oberkiefer ── */}
                 <path
-                    d="M4,40 Q-2,37 -13,35 Q-2,39.5 4,43.5 Z"
+                    d="M10,37 Q-2,34 -15,33 Q-5,36 10,40 Z"
                     fill={TUSK}
                     stroke={OUTLINE}
                     strokeWidth="0.8"
                     strokeLinejoin="round"
                 />
                 {/* Spiralmarkierungen gleichmäßig entlang des Stoßzahns */}
-                <line x1="1.5" y1="41.5" x2="0" y2="39" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
-                <line x1="-2" y1="40.5" x2="-3.5" y2="38" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
-                <line x1="-5.5" y1="39" x2="-7" y2="37" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
-                <line x1="-9" y1="37.5" x2="-10.5" y2="36" stroke={TUSK_SPIRAL} strokeWidth="0.6" strokeLinecap="round" />
+                <line
+                    x1="1.5"
+                    y1="38.5"
+                    x2="0"
+                    y2="36"
+                    stroke={TUSK_SPIRAL}
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                />
+                <line
+                    x1="-2"
+                    y1="37.5"
+                    x2="-3.5"
+                    y2="35"
+                    stroke={TUSK_SPIRAL}
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                />
+                <line
+                    x1="-5.5"
+                    y1="36"
+                    x2="-7"
+                    y2="34"
+                    stroke={TUSK_SPIRAL}
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                />
+                <line
+                    x1="-9"
+                    y1="34.5"
+                    x2="-10.5"
+                    y2="33"
+                    stroke={TUSK_SPIRAL}
+                    strokeWidth="0.6"
+                    strokeLinecap="round"
+                />
 
                 {/* ── Blasloch ── */}
                 <ellipse
@@ -176,10 +190,34 @@ export function PetNarwal({
                         <circle cx="12" cy="6" r="1.5" fill={water} />
                         <circle cx="22" cy="4" r="2" fill={water} />
                         <circle cx="32" cy="6" r="1.5" fill={water} />
-                        <circle cx="8" cy="10" r="1" fill={water} opacity="0.7" />
-                        <circle cx="36" cy="10" r="1" fill={water} opacity="0.7" />
-                        <circle cx="17" cy="2" r="1" fill={water} opacity="0.7" />
-                        <circle cx="27" cy="2" r="1" fill={water} opacity="0.7" />
+                        <circle
+                            cx="8"
+                            cy="10"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="36"
+                            cy="10"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="17"
+                            cy="2"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="27"
+                            cy="2"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
                     </>
                 )}
 
@@ -306,6 +344,15 @@ export function PetNarwal({
                         />
                     </>
                 )}
+
+                {/* ── Mund (Beluga-Dauerlächeln) ── */}
+                <path
+                    d="M4,43 Q10,47 16,43"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                />
 
                 {/* ── Wangenrouge (warm) ── */}
                 {isWarm && (
