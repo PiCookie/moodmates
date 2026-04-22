@@ -113,7 +113,7 @@ export function PetWal({
             {/* ── Blasloch (Pet-Ergänzung) ── */}
             <ellipse
                 cx="22"
-                cy="33"
+                cy="29"
                 rx="2.5"
                 ry="1.5"
                 fill={OUTLINE}
@@ -123,30 +123,20 @@ export function PetWal({
             {/* ── Wasserfontäne (neutral + warm) ── */}
             {(mood === "neutral" || isWarm) && (
                 <>
+                    {/* V-Fächer */}
                     <path
-                        d="M18,32 Q14,23 16,16"
-                        stroke={belly}
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        fill="none"
+                        d="M22,28 Q14,18 10,9 Q16,5 22,8 Q28,5 34,9 Q30,18 22,28 Z"
+                        fill={belly}
+                        opacity="0.85"
                     />
-                    <path
-                        d="M22,31 Q21,21 22,15"
-                        stroke={belly}
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        fill="none"
-                    />
-                    <path
-                        d="M26,32 Q29,23 27,16"
-                        stroke={belly}
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        fill="none"
-                    />
-                    <circle cx="15" cy="15" r="2" fill={belly} />
-                    <circle cx="22" cy="14" r="2.5" fill={belly} />
-                    <circle cx="28" cy="15" r="2" fill={belly} />
+                    {/* Tropfen oberhalb */}
+                    <circle cx="12" cy="6" r="1.5" fill={belly} />
+                    <circle cx="22" cy="4" r="2" fill={belly} />
+                    <circle cx="32" cy="6" r="1.5" fill={belly} />
+                    <circle cx="8" cy="10" r="1" fill={belly} opacity="0.7" />
+                    <circle cx="36" cy="10" r="1" fill={belly} opacity="0.7" />
+                    <circle cx="17" cy="2" r="1" fill={belly} opacity="0.7" />
+                    <circle cx="27" cy="2" r="1" fill={belly} opacity="0.7" />
                 </>
             )}
 
