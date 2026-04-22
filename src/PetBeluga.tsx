@@ -24,17 +24,17 @@ import {
 } from "./BasePet";
 
 const BELUGA_FUR: Record<Mood, string> = {
-    frozen:  "#dbeafe",
-    cold:    "#e0f2fe",
+    frozen: "#dbeafe",
+    cold: "#e0f2fe",
     neutral: "#f8fafc",
-    warm:    "#fef9f0",
+    warm: "#fef9f0",
 };
 
 const BELUGA_WATER: Record<Mood, string> = {
-    frozen:  "#bae6fd",
-    cold:    "#7dd3fc",
-    neutral: "#38bdf8",
-    warm:    "#0ea5e9",
+    frozen: "#bae6fd",
+    cold: "#7dd3fc",
+    neutral: "#98c4e8",
+    warm: "#70b0e0",
 };
 
 export function PetBeluga({
@@ -44,10 +44,10 @@ export function PetBeluga({
 }: PetProps) {
     const mood = getMood(temperature);
     const isHot = temperature !== null && temperature >= 28;
-    const fur   = BELUGA_FUR[mood];
+    const fur = BELUGA_FUR[mood];
     const water = BELUGA_WATER[mood];
-    const isWarm   = mood === "warm";
-    const isCold   = mood === "cold";
+    const isWarm = mood === "warm";
+    const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
 
     return (
@@ -119,15 +119,15 @@ export function PetBeluga({
                 {(mood === "neutral" || isWarm) && (
                     <>
                         <path
-                            d="M14,23 Q6,5 2,3 Q8,0 14,3 Q20,0 26,3 Q22,5 14,23 Z"
+                            d="M14,23 Q6,10 2,8 Q8,5 14,8 Q20,5 26,8 Q22,10 14,23 Z"
                             fill={water}
                             opacity="0.85"
                         />
-                        <circle cx="4"  cy="1"  r="1.5" fill={water} />
-                        <circle cx="14" cy="-1" r="2"   fill={water} />
-                        <circle cx="24" cy="1"  r="1.5" fill={water} />
-                        <circle cx="0"  cy="5"  r="1"   fill={water} opacity="0.7" />
-                        <circle cx="28" cy="5"  r="1"   fill={water} opacity="0.7" />
+                        <circle cx="4"  cy="6"  r="1.5" fill={water} />
+                        <circle cx="14" cy="4"  r="2"   fill={water} />
+                        <circle cx="24" cy="6"  r="1.5" fill={water} />
+                        <circle cx="0"  cy="10" r="1"   fill={water} opacity="0.7" />
+                        <circle cx="28" cy="10" r="1"   fill={water} opacity="0.7" />
                     </>
                 )}
 
@@ -143,8 +143,10 @@ export function PetBeluga({
                 {(mood === "neutral" || isWarm) &&
                     (blinking ? (
                         <line
-                            x1="17" y1="38"
-                            x2="25" y2="38"
+                            x1="17"
+                            y1="38"
+                            x2="25"
+                            y2="38"
                             stroke={OUTLINE}
                             strokeWidth="2.5"
                             strokeLinecap="round"
@@ -152,17 +154,52 @@ export function PetBeluga({
                     ) : (
                         <>
                             <circle cx="21" cy="38" r="4" fill={OUTLINE} />
-                            <circle cx="22" cy="37" r="1.5" fill="white" opacity="0.65" />
+                            <circle
+                                cx="22"
+                                cy="37"
+                                r="1.5"
+                                fill="white"
+                                opacity="0.65"
+                            />
                         </>
                     ))}
 
                 {/* ── Sonnenbrille (warm) ── */}
                 {isWarm && (
                     <>
-                        <rect x="13" y="33" width="16" height="11" rx="3" fill={OUTLINE} opacity="0.9" />
-                        <rect x="14" y="34" width="14" height="9"  rx="2" fill="#1e3a5f" />
-                        <line x1="13" y1="38" x2="6"  y2="40" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-                        <circle cx="21" cy="38" r="2" fill="white" opacity="0.15" />
+                        <rect
+                            x="13"
+                            y="33"
+                            width="16"
+                            height="11"
+                            rx="3"
+                            fill={OUTLINE}
+                            opacity="0.9"
+                        />
+                        <rect
+                            x="14"
+                            y="34"
+                            width="14"
+                            height="9"
+                            rx="2"
+                            fill="#1e3a5f"
+                        />
+                        <line
+                            x1="13"
+                            y1="38"
+                            x2="4"
+                            y2="38"
+                            stroke={OUTLINE}
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                        />
+                        <circle
+                            cx="21"
+                            cy="38"
+                            r="2"
+                            fill="white"
+                            opacity="0.15"
+                        />
                     </>
                 )}
 
@@ -177,7 +214,13 @@ export function PetBeluga({
                             fill="none"
                         />
                         <circle cx="21" cy="38" r="4" fill={OUTLINE} />
-                        <circle cx="22" cy="37" r="1.5" fill="white" opacity="0.65" />
+                        <circle
+                            cx="22"
+                            cy="37"
+                            r="1.5"
+                            fill="white"
+                            opacity="0.65"
+                        />
                     </>
                 )}
 
@@ -191,14 +234,46 @@ export function PetBeluga({
                             strokeLinecap="round"
                             fill="none"
                         />
-                        <line x1="17" y1="35" x2="25" y2="43" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-                        <line x1="25" y1="35" x2="17" y2="43" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                        <line
+                            x1="17"
+                            y1="35"
+                            x2="25"
+                            y2="43"
+                            stroke={OUTLINE}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
+                        <line
+                            x1="25"
+                            y1="35"
+                            x2="17"
+                            y2="43"
+                            stroke={OUTLINE}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
                     </>
                 )}
 
+                {/* ── Mund (Beluga-Dauerlächeln) ── */}
+                <path
+                    d="M4,43 Q10,47 16,43"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                />
+
                 {/* ── Wangenrouge (warm) ── */}
                 {isWarm && (
-                    <ellipse cx="18" cy="44" rx="4" ry="2.5" fill="#fca5a5" opacity="0.5" />
+                    <ellipse
+                        cx="18"
+                        cy="44"
+                        rx="4"
+                        ry="2.5"
+                        fill="#fca5a5"
+                        opacity="0.5"
+                    />
                 )}
 
                 <PetScarf
