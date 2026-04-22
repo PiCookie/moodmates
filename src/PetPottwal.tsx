@@ -2,7 +2,7 @@
  * Gen1-Style Pottwal Pet (Seitenansicht)
  *
  * Körperstruktur identisch zum Blauwal.
- * Farbe: dunkelgrau/anthrazit (Körper) + hellgrau (Bauch) — typische Pottwal-Färbung.
+ * Farbe: dunkelgrau (Körper) + hellgrau (Bauch) — typische Pottwal-Färbung.
  *
  * Mood → temperature:
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Wasserfontäne
@@ -30,11 +30,11 @@ const POTTWAL_FUR: Record<Mood, string> = {
     warm: "#2a3840",
 };
 
-const POTTWAL_BELLY: Record<Mood, string> = {
-    frozen: "#d8e0e8",
-    cold: "#b0bec8",
-    neutral: "#8898a8",
-    warm: "#6a7e90",
+const POTTWAL_WATER: Record<Mood, string> = {
+    frozen: "#bae6fd",
+    cold: "#7dd3fc",
+    neutral: "#98c4e8",
+    warm: "#70b0e0",
 };
 
 export function PetPottwal({
@@ -45,7 +45,7 @@ export function PetPottwal({
     const mood = getMood(temperature);
     const isHot = temperature !== null && temperature >= 28;
     const fur = POTTWAL_FUR[mood];
-    const belly = POTTWAL_BELLY[mood];
+    const water = POTTWAL_WATER[mood];
     const isWarm = mood === "warm";
     const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
@@ -85,15 +85,15 @@ export function PetPottwal({
                     strokeLinejoin="round"
                 />
 
-                {/* ── Körper — direkt vom Referenz-SVG skaliert ── */}
+                {/* ── Körper — Pottwal mit markanter eckiger Stirn ── */}
                 {/* Fläche */}
                 <path
-                    d="M4,46 Q4,21 34,28 Q47,31 56,43 Q62,50 53,53 Q39,59 19,56 Q7,54 4,46 Z"
+                    d="M4,46 Q4,26 8,26 Q47,31 56,43 Q47,31 56,43 Q62,50 53,53 Q39,59 19,56 Q7,54 4,46 Z"
                     fill={fur}
                 />
                 {/* Outline — rechtes Segment (Schwanzstiel-Übergang) ausgelassen */}
                 <path
-                    d="M60,50 Q42,59 19,56 Q7,54 4,46 Q4,21 34,28 Q47,31 57,43"
+                    d="M60,50 Q42,59 19,56 Q7,54 4,46 Q4,28 8,26 Q47,31 57,43"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
@@ -101,28 +101,13 @@ export function PetPottwal({
                     strokeLinejoin="round"
                 />
 
-                {/* ── Bauch — vom Referenz-SVG skaliert ── */}
+                {/* ── Mund (langer Unterkiefer, typisch Pottwal) ── */}
                 <path
-                    d="M5,46 Q19,52 42,50 Q33,59 16,54 Q7,53 5,46 Z"
-                    fill={belly}
-                />
-
-                {/* ── Bauchstreifen — vom Referenz-SVG skaliert ── */}
-                <path
-                    d="M13,49 Q21,53 30,52"
-                    stroke={OUTLINE}
-                    strokeWidth="0.9"
-                    strokeLinecap="round"
+                    d="M4,44 Q14,49 28,47"
                     fill="none"
-                    opacity="0.4"
-                />
-                <path
-                    d="M14,53 Q24,57 34,54"
                     stroke={OUTLINE}
-                    strokeWidth="0.9"
+                    strokeWidth="1.2"
                     strokeLinecap="round"
-                    fill="none"
-                    opacity="0.4"
                 />
 
                 {/* ── Flosse unten — vom Referenz-SVG skaliert ── */}
@@ -137,7 +122,7 @@ export function PetPottwal({
                 {/* ── Blasloch (Pet-Ergänzung) ── */}
                 <ellipse
                     cx="22"
-                    cy="29"
+                    cy="31"
                     rx="2.5"
                     ry="1.5"
                     fill={OUTLINE}
@@ -149,40 +134,40 @@ export function PetPottwal({
                     <>
                         {/* V-Fächer */}
                         <path
-                            d="M22,28 Q14,10 10,8 Q16,5 22,8 Q28,5 34,8 Q30,10 22,28 Z"
-                            fill={belly}
+                            d="M22,31 Q14,10 10,8 Q16,5 22,8 Q28,5 34,8 Q30,10 22,31 Z"
+                            fill={water}
                             opacity="0.85"
                         />
                         {/* Tropfen oberhalb */}
-                        <circle cx="12" cy="6" r="1.5" fill={belly} />
-                        <circle cx="22" cy="4" r="2" fill={belly} />
-                        <circle cx="32" cy="6" r="1.5" fill={belly} />
+                        <circle cx="12" cy="6" r="1.5" fill={water} />
+                        <circle cx="22" cy="4" r="2" fill={water} />
+                        <circle cx="32" cy="6" r="1.5" fill={water} />
                         <circle
                             cx="8"
                             cy="10"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="36"
                             cy="10"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="17"
                             cy="2"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="27"
                             cy="2"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                     </>
@@ -196,25 +181,25 @@ export function PetPottwal({
                 <PetSun mood={mood} />
                 <PetSweat isHot={isHot} y={22} />
 
-                {/* ── Auge — vom Referenz-SVG skaliert (cx=21, cy=41) ── */}
+                {/* ── Auge (cx=24, cy=43) ── */}
                 {(mood === "neutral" || isWarm) &&
                     (blinking ? (
                         <line
-                            x1="17"
-                            y1="41"
-                            x2="25"
-                            y2="41"
+                            x1="24"
+                            y1="43"
+                            x2="30"
+                            y2="43"
                             stroke={OUTLINE}
                             strokeWidth="2.5"
                             strokeLinecap="round"
                         />
                     ) : (
                         <>
-                            <circle cx="21" cy="41" r="4" fill={OUTLINE} />
+                            <circle cx="27" cy="43" r="3" fill={OUTLINE} />
                             <circle
-                                cx="22"
-                                cy="40"
-                                r="1.5"
+                                cx="28"
+                                cy="42"
+                                r="1.2"
                                 fill="white"
                                 opacity="0.65"
                             />
@@ -225,34 +210,34 @@ export function PetPottwal({
                 {isWarm && (
                     <>
                         <rect
-                            x="13"
-                            y="36"
-                            width="16"
-                            height="11"
-                            rx="3"
+                            x="19"
+                            y="38"
+                            width="14"
+                            height="9"
+                            rx="2"
                             fill={OUTLINE}
                             opacity="0.9"
                         />
                         <rect
-                            x="14"
-                            y="37"
-                            width="14"
-                            height="9"
-                            rx="2"
+                            x="20"
+                            y="39"
+                            width="12"
+                            height="7"
+                            rx="1.5"
                             fill="#1e3a5f"
                         />
                         <line
-                            x1="13"
-                            y1="41"
-                            x2="6"
-                            y2="43"
+                            x1="19"
+                            y1="43"
+                            x2="12"
+                            y2="45"
                             stroke={OUTLINE}
                             strokeWidth="1.5"
                             strokeLinecap="round"
                         />
                         <circle
-                            cx="21"
-                            cy="41"
+                            cx="27"
+                            cy="43"
                             r="2"
                             fill="white"
                             opacity="0.15"
@@ -264,17 +249,17 @@ export function PetPottwal({
                 {isCold && (
                     <>
                         <path
-                            d="M14,36 Q20,32 26,36"
+                            d="M20,38 Q26,34 32,38"
                             stroke={OUTLINE}
                             strokeWidth="2"
                             strokeLinecap="round"
                             fill="none"
                         />
-                        <circle cx="21" cy="41" r="4" fill={OUTLINE} />
+                        <circle cx="27" cy="43" r="3" fill={OUTLINE} />
                         <circle
-                            cx="22"
-                            cy="40"
-                            r="1.5"
+                            cx="28"
+                            cy="42"
+                            r="1.2"
                             fill="white"
                             opacity="0.65"
                         />
@@ -285,25 +270,25 @@ export function PetPottwal({
                 {isFrozen && (
                     <>
                         <path
-                            d="M14,36 Q20,32 26,36"
+                            d="M20,38 Q26,34 32,38"
                             stroke={OUTLINE}
                             strokeWidth="2"
                             strokeLinecap="round"
                             fill="none"
                         />
                         <line
-                            x1="17"
-                            y1="38"
-                            x2="25"
+                            x1="24"
+                            y1="40"
+                            x2="30"
                             y2="46"
                             stroke={OUTLINE}
                             strokeWidth="2.5"
                             strokeLinecap="round"
                         />
                         <line
-                            x1="25"
-                            y1="38"
-                            x2="17"
+                            x1="30"
+                            y1="40"
+                            x2="24"
                             y2="46"
                             stroke={OUTLINE}
                             strokeWidth="2.5"

@@ -37,6 +37,13 @@ const BLAUWAL_BELLY: Record<Mood, string> = {
     warm: "#70b0e0",
 };
 
+const BLAUWAL_WATER: Record<Mood, string> = {
+    frozen: "#bae6fd",
+    cold: "#7dd3fc",
+    neutral: "#98c4e8",
+    warm: "#70b0e0",
+};
+
 export function PetBlauwal({
     temperature,
     size = 80,
@@ -46,6 +53,7 @@ export function PetBlauwal({
     const isHot = temperature !== null && temperature >= 28;
     const fur = BLAUWAL_FUR[mood];
     const belly = BLAUWAL_BELLY[mood];
+    const water = BLAUWAL_WATER[mood];
     const isWarm = mood === "warm";
     const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
@@ -150,39 +158,39 @@ export function PetBlauwal({
                         {/* V-Fächer */}
                         <path
                             d="M22,28 Q14,10 10,8 Q16,5 22,8 Q28,5 34,8 Q30,10 22,28 Z"
-                            fill={belly}
+                            fill={water}
                             opacity="0.85"
                         />
                         {/* Tropfen oberhalb */}
-                        <circle cx="12" cy="6" r="1.5" fill={belly} />
-                        <circle cx="22" cy="4" r="2" fill={belly} />
-                        <circle cx="32" cy="6" r="1.5" fill={belly} />
+                        <circle cx="12" cy="6" r="1.5" fill={water} />
+                        <circle cx="22" cy="4" r="2" fill={water} />
+                        <circle cx="32" cy="6" r="1.5" fill={water} />
                         <circle
                             cx="8"
                             cy="10"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="36"
                             cy="10"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="17"
                             cy="2"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                         <circle
                             cx="27"
                             cy="2"
                             r="1"
-                            fill={belly}
+                            fill={water}
                             opacity="0.7"
                         />
                     </>
