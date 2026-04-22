@@ -95,9 +95,9 @@ export function PetDelfin({ temperature, size = 80, blinking = false }: PetProps
       <PetSunglasses
         mood={mood}
         frame={{ y: 18, w: 12, h: 12, rx: 4 }}
-        leftX={14} rightX={31}
-        leftTemple={[14, 25, 6, 28]}
-        rightTemple={[43, 25, 51, 28]}
+        leftX={17} rightX={34}
+        leftTemple={[17, 25, 9, 28]}
+        rightTemple={[46, 25, 54, 28]}
       />
 
       <PetWorriedBrows
