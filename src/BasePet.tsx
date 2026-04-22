@@ -16,14 +16,15 @@ interface SvgProps {
   shivering: boolean;
   ariaLabel: string;
   children: ReactNode;
+  viewBoxWidth?: number;
 }
 
-export function PetSvg({ size, shivering, ariaLabel, children }: SvgProps) {
+export function PetSvg({ size, shivering, ariaLabel, children, viewBoxWidth = 66 }: SvgProps) {
   return (
     <svg
-      width={size}
+      width={Math.round(size * (viewBoxWidth / 66))}
       height={Math.round(size * (88 / 66))}
-      viewBox="0 0 66 88"
+      viewBox={`0 0 ${viewBoxWidth} 88`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={shivering ? 'animate-shiver' : undefined}

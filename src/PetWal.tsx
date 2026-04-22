@@ -53,6 +53,7 @@ export function PetWal({
     return (
         <PetSvg
             size={size}
+            viewBoxWidth={76}
             shivering={isCold || isFrozen}
             ariaLabel={`Wal-Pet: ${mood}`}
         >
@@ -101,12 +102,12 @@ export function PetWal({
                 strokeLinejoin="round"
             />
 
-            {/* ── Schwanzflosse rechts (Pet-Ergänzung) ── */}
+            {/* ── Schwanzflosse (V-Form, 180° gedreht) ── */}
             <path
-                d="M54,41 Q58,28 64,32 Q62,44 54,52 Z"
+                d="M73,42 Q67,31 61,40 Q55,31 49,42 Z"
                 fill={fur}
                 stroke={OUTLINE}
-                strokeWidth="1.2"
+                strokeWidth="1.5"
                 strokeLinejoin="round"
             />
 
@@ -125,7 +126,7 @@ export function PetWal({
                 <>
                     {/* V-Fächer */}
                     <path
-                        d="M22,28 Q14,18 10,9 Q16,5 22,8 Q28,5 34,9 Q30,18 22,28 Z"
+                        d="M22,28 Q14,10 10,8 Q16,5 22,8 Q28,5 34,8 Q30,10 22,28 Z"
                         fill={belly}
                         opacity="0.85"
                     />
