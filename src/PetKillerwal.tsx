@@ -25,23 +25,23 @@ import {
 
 const KILLERWAL_FUR: Record<Mood, string> = {
     frozen: "#4a5568",
-    cold:   "#2d3748",
+    cold: "#2d3748",
     neutral: "#1a202c",
-    warm:   "#171923",
+    warm: "#171923",
 };
 
 const KILLERWAL_BELLY: Record<Mood, string> = {
     frozen: "#f7fafc",
-    cold:   "#edf2f7",
+    cold: "#edf2f7",
     neutral: "#e2e8f0",
-    warm:   "#d8e0e8",
+    warm: "#d8e0e8",
 };
 
 const KILLERWAL_WATER: Record<Mood, string> = {
     frozen: "#bae6fd",
-    cold:   "#7dd3fc",
-    neutral: "#38bdf8",
-    warm:   "#0ea5e9",
+    cold: "#7dd3fc",
+    neutral: "#98c4e8",
+    warm: "#70b0e0",
 };
 
 export function PetKillerwal({
@@ -51,11 +51,11 @@ export function PetKillerwal({
 }: PetProps) {
     const mood = getMood(temperature);
     const isHot = temperature !== null && temperature >= 28;
-    const fur   = KILLERWAL_FUR[mood];
+    const fur = KILLERWAL_FUR[mood];
     const belly = KILLERWAL_BELLY[mood];
     const water = KILLERWAL_WATER[mood];
-    const isWarm   = mood === "warm";
-    const isCold   = mood === "cold";
+    const isWarm = mood === "warm";
+    const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
 
     return (
@@ -106,7 +106,7 @@ export function PetKillerwal({
 
                 {/* ── Weißer Bauch (kein Streifenmuster — Orca-typisch reinweiß) ── */}
                 <path
-                    d="M5,46 Q19,52 42,50 Q33,59 16,54 Q7,53 5,46 Z"
+                    d="M5,46 Q19,52 42,50 Q33,59 16,55 Q7,53 5,46 Z"
                     fill={belly}
                 />
 
@@ -138,12 +138,36 @@ export function PetKillerwal({
                             opacity="0.85"
                         />
                         <circle cx="12" cy="6" r="1.5" fill={water} />
-                        <circle cx="22" cy="4" r="2"   fill={water} />
+                        <circle cx="22" cy="4" r="2" fill={water} />
                         <circle cx="32" cy="6" r="1.5" fill={water} />
-                        <circle cx="8"  cy="10" r="1"  fill={water} opacity="0.7" />
-                        <circle cx="36" cy="10" r="1"  fill={water} opacity="0.7" />
-                        <circle cx="17" cy="2"  r="1"  fill={water} opacity="0.7" />
-                        <circle cx="27" cy="2"  r="1"  fill={water} opacity="0.7" />
+                        <circle
+                            cx="8"
+                            cy="10"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="36"
+                            cy="10"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="17"
+                            cy="2"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="27"
+                            cy="2"
+                            r="1"
+                            fill={water}
+                            opacity="0.7"
+                        />
                     </>
                 )}
 
@@ -162,7 +186,10 @@ export function PetKillerwal({
                 {(mood === "neutral" || isWarm) &&
                     (blinking ? (
                         <line
-                            x1="17" y1="39" x2="24" y2="39"
+                            x1="17"
+                            y1="39"
+                            x2="24"
+                            y2="39"
                             stroke={OUTLINE}
                             strokeWidth="2.5"
                             strokeLinecap="round"
@@ -170,17 +197,52 @@ export function PetKillerwal({
                     ) : (
                         <>
                             <circle cx="20" cy="40" r="3.5" fill={OUTLINE} />
-                            <circle cx="21" cy="39" r="1.3" fill="white" opacity="0.65" />
+                            <circle
+                                cx="21"
+                                cy="39"
+                                r="1.3"
+                                fill="white"
+                                opacity="0.65"
+                            />
                         </>
                     ))}
 
                 {/* ── Sonnenbrille (warm) ── */}
                 {isWarm && (
                     <>
-                        <rect x="10" y="35" width="16" height="10" rx="3" fill={OUTLINE} opacity="0.9" />
-                        <rect x="11" y="36" width="14" height="8"  rx="2" fill="#1a3a2a" />
-                        <line x1="10" y1="39" x2="3" y2="38" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-                        <circle cx="18" cy="40" r="2" fill="white" opacity="0.15" />
+                        <rect
+                            x="10"
+                            y="35"
+                            width="16"
+                            height="10"
+                            rx="3"
+                            fill={OUTLINE}
+                            opacity="0.9"
+                        />
+                        <rect
+                            x="11"
+                            y="36"
+                            width="14"
+                            height="8"
+                            rx="2"
+                            fill="#1a3a2a"
+                        />
+                        <line
+                            x1="10"
+                            y1="39"
+                            x2="5"
+                            y2="38"
+                            stroke={OUTLINE}
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                        />
+                        <circle
+                            cx="18"
+                            cy="40"
+                            r="2"
+                            fill="white"
+                            opacity="0.15"
+                        />
                     </>
                 )}
 
@@ -195,7 +257,13 @@ export function PetKillerwal({
                             fill="none"
                         />
                         <circle cx="20" cy="40" r="3.5" fill={OUTLINE} />
-                        <circle cx="21" cy="39" r="1.3" fill="white" opacity="0.65" />
+                        <circle
+                            cx="21"
+                            cy="39"
+                            r="1.3"
+                            fill="white"
+                            opacity="0.65"
+                        />
                     </>
                 )}
 
@@ -209,14 +277,37 @@ export function PetKillerwal({
                             strokeLinecap="round"
                             fill="none"
                         />
-                        <line x1="16" y1="37" x2="24" y2="44" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-                        <line x1="24" y1="37" x2="16" y2="44" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                        <line
+                            x1="16"
+                            y1="37"
+                            x2="24"
+                            y2="44"
+                            stroke={OUTLINE}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
+                        <line
+                            x1="24"
+                            y1="37"
+                            x2="16"
+                            y2="44"
+                            stroke={OUTLINE}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
                     </>
                 )}
 
                 {/* ── Wangenrouge (warm) ── */}
                 {isWarm && (
-                    <ellipse cx="14" cy="46" rx="4" ry="2.5" fill="#fca5a5" opacity="0.45" />
+                    <ellipse
+                        cx="14"
+                        cy="46"
+                        rx="4"
+                        ry="2.5"
+                        fill="#fca5a5"
+                        opacity="0.45"
+                    />
                 )}
 
                 <PetScarf
