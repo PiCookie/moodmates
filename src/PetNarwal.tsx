@@ -64,13 +64,13 @@ export function PetNarwal({
     return (
         <PetSvg
             size={size}
-            viewBoxWidth={120}
+            viewBoxWidth={128}
             shivering={isCold || isFrozen}
             ariaLabel={`Narwal-Pet: ${mood}`}
         >
-            <PetShadow cx={50} />
-            {/* translate(10, -1): Körper nach rechts verschoben, links Platz für Stoßzahn */}
-            <g transform="scale(1.40) translate(10, -1)">
+            <PetShadow cx={55} />
+            {/* translate(14, -1): Körper nach rechts verschoben, links Platz für langen Stoßzahn */}
+            <g transform="scale(1.40) translate(14, -1)">
                 <PetIcicles mood={mood} y={72} />
 
                 {/* ── Schwanzstiel + Schwanzflosse — hinter Körper ── */}
@@ -94,13 +94,13 @@ export function PetNarwal({
                     strokeLinejoin="round"
                 />
 
-                {/* ── Körper ── */}
+                {/* ── Körper (schlanker als Blauwal) ── */}
                 <path
-                    d="M4,46 Q4,21 34,28 Q47,31 56,43 Q62,50 53,53 Q39,59 19,56 Q7,54 4,46 Z"
+                    d="M4,45 Q4,24 34,30 Q47,33 56,44 Q62,50 53,52 Q39,56 19,53 Q7,52 4,45 Z"
                     fill={fur}
                 />
                 <path
-                    d="M60,50 Q42,59 19,56 Q7,54 4,46 Q4,21 34,28 Q47,31 57,43"
+                    d="M60,50 Q42,56 19,53 Q7,52 4,45 Q4,24 34,30 Q47,33 57,44"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
@@ -110,13 +110,13 @@ export function PetNarwal({
 
                 {/* ── Bauch ── */}
                 <path
-                    d="M5,46 Q19,52 42,50 Q33,59 16,54 Q7,53 5,46 Z"
+                    d="M5,45 Q19,51 42,49 Q33,56 16,52 Q7,51 5,45 Z"
                     fill={belly}
                 />
 
                 {/* ── Bauchstreifen ── */}
                 <path
-                    d="M13,49 Q21,53 30,52"
+                    d="M13,48 Q21,52 30,51"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
                     strokeLinecap="round"
@@ -124,7 +124,7 @@ export function PetNarwal({
                     opacity="0.4"
                 />
                 <path
-                    d="M14,53 Q24,57 34,54"
+                    d="M14,52 Q24,55 34,52"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
                     strokeLinecap="round"
@@ -134,7 +134,7 @@ export function PetNarwal({
 
                 {/* ── Flosse unten ── */}
                 <path
-                    d="M33,50 Q36,57 45,52 Q39,47 33,50 Z"
+                    d="M33,49 Q36,56 45,51 Q39,46 33,49 Z"
                     fill={fur}
                     stroke={OUTLINE}
                     strokeWidth="1.2"
@@ -143,16 +143,17 @@ export function PetNarwal({
 
                 {/* ── Stoßzahn — auf dem Körper gezeichnet, kommt aus dem Oberkiefer ── */}
                 <path
-                    d="M4,40.5 Q-2,37.5 -9,36.5 Q-2,40.5 4,44 Z"
+                    d="M4,40 Q-2,37 -13,35 Q-2,39.5 4,43.5 Z"
                     fill={TUSK}
                     stroke={OUTLINE}
                     strokeWidth="0.8"
                     strokeLinejoin="round"
                 />
-                {/* Spiralmarkierungen entlang des Stoßzahns */}
-                <line x1="1" y1="42" x2="-0.5" y2="39.5" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
-                <line x1="-2.5" y1="41" x2="-4" y2="38.5" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
-                <line x1="-5.5" y1="39.5" x2="-7" y2="37.5" stroke={TUSK_SPIRAL} strokeWidth="0.6" strokeLinecap="round" />
+                {/* Spiralmarkierungen gleichmäßig entlang des Stoßzahns */}
+                <line x1="1.5" y1="41.5" x2="0" y2="39" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
+                <line x1="-2" y1="40.5" x2="-3.5" y2="38" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
+                <line x1="-5.5" y1="39" x2="-7" y2="37" stroke={TUSK_SPIRAL} strokeWidth="0.7" strokeLinecap="round" />
+                <line x1="-9" y1="37.5" x2="-10.5" y2="36" stroke={TUSK_SPIRAL} strokeWidth="0.6" strokeLinecap="round" />
 
                 {/* ── Blasloch ── */}
                 <ellipse
@@ -310,7 +311,7 @@ export function PetNarwal({
                 {isWarm && (
                     <ellipse
                         cx="18"
-                        cy="47"
+                        cy="46"
                         rx="4"
                         ry="2.5"
                         fill="#fca5a5"
@@ -321,10 +322,10 @@ export function PetNarwal({
                 <PetScarf
                     mood={mood}
                     x={4}
-                    y={52}
+                    y={50}
                     width={28}
                     knotCx={32}
-                    knotCy={56}
+                    knotCy={54}
                 />
             </g>
         </PetSvg>
