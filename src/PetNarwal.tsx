@@ -79,7 +79,7 @@ export function PetNarwal({
                     fill={fur}
                 />
                 <path
-                    d="M56,44 Q62,40 65,38 Q64,50 57,51 Q55,52 53,53"
+                    d="M56,44 Q62,40 65,38 Q64,50 57,51 Q55,52"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.2"
