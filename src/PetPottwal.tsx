@@ -229,8 +229,8 @@ export function PetPottwal({
                         <line
                             x1="19"
                             y1="43"
-                            x2="12"
-                            y2="45"
+                            x2="4"
+                            y2="41"
                             stroke={OUTLINE}
                             strokeWidth="1.5"
                             strokeLinecap="round"

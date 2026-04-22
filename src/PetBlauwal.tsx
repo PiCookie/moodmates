@@ -252,8 +252,8 @@ export function PetBlauwal({
                         <line
                             x1="13"
                             y1="41"
-                            x2="6"
-                            y2="43"
+                            x2="5"
+                            y2="40"
                             stroke={OUTLINE}
                             strokeWidth="1.5"
                             strokeLinecap="round"
