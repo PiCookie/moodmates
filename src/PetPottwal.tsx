@@ -1,8 +1,8 @@
 /**
- * Gen1-Style Wal Pet (Seitenansicht)
+ * Gen1-Style Pottwal Pet (Seitenansicht)
  *
- * Körperstruktur exakt vom Referenz-SVG (300×200) skaliert auf 66×88 viewBox.
- * Skalierungsfaktor 0.29, Zentrum des Originals (160, 117) → (33, 45).
+ * Körperstruktur identisch zum Blauwal.
+ * Farbe: dunkelgrau/anthrazit (Körper) + hellgrau (Bauch) — typische Pottwal-Färbung.
  *
  * Mood → temperature:
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Wasserfontäne
@@ -23,29 +23,29 @@ import {
     PetScarf,
 } from "./BasePet";
 
-const WAL_FUR: Record<Mood, string> = {
-    frozen: "#a8c4e0",
-    cold: "#78a8d0",
-    neutral: "#4878b8",
-    warm: "#2c5ca0",
+const POTTWAL_FUR: Record<Mood, string> = {
+    frozen: "#8a9aaa",
+    cold: "#5a6a78",
+    neutral: "#3a4a58",
+    warm: "#2a3840",
 };
 
-const WAL_BELLY: Record<Mood, string> = {
-    frozen: "#e4f0fc",
-    cold: "#c0d8f0",
-    neutral: "#98c4e8",
-    warm: "#70b0e0",
+const POTTWAL_BELLY: Record<Mood, string> = {
+    frozen: "#d8e0e8",
+    cold: "#b0bec8",
+    neutral: "#8898a8",
+    warm: "#6a7e90",
 };
 
-export function PetWal({
+export function PetPottwal({
     temperature,
     size = 80,
     blinking = false,
 }: PetProps) {
     const mood = getMood(temperature);
     const isHot = temperature !== null && temperature >= 28;
-    const fur = WAL_FUR[mood];
-    const belly = WAL_BELLY[mood];
+    const fur = POTTWAL_FUR[mood];
+    const belly = POTTWAL_BELLY[mood];
     const isWarm = mood === "warm";
     const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
@@ -55,7 +55,7 @@ export function PetWal({
             size={size}
             viewBoxWidth={104}
             shivering={isCold || isFrozen}
-            ariaLabel={`Wal-Pet: ${mood}`}
+            ariaLabel={`Pottwal-Pet: ${mood}`}
         >
             <PetShadow cx={33} />
             {/* Alles außer Schatten um 5% skaliert, leicht nach links/oben verschoben */}
