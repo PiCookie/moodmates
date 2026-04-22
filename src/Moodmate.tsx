@@ -34,6 +34,7 @@ import { PetAnkylosaurus }  from './PetAnkylosaurus';
 import { PetHai }          from './PetHai';
 import { PetBlauwal }      from './PetBlauwal';
 import { PetPottwal }      from './PetPottwal';
+import { PetKillerwal }    from './PetKillerwal';
 import { PetDelfin }       from './PetDelfin';
 import { PetKugelfisch }   from './PetKugelfisch';
 import { PetQualle }       from './PetQualle';
@@ -210,7 +211,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
 
   return (
     <div className="relative inline-flex flex-col items-center gap-1">
-      {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={petType === 'blue-whale' || petType === 'sperm-whale' ? size : undefined} />}
+      {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={petType === 'blue-whale' || petType === 'sperm-whale' || petType === 'killer-whale' ? size : undefined} />}
       <div
         className={`cursor-pointer${hopping && !shivering ? ' animate-hop' : ''}`}
         onClick={showSpeech}
@@ -247,8 +248,9 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {petType === 'pteranodon'     && <PetPteranodon    {...petProps} />}
         {petType === 'ankylosaurus'   && <PetAnkylosaurus  {...petProps} />}
         {petType === 'shark'      && <PetHai          {...petProps} />}
-        {petType === 'blue-whale'  && <PetBlauwal        {...petProps} />}
-        {petType === 'sperm-whale' && <PetPottwal        {...petProps} />}
+        {petType === 'blue-whale'   && <PetBlauwal        {...petProps} />}
+        {petType === 'sperm-whale'  && <PetPottwal        {...petProps} />}
+        {petType === 'killer-whale' && <PetKillerwal      {...petProps} />}
         {petType === 'dolphin'    && <PetDelfin        {...petProps} />}
         {petType === 'pufferfish' && <PetKugelfisch    {...petProps} />}
         {petType === 'jellyfish'  && <PetQualle        {...petProps} />}
