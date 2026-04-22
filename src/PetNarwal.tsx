@@ -133,17 +133,35 @@ export function PetNarwal({
                 />
                 {/* Spiralmarkierungen gleichmäßig entlang des Stoßzahns */}
                 <line
+                    x1="6.5"
+                    y1="39"
+                    x2="5"
+                    y2="37"
+                    stroke={TUSK_SPIRAL}
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                />
+                <line
+                    x1="3"
+                    y1="38"
+                    x2="1.5"
+                    y2="36.5"
+                    stroke={TUSK_SPIRAL}
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                />
+                <line
                     x1="-0.5"
-                    y1="38.5"
+                    y1="37"
                     x2="-2"
-                    y2="36"
+                    y2="35.5"
                     stroke={TUSK_SPIRAL}
                     strokeWidth="0.7"
                     strokeLinecap="round"
                 />
                 <line
                     x1="-4"
-                    y1="37.5"
+                    y1="36"
                     x2="-5.5"
                     y2="35"
                     stroke={TUSK_SPIRAL}
@@ -152,20 +170,11 @@ export function PetNarwal({
                 />
                 <line
                     x1="-7.5"
-                    y1="36"
+                    y1="35"
                     x2="-9"
-                    y2="34"
+                    y2="34.5"
                     stroke={TUSK_SPIRAL}
                     strokeWidth="0.7"
-                    strokeLinecap="round"
-                />
-                <line
-                    x1="-11"
-                    y1="34.5"
-                    x2="-12.5"
-                    y2="33"
-                    stroke={TUSK_SPIRAL}
-                    strokeWidth="0.6"
                     strokeLinecap="round"
                 />
 
