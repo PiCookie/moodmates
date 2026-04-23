@@ -76,7 +76,7 @@ export function PetClownfisch({
             />
 
             {/* ── Weißer Streifen 1 (Kopf-Körper-Übergang) ── */}
-            <path d="M26,33 Q29,30 32,33 L32,53 Q29,56 26,53 Z" fill="white" />
+            <path d="M26,29 Q29,28 32,30 L32,56 Q29,58 26,57 Z" fill="white" />
 
             {/* ── Weißer Streifen 2 (Körpermitte) ── */}
             <path d="M36,31 Q39,31 42,35 L42,52 Q39,57 36,55 Z" fill="white" />
@@ -91,7 +91,7 @@ export function PetClownfisch({
 
             {/* ── Streifen-Outlines ── */}
             <path
-                d="M26,33 Q29,30 32,33 L32,53 Q29,56 26,53 Z"
+                d="M26,29 Q29,28 32,30 L32,56 Q29,58 26,57 Z"
                 fill="none"
                 stroke={OUTLINE}
                 strokeWidth="0.9"
@@ -225,7 +225,7 @@ export function PetClownfisch({
             <path
                 d={
                     mood === "neutral" || isWarm
-                        ? "M13,45 Q16,49 19,46"
+                        ? "M13,47 Q16,49 19,46"
                         : "M13,47 Q16,44 19,47"
                 }
                 fill="none"
@@ -237,7 +237,7 @@ export function PetClownfisch({
             {/* ── Wangenrouge (warm) ── */}
             {isWarm && (
                 <ellipse
-                    cx="16"
+                    cx="22"
                     cy="47"
                     rx="3.5"
                     ry="2"
