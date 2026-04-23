@@ -25,9 +25,9 @@ import {
 
 const CLOWN_FUR: Record<Mood, string> = {
     frozen: "#fed7aa",
-    cold:   "#c2410c",
+    cold: "#c2410c",
     neutral: "#ea580c",
-    warm:   "#f97316",
+    warm: "#f97316",
 };
 
 export function PetClownfisch({
@@ -53,7 +53,7 @@ export function PetClownfisch({
 
             {/* ── Schwanzflosse — hinter Körper ── */}
             <path
-                d="M46,36 Q53,29 56,26 Q58,38 56,52 Q53,49 46,42 Z"
+                d="M46,39 Q53,32 56,29 Q58,41 56,55 Q53,52 46,45 Z"
                 fill={fur}
                 stroke={OUTLINE}
                 strokeWidth="1.3"
@@ -76,16 +76,10 @@ export function PetClownfisch({
             />
 
             {/* ── Weißer Streifen 1 (Kopf-Körper-Übergang) ── */}
-            <path
-                d="M21,33 Q24,30 27,33 L27,53 Q24,56 21,53 Z"
-                fill="white"
-            />
+            <path d="M24,33 Q27,30 30,33 L30,53 Q27,56 24,53 Z" fill="white" />
 
             {/* ── Weißer Streifen 2 (Körpermitte) ── */}
-            <path
-                d="M36,30 Q39,29 42,31 L42,55 Q39,57 36,55 Z"
-                fill="white"
-            />
+            <path d="M36,31 Q39,31 42,35 L42,52 Q39,57 36,55 Z" fill="white" />
 
             {/* ── Körper-Outline (überdeckt Streifenrand an der Kante) ── */}
             <path
@@ -97,16 +91,16 @@ export function PetClownfisch({
 
             {/* ── Streifen-Outlines ── */}
             <path
-                d="M21,33 Q24,30 27,33 L27,53 Q24,56 21,53 Z"
+                d="M24,33 Q27,30 30,33 L30,53 Q27,56 24,53 Z"
                 fill="none"
                 stroke={OUTLINE}
                 strokeWidth="0.9"
             />
             <path
-                d="M36,30 Q39,29 42,31 L42,55 Q39,57 36,55 Z"
+                d="M36,31 Q39,31 42,35 L42,52 Q39,57 36,55 Z"
                 fill="none"
                 stroke={OUTLINE}
-                strokeWidth="0.9"
+                strokeWidth="0.7"
             />
 
             {/* ── Brustflosse ── */}
@@ -118,7 +112,11 @@ export function PetClownfisch({
                 strokeLinejoin="round"
             />
 
-            <PetSnowflakes mood={mood} left={{ x: 2, y: 34 }} right={{ x: 54, y: 27 }} />
+            <PetSnowflakes
+                mood={mood}
+                left={{ x: 2, y: 34 }}
+                right={{ x: 54, y: 27 }}
+            />
             <PetSun mood={mood} />
             <PetSweat isHot={isHot} y={20} />
 
@@ -126,22 +124,48 @@ export function PetClownfisch({
             {(mood === "neutral" || isWarm) &&
                 (blinking ? (
                     <line
-                        x1="12" y1="40" x2="20" y2="40"
-                        stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round"
+                        x1="15"
+                        y1="40"
+                        x2="23"
+                        y2="40"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
                     />
                 ) : (
                     <>
-                        <circle cx="16" cy="40" r="4.5" fill={OUTLINE} />
-                        <circle cx="17" cy="39" r="1.5" fill="white" opacity="0.65" />
+                        <circle cx="19" cy="40" r="4.5" fill={OUTLINE} />
+                        <circle
+                            cx="20"
+                            cy="39"
+                            r="1.5"
+                            fill="white"
+                            opacity="0.65"
+                        />
                     </>
                 ))}
 
             {/* ── Sonnenbrille (warm) ── */}
             {isWarm && (
                 <>
-                    <rect x="9" y="36" width="13" height="9" rx="2.5" fill={OUTLINE} opacity="0.9" />
-                    <rect x="10" y="37" width="11" height="7" rx="2" fill="#1e3a5f" />
-                    <circle cx="16" cy="40" r="2" fill="white" opacity="0.15" />
+                    <rect
+                        x="12"
+                        y="36"
+                        width="13"
+                        height="9"
+                        rx="2.5"
+                        fill={OUTLINE}
+                        opacity="0.9"
+                    />
+                    <rect
+                        x="13"
+                        y="37"
+                        width="11"
+                        height="7"
+                        rx="2"
+                        fill="#1e3a5f"
+                    />
+                    <circle cx="19" cy="40" r="2" fill="white" opacity="0.15" />
                 </>
             )}
 
@@ -149,11 +173,20 @@ export function PetClownfisch({
             {isCold && (
                 <>
                     <path
-                        d="M11,36 Q16,32 21,36"
-                        stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" fill="none"
+                        d="M14,36 Q19,32 24,36"
+                        stroke={OUTLINE}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
                     />
-                    <circle cx="16" cy="40" r="4.5" fill={OUTLINE} />
-                    <circle cx="17" cy="39" r="1.5" fill="white" opacity="0.65" />
+                    <circle cx="19" cy="40" r="4.5" fill={OUTLINE} />
+                    <circle
+                        cx="20"
+                        cy="39"
+                        r="1.5"
+                        fill="white"
+                        opacity="0.65"
+                    />
                 </>
             )}
 
@@ -161,17 +194,40 @@ export function PetClownfisch({
             {isFrozen && (
                 <>
                     <path
-                        d="M11,36 Q16,32 21,36"
-                        stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" fill="none"
+                        d="M14,36 Q19,32 24,36"
+                        stroke={OUTLINE}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
                     />
-                    <line x1="12" y1="37" x2="20" y2="45" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-                    <line x1="20" y1="37" x2="12" y2="45" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                    <line
+                        x1="15"
+                        y1="37"
+                        x2="23"
+                        y2="45"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                    <line
+                        x1="23"
+                        y1="37"
+                        x2="15"
+                        y2="45"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
                 </>
             )}
 
             {/* ── Mund ── */}
             <path
-                d={mood === "neutral" || isWarm ? "M10,45 Q13,49 16,46" : "M10,47 Q13,44 16,47"}
+                d={
+                    mood === "neutral" || isWarm
+                        ? "M13,45 Q16,49 19,46"
+                        : "M13,47 Q16,44 19,47"
+                }
                 fill="none"
                 stroke={OUTLINE}
                 strokeWidth="1.2"
@@ -180,7 +236,14 @@ export function PetClownfisch({
 
             {/* ── Wangenrouge (warm) ── */}
             {isWarm && (
-                <ellipse cx="13" cy="47" rx="3.5" ry="2" fill="#fca5a5" opacity="0.5" />
+                <ellipse
+                    cx="16"
+                    cy="47"
+                    rx="3.5"
+                    ry="2"
+                    fill="#fca5a5"
+                    opacity="0.5"
+                />
             )}
 
             <PetScarf
