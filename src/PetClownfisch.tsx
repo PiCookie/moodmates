@@ -76,7 +76,7 @@ export function PetClownfisch({
             />
 
             {/* ── Weißer Streifen 1 (Kopf-Körper-Übergang) ── */}
-            <path d="M24,33 Q27,30 30,33 L30,53 Q27,56 24,53 Z" fill="white" />
+            <path d="M26,33 Q29,30 32,33 L32,53 Q29,56 26,53 Z" fill="white" />
 
             {/* ── Weißer Streifen 2 (Körpermitte) ── */}
             <path d="M36,31 Q39,31 42,35 L42,52 Q39,57 36,55 Z" fill="white" />
@@ -91,7 +91,7 @@ export function PetClownfisch({
 
             {/* ── Streifen-Outlines ── */}
             <path
-                d="M24,33 Q27,30 30,33 L30,53 Q27,56 24,53 Z"
+                d="M26,33 Q29,30 32,33 L32,53 Q29,56 26,53 Z"
                 fill="none"
                 stroke={OUTLINE}
                 strokeWidth="0.9"
