@@ -287,7 +287,7 @@ export function PetNarwal({
                             x1="13"
                             y1="41"
                             x2="5"
-                            y2="40"
+                            y2="36"
                             stroke={OUTLINE}
                             strokeWidth="1.5"
                             strokeLinecap="round"
