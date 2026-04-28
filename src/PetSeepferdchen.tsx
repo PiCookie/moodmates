@@ -262,7 +262,7 @@ export function PetSeepferdchen({
 
             {/* ── Schnauze (nach links-oben, konisch zulaufend) ── */}
             <path
-                d="M23,19 Q18,20 12,19 Q12,25 13,24 Q19,23 23,25 Z"
+                d="M23,19 Q18,20 12,19 Q12,25 13,24 Q19,23 23,25"
                 fill={fur}
                 stroke={OUTLINE}
                 strokeWidth="1"
@@ -341,10 +341,18 @@ export function PetSeepferdchen({
                             opacity="0.15"
                         />
                         <line
+                            x1="22"
+                            y1="18"
+                            x2="27"
+                            y2="20"
+                            stroke={OUTLINE}
+                            strokeWidth="1.2"
+                        />
+                        <line
                             x1="37.5"
                             y1="22"
-                            x2="45"
-                            y2="24"
+                            x2="41"
+                            y2="22"
                             stroke={OUTLINE}
                             strokeWidth="1.2"
                         />
@@ -352,8 +360,8 @@ export function PetSeepferdchen({
                 ))}
             {isWarm && (
                 <ellipse
-                    cx="24"
-                    cy="30"
+                    cx="28"
+                    cy="26"
                     rx="4"
                     ry="2.5"
                     fill="#fca5a5"
