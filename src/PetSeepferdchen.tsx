@@ -201,14 +201,14 @@ export function PetSeepferdchen({
             {/* ── Eingerollter Schwanz ── */}
             <g mask={`url(#${tailMaskId})`}>
                 <path
-                    d="M34,58 Q34,76 21,78 Q12,76 14,65"
+                    d="M34,61 Q34,77 24,78 Q17,76 18,68"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="7"
                     strokeLinecap="round"
                 />
                 <path
-                    d="M34,58 Q34,76 21,78 Q12,76 14,65"
+                    d="M34,61 Q34,77 24,78 Q17,76 18,68"
                     fill="none"
                     stroke={fur}
                     strokeWidth="4"
