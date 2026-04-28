@@ -204,6 +204,47 @@ export function PetSeepferdchen({
                 />
             </g>
 
+            {/* ── Körperkamm (Rückengrat, rechts) ── */}
+            {/*     <path
+                d="M41,30 Q51,34 41,38 Z"
+                fill={crown}
+                stroke={OUTLINE}
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+            /> */}
+            <path
+                d="M42,14 Q54,18 42,22 Z"
+                fill={crown}
+                stroke={OUTLINE}
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+                transform="rotate(-90 34 21)"
+            />
+            <path
+                d="M42,14 Q54,18 42,22 Z"
+                fill={crown}
+                stroke={OUTLINE}
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+                transform="rotate(-30 40 23)"
+            />
+            <path
+                d="M42,23 Q54,27 42,31 Z"
+                fill={crown}
+                stroke={OUTLINE}
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+                transform="rotate(20 40 23)"
+            />
+            <path
+                d="M39,33 Q49,37 39,41 Z"
+                fill={crown}
+                stroke={OUTLINE}
+                strokeWidth="0.8"
+                strokeLinejoin="round"
+                transform="rotate(-20 40 33)"
+            />
+
             {/* ── Brustflosse (klein, links) ── */}
             <ellipse
                 cx="21"
@@ -217,13 +258,13 @@ export function PetSeepferdchen({
             />
 
             {/* ── Krone / Kamm (organische Bezier-Zacken, größer) ── */}
-            <path
+            {/*       <path
                 d="M20,17 Q17,6 23,14 Q23,4 28,13 Q29,3 32,12 Q35,4 38,13 Q39,5 43,15 Q43,18 20,17 Z"
                 fill={crown}
                 stroke={OUTLINE}
                 strokeWidth="1"
                 strokeLinejoin="round"
-            />
+            /> */}
 
             {/* ── Kopf ── */}
             <circle
