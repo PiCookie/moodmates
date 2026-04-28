@@ -237,13 +237,21 @@ export function PetSeepferdchen({
 
             {/* ── Schnauze (nach links-oben, konisch zulaufend) ── */}
             <path
-                d="M23,20 Q13,15 5,19 Q5,23 12,24 Q19,25 23,23 Z"
+                d="M23,19 Q18,20 12,19 Q12,25 13,24 Q19,23 23,25 Z"
                 fill={fur}
                 stroke={OUTLINE}
                 strokeWidth="1"
                 strokeLinejoin="round"
             />
-            <circle cx="5" cy="21" r="1.5" fill={OUTLINE} opacity="0.45" />
+            <circle
+                cx="8"
+                cy="22"
+                r="5"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.5"
+            />
+            <circle cx="8" cy="22" r="3" fill={OUTLINE} opacity="0.45" />
 
             <PetSnowflakes
                 mood={mood}
@@ -257,9 +265,9 @@ export function PetSeepferdchen({
             {mood === "neutral" &&
                 (blinking ? (
                     <line
-                        x1="39"
+                        x1="36"
                         y1="22"
-                        x2="31"
+                        x2="28"
                         y2="22"
                         stroke={OUTLINE}
                         strokeWidth="2.5"
@@ -267,9 +275,9 @@ export function PetSeepferdchen({
                     />
                 ) : (
                     <>
-                        <circle cx="35" cy="22" r="5" fill={OUTLINE} />
+                        <circle cx="32" cy="22" r="5" fill={OUTLINE} />
                         <circle
-                            cx="37"
+                            cx="34"
                             cy="20"
                             r="1.8"
                             fill="white"
@@ -282,9 +290,9 @@ export function PetSeepferdchen({
             {isWarm &&
                 (blinking ? (
                     <line
-                        x1="39"
+                        x1="36"
                         y1="22"
-                        x2="31"
+                        x2="28"
                         y2="22"
                         stroke={OUTLINE}
                         strokeWidth="2.5"
@@ -293,24 +301,24 @@ export function PetSeepferdchen({
                 ) : (
                     <>
                         <circle
-                            cx="35"
+                            cx="32"
                             cy="22"
                             r="5.5"
                             fill={OUTLINE}
                             opacity="0.9"
                         />
-                        <circle cx="35" cy="22" r="4.5" fill="#1e3a5f" />
+                        <circle cx="32" cy="22" r="4.5" fill="#1e3a5f" />
                         <circle
-                            cx="37"
+                            cx="34"
                             cy="20"
                             r="1.5"
                             fill="white"
                             opacity="0.15"
                         />
                         <line
-                            x1="40.5"
+                            x1="37.5"
                             y1="22"
-                            x2="48"
+                            x2="45"
                             y2="24"
                             stroke={OUTLINE}
                             strokeWidth="1.2"
@@ -332,15 +340,15 @@ export function PetSeepferdchen({
             {isCold && (
                 <>
                     <path
-                        d="M40,16 Q35,13 30,16"
+                        d="M37,16 Q32,13 27,16"
                         stroke={OUTLINE}
                         strokeWidth="2"
                         strokeLinecap="round"
                         fill="none"
                     />
-                    <circle cx="35" cy="22" r="5" fill={OUTLINE} />
+                    <circle cx="32" cy="22" r="5" fill={OUTLINE} />
                     <circle
-                        cx="37"
+                        cx="34"
                         cy="20"
                         r="1.8"
                         fill="white"
@@ -353,25 +361,25 @@ export function PetSeepferdchen({
             {isFrozen && (
                 <>
                     <path
-                        d="M40,16 Q35,13 30,16"
+                        d="M37,16 Q32,13 27,16"
                         stroke={OUTLINE}
                         strokeWidth="2"
                         strokeLinecap="round"
                         fill="none"
                     />
                     <line
-                        x1="39"
+                        x1="36"
                         y1="18"
-                        x2="31"
+                        x2="28"
                         y2="26"
                         stroke={OUTLINE}
                         strokeWidth="2.5"
                         strokeLinecap="round"
                     />
                     <line
-                        x1="31"
+                        x1="28"
                         y1="18"
-                        x2="39"
+                        x2="36"
                         y2="26"
                         stroke={OUTLINE}
                         strokeWidth="2.5"
