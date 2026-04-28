@@ -1,157 +1,393 @@
 /**
- * Gen1-Style Seepferdchen Pet
+ * Gen1-Style Seepferdchen Pet (Seitenansicht, nach links)
  *
- * Erkennungsmerkmale: Aufrechte Körperhaltung, Krone/Kamm oben
- * (Hauptmerkmal), langer Schnauzenröhren, segmentierter Körper,
- * eingerollter Schwanz unten.
+ * Erkennungsmerkmale: einzelnes großes Auge, organischer Kamm oben,
+ * geschwungene Körpersegmente, Fächerflosse, eingerollter Schwanz.
  *
  * Schichten (hinten → vorne):
- *   Schwanz → Körper → Rückenflosse → Kopf → Krone → Gesicht
+ *   Schwanz → Körper → Rückenflosse → Brustflosse → Kopf → Krone → Gesicht
  *
  * Mood → temperature:
- *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
- *   neutral  8–22 °C  runde Augen, entspannter Ausdruck
- *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
- *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
+ *   warm    ≥ 22 °C  Mono-Sonnenbrille + Wangenrouge
+ *   neutral  8–22 °C  einzelnes rundes Auge
+ *   cold     0–8 °C  besorgte Braue, Schal, Schneeflocken, Zittern
+ *   frozen    < 0 °C  X-Auge, Eiszapfen, Schal, starkes Zittern
  */
 
-import { useId } from 'react';
-import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { useId } from "react";
+import type { Mood, PetProps } from "./pet.shared";
+import { getMood, OUTLINE } from "./pet.shared";
 import {
-  PetSvg, PetShadow, PetIcicles, PetSun,
-  PetSweat, PetSnowflakes, PetScarf, PetBlush,
-  PetSunglasses, PetFrozenEyes, PetWorriedBrows,
-} from './BasePet';
+    PetSvg,
+    PetShadow,
+    PetIcicles,
+    PetSun,
+    PetSweat,
+    PetSnowflakes,
+    PetScarf,
+} from "./BasePet";
 
 const SEE_FUR: Record<Mood, string> = {
-  frozen:  '#bfdbfe',
-  cold:    '#93c5fd',
-  neutral: '#f59e0b',
-  warm:    '#d97706',
+    frozen: "#bfdbfe",
+    cold: "#93c5fd",
+    neutral: "#f59e0b",
+    warm: "#d97706",
 };
 
 const SEE_BELLY: Record<Mood, string> = {
-  frozen:  '#eff6ff',
-  cold:    '#dbeafe',
-  neutral: '#fde68a',
-  warm:    '#fcd34d',
+    frozen: "#eff6ff",
+    cold: "#dbeafe",
+    neutral: "#fde68a",
+    warm: "#fcd34d",
 };
 
 const SEE_CROWN: Record<Mood, string> = {
-  frozen:  '#6366f1',
-  cold:    '#2563eb',
-  neutral: '#92400e',
-  warm:    '#78350f',
+    frozen: "#6366f1",
+    cold: "#2563eb",
+    neutral: "#92400e",
+    warm: "#78350f",
 };
 
-export function PetSeepferdchen({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood   = getMood(temperature);
-  const isHot  = temperature !== null && temperature >= 28;
-  const fur    = SEE_FUR[mood];
-  const belly  = SEE_BELLY[mood];
-  const crown  = SEE_CROWN[mood];
-  const clipId = useId();
+// Körperform: birnenförmig, Bauch links, Rücken rechts, beginnt bei y=33 (Kopf-Unterkante)
+const BODY =
+    "M23,33 Q13,42 14,52 Q15,61 24,65 Q28,67 32,64 Q40,60 43,51 Q43,42 37,33 Z";
 
-  return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Seepferdchen-Pet: ${mood}`}>
-      <defs>
-        <clipPath id={clipId}>
-          <ellipse cx="32" cy="54" rx="13" ry="16" />
-        </clipPath>
-      </defs>
+export function PetSeepferdchen({
+    temperature,
+    size = 80,
+    blinking = false,
+}: PetProps) {
+    const mood = getMood(temperature);
+    const isHot = temperature !== null && temperature >= 28;
+    const fur = SEE_FUR[mood];
+    const belly = SEE_BELLY[mood];
+    const crown = SEE_CROWN[mood];
+    const isWarm = mood === "warm";
+    const isCold = mood === "cold";
+    const isFrozen = mood === "frozen";
+    const clipId = useId();
 
-      <PetShadow cx={32} />
-      <PetIcicles mood={mood} y={77} />
+    return (
+        <PetSvg
+            size={size}
+            shivering={isCold || isFrozen}
+            ariaLabel={`Seepferdchen-Pet: ${mood}`}
+        >
+            <defs>
+                <clipPath id={clipId}>
+                    <path d={BODY} />
+                </clipPath>
+            </defs>
 
-      {/* ── Eingerollter Schwanz (unten, Erkennungsmerkmal) ── */}
-      <path d="M32,68 Q44,72 42,78 Q40,83 34,80 Q30,78 32,74" fill="none" stroke={fur} strokeWidth="5" strokeLinecap="round" />
-      <path d="M32,68 Q44,72 42,78 Q40,83 34,80 Q30,78 32,74" fill="none" stroke={OUTLINE} strokeWidth="6" strokeLinecap="round" />
-      <path d="M32,68 Q44,72 42,78 Q40,83 34,80 Q30,78 32,74" fill="none" stroke={fur} strokeWidth="4" strokeLinecap="round" />
+            <PetShadow cx={32} />
+            <PetIcicles mood={mood} y={68} />
 
-      {/* ── Körper (oval, segmentiert) ── */}
-      <ellipse cx="32" cy="54" rx="13" ry="16" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
-      <ellipse cx="32" cy="56" rx="8"  ry="11" fill={belly} />
+            {/* ── Eingerollter Schwanz ── */}
+            <path
+                d="M28,65 Q22,74 14,72 Q8,68 11,61"
+                fill="none"
+                stroke={OUTLINE}
+                strokeWidth="6.5"
+                strokeLinecap="round"
+            />
+            <path
+                d="M28,65 Q22,74 14,72 Q8,68 11,61"
+                fill="none"
+                stroke={fur}
+                strokeWidth="4.5"
+                strokeLinecap="round"
+            />
 
-      {/* ── Körper-Segmente (horizontal, geclippt) ── */}
-      <g clipPath={`url(#${clipId})`}>
-        <line x1="10" y1="46" x2="54" y2="46" stroke={crown} strokeWidth="1" opacity="0.35" />
-        <line x1="10" y1="51" x2="54" y2="51" stroke={crown} strokeWidth="1" opacity="0.35" />
-        <line x1="10" y1="56" x2="54" y2="56" stroke={crown} strokeWidth="1" opacity="0.35" />
-        <line x1="10" y1="61" x2="54" y2="61" stroke={crown} strokeWidth="1" opacity="0.35" />
-        <line x1="10" y1="66" x2="54" y2="66" stroke={crown} strokeWidth="1" opacity="0.35" />
-      </g>
+            {/* ── Körper ── */}
+            <path d={BODY} fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+            {/* Bauch (heller, linke Seite) */}
+            <path
+                d="M23,34 Q15,43 16,52 Q17,60 23,64 Q27,66 30,63 Q33,58 32,50 Q31,43 27,36 Z"
+                fill={belly}
+            />
 
-      {/* ── Rückenflosse (rechte Seite, dünn) ── */}
-      <path d="M44,44 Q54,50 52,58 Q50,64 44,62" fill={fur} stroke={OUTLINE} strokeWidth="1.2" strokeLinejoin="round" />
+            {/* ── Körper-Segmente (organische Bögen, geclippt) ── */}
+            <g clipPath={`url(#${clipId})`}>
+                <path
+                    d="M13,41 Q28,38 43,41"
+                    fill="none"
+                    stroke={crown}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                />
+                <path
+                    d="M13,47 Q28,44 43,47"
+                    fill="none"
+                    stroke={crown}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                />
+                <path
+                    d="M13,53 Q28,50 43,53"
+                    fill="none"
+                    stroke={crown}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                />
+                <path
+                    d="M14,59 Q28,56 42,59"
+                    fill="none"
+                    stroke={crown}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                />
+                <path
+                    d="M16,64 Q28,61 41,64"
+                    fill="none"
+                    stroke={crown}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                />
+            </g>
 
-      {/* ── Kleine Brustflossen ── */}
-      <ellipse cx="18" cy="50" rx="5" ry="3" fill={fur} stroke={OUTLINE} strokeWidth="1" transform="rotate(15 18 50)" />
+            {/* ── Rückenflosse (Fächer, rechts) ── */}
+            <path
+                d="M43,40 Q57,43 59,51 Q57,60 43,60"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+            />
+            <line
+                x1="43"
+                y1="40"
+                x2="58"
+                y2="46"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="43"
+                y1="44"
+                x2="59"
+                y2="51"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="43"
+                y1="48"
+                x2="59"
+                y2="53"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="43"
+                y1="52"
+                x2="58"
+                y2="57"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="43"
+                y1="56"
+                x2="56"
+                y2="60"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
 
-      {/* ── Kopf ── */}
-      <circle cx="32" cy="32" r="12" fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
+            {/* ── Brustflosse (klein, links) ── */}
+            <ellipse
+                cx="17"
+                cy="46"
+                rx="5"
+                ry="3"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="0.8"
+                transform="rotate(-20 17 46)"
+            />
 
-      {/* ── Krone / Kamm (Hauptmerkmal) ── */}
-      <path d="M22,24 L24,14 L27,22 L30,12 L32,21 L34,12 L37,22 L40,14 L42,24"
-        fill={crown} stroke={OUTLINE} strokeWidth="1" strokeLinejoin="round" />
+            {/* ── Krone / Kamm (organische Bezier-Zacken, größer) ── */}
+            <path
+                d="M20,17 Q17,6 23,14 Q23,4 28,13 Q29,3 32,12 Q35,4 38,13 Q39,5 43,15 Q43,18 20,17 Z"
+                fill={crown}
+                stroke={OUTLINE}
+                strokeWidth="1"
+                strokeLinejoin="round"
+            />
 
-      <PetSnowflakes mood={mood} left={{ x: 2, y: 22 }} right={{ x: 55, y: 22 }} />
-      <PetSun mood={mood} />
-      <PetSweat isHot={isHot} y={10} />
+            {/* ── Kopf ── */}
+            <circle
+                cx="31"
+                cy="23"
+                r="10"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.5"
+            />
 
-      {/* ── Schnauzenröhren (lang, nach vorne) ── */}
-      <path d="M40,36 Q50,38 52,40" stroke={fur} strokeWidth="4" strokeLinecap="round" fill="none" />
-      <path d="M40,36 Q50,38 52,40" stroke={OUTLINE} strokeWidth="5" strokeLinecap="round" fill="none" />
-      <path d="M40,36 Q50,38 52,40" stroke={fur} strokeWidth="3" strokeLinecap="round" fill="none" />
-      {/* Nasenspitze */}
-      <circle cx="52" cy="40" r="2" fill={OUTLINE} opacity="0.7" />
+            {/* ── Schnauze (nach links-oben, konisch zulaufend) ── */}
+            <path
+                d="M23,20 Q13,15 5,19 Q5,23 12,24 Q19,25 23,23 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1"
+                strokeLinejoin="round"
+            />
+            <circle cx="5" cy="21" r="1.5" fill={OUTLINE} opacity="0.45" />
 
-      {/* ── Augen ── */}
-      {mood === 'neutral' && (blinking ? (
-        <>
-          <line x1="22" y1="31" x2="29" y2="31" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-          <line x1="35" y1="31" x2="40" y2="31" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
-        </>
-      ) : (
-        <>
-          <circle cx="26" cy="31" r="3.5" fill={OUTLINE} />
-          <circle cx="38" cy="31" r="3.5" fill={OUTLINE} />
-          <circle cx="24.8" cy="29.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="36.8" cy="29.8" r="1.2" fill="white" opacity="0.65" />
-        </>
-      ))}
+            <PetSnowflakes
+                mood={mood}
+                left={{ x: 2, y: 20 }}
+                right={{ x: 54, y: 14 }}
+            />
+            <PetSun mood={mood} />
+            <PetSweat isHot={isHot} y={10} />
 
-      <PetSunglasses
-        mood={mood}
-        frame={{ y: 24, w: 13, h: 13, rx: 4 }}
-        leftX={16} rightX={33}
-        leftTemple={[16, 31, 8, 34]}
-        rightTemple={[46, 31, 54, 34]}
-      />
+            {/* ── Einzelnes Auge (neutral) ── */}
+            {mood === "neutral" &&
+                (blinking ? (
+                    <line
+                        x1="39"
+                        y1="22"
+                        x2="31"
+                        y2="22"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                ) : (
+                    <>
+                        <circle cx="35" cy="22" r="5" fill={OUTLINE} />
+                        <circle
+                            cx="37"
+                            cy="20"
+                            r="1.8"
+                            fill="white"
+                            opacity="0.65"
+                        />
+                    </>
+                ))}
 
-      <PetWorriedBrows
-        mood={mood}
-        leftBrow={{ x1: 19, y1: 24, x2: 29, y2: 28 }}
-        rightBrow={{ x1: 35, y1: 28, x2: 45, y2: 24 }}
-      />
-      {mood === 'cold' && (
-        <>
-          <circle cx="26" cy="32" r="3.5" fill={OUTLINE} />
-          <circle cx="38" cy="32" r="3.5" fill={OUTLINE} />
-          <circle cx="24.8" cy="30.8" r="1.2" fill="white" opacity="0.65" />
-          <circle cx="36.8" cy="30.8" r="1.2" fill="white" opacity="0.65" />
-        </>
-      )}
+            {/* ── Mono-Sonnenbrille (warm) ── */}
+            {isWarm &&
+                (blinking ? (
+                    <line
+                        x1="39"
+                        y1="22"
+                        x2="31"
+                        y2="22"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                ) : (
+                    <>
+                        <circle
+                            cx="35"
+                            cy="22"
+                            r="5.5"
+                            fill={OUTLINE}
+                            opacity="0.9"
+                        />
+                        <circle cx="35" cy="22" r="4.5" fill="#1e3a5f" />
+                        <circle
+                            cx="37"
+                            cy="20"
+                            r="1.5"
+                            fill="white"
+                            opacity="0.15"
+                        />
+                        <line
+                            x1="40.5"
+                            y1="22"
+                            x2="48"
+                            y2="24"
+                            stroke={OUTLINE}
+                            strokeWidth="1.2"
+                        />
+                    </>
+                ))}
+            {isWarm && (
+                <ellipse
+                    cx="24"
+                    cy="30"
+                    rx="4"
+                    ry="2.5"
+                    fill="#fca5a5"
+                    opacity="0.5"
+                />
+            )}
 
-      <PetFrozenEyes
-        mood={mood}
-        leftBox={{ l: 19, t: 24, r: 33, b: 38 }}
-        rightBox={{ l: 31, t: 24, r: 45, b: 38 }}
-      />
+            {/* ── Besorgte Braue + Auge (cold) ── */}
+            {isCold && (
+                <>
+                    <path
+                        d="M40,16 Q35,13 30,16"
+                        stroke={OUTLINE}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <circle cx="35" cy="22" r="5" fill={OUTLINE} />
+                    <circle
+                        cx="37"
+                        cy="20"
+                        r="1.8"
+                        fill="white"
+                        opacity="0.65"
+                    />
+                </>
+            )}
 
-      <PetBlush mood={mood} leftCx={19} rightCx={45} cy={38} rx={4} ry={3} />
+            {/* ── X-Auge (frozen) ── */}
+            {isFrozen && (
+                <>
+                    <path
+                        d="M40,16 Q35,13 30,16"
+                        stroke={OUTLINE}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <line
+                        x1="39"
+                        y1="18"
+                        x2="31"
+                        y2="26"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                    <line
+                        x1="31"
+                        y1="18"
+                        x2="39"
+                        y2="26"
+                        stroke={OUTLINE}
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                    />
+                </>
+            )}
 
-      <PetScarf mood={mood} x={17} y={44} width={30} knotCx={46} knotCy={49} />
-    </PetSvg>
-  );
+            <PetScarf
+                mood={mood}
+                x={16}
+                y={33}
+                width={28}
+                knotCx={44}
+                knotCy={37}
+            />
+        </PetSvg>
+    );
 }
