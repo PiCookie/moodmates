@@ -50,7 +50,7 @@ const SEE_CROWN: Record<Mood, string> = {
 
 // Körperform: birnenförmig, Bauch links, Rücken rechts, beginnt bei y=33 (Kopf-Unterkante)
 const BODY =
-    "M23,33 Q13,42 14,52 Q15,61 24,65 Q28,67 32,64 Q40,60 43,51 Q43,42 37,33 Z";
+    "M27,33 Q17,42 18,52 Q19,61 28,65 Q32,67 36,64 Q40,60 42,50 Q42,41 37,33 Z";
 
 export function PetSeepferdchen({
     temperature,
@@ -84,25 +84,79 @@ export function PetSeepferdchen({
 
             {/* ── Eingerollter Schwanz ── */}
             <path
-                d="M28,65 Q22,74 14,72 Q8,68 11,61"
+                d="M32,65 Q32,75 21,76 Q13,74 15,66"
                 fill="none"
                 stroke={OUTLINE}
                 strokeWidth="6.5"
                 strokeLinecap="round"
             />
             <path
-                d="M28,65 Q22,74 14,72 Q8,68 11,61"
+                d="M32,65 Q32,75 21,76 Q13,74 15,66"
                 fill="none"
                 stroke={fur}
                 strokeWidth="4.5"
                 strokeLinecap="round"
             />
 
+            {/* ── Rückenflosse (Fächer, rechts, gespiegelt) ── */}
+            <path
+                d="M52,40 Q38,43 36,51 Q38,60 52,60 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+            />
+            <line
+                x1="52"
+                y1="40"
+                x2="37"
+                y2="46"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="52"
+                y1="44"
+                x2="36"
+                y2="51"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="52"
+                y1="48"
+                x2="36"
+                y2="53"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="52"
+                y1="52"
+                x2="37"
+                y2="57"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+            <line
+                x1="52"
+                y1="56"
+                x2="39"
+                y2="60"
+                stroke={OUTLINE}
+                strokeWidth="0.7"
+                opacity="0.3"
+            />
+
             {/* ── Körper ── */}
             <path d={BODY} fill={fur} stroke={OUTLINE} strokeWidth="1.5" />
             {/* Bauch (heller, linke Seite) */}
             <path
-                d="M23,34 Q15,43 16,52 Q17,60 23,64 Q27,66 30,63 Q33,58 32,50 Q31,43 27,36 Z"
+                d="M27,34 Q19,43 20,52 Q21,60 27,64 Q31,66 34,63 Q37,58 36,50 Q35,43 31,36 Z"
                 fill={belly}
             />
 
@@ -150,70 +204,16 @@ export function PetSeepferdchen({
                 />
             </g>
 
-            {/* ── Rückenflosse (Fächer, rechts) ── */}
-            <path
-                d="M43,40 Q57,43 59,51 Q57,60 43,60"
-                fill={fur}
-                stroke={OUTLINE}
-                strokeWidth="1.2"
-                strokeLinejoin="round"
-            />
-            <line
-                x1="43"
-                y1="40"
-                x2="58"
-                y2="46"
-                stroke={OUTLINE}
-                strokeWidth="0.7"
-                opacity="0.3"
-            />
-            <line
-                x1="43"
-                y1="44"
-                x2="59"
-                y2="51"
-                stroke={OUTLINE}
-                strokeWidth="0.7"
-                opacity="0.3"
-            />
-            <line
-                x1="43"
-                y1="48"
-                x2="59"
-                y2="53"
-                stroke={OUTLINE}
-                strokeWidth="0.7"
-                opacity="0.3"
-            />
-            <line
-                x1="43"
-                y1="52"
-                x2="58"
-                y2="57"
-                stroke={OUTLINE}
-                strokeWidth="0.7"
-                opacity="0.3"
-            />
-            <line
-                x1="43"
-                y1="56"
-                x2="56"
-                y2="60"
-                stroke={OUTLINE}
-                strokeWidth="0.7"
-                opacity="0.3"
-            />
-
             {/* ── Brustflosse (klein, links) ── */}
             <ellipse
-                cx="17"
+                cx="21"
                 cy="46"
                 rx="5"
                 ry="3"
                 fill={fur}
                 stroke={OUTLINE}
                 strokeWidth="0.8"
-                transform="rotate(-20 17 46)"
+                transform="rotate(-20 21 46)"
             />
 
             {/* ── Krone / Kamm (organische Bezier-Zacken, größer) ── */}
@@ -390,10 +390,10 @@ export function PetSeepferdchen({
 
             <PetScarf
                 mood={mood}
-                x={16}
+                x={20}
                 y={33}
                 width={28}
-                knotCx={44}
+                knotCx={48}
                 knotCy={37}
             />
         </PetSvg>
