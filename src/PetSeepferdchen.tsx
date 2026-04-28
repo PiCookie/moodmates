@@ -66,6 +66,7 @@ export function PetSeepferdchen({
     const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
     const clipId = useId();
+    const tailMaskId = useId();
 
     return (
         <PetSvg
@@ -77,26 +78,19 @@ export function PetSeepferdchen({
                 <clipPath id={clipId}>
                     <path d={BODY} />
                 </clipPath>
+                <mask id={tailMaskId}>
+                    <rect x="0" y="0" width="80" height="90" fill="white" />
+                    <path
+                        d={BODY}
+                        fill="black"
+                        stroke="white"
+                        strokeWidth="2"
+                    />
+                </mask>
             </defs>
 
             <PetShadow cx={32} />
             <PetIcicles mood={mood} y={68} />
-
-            {/* ── Eingerollter Schwanz ── */}
-            <path
-                d="M32,65 Q32,75 21,76 Q13,74 15,66"
-                fill="none"
-                stroke={OUTLINE}
-                strokeWidth="6.5"
-                strokeLinecap="round"
-            />
-            <path
-                d="M32,65 Q32,75 21,76 Q13,74 15,66"
-                fill="none"
-                stroke={fur}
-                strokeWidth="4.5"
-                strokeLinecap="round"
-            />
 
             {/* ── Rückenflosse (Fächer, rechts, gespiegelt) ── */}
             <path
@@ -201,6 +195,24 @@ export function PetSeepferdchen({
                     strokeWidth="2.5"
                     strokeLinecap="round"
                     opacity="0.65"
+                />
+            </g>
+
+            {/* ── Eingerollter Schwanz ── */}
+            <g mask={`url(#${tailMaskId})`}>
+                <path
+                    d="M34,58 Q34,76 21,78 Q12,76 14,65"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="7"
+                    strokeLinecap="round"
+                />
+                <path
+                    d="M34,58 Q34,76 21,78 Q12,76 14,65"
+                    fill="none"
+                    stroke={fur}
+                    strokeWidth="4"
+                    strokeLinecap="round"
                 />
             </g>
 
