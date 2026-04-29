@@ -44,6 +44,7 @@ import { PetSeepferdchen } from './PetSeepferdchen';
 import { PetClownfisch }    from './PetClownfisch';
 import { PetPalettenfisch } from './PetPalettenfisch';
 import { PetSeestern }     from './PetSeestern';
+import { PetKraken }       from './PetKraken';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from '@/contexts/SettingsContext';
@@ -265,6 +266,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {petType === 'clownfish'  && <PetClownfisch    {...petProps} />}
         {petType === 'blue-tang'  && <PetPalettenfisch {...petProps} />}
         {petType === 'starfish'   && <PetSeestern       {...petProps} />}
+        {petType === 'octopus'    && <PetKraken         {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
