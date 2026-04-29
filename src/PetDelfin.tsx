@@ -120,7 +120,7 @@ export function PetDelfin({ temperature, size = 80, blinking = false }: PetProps
         rightBox={{ l: 33, t: 18, r: 49, b: 34 }}
       />
 
-      <PetBlush mood={mood} leftCx={13} rightCx={51} cy={33} rx={4} ry={3} />
+      <PetBlush mood={mood} leftCx={17} rightCx={47} cy={33} rx={4} ry={3} />
 
       {/* ── Delfin-Lächeln auf dem Rostrum ── */}
       {mood === 'neutral' && (
