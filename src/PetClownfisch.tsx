@@ -60,13 +60,33 @@ export function PetClownfisch({
                 strokeLinejoin="round"
             />
 
-            {/* ── Rückenflosse — hinter Körper ── */}
+            {/* ── 1 Rückenflosse — oben ── */}
             <path
-                d="M22,29 Q26,18 36,21 Q37,26 30,29 Z"
+                d="M22,29 Q26,22 36,24 Q37,26 34,31 Z"
                 fill={fur}
                 stroke={OUTLINE}
                 strokeWidth="1.2"
                 strokeLinejoin="round"
+            />
+
+            {/* ── 2 Rückenflosse — oben ── */}
+            <path
+                d="M36,34 Q40,27 50,29 Q51,31 48,36 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+                transform="rotate(10 40 23)"
+            />
+
+            {/* ── 2 Rückenflosse — unten ── */}
+            <path
+                d="M36,54 Q40,61 50,59 Q51,57 48,52 Z"
+                fill={fur}
+                stroke={OUTLINE}
+                strokeWidth="1.2"
+                strokeLinejoin="round"
+                transform="rotate(-10 40 73)"
             />
 
             {/* ── Körper (orange) ── */}
