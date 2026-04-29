@@ -29,16 +29,16 @@ import {
 
 const PIRANHA_FUR: Record<Mood, string> = {
     frozen: "#cbd5e1",
-    cold:   "#94a3b8",
+    cold: "#94a3b8",
     neutral: "#64748b",
-    warm:   "#475569",
+    warm: "#475569",
 };
 
 const PIRANHA_BELLY: Record<Mood, string> = {
     frozen: "#fecaca",
-    cold:   "#f87171",
+    cold: "#f87171",
     neutral: "#ef4444",
-    warm:   "#dc2626",
+    warm: "#dc2626",
 };
 
 export function PetPiranha({
@@ -50,6 +50,7 @@ export function PetPiranha({
     const isHot = temperature !== null && temperature >= 28;
     const fur = PIRANHA_FUR[mood];
     const belly = PIRANHA_BELLY[mood];
+    const throat = "#94a3b8";
 
     return (
         <PetSvg
@@ -89,7 +90,7 @@ export function PetPiranha({
                 strokeWidth="1.5"
             />
             {/* Roter Bauch — Erkennungsmerkmal, beginnt unter dem Maul */}
-            <ellipse cx="32" cy="58" rx="11" ry="10" fill={belly} />
+            <ellipse cx="32" cy="57" rx="11" ry="10" fill={belly} />
             <ellipse
                 cx="32"
                 cy="44"
@@ -128,15 +129,43 @@ export function PetPiranha({
             {mood === "neutral" &&
                 (blinking ? (
                     <>
-                        <line x1="17" y1="33" x2="28" y2="33" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-                        <line x1="36" y1="33" x2="47" y2="33" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                        <line
+                            x1="17"
+                            y1="33"
+                            x2="28"
+                            y2="33"
+                            stroke={OUTLINE}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
+                        <line
+                            x1="36"
+                            y1="33"
+                            x2="47"
+                            y2="33"
+                            stroke={OUTLINE}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                        />
                     </>
                 ) : (
                     <>
                         <circle cx="22" cy="33" r="5.5" fill={OUTLINE} />
                         <circle cx="42" cy="33" r="5.5" fill={OUTLINE} />
-                        <circle cx="20" cy="31" r="2" fill="white" opacity="0.7" />
-                        <circle cx="40" cy="31" r="2" fill="white" opacity="0.7" />
+                        <circle
+                            cx="20"
+                            cy="31"
+                            r="2"
+                            fill="white"
+                            opacity="0.7"
+                        />
+                        <circle
+                            cx="40"
+                            cy="31"
+                            r="2"
+                            fill="white"
+                            opacity="0.7"
+                        />
                     </>
                 ))}
 
@@ -158,8 +187,20 @@ export function PetPiranha({
                 <>
                     <circle cx="22" cy="33" r="5" fill={OUTLINE} />
                     <circle cx="42" cy="33" r="5" fill={OUTLINE} />
-                    <circle cx="20" cy="31" r="1.8" fill="white" opacity="0.65" />
-                    <circle cx="40" cy="31" r="1.8" fill="white" opacity="0.65" />
+                    <circle
+                        cx="20"
+                        cy="31"
+                        r="1.8"
+                        fill="white"
+                        opacity="0.65"
+                    />
+                    <circle
+                        cx="40"
+                        cy="31"
+                        r="1.8"
+                        fill="white"
+                        opacity="0.65"
+                    />
                 </>
             )}
 
@@ -187,7 +228,7 @@ export function PetPiranha({
                                 ? "M12,46 L52,46 Q46,61 32,64 Q18,61 12,46 Z"
                                 : "M13,46 L51,46 Q46,60 32,63 Q18,60 13,46 Z"
                         }
-                        fill={belly}
+                        fill={throat}
                     />
                     <path
                         d={
@@ -197,7 +238,15 @@ export function PetPiranha({
                         }
                         fill={OUTLINE}
                     />
-                    <ellipse cx="32" cy="57" rx="8" ry="3.5" fill="#f87171" stroke={OUTLINE} strokeWidth="1.2" />
+                    <ellipse
+                        cx="32"
+                        cy="57"
+                        rx="8"
+                        ry="3.5"
+                        fill="#f87171"
+                        stroke={OUTLINE}
+                        strokeWidth="1.2"
+                    />
                     <path
                         d={
                             mood === "warm"
@@ -223,10 +272,22 @@ export function PetPiranha({
                 </>
             )}
             {mood === "cold" && (
-                <path d="M24,55 Q32,52 40,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <path
+                    d="M24,55 Q32,52 40,55"
+                    stroke={OUTLINE}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                />
             )}
             {mood === "frozen" && (
-                <path d="M22,55 Q26,51 32,55 Q38,59 42,55" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <path
+                    d="M22,55 Q26,51 32,55 Q38,59 42,55"
+                    stroke={OUTLINE}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                />
             )}
 
             <PetScarf
