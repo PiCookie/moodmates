@@ -309,14 +309,16 @@ export function PetPottwal({
                     />
                 )}
 
-                <PetScarf
-                    mood={mood}
-                    x={4}
-                    y={52}
-                    width={28}
-                    knotCx={32}
-                    knotCy={56}
-                />
+                <g transform="translate(19, -15) rotate(90, 18, 57)">
+                    <PetScarf
+                        mood={mood}
+                        x={4}
+                        y={52}
+                        width={28}
+                        knotCx={32}
+                        knotCy={56}
+                    />
+                </g>
             </g>
         </PetSvg>
     );
