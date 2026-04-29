@@ -80,14 +80,16 @@ export function PetHai({
                     strokeLinejoin="round"
                 />
 
-                {/* ── Körper (torpedoförmig) ── */}
+                {/* ── Körper (torpedoförmig, spitze Schnauze) ── */}
                 <path
-                    d="M5,46 Q7,33 27,30 Q44,30 57,43 Q60,46 57,49 Q44,58 27,58 Q7,57 5,46 Z"
+                    d="M3,44 Q5,36 16,32 Q28,29 46,30 Q58,42 60,46 Q58,50 46,57 Q28,59 16,56 Q6,51 3,44 Z"
                     fill={fur}
                 />
-                {/* Outline — ohne Überschneidung mit Schwanzstiel */}
+                {/* Bauch (heller Streifen, untere Hälfte) */}
+                <ellipse cx="33" cy="52" rx="23" ry="7" fill={belly} />
+                {/* Outline */}
                 <path
-                    d="M60,47 Q44,58 27,58 Q7,57 5,46 Q7,33 27,30 Q44,30 58,43"
+                    d="M60,46 Q58,50 46,57 Q28,59 16,56 Q6,51 3,44 Q5,36 16,32 Q28,29 46,30 Q58,42 60,46"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
@@ -95,13 +97,7 @@ export function PetHai({
                     strokeLinejoin="round"
                 />
 
-                {/* ── Bauch (heller, unten) ── */}
-                <path
-                    d="M5,46 Q7,53 20,57 Q36,61 52,56 Q57,51 57,49 Q44,58 27,58 Q7,57 5,46 Z"
-                    fill={belly}
-                />
-
-                {/* ── Brustflosse (unten, geschwungen) ── */}
+                {/* ── Brustflosse ── */}
                 <path
                     d="M24,52 Q14,64 10,68 Q18,63 28,57 Z"
                     fill={fur}
@@ -110,13 +106,13 @@ export function PetHai({
                     strokeLinejoin="round"
                 />
 
-                {/* ── Kiemenschlitze (3 Bögen) ── */}
-                <path d="M16,36 Q14,43 16,52" fill="none" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.5" />
-                <path d="M19,35 Q17,42 19,51" fill="none" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.5" />
-                <path d="M22,34 Q20,41 22,50" fill="none" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.5" />
+                {/* ── Kiemenschlitze ── */}
+                <path d="M20,36 Q18,43 20,53" fill="none" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.5" />
+                <path d="M23,35 Q21,42 23,52" fill="none" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.5" />
+                <path d="M26,34 Q24,41 26,51" fill="none" stroke={OUTLINE} strokeWidth="0.9" strokeLinecap="round" opacity="0.5" />
 
                 {/* ── Blasloch ── */}
-                <ellipse cx="26" cy="30" rx="2" ry="1.2" fill={OUTLINE} opacity="0.35" />
+                <ellipse cx="28" cy="30" rx="2" ry="1.2" fill={OUTLINE} opacity="0.35" />
 
                 <PetSnowflakes
                     mood={mood}
@@ -126,54 +122,76 @@ export function PetHai({
                 <PetSun mood={mood} />
                 <PetSweat isHot={isHot} y={16} />
 
+                {/* ── Maul mit Zähnen (neutral + warm) ── */}
+                {(mood === "neutral" || isWarm) && (
+                    <>
+                        {/* Mundraum (dunkel) */}
+                        <path
+                            d="M3,44 Q6,43 22,44 L22,51 Q10,52 3,44 Z"
+                            fill={OUTLINE}
+                        />
+                        {/* Obere Zähne */}
+                        <path
+                            d="M4,44 L6,40 L8,44 L10,40 L12,44 L14,40 L16,44 L18,40 L20,44 L22,44 L22,45 L4,45 Z"
+                            fill="white"
+                            stroke={OUTLINE}
+                            strokeWidth="0.5"
+                            strokeLinejoin="round"
+                        />
+                        {/* Untere Zähne */}
+                        <path
+                            d="M5,50 L7,53 L9,50 L11,53 L13,50 L15,53 L17,50 L19,53 L21,50 L22,50 L22,51 L5,51 Z"
+                            fill="white"
+                            stroke={OUTLINE}
+                            strokeWidth="0.5"
+                            strokeLinejoin="round"
+                        />
+                    </>
+                )}
+                {(isCold || isFrozen) && (
+                    <path d="M3,44 Q8,48 14,46" fill="none" stroke={OUTLINE} strokeWidth="1.2" strokeLinecap="round" />
+                )}
+
                 {/* ── Auge (neutral + warm) ── */}
                 {(mood === "neutral" || isWarm) &&
                     (blinking ? (
-                        <line x1="8" y1="42" x2="16" y2="42" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                        <line x1="14" y1="39" x2="20" y2="39" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" />
                     ) : (
                         <>
-                            <circle cx="12" cy="42" r="4" fill={OUTLINE} />
-                            <circle cx="13" cy="41" r="1.5" fill="white" opacity="0.65" />
+                            <circle cx="17" cy="39" r="2.5" fill={OUTLINE} />
+                            <circle cx="18" cy="38" r="1" fill="white" opacity="0.65" />
                         </>
                     ))}
 
                 {/* ── Sonnenbrille (warm) ── */}
                 {isWarm && (
                     <>
-                        <rect x="5" y="37" width="14" height="10" rx="2.5" fill={OUTLINE} opacity="0.9" />
-                        <rect x="6" y="38" width="12" height="8" rx="2" fill="#1e3a5f" />
-                        <circle cx="12" cy="42" r="2" fill="white" opacity="0.15" />
-                        <line x1="19" y1="42" x2="24" y2="41" stroke={OUTLINE} strokeWidth="1.2" strokeLinecap="round" />
+                        <rect x="11" y="35" width="12" height="9" rx="2.5" fill={OUTLINE} opacity="0.9" />
+                        <rect x="12" y="36" width="10" height="7" rx="2" fill="#1e3a5f" />
+                        <circle cx="17" cy="39" r="2" fill="white" opacity="0.15" />
+                        <line x1="23" y1="39" x2="27" y2="38" stroke={OUTLINE} strokeWidth="1.2" strokeLinecap="round" />
                     </>
                 )}
                 {isWarm && (
-                    <ellipse cx="14" cy="50" rx="4" ry="2.5" fill="#fca5a5" opacity="0.5" />
+                    <ellipse cx="16" cy="48" rx="4" ry="2.5" fill="#fca5a5" opacity="0.5" />
                 )}
 
                 {/* ── Besorgte Braue + Auge (cold) ── */}
                 {isCold && (
                     <>
-                        <path d="M6,37 Q12,33 17,37" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" fill="none" />
-                        <circle cx="12" cy="42" r="4" fill={OUTLINE} />
-                        <circle cx="13" cy="41" r="1.5" fill="white" opacity="0.65" />
+                        <path d="M12,35 Q17,31 22,35" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" fill="none" />
+                        <circle cx="17" cy="39" r="2.5" fill={OUTLINE} />
+                        <circle cx="18" cy="38" r="1" fill="white" opacity="0.65" />
                     </>
                 )}
 
                 {/* ── X-Auge (frozen) ── */}
                 {isFrozen && (
                     <>
-                        <path d="M6,37 Q12,33 17,37" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" fill="none" />
-                        <line x1="8" y1="38" x2="16" y2="46" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
-                        <line x1="16" y1="38" x2="8" y2="46" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                        <path d="M12,35 Q17,31 22,35" stroke={OUTLINE} strokeWidth="2" strokeLinecap="round" fill="none" />
+                        <line x1="14" y1="36" x2="20" y2="42" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
+                        <line x1="20" y1="36" x2="14" y2="42" stroke={OUTLINE} strokeWidth="2.5" strokeLinecap="round" />
                     </>
-                )}
-
-                {/* ── Maul (leicht geöffnet, neutrale Linie bei cold/frozen) ── */}
-                {(mood === "neutral" || isWarm) && (
-                    <path d="M4,45 Q4,48 6,49" fill="none" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" />
-                )}
-                {(isCold || isFrozen) && (
-                    <path d="M4,46 Q6,48 8,46" fill="none" stroke={OUTLINE} strokeWidth="1.2" strokeLinecap="round" />
                 )}
 
                 <g transform="translate(13, -15) rotate(90, 18, 57)">
