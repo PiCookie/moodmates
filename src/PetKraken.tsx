@@ -120,7 +120,7 @@ export function PetKraken({
             />
             {/* Mitte links */}
             <ellipse
-                cx="28"
+                cx="26"
                 cy="77"
                 rx="6"
                 ry="6"
@@ -130,7 +130,7 @@ export function PetKraken({
             />
             {/* Mitte rechts */}
             <ellipse
-                cx="36"
+                cx="38"
                 cy="77"
                 rx="6"
                 ry="6"
@@ -371,10 +371,10 @@ export function PetKraken({
             <PetScarf
                 mood={mood}
                 x={9}
-                y={72}
+                y={64}
                 width={46}
                 knotCx={55}
-                knotCy={76}
+                knotCy={68}
             />
         </PetSvg>
     );
