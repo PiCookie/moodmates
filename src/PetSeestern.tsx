@@ -19,6 +19,7 @@ import {
     PetSun,
     PetSweat,
     PetSnowflakes,
+    PetScarf,
 } from "./BasePet";
 
 const SEESTERN_COLOR: Record<Mood, string> = {
@@ -314,6 +315,14 @@ export function PetSeestern({
                     />
                 </>
             )}
+            <PetScarf
+                mood={mood}
+                x={17}
+                y={48}
+                width={32}
+                knotCx={49}
+                knotCy={52}
+            />
         </PetSvg>
     );
 }
