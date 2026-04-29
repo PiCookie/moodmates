@@ -41,7 +41,8 @@ import { PetDelfin }       from './PetDelfin';
 import { PetKugelfisch }   from './PetKugelfisch';
 import { PetQualle }       from './PetQualle';
 import { PetSeepferdchen } from './PetSeepferdchen';
-import { PetClownfisch }   from './PetClownfisch';
+import { PetClownfisch }    from './PetClownfisch';
+import { PetPalettenfisch } from './PetPalettenfisch';
 import { PetSeestern }     from './PetSeestern';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
@@ -262,6 +263,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {petType === 'jellyfish'  && <PetQualle        {...petProps} />}
         {petType === 'seahorse'   && <PetSeepferdchen  {...petProps} />}
         {petType === 'clownfish'  && <PetClownfisch    {...petProps} />}
+        {petType === 'blue-tang'  && <PetPalettenfisch {...petProps} />}
         {petType === 'starfish'   && <PetSeestern       {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
