@@ -133,7 +133,7 @@ export function PetQualle({ temperature, size = 80, blinking = false }: PetProps
         <path d="M26,45 Q29,41 32,45 Q35,49 38,45" stroke={OUTLINE} strokeWidth="1.5" strokeLinecap="round" fill="none" />
       )}
 
-      <PetScarf mood={mood} x={10} y={50} width={44} knotCx={53} knotCy={55} />
+      <PetScarf mood={mood} x={10} y={44} width={44} knotCx={53} knotCy={49} />
     </PetSvg>
   );
 }
