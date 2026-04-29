@@ -298,10 +298,10 @@ export function PetHai({
             <PetScarf
                 mood={mood}
                 x={9}
-                y={63}
+                y={57}
                 width={46}
                 knotCx={55}
-                knotCy={68}
+                knotCy={62}
             />
         </PetSvg>
     );
