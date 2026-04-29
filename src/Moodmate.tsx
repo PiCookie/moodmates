@@ -32,6 +32,7 @@ import { PetBrachiosaurus } from './PetBrachiosaurus';
 import { PetPteranodon }    from './PetPteranodon';
 import { PetAnkylosaurus }  from './PetAnkylosaurus';
 import { PetHai }          from './PetHai';
+import { PetPiranha }      from './PetPiranha';
 import { PetBlauwal }      from './PetBlauwal';
 import { PetPottwal }      from './PetPottwal';
 import { PetKillerwal }    from './PetKillerwal';
@@ -254,6 +255,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {petType === 'pteranodon'     && <PetPteranodon    {...petProps} />}
         {petType === 'ankylosaurus'   && <PetAnkylosaurus  {...petProps} />}
         {petType === 'shark'      && <PetHai          {...petProps} />}
+        {petType === 'piranha'    && <PetPiranha      {...petProps} />}
         {petType === 'blue-whale'   && <PetBlauwal        {...petProps} />}
         {petType === 'sperm-whale'  && <PetPottwal        {...petProps} />}
         {petType === 'killer-whale' && <PetKillerwal      {...petProps} />}
