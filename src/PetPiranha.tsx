@@ -88,8 +88,8 @@ export function PetPiranha({
                 stroke={OUTLINE}
                 strokeWidth="1.5"
             />
-            {/* Roter Bauch — Erkennungsmerkmal */}
-            <ellipse cx="32" cy="50" rx="14" ry="17" fill={belly} />
+            {/* Roter Bauch — Erkennungsmerkmal, beginnt unter dem Maul */}
+            <ellipse cx="32" cy="58" rx="11" ry="10" fill={belly} />
             <ellipse
                 cx="32"
                 cy="44"
