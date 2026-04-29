@@ -266,14 +266,16 @@ export function PetClownfisch({
                 />
             )}
 
-            <PetScarf
-                mood={mood}
-                x={12}
-                y={54}
-                width={20}
-                knotCx={32}
-                knotCy={58}
-            />
+            <g transform="translate(5, -20) rotate(90, 22, 59)">
+                <PetScarf
+                    mood={mood}
+                    x={12}
+                    y={54}
+                    width={26}
+                    knotCx={38}
+                    knotCy={58}
+                />
+            </g>
         </PetSvg>
     );
 }

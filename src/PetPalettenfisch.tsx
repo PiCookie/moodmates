@@ -261,14 +261,16 @@ export function PetPalettenfisch({
                 />
             )}
 
-            <PetScarf
-                mood={mood}
-                x={11}
-                y={54}
-                width={20}
-                knotCx={31}
-                knotCy={58}
-            />
+            <g transform="translate(5, -20) rotate(90, 21, 59)">
+                <PetScarf
+                    mood={mood}
+                    x={11}
+                    y={54}
+                    width={26}
+                    knotCx={37}
+                    knotCy={58}
+                />
+            </g>
         </PetSvg>
     );
 }
