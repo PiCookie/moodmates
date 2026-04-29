@@ -102,7 +102,7 @@ export function PetPalettenfisch({
 
             {/* ── Palettenstreifen (schwarze Signatur-Markierung) ── */}
             <path
-                d="M20,31 Q33,31 37,34 Q41,45 27,40 "
+                d="M17,32 20,31 Q33,31 37,34 Q41,45 27,40 Q30,35 35,34 "
                 fill="none"
                 stroke={OUTLINE}
                 strokeWidth="3"
