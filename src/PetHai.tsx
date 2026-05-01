@@ -59,7 +59,7 @@ export function PetHai({
             ariaLabel={`Hai-Pet: ${mood}`}
         >
             <PetShadow cx={33} />
-            <g transform="scale(1.40) translate(-2, -1)">
+            <g transform="scale(1.55, 1.40) translate(-3, -1)">
                 <PetIcicles mood={mood} y={68} />
 
                 {/* ── Schwanzflosse (heterozerk: oberer Lappen größer) ── */}
@@ -82,27 +82,27 @@ export function PetHai({
 
                 {/* ── Körper (torpedoförmig, spitze Schnauze) ── */}
                 <path
-                    d="M5,46 Q7,33 27,30 Q44,30 57,43 Q60,46 57,49 Q44,58 27,58 Q7,57 5,46 Z"
+                    d="M3,46 Q7,36 27,33 Q44,33 57,40 Q60,43 57,52 Q44,58 27,58 Q7,57 3,46 Z"
                     fill={fur}
                 />
                 {/* Bauch (heller Streifen, untere Hälfte) */}
-                <path
-                    d="M5,46 Q7,53 20,57 Q36,61 52,56 Q57,51 57,49 Q44,58 27,58 Q7,57 5,46 Z"
+                {/*  <path
+                    d="M3,46 Q7,53 20,57 Q36,61 52,56 Q57,51 57,49 Q44,58 27,58 Q7,57 3,46 Z"
                     fill={belly}
-                />
+                /> */}
                 {/* Outline */}
-                <path
-                    d="M60,47 Q44,58 27,58 Q7,57 5,46 Q7,33 27,30 Q44,30 58,43"
+                {/*  <path
+                    d="M60,47 Q44,58 27,58 Q7,57 3,46 Q7,33 27,30 Q44,30 58,43"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                />
+                /> */}
 
                 {/* ── Brustflosse ── */}
                 <path
-                    d="M24,52 Q14,64 10,68 Q18,63 28,57 Z"
+                    d="M24,51 Q36,62 42,58 Q34,47 24,51 Z"
                     fill={fur}
                     stroke={OUTLINE}
                     strokeWidth="1.2"
@@ -111,7 +111,7 @@ export function PetHai({
 
                 {/* ── Kiemenschlitze ── */}
                 <path
-                    d="M20,36 Q18,43 20,53"
+                    d="M28,40 Q31,45 28,52"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
@@ -119,7 +119,7 @@ export function PetHai({
                     opacity="0.5"
                 />
                 <path
-                    d="M23,35 Q21,42 23,52"
+                    d="M31,40 Q34,45 31,52"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
@@ -127,22 +127,12 @@ export function PetHai({
                     opacity="0.5"
                 />
                 <path
-                    d="M26,34 Q24,41 26,51"
+                    d="M34,40 Q37,45 34,52"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
                     strokeLinecap="round"
                     opacity="0.5"
-                />
-
-                {/* ── Blasloch ── */}
-                <ellipse
-                    cx="28"
-                    cy="30"
-                    rx="2"
-                    ry="1.2"
-                    fill={OUTLINE}
-                    opacity="0.35"
                 />
 
                 <PetSnowflakes
@@ -156,25 +146,12 @@ export function PetHai({
                 {/* ── Maul mit Zähnen (neutral + warm) ── */}
                 {(mood === "neutral" || isWarm) && (
                     <>
-                        {/* Mundraum (dunkel) */}
-                        <path
-                            d="M5,46 Q8,44 22,44 L22,51 Q10,52 5,46 Z"
-                            fill={OUTLINE}
-                        />
-                        {/* Obere Zähne */}
-                        <path
-                            d="M6,46 L8,42 L10,46 L12,42 L14,46 L16,42 L18,46 L20,42 L22,46 L22,45 L6,45 Z"
-                            fill="white"
-                            stroke={OUTLINE}
-                            strokeWidth="0.5"
-                            strokeLinejoin="round"
-                        />
                         {/* Untere Zähne */}
                         <path
-                            d="M6,50 L8,53 L10,50 L12,53 L14,50 L16,53 L18,50 L20,53 L22,50 L22,51 L6,51 Z"
+                            d="M6,50 L8,53 L10,50 L12,53 L14,50 L16,52 L18,49 L20,51 L22,47 L22,48 Q16,52 6,51 Z"
                             fill="white"
                             stroke={OUTLINE}
-                            strokeWidth="0.5"
+                            strokeWidth="0.7"
                             strokeLinejoin="round"
                         />
                     </>
@@ -193,20 +170,20 @@ export function PetHai({
                 {(mood === "neutral" || isWarm) &&
                     (blinking ? (
                         <line
-                            x1="14"
-                            y1="39"
-                            x2="20"
-                            y2="39"
+                            x1="17"
+                            y1="42"
+                            x2="23"
+                            y2="42"
                             stroke={OUTLINE}
                             strokeWidth="2"
                             strokeLinecap="round"
                         />
                     ) : (
                         <>
-                            <circle cx="17" cy="39" r="2.5" fill={OUTLINE} />
+                            <circle cx="20" cy="42" r="2.5" fill={OUTLINE} />
                             <circle
-                                cx="18"
-                                cy="38"
+                                cx="21"
+                                cy="41"
                                 r="1"
                                 fill="white"
                                 opacity="0.65"
@@ -273,10 +250,10 @@ export function PetHai({
                             strokeLinecap="round"
                             fill="none"
                         />
-                        <circle cx="17" cy="39" r="2.5" fill={OUTLINE} />
+                        <circle cx="20" cy="42" r="2.5" fill={OUTLINE} />
                         <circle
-                            cx="18"
-                            cy="38"
+                            cx="21"
+                            cy="41"
                             r="1"
                             fill="white"
                             opacity="0.65"
@@ -295,19 +272,19 @@ export function PetHai({
                             fill="none"
                         />
                         <line
-                            x1="14"
-                            y1="36"
-                            x2="20"
-                            y2="42"
+                            x1="17"
+                            y1="39"
+                            x2="23"
+                            y2="45"
                             stroke={OUTLINE}
                             strokeWidth="2.5"
                             strokeLinecap="round"
                         />
                         <line
-                            x1="20"
-                            y1="36"
-                            x2="14"
-                            y2="42"
+                            x1="23"
+                            y1="39"
+                            x2="17"
+                            y2="45"
                             stroke={OUTLINE}
                             strokeWidth="2.5"
                             strokeLinecap="round"
