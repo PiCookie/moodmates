@@ -31,6 +31,21 @@ import { PetStegosaurus }   from './PetStegosaurus';
 import { PetBrachiosaurus } from './PetBrachiosaurus';
 import { PetPteranodon }    from './PetPteranodon';
 import { PetAnkylosaurus }  from './PetAnkylosaurus';
+import { PetHai }          from './PetHai';
+import { PetPiranha }      from './PetPiranha';
+import { PetBlauwal }      from './PetBlauwal';
+import { PetPottwal }      from './PetPottwal';
+import { PetKillerwal }    from './PetKillerwal';
+import { PetBeluga }       from './PetBeluga';
+import { PetNarwal }       from './PetNarwal';
+import { PetDelfin }       from './PetDelfin';
+import { PetKugelfisch }   from './PetKugelfisch';
+import { PetQualle }       from './PetQualle';
+import { PetSeepferdchen } from './PetSeepferdchen';
+import { PetClownfisch }    from './PetClownfisch';
+import { PetPalettenfisch } from './PetPalettenfisch';
+import { PetSeestern }     from './PetSeestern';
+import { PetKraken }       from './PetKraken';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from '@/contexts/SettingsContext';
@@ -59,13 +74,16 @@ interface Props {
   event?: DetectedEvent | null;
 }
 
-function SpeechBubble({ text, variant }: { text: string; variant?: SpeechVariant | null }) {
+function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: SpeechVariant | null; leftPx?: number }) {
   const styles = variant ? VARIANT_BUBBLE[variant] : null;
   const tailFill   = styles?.tail   ?? 'white';
   const bubbleClass = styles?.bubble ?? 'bg-white text-slate-800';
 
+  const posClass = leftPx === undefined ? 'left-full ml-3' : '';
+  const posStyle = leftPx !== undefined ? { left: leftPx + 12 } : undefined;
+
   return (
-    <div className="animate-bubble-in absolute -top-2 left-full ml-3 z-20 pointer-events-none origin-left">
+    <div className={`animate-bubble-in absolute -top-2 z-20 pointer-events-none origin-left ${posClass}`} style={posStyle}>
       <div className="relative">
         {/*
           Comic-Sprechblasen-Schwanz:
@@ -200,7 +218,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
 
   return (
     <div className="relative inline-flex flex-col items-center gap-1">
-      {speechText && <SpeechBubble text={speechText} variant={speechVariant} />}
+      {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={petType === 'blue-whale' || petType === 'sperm-whale' || petType === 'killer-whale' || petType === 'beluga' || petType === 'narwhal' ? size : undefined} />}
       <div
         className={`cursor-pointer${hopping && !shivering ? ' animate-hop' : ''}`}
         onClick={showSpeech}
@@ -236,6 +254,21 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {petType === 'brachiosaurus'  && <PetBrachiosaurus {...petProps} />}
         {petType === 'pteranodon'     && <PetPteranodon    {...petProps} />}
         {petType === 'ankylosaurus'   && <PetAnkylosaurus  {...petProps} />}
+        {petType === 'shark'      && <PetHai          {...petProps} />}
+        {petType === 'piranha'    && <PetPiranha      {...petProps} />}
+        {petType === 'blue-whale'   && <PetBlauwal        {...petProps} />}
+        {petType === 'sperm-whale'  && <PetPottwal        {...petProps} />}
+        {petType === 'killer-whale' && <PetKillerwal      {...petProps} />}
+        {petType === 'beluga'       && <PetBeluga          {...petProps} />}
+        {petType === 'narwhal'      && <PetNarwal          {...petProps} />}
+        {petType === 'dolphin'    && <PetDelfin        {...petProps} />}
+        {petType === 'pufferfish' && <PetKugelfisch    {...petProps} />}
+        {petType === 'jellyfish'  && <PetQualle        {...petProps} />}
+        {petType === 'seahorse'   && <PetSeepferdchen  {...petProps} />}
+        {petType === 'clownfish'  && <PetClownfisch    {...petProps} />}
+        {petType === 'blue-tang'  && <PetPalettenfisch {...petProps} />}
+        {petType === 'starfish'   && <PetSeestern       {...petProps} />}
+        {petType === 'octopus'    && <PetKraken         {...petProps} />}
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
