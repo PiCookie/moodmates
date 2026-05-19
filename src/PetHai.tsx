@@ -90,14 +90,6 @@ export function PetHai({
                     strokeLinejoin="round"
                 />
 
-                {/*      <path
-                    d="M22,29 Q26,22 36,24 Q37,26 34,31 Z"
-                    fill={fur}
-                    stroke={OUTLINE}
-                    strokeWidth="1.2"
-                    strokeLinejoin="round"
-                /> */}
-
                 {/* ── Afterflosse (Unterseite, nahe Schwanz) ── */}
                 <path
                     d="M47,53 Q48,59 51,60 Q50,59 53,51 Z"
@@ -120,15 +112,43 @@ export function PetHai({
                     fill={belly}
                 />
 
-                {/* Outline */}
-                {/*  <path
-                    d="M60,47 Q44,58 27,58 Q7,57 3,46 Q7,33 27,30 Q44,30 58,43"
+                {/* Outline oben: Schnauze → Rückenflosse → präkaudale Flosse → Schwanz */}
+                <path
+                    d="M3,46 Q7,36 27,33"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
                     strokeLinecap="round"
-                    strokeLinejoin="round"
-                /> */}
+                />
+                <path
+                    d="M40,34 Q44,36 47,36"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                />
+                <path
+                    d="M53,38 Q55,39 57,40"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                />
+                {/* Outline unten: Schwanz → Afterflosse → Schnauze */}
+                <path
+                    d="M57,52 Q55,53 53,54"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                />
+                <path
+                    d="M47,56 Q44,58 27,58 Q7,57 3,46"
+                    fill="none"
+                    stroke={OUTLINE}
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                />
 
                 {/* ── Brustflosse ── */}
                 <path
