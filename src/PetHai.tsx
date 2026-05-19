@@ -80,6 +80,34 @@ export function PetHai({
                     strokeLinejoin="round"
                 />
 
+                {/* ── Präkaudale Flosse (sehr klein, nahe Schwanz) ── */}
+                <path
+                    d="M47,37 Q48,31 51,30 Q50,31 53,39 Z"
+                    transform="rotate(15, 50, 37)"
+                    fill={fur}
+                    stroke={OUTLINE}
+                    strokeWidth="1.0"
+                    strokeLinejoin="round"
+                />
+
+                {/*      <path
+                    d="M22,29 Q26,22 36,24 Q37,26 34,31 Z"
+                    fill={fur}
+                    stroke={OUTLINE}
+                    strokeWidth="1.2"
+                    strokeLinejoin="round"
+                /> */}
+
+                {/* ── Afterflosse (Unterseite, nahe Schwanz) ── */}
+                <path
+                    d="M47,53 Q48,59 51,60 Q50,59 53,51 Z"
+                    transform="rotate(-15, 50, 53)"
+                    fill={fur}
+                    stroke={OUTLINE}
+                    strokeWidth="1.0"
+                    strokeLinejoin="round"
+                />
+
                 {/* ── Körper (torpedoförmig, spitze Schnauze) ── */}
                 <path
                     d="M3,46 Q7,36 27,33 Q44,33 57,40 Q60,43 57,52 Q44,58 27,58 Q7,57 3,46 Z"
