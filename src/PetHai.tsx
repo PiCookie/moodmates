@@ -73,7 +73,7 @@ export function PetHai({
 
                 {/* ── Rückenflosse (großes Dreieck, Hauptmerkmal) ── */}
                 <path
-                    d="M27,30 L37,10 L48,31 Z"
+                    d="M27,34 Q32,20 40,18 Q37,26 40,35 Z"
                     fill={fur}
                     stroke={OUTLINE}
                     strokeWidth="1.3"
@@ -85,11 +85,13 @@ export function PetHai({
                     d="M3,46 Q7,36 27,33 Q44,33 57,40 Q60,43 57,52 Q44,58 27,58 Q7,57 3,46 Z"
                     fill={fur}
                 />
+
                 {/* Bauch (heller Streifen, untere Hälfte) */}
-                {/*  <path
+                <path
                     d="M3,46 Q7,53 20,57 Q36,61 52,56 Q57,51 57,49 Q44,58 27,58 Q7,57 3,46 Z"
                     fill={belly}
-                /> */}
+                />
+
                 {/* Outline */}
                 {/*  <path
                     d="M60,47 Q44,58 27,58 Q7,57 3,46 Q7,33 27,30 Q44,30 58,43"
@@ -102,7 +104,7 @@ export function PetHai({
 
                 {/* ── Brustflosse ── */}
                 <path
-                    d="M24,51 Q36,62 42,58 Q34,47 24,51 Z"
+                    d="M27,51 Q32,62 42,62 Q40,47 27,51 Z"
                     fill={fur}
                     stroke={OUTLINE}
                     strokeWidth="1.2"
