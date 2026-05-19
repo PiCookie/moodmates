@@ -254,9 +254,18 @@ export function PetHai({
                 {/* ── Sonnenbrille (warm) ── */}
                 {isWarm && (
                     <>
+                        <line
+                            x1="6"
+                            y1="42"
+                            x2="14"
+                            y2="42"
+                            stroke={OUTLINE}
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                        />
                         <rect
-                            x="11"
-                            y="35"
+                            x="14"
+                            y="38"
                             width="12"
                             height="9"
                             rx="2.5"
@@ -264,25 +273,25 @@ export function PetHai({
                             opacity="0.9"
                         />
                         <rect
-                            x="12"
-                            y="36"
+                            x="15"
+                            y="39"
                             width="10"
                             height="7"
                             rx="2"
                             fill="#1e3a5f"
                         />
                         <circle
-                            cx="17"
-                            cy="39"
+                            cx="20"
+                            cy="42"
                             r="2"
                             fill="white"
                             opacity="0.15"
                         />
                         <line
-                            x1="23"
-                            y1="39"
-                            x2="27"
-                            y2="38"
+                            x1="26"
+                            y1="42"
+                            x2="30"
+                            y2="41"
                             stroke={OUTLINE}
                             strokeWidth="1.2"
                             strokeLinecap="round"
@@ -291,7 +300,7 @@ export function PetHai({
                 )}
                 {isWarm && (
                     <ellipse
-                        cx="16"
+                        cx="22"
                         cy="48"
                         rx="4"
                         ry="2.5"
