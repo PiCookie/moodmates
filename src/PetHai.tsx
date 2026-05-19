@@ -64,7 +64,7 @@ export function PetHai({
 
                 {/* ── Schwanzflosse (heterozerk: oberer Lappen größer) ── */}
                 <path
-                    d="M56,44 Q63,34 69,24 Q68,40 62,44 Q62,49 68,60 Q63,57 56,49 Z"
+                    d="M56,44 Q58,34 70,28 Q64,40 64,44 Q64,49 70,56 Q63,57 56,49 Z"
                     fill={fur}
                     stroke={OUTLINE}
                     strokeWidth="1.3"
@@ -123,7 +123,7 @@ export function PetHai({
 
                 {/* ── Kiemenschlitze ── */}
                 <path
-                    d="M28,40 Q31,45 28,52"
+                    d="M28,42 Q31,45 28,50"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
@@ -131,7 +131,7 @@ export function PetHai({
                     opacity="0.5"
                 />
                 <path
-                    d="M31,40 Q34,45 31,52"
+                    d="M31,42 Q34,45 31,50"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
@@ -139,7 +139,7 @@ export function PetHai({
                     opacity="0.5"
                 />
                 <path
-                    d="M34,40 Q37,45 34,52"
+                    d="M34,42 Q37,45 34,50"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="0.9"
