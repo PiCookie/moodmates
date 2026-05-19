@@ -88,7 +88,7 @@ export function PetHai({
 
                 {/* Bauch (heller Streifen, untere Hälfte) */}
                 <path
-                    d="M3,46 Q30,46 57,46 Q57,49 57,52 Q44,58 27,58 Q7,57 3,46 Z"
+                    d="M3,47 Q30,50 57,50 Q57,49 57,52 Q44,58 27,58 Q7,57 3,47 Z"
                     fill={belly}
                 />
 
