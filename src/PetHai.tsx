@@ -94,7 +94,7 @@ export function PetHai({
                 <path
                     d="M47,53 Q48,59 51,60 Q50,59 53,51 Z"
                     transform="rotate(-15, 50, 53)"
-                    fill={fur}
+                    fill={belly}
                     stroke={OUTLINE}
                     strokeWidth="1.0"
                     strokeLinejoin="round"
@@ -203,28 +203,14 @@ export function PetHai({
                 <PetSun mood={mood} />
                 <PetSweat isHot={isHot} y={16} />
 
-                {/* ── Maul mit Zähnen (neutral + warm) ── */}
-                {(mood === "neutral" || isWarm) && (
-                    <>
-                        {/* Untere Zähne */}
-                        <path
-                            d="M6,50 L8,53 L10,50 L12,53 L14,50 L16,52 L18,49 L20,51 L22,47 L22,48 Q16,52 6,51 Z"
-                            fill="white"
-                            stroke={OUTLINE}
-                            strokeWidth="0.7"
-                            strokeLinejoin="round"
-                        />
-                    </>
-                )}
-                {(isCold || isFrozen) && (
-                    <path
-                        d="M5,46 Q9,49 14,47"
-                        fill="none"
-                        stroke={OUTLINE}
-                        strokeWidth="1.2"
-                        strokeLinecap="round"
-                    />
-                )}
+                {/* ── Maul mit Zähnen (alle Moods) ── */}
+                <path
+                    d="M6,50 L8,53 L10,50 L12,53 L14,50 L16,52 L18,49 L20,51 L22,47 L22,48 Q16,52 6,51 Z"
+                    fill="white"
+                    stroke={OUTLINE}
+                    strokeWidth="0.7"
+                    strokeLinejoin="round"
+                />
 
                 {/* ── Auge (neutral + warm) ── */}
                 {(mood === "neutral" || isWarm) &&
