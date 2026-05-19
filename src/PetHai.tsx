@@ -128,7 +128,7 @@ export function PetHai({
                     strokeLinecap="round"
                 />
                 <path
-                    d="M53,38 Q55,39 57,40"
+                    d="M52.5,37.5 Q55,39 57,40"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
@@ -136,14 +136,14 @@ export function PetHai({
                 />
                 {/* Outline unten: Schwanz → Afterflosse → Schnauze */}
                 <path
-                    d="M57,52 Q55,53 53,54"
+                    d="M57,52 Q55,53 52.5,54.5"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
                     strokeLinecap="round"
                 />
                 <path
-                    d="M47,56 Q44,58 27,58 Q7,57 3,46"
+                    d="M47.5,56.5 Q44,58 27,58 Q7,57 3,46"
                     fill="none"
                     stroke={OUTLINE}
                     strokeWidth="1.5"
