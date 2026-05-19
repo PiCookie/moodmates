@@ -88,7 +88,7 @@ export function PetHai({
 
                 {/* Bauch (heller Streifen, untere Hälfte) */}
                 <path
-                    d="M3,46 Q7,53 20,57 Q36,61 52,56 Q57,51 57,49 Q44,58 27,58 Q7,57 3,46 Z"
+                    d="M3,46 Q30,46 57,46 Q57,49 57,52 Q44,58 27,58 Q7,57 3,46 Z"
                     fill={belly}
                 />
 
@@ -109,6 +109,16 @@ export function PetHai({
                     stroke={OUTLINE}
                     strokeWidth="1.2"
                     strokeLinejoin="round"
+                />
+
+                {/* ── Nasenloch ── */}
+                <ellipse
+                    cx="8"
+                    cy="47"
+                    rx="1.2"
+                    ry="0.8"
+                    fill={OUTLINE}
+                    opacity="0.6"
                 />
 
                 {/* ── Kiemenschlitze ── */}
