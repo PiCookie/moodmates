@@ -29,13 +29,6 @@ const SEESTERN_COLOR: Record<Mood, string> = {
     warm: "#ea580c",
 };
 
-const SEESTERN_BELLY: Record<Mood, string> = {
-    frozen: "#fef9f0",
-    cold: "#fef3c7",
-    neutral: "#fbbf24",
-    warm: "#f59e0b",
-};
-
 export function PetSeestern({
     temperature,
     size = 80,
@@ -44,7 +37,6 @@ export function PetSeestern({
     const mood = getMood(temperature);
     const isHot = temperature !== null && temperature >= 28;
     const color = SEESTERN_COLOR[mood];
-    const belly = SEESTERN_BELLY[mood];
     const isWarm = mood === "warm";
     const isCold = mood === "cold";
     const isFrozen = mood === "frozen";
