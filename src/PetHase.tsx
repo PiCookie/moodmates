@@ -12,7 +12,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -29,8 +29,8 @@ const HASE_FUR: Record<Mood, string> = {
 const HASE_EAR_INNER = '#fca5a5';
 const HASE_NOSE      = '#f9a8d4';
 
-export function PetHase({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+export function PetHase({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur = HASE_FUR[mood];
 

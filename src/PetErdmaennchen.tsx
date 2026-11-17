@@ -13,7 +13,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -36,8 +36,8 @@ const ERDMAENNCHEN_BELLY: Record<Mood, string> = {
 
 const EYE_RING = '#4a3220';
 
-export function PetErdmaennchen({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood  = getMood(temperature);
+export function PetErdmaennchen({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur    = ERDMAENNCHEN_FUR[mood];
   const belly  = ERDMAENNCHEN_BELLY[mood];

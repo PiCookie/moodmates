@@ -12,7 +12,7 @@
 
 import { useRef } from 'react';
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -33,8 +33,8 @@ const FROG_DARK: Record<Mood, string> = {
   warm:    '#65a30d',
 };
 
-export function PetFrog({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood   = getMood(temperature);
+export function PetFrog({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood   = resolveMood(temperature, moodOverride);
   const isHot  = temperature !== null && temperature >= 28;
   const body   = FROG_BODY[mood];
   const dark   = FROG_DARK[mood];

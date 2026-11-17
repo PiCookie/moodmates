@@ -12,7 +12,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -40,8 +40,8 @@ const KUGEL_SPINE: Record<Mood, string> = {
   warm:    '#78350f',
 };
 
-export function PetKugelfisch({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood  = getMood(temperature);
+export function PetKugelfisch({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = KUGEL_FUR[mood];
   const belly = KUGEL_BELLY[mood];

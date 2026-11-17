@@ -1,4 +1,4 @@
-import { getMood } from './pet.shared';
+import { moodFromTemperature } from './pet.shared';
 import type { Mood } from './pet.shared';
 import { resolveMessages } from './pet.messages';
 import type { PetMessages } from './pet.messages';
@@ -25,7 +25,7 @@ export function MoodHistoryBar({ tempValues, messages }: Props) {
 
   const text = resolveMessages(messages);
 
-  const moods = tempValues.map((t) => getMood(t));
+  const moods = tempValues.map((t) => moodFromTemperature(t));
 
   const counts = moods.reduce<Record<Mood, number>>(
     (acc, m) => { acc[m]++; return acc; },

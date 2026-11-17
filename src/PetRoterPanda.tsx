@@ -15,7 +15,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -50,8 +50,8 @@ const MUZZLE   = '#fef9f0';
 /** Weiße Ohreninnenseite */
 const EAR_INNER = '#fef2f2';
 
-export function PetRoterPanda({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood   = getMood(temperature);
+export function PetRoterPanda({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood   = resolveMood(temperature, moodOverride);
   const isHot  = temperature !== null && temperature >= 28;
   const fur    = ROTER_PANDA_FUR[mood];
   const dark   = ROTER_PANDA_DARK[mood];

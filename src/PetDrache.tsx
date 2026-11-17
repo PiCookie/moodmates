@@ -13,7 +13,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -30,8 +30,8 @@ const DRAGON_BODY: Record<Mood, string> = {
 const DRAGON_HORN  = '#16a34a';  // dunkelgrüne Hörner
 const DRAGON_SCALE = '#15803d';  // Schuppen-Akzente
 
-export function PetDrache({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+export function PetDrache({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body = DRAGON_BODY[mood];
   // Schuppen passen sich der Mood-Farbe an

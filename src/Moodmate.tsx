@@ -46,7 +46,8 @@ import { PetClownfisch }    from './PetClownfisch';
 import { PetPalettenfisch } from './PetPalettenfisch';
 import { PetSeestern }     from './PetSeestern';
 import { PetKraken }       from './PetKraken';
-import { getMood }           from './pet.shared';
+import { resolveMood }                  from './pet.shared';
+import type { Mood }                   from './pet.shared';
 import { pickMessage, resolveMessages } from './pet.messages';
 import type { PetMessages } from './pet.messages';
 import type { PetType }      from './pets';
@@ -75,6 +76,8 @@ interface Props {
   petType?: PetType;
   name?: string;
   event?: DetectedEvent | null;
+  /** Überschreibt die aus der Temperatur abgeleitete Stimmung (Tier, Sprüche und Hüpfen folgen ihr) */
+  mood?: Mood;
   /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
   messages?: Partial<PetMessages>;
 }
@@ -114,7 +117,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ temperature, size = 80, petType = 'cat', name, event, messages }: Props) {
+export function Moodmate({ temperature, size = 80, petType = 'cat', name, event, messages, mood: moodOverride }: Props) {
   const text = resolveMessages(messages);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
@@ -122,12 +125,14 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event,
   const [speechVariant,  setSpeechVariant]  = useState<SpeechVariant | null>(null);
 
   // Refs damit die Timers immer den aktuellen Zustand lesen, ohne neu zu starten
-  const moodRef = useRef(getMood(temperature));
+  const moodRef = useRef(resolveMood(temperature, moodOverride));
   const tempRef = useRef(temperature);
   const textRef = useRef(text);
   useEffect(() => {
-    moodRef.current = getMood(temperature);
-    tempRef.current = temperature;
+    moodRef.current = resolveMood(temperature, moodOverride);
+    // Der Hitze-Pool (ab 28 Grad) leitet sich aus der Temperatur ab. Mit ausdrücklicher Stimmung
+    // soll sie gelten und nicht die Temperatur.
+    tempRef.current = moodOverride === undefined ? temperature : null;
     textRef.current = text;
   });
 
@@ -170,7 +175,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [event]);
 
-  const mood      = getMood(temperature);
+  const mood      = resolveMood(temperature, moodOverride);
   const shivering = mood === 'cold' || mood === 'frozen';
   const canHop    = mood === 'neutral' || mood === 'warm';
 
@@ -221,7 +226,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const petProps = { temperature, size, blinking };
+  const petProps = { temperature, size, blinking, mood };
 
   return (
     <div className="mm-pet">
