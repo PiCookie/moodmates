@@ -47,7 +47,8 @@ import { PetPalettenfisch } from './PetPalettenfisch';
 import { PetSeestern }     from './PetSeestern';
 import { PetKraken }       from './PetKraken';
 import { getMood }           from './pet.shared';
-import { pickMessage }       from './pet.messages';
+import { pickMessage, resolveMessages } from './pet.messages';
+import type { PetMessages } from './pet.messages';
 import type { PetType }      from './pets';
 import './pet.css';
 
@@ -74,6 +75,8 @@ interface Props {
   petType?: PetType;
   name?: string;
   event?: DetectedEvent | null;
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
+  messages?: Partial<PetMessages>;
 }
 
 function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: SpeechVariant | null; leftPx?: number }) {
@@ -111,7 +114,8 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ temperature, size = 80, petType = 'cat', name, event }: Props) {
+export function Moodmate({ temperature, size = 80, petType = 'cat', name, event, messages }: Props) {
+  const text = resolveMessages(messages);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
   const [speechText,     setSpeechText]     = useState<string | null>(null);
@@ -120,9 +124,11 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
   // Refs damit die Timers immer den aktuellen Zustand lesen, ohne neu zu starten
   const moodRef = useRef(getMood(temperature));
   const tempRef = useRef(temperature);
+  const textRef = useRef(text);
   useEffect(() => {
     moodRef.current = getMood(temperature);
     tempRef.current = temperature;
+    textRef.current = text;
   });
 
   // Ref für den Auto-Clear-Timer der Sprechblase (damit Click den Timer resetten kann)
@@ -139,7 +145,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
 
   function showSpeech() {
     if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
-    setSpeechText(pickMessage(moodRef.current, tempRef.current));
+    setSpeechText(pickMessage(moodRef.current, tempRef.current, textRef.current));
     setSpeechVariant(null);
     setHopping(true);
     setTimeout(() => setHopping(false), 450);
@@ -153,7 +159,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
   useEffect(() => {
     if (!event) return;
     if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
-    setSpeechText(pickEventMessage(event.kind));
+    setSpeechText(pickEventMessage(event.kind, textRef.current));
     setSpeechVariant(EVENT_TO_VARIANT[event.kind]);
     doTripleHop();
     speechClearTimerRef.current = setTimeout(() => {
@@ -224,7 +230,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         className={`mm-pet__body${hopping && !shivering ? ' mm-hop' : ''}`}
         onClick={showSpeech}
         role="button"
-        aria-label="Tier antippen"
+        aria-label={text.tapPet}
       >
         {petType === 'dog'     && <PetDog     {...petProps} />}
         {petType === 'rabbit'  && <PetHase    {...petProps} />}
