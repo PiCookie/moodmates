@@ -12,7 +12,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -33,8 +33,8 @@ const ELEFANT_EAR_INNER: Record<Mood, string> = {
   warm:    '#c4b5a5',
 };
 
-export function PetElefant({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood  = getMood(temperature);
+export function PetElefant({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = ELEFANT_FUR[mood];
   const earInner = ELEFANT_EAR_INNER[mood];

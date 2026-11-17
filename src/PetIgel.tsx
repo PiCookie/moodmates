@@ -16,7 +16,7 @@
 
 import { useId } from 'react';
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -65,8 +65,8 @@ const SPINE_TIP: Record<Mood, string> = {
   warm:    '#92400e',
 };
 
-export function PetIgel({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood   = getMood(temperature);
+export function PetIgel({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood   = resolveMood(temperature, moodOverride);
   const isHot  = temperature !== null && temperature >= 28;
   const fur    = IGEL_FUR[mood];
   const belly  = IGEL_BELLY[mood];

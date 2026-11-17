@@ -12,7 +12,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -29,8 +29,8 @@ const PANDA_FUR: Record<Mood, string> = {
 const PANDA_BLACK = '#1e1e1e';
 const PANDA_NOSE  = '#3d2b1f';
 
-export function PetPanda({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+export function PetPanda({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur = PANDA_FUR[mood];
 

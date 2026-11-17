@@ -4,14 +4,21 @@ export interface PetProps {
   temperature: number | null;
   size?: number;
   blinking?: boolean;
+  /** Überschreibt die aus der Temperatur abgeleitete Stimmung */
+  mood?: Mood;
 }
 
-export function getMood(temp: number | null): Mood {
+export function moodFromTemperature(temp: number | null): Mood {
   if (temp === null) return 'neutral';
   if (temp < 0)     return 'frozen';
   if (temp < 8)     return 'cold';
   if (temp < 22)    return 'neutral';
   return 'warm';
+}
+
+/** Eine ausdrücklich übergebene Stimmung gewinnt gegen die Temperatur. */
+export function resolveMood(temperature: number | null, override?: Mood): Mood {
+  return override ?? moodFromTemperature(temperature);
 }
 
 export const BODY_FILL: Record<Mood, string> = {

@@ -16,7 +16,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -39,8 +39,8 @@ const EISBEAR_BELLY: Record<Mood, string> = {
 
 const EISBEAR_EAR_INNER = '#fcd5ce';
 
-export function PetEisbaer({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+export function PetEisbaer({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = EISBEAR_FUR[mood];
   const belly = EISBEAR_BELLY[mood];

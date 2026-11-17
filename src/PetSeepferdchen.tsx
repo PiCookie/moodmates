@@ -16,7 +16,7 @@
 
 import { useId } from "react";
 import type { Mood, PetProps } from "./pet.shared";
-import { getMood, OUTLINE } from "./pet.shared";
+import { resolveMood, OUTLINE } from "./pet.shared";
 import {
     PetSvg,
     PetShadow,
@@ -56,8 +56,9 @@ export function PetSeepferdchen({
     temperature,
     size = 80,
     blinking = false,
+    mood: moodOverride,
 }: PetProps) {
-    const mood = getMood(temperature);
+    const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = SEE_FUR[mood];
     const belly = SEE_BELLY[mood];

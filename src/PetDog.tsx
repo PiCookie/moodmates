@@ -11,15 +11,15 @@
  */
 
 import type { PetProps } from './pet.shared';
-import { getMood, BODY_FILL, OUTLINE, PINK } from './pet.shared';
+import { resolveMood, BODY_FILL, OUTLINE, PINK } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from './BasePet';
 
-export function PetDog({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+export function PetDog({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body = BODY_FILL[mood];
 

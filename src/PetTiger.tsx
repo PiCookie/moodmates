@@ -15,7 +15,7 @@
  */
 
 import type { Mood, PetProps } from './pet.shared';
-import { getMood, OUTLINE } from './pet.shared';
+import { resolveMood, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -45,8 +45,8 @@ const TIGER_STRIPE: Record<Mood, string> = {
 
 const TIGER_EAR_INNER = '#fff1f2';
 
-export function PetTiger({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood   = getMood(temperature);
+export function PetTiger({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood   = resolveMood(temperature, moodOverride);
   const isHot  = temperature !== null && temperature >= 28;
   const fur    = TIGER_FUR[mood];
   const dark   = TIGER_DARK[mood];

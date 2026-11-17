@@ -11,7 +11,7 @@
  */
 
 import type { PetProps } from './pet.shared';
-import { getMood, BODY_FILL, OUTLINE } from './pet.shared';
+import { resolveMood, BODY_FILL, OUTLINE } from './pet.shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -21,8 +21,8 @@ import {
 const PENGUIN_BODY = '#1e3a5f';
 const ORANGE       = '#f97316';
 
-export function PetPenguin({ temperature, size = 80, blinking = false }: PetProps) {
-  const mood = getMood(temperature);
+export function PetPenguin({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+  const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const face = BODY_FILL[mood];   // helles Bauch/Gesichts-Oval
 

@@ -12,7 +12,7 @@
  */
 
 import type { Mood, PetProps } from "./pet.shared";
-import { getMood, OUTLINE } from "./pet.shared";
+import { resolveMood, OUTLINE } from "./pet.shared";
 import {
     PetSvg,
     PetShadow,
@@ -41,8 +41,9 @@ export function PetPottwal({
     temperature,
     size = 80,
     blinking = false,
+    mood: moodOverride,
 }: PetProps) {
-    const mood = getMood(temperature);
+    const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = POTTWAL_FUR[mood];
     const water = POTTWAL_WATER[mood];
