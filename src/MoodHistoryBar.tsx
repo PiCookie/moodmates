@@ -1,5 +1,7 @@
 import { getMood } from './pet.shared';
 import type { Mood } from './pet.shared';
+import { resolveMessages } from './pet.messages';
+import type { PetMessages } from './pet.messages';
 import './pet.css';
 
 const MOOD_COLORS: Record<Mood, string> = {
@@ -9,22 +11,19 @@ const MOOD_COLORS: Record<Mood, string> = {
   warm:    '#fbbf24',  // Amber
 };
 
-const MOOD_LABELS: Record<Mood, string> = {
-  frozen:  'Gefroren',
-  cold:    'Kalt',
-  neutral: 'Normal',
-  warm:    'Warm',
-};
-
 const MOOD_ORDER: Mood[] = ['frozen', 'cold', 'neutral', 'warm'];
 
 interface Props {
   /** Stündliche Rohtemperaturen (°C) für heute — aus group='hourly' History */
   tempValues: number[];
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
+  messages?: Partial<PetMessages>;
 }
 
-export function MoodHistoryBar({ tempValues }: Props) {
+export function MoodHistoryBar({ tempValues, messages }: Props) {
   if (tempValues.length === 0) return null;
+
+  const text = resolveMessages(messages);
 
   const moods = tempValues.map((t) => getMood(t));
 
@@ -42,14 +41,14 @@ export function MoodHistoryBar({ tempValues }: Props) {
       <div
         className="mm-mood-bar__bar"
         role="img"
-        aria-label="Stimmungsverteilung heute"
+        aria-label={text.moodBarAriaLabel}
       >
         {moods.map((mood, i) => (
           <div
             key={i}
             className="mm-mood-bar__segment"
             style={{ backgroundColor: MOOD_COLORS[mood] }}
-            title={`${String(i).padStart(2, '0')}:00 – ${MOOD_LABELS[mood]}`}
+            title={text.moodBarHourTitle(String(i).padStart(2, '0'), text.moodLabels[mood])}
           />
         ))}
       </div>
@@ -64,7 +63,7 @@ export function MoodHistoryBar({ tempValues }: Props) {
                 className="mm-mood-bar__dot"
                 style={{ backgroundColor: MOOD_COLORS[m] }}
               />
-              {MOOD_LABELS[m]} {Math.round((counts[m] / total) * 100)} %
+              {text.moodLabels[m]} {Math.round((counts[m] / total) * 100)} %
             </span>
           ))}
       </div>
