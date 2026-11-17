@@ -1,0 +1,55 @@
+import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Moodmate } from './Moodmate';
+import { MoodHistoryBar } from './MoodHistoryBar';
+import type { EventKind } from './pet.events';
+
+// Die Tiere sollen ohne Tailwind und ohne CSS der App funktionieren (ADR-0006): Jede Klasse in
+// ihrem Markup muss zu pet.css gehören, also das Präfix "mm-" tragen.
+function foreignClasses(container: HTMLElement): string[] {
+  return [...container.querySelectorAll('[class]')]
+    .flatMap((el) => (el.getAttribute('class') ?? '').split(/\s+/))
+    .filter((name) => name !== '' && !name.startsWith('mm-'));
+}
+
+const EVENT_KINDS: EventKind[] = ['first-frost', 'first-summer', 'heat-record', 'back-online'];
+
+describe('selbstenthaltenes Styling', () => {
+  it.each(EVENT_KINDS)('Moodmate mit Sprechblase (%s) nutzt nur mm- Klassen', (kind) => {
+    const { container } = render(
+      <Moodmate temperature={-5} petType="cat" name="Mimi" event={{ kind }} />,
+    );
+
+    expect(container.querySelector('.mm-bubble')).not.toBeNull();
+    expect(foreignClasses(container)).toEqual([]);
+  });
+
+  it('nutzt auch für große Tiere mit eigener Blasenposition nur mm- Klassen', () => {
+    const { container } = render(
+      <Moodmate temperature={10} petType="blue-whale" event={{ kind: 'first-frost' }} />,
+    );
+
+    expect(foreignClasses(container)).toEqual([]);
+  });
+
+  it('lässt ein frierendes Tier zittern', () => {
+    const { container } = render(<Moodmate temperature={-5} petType="dog" />);
+
+    expect(container.querySelector('svg.mm-shiver')).not.toBeNull();
+  });
+
+  it('lässt ein warmes Tier nach einem Klick hüpfen', () => {
+    const { container } = render(<Moodmate temperature={24} petType="cat" />);
+
+    fireEvent.click(screen.getByRole('button'));
+
+    expect(container.querySelector('.mm-pet__body.mm-hop')).not.toBeNull();
+  });
+
+  it('MoodHistoryBar nutzt nur mm- Klassen', () => {
+    const { container } = render(<MoodHistoryBar tempValues={[-5, 3, 12, 24]} />);
+
+    expect(container.querySelector('.mm-mood-bar')).not.toBeNull();
+    expect(foreignClasses(container)).toEqual([]);
+  });
+});

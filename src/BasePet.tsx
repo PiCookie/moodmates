@@ -8,6 +8,7 @@
 import type { ReactNode } from 'react';
 import type { Mood } from './pet.shared';
 import { OUTLINE } from './pet.shared';
+import './pet.css';
 
 // ─── SVG Wrapper ─────────────────────────────────────────────────────────────
 
@@ -27,7 +28,7 @@ export function PetSvg({ size, shivering, ariaLabel, children, viewBoxWidth = 66
       viewBox={`0 0 ${viewBoxWidth} 88`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={shivering ? 'animate-shiver' : undefined}
+      className={shivering ? 'mm-shiver' : undefined}
       aria-label={ariaLabel}
     >
       {children}

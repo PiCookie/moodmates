@@ -49,14 +49,16 @@ import { PetKraken }       from './PetKraken';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
 import type { PetType }      from './pets';
+import './pet.css';
 
 type SpeechVariant = 'frost' | 'summer' | 'heat' | 'online';
 
-const VARIANT_BUBBLE: Record<SpeechVariant, { bubble: string; tail: string }> = {
-  frost:  { bubble: 'border-2 border-blue-400/70 bg-blue-50 text-blue-900',   tail: '#eff6ff' },
-  summer: { bubble: 'border-2 border-amber-400/70 bg-amber-50 text-amber-900', tail: '#fffbeb' },
-  heat:   { bubble: 'border-2 border-red-400/70 bg-red-50 text-red-900',       tail: '#fef2f2' },
-  online: { bubble: 'border-2 border-green-400/70 bg-green-50 text-green-900', tail: '#f0fdf4' },
+// Farben der Blase stehen in pet.css (mm-bubble__text--<variante>), hier nur die Spitze
+const VARIANT_TAIL: Record<SpeechVariant, string> = {
+  frost:  '#eff6ff',
+  summer: '#fffbeb',
+  heat:   '#fef2f2',
+  online: '#f0fdf4',
 };
 
 const EVENT_TO_VARIANT: Record<EventKind, SpeechVariant> = {
@@ -75,16 +77,15 @@ interface Props {
 }
 
 function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: SpeechVariant | null; leftPx?: number }) {
-  const styles = variant ? VARIANT_BUBBLE[variant] : null;
-  const tailFill   = styles?.tail   ?? 'white';
-  const bubbleClass = styles?.bubble ?? 'bg-white text-slate-800';
+  const tailFill  = variant ? VARIANT_TAIL[variant] : 'white';
+  const textClass = variant ? `mm-bubble__text mm-bubble__text--${variant}` : 'mm-bubble__text';
 
-  const posClass = leftPx === undefined ? 'left-full ml-3' : '';
+  const posClass = leftPx === undefined ? ' mm-bubble--side' : '';
   const posStyle = leftPx !== undefined ? { left: leftPx + 12 } : undefined;
 
   return (
-    <div className={`animate-bubble-in absolute -top-2 z-20 pointer-events-none origin-left ${posClass}`} style={posStyle}>
-      <div className="relative">
+    <div className={`mm-bubble${posClass}`} style={posStyle}>
+      <div className="mm-bubble__inner">
         {/*
           Comic-Sprechblasen-Schwanz:
           - Außenkante (rechts): konkave Bezier-Kurve, wie im klassischen Comic-Stil
@@ -93,7 +94,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
           - z-0 liegt hinter dem Bubble-Inhalt (z-10), der die Basis überdeckt
         */}
         <svg
-          className="absolute left-[6px] -bottom-[14px] z-0"
+          className="mm-bubble__tail"
           width="28"
           height="18"
           viewBox="0 0 28 18"
@@ -102,7 +103,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
           <path d="M 26,0 C 18,3 4,9 0,18 L 6,0 Z" />
         </svg>
         {/* Bubble */}
-        <div className={`relative z-10 text-[11px] font-medium px-3 py-2 rounded-xl shadow-lg w-[175px] text-left leading-snug ${bubbleClass}`}>
+        <div className={textClass}>
           {text}
         </div>
       </div>
@@ -217,10 +218,10 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
   const petProps = { temperature, size, blinking };
 
   return (
-    <div className="relative inline-flex flex-col items-center gap-1">
+    <div className="mm-pet">
       {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={petType === 'blue-whale' || petType === 'sperm-whale' || petType === 'killer-whale' || petType === 'beluga' || petType === 'narwhal' ? size : undefined} />}
       <div
-        className={`cursor-pointer${hopping && !shivering ? ' animate-hop' : ''}`}
+        className={`mm-pet__body${hopping && !shivering ? ' mm-hop' : ''}`}
         onClick={showSpeech}
         role="button"
         aria-label="Tier antippen"
@@ -272,7 +273,7 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event 
         {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
       </div>
       {name && (
-        <span className="text-[11px] text-white/50 font-medium tracking-wide">{name}</span>
+        <span className="mm-pet__name">{name}</span>
       )}
     </div>
   );
