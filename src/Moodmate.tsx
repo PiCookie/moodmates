@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import type { DetectedEvent, EventKind } from '@/hooks/useEventDetector';
+import type { DetectedEvent, EventKind } from './pet.events';
 import { pickEventMessage } from './pet.events';
 import { PetCat }     from './PetCat';
 import { PetDog }     from './PetDog';
@@ -48,7 +48,7 @@ import { PetSeestern }     from './PetSeestern';
 import { PetKraken }       from './PetKraken';
 import { getMood }           from './pet.shared';
 import { pickMessage }       from './pet.messages';
-import type { PetType }      from '@/contexts/SettingsContext';
+import type { PetType }      from './pets';
 
 type SpeechVariant = 'frost' | 'summer' | 'heat' | 'online';
 

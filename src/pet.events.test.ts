@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { pickEventMessage } from './pet.events';
-import type { EventKind } from '@/hooks/useEventDetector';
+import type { EventKind } from './pet.events';
 
 const POOLS: Record<EventKind, readonly string[]> = {
   'first-frost': [

@@ -1,4 +1,8 @@
-import type { EventKind } from '@/hooks/useEventDetector';
+export type EventKind = 'first-frost' | 'first-summer' | 'heat-record' | 'back-online';
+
+export interface DetectedEvent {
+  kind: EventKind;
+}
 
 const EVENT_MESSAGES: Record<EventKind, readonly string[]> = {
   'first-frost': [
