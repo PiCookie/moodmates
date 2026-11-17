@@ -51,11 +51,10 @@ import type { Mood }                   from './pet.shared';
 import { pickMessage, resolveMessages } from './pet.messages';
 import type { PetMessages } from './pet.messages';
 import type { PetType }      from './pets';
-import './pet.css';
 
 type SpeechVariant = 'frost' | 'summer' | 'heat' | 'online';
 
-// Farben der Blase stehen in pet.css (mm-bubble__text--<variante>), hier nur die Spitze
+// Farben der Blase stehen in styles.css (mm-bubble__text--<variante>), hier nur die Spitze
 const VARIANT_TAIL: Record<SpeechVariant, string> = {
   frost:  '#eff6ff',
   summer: '#fffbeb',
@@ -172,7 +171,6 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event,
       setSpeechVariant(null);
       speechClearTimerRef.current = null;
     }, 8000);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [event]);
 
   const mood      = resolveMood(temperature, moodOverride);
@@ -223,7 +221,6 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event,
     };
     schedule(10000 + Math.random() * 8000);
     return () => timers.forEach(clearTimeout);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const petProps = { temperature, size, blinking, mood };
