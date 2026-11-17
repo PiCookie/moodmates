@@ -1,0 +1,193 @@
+/*
+ * Selbstenthaltenes Styling der Tiere (ADR-0006): keine Tailwind-Klassen, keine CSS der App nötig.
+ * Alle Klassen und Keyframes tragen das Präfix "mm-", damit sie in anderen Projekten nicht mit
+ * eigenen Namen kollidieren. Die Werte entsprechen den bisherigen Tailwind-Klassen.
+ *
+ * Anpassbar über CSS-Variablen (Standard: heller Text auf dunklem Hintergrund):
+ *   --mm-name-color    Name unter dem Tier
+ *   --mm-legend-color  Legende der Stimmungsleiste
+ */
+
+/* ── Animationen ──────────────────────────────────────────────────────────── */
+
+/* Schütteln (kalt / gefroren) */
+@keyframes mm-shiver {
+  0%, 100% { transform: translateX(0)    rotate(0deg);    }
+  20%       { transform: translateX(-3px) rotate(-1.5deg); }
+  40%       { transform: translateX(3px)  rotate(1.5deg);  }
+  60%       { transform: translateX(-2px) rotate(-1deg);   }
+  80%       { transform: translateX(2px)  rotate(0.5deg);  }
+}
+.mm-shiver {
+  animation: mm-shiver 0.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+/* Hüpfen (neutral / warm) */
+@keyframes mm-hop {
+  0%   { transform: translateY(0);     }
+  30%  { transform: translateY(-9px);  }
+  55%  { transform: translateY(-6px);  }
+  78%  { transform: translateY(-1px);  }
+  100% { transform: translateY(0);     }
+}
+.mm-hop {
+  animation: mm-hop 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  transform-origin: center bottom;
+}
+
+/* Sprechblase einblenden */
+@keyframes mm-bubble-in {
+  from { opacity: 0; transform: scale(0.82); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-shiver,
+  .mm-hop,
+  .mm-bubble {
+    animation: none;
+  }
+}
+
+/* ── Tier ─────────────────────────────────────────────────────────────────── */
+
+.mm-pet {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.mm-pet__body {
+  cursor: pointer;
+}
+
+/* Tailwind-Preflight macht SVGs in der App zu Blockelementen. Ohne diese Zeile hätten SVGs in
+   anderen Projekten einen Zeilenabstand darunter. */
+.mm-pet__body svg {
+  display: block;
+}
+
+.mm-pet__name {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  color: var(--mm-name-color, rgb(255 255 255 / 0.5));
+}
+
+/* ── Sprechblase ──────────────────────────────────────────────────────────── */
+
+.mm-bubble {
+  position: absolute;
+  top: -0.5rem;
+  z-index: 20;
+  pointer-events: none;
+  transform-origin: left;
+  animation: mm-bubble-in 0.18s ease-out forwards;
+}
+
+/* Standardposition rechts neben dem Tier (große Tiere setzen "left" per Inline-Style) */
+.mm-bubble--side {
+  left: 100%;
+  margin-left: 0.75rem;
+}
+
+.mm-bubble__inner {
+  position: relative;
+}
+
+.mm-bubble__tail {
+  display: block;
+  position: absolute;
+  left: 6px;
+  bottom: -14px;
+  z-index: 0;
+}
+
+.mm-bubble__text {
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  width: 175px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.375;
+  text-align: left;
+  background: #fff;
+  color: oklch(27.9% 0.041 260.031);
+}
+
+.mm-bubble__text--frost {
+  border: 2px solid color-mix(in oklab, oklch(70.7% 0.165 254.624) 70%, transparent);
+  background: oklch(97% 0.014 254.604);
+  color: oklch(37.9% 0.146 265.522);
+}
+
+.mm-bubble__text--summer {
+  border: 2px solid color-mix(in oklab, oklch(82.8% 0.189 84.429) 70%, transparent);
+  background: oklch(98.7% 0.022 95.277);
+  color: oklch(41.4% 0.112 45.904);
+}
+
+.mm-bubble__text--heat {
+  border: 2px solid color-mix(in oklab, oklch(70.4% 0.191 22.216) 70%, transparent);
+  background: oklch(97.1% 0.013 17.38);
+  color: oklch(39.6% 0.141 25.723);
+}
+
+.mm-bubble__text--online {
+  border: 2px solid color-mix(in oklab, oklch(79.2% 0.209 151.711) 70%, transparent);
+  background: oklch(98.2% 0.018 155.826);
+  color: oklch(39.3% 0.095 152.535);
+}
+
+/* ── Stimmungsleiste ──────────────────────────────────────────────────────── */
+
+.mm-mood-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  width: 100%;
+  max-width: 200px;
+}
+
+.mm-mood-bar__bar {
+  display: flex;
+  width: 100%;
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+.mm-mood-bar__segment {
+  flex: 1 1 0%;
+}
+
+.mm-mood-bar__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.mm-mood-bar__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 9px;
+  color: var(--mm-legend-color, rgb(255 255 255 / 0.35));
+}
+
+.mm-mood-bar__dot {
+  flex-shrink: 0;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+}

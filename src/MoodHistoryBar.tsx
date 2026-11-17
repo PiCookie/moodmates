@@ -1,5 +1,6 @@
 import { getMood } from './pet.shared';
 import type { Mood } from './pet.shared';
+import './pet.css';
 
 const MOOD_COLORS: Record<Mood, string> = {
   frozen:  '#818cf8',  // Indigo
@@ -35,18 +36,18 @@ export function MoodHistoryBar({ tempValues }: Props) {
   const total = moods.length;
 
   return (
-    <div className="flex flex-col items-center gap-1.5 w-full max-w-[200px]">
+    <div className="mm-mood-bar">
 
       {/* ── Farbbalken: ein Segment pro Stunde ── */}
       <div
-        className="h-2 flex rounded-full overflow-hidden w-full"
+        className="mm-mood-bar__bar"
         role="img"
         aria-label="Stimmungsverteilung heute"
       >
         {moods.map((mood, i) => (
           <div
             key={i}
-            className="flex-1"
+            className="mm-mood-bar__segment"
             style={{ backgroundColor: MOOD_COLORS[mood] }}
             title={`${String(i).padStart(2, '0')}:00 – ${MOOD_LABELS[mood]}`}
           />
@@ -54,13 +55,13 @@ export function MoodHistoryBar({ tempValues }: Props) {
       </div>
 
       {/* ── Legende: nur vorhandene Stimmungen ── */}
-      <div className="flex items-center justify-center gap-3 flex-wrap">
+      <div className="mm-mood-bar__legend">
         {MOOD_ORDER
           .filter((m) => counts[m] > 0)
           .map((m) => (
-            <span key={m} className="flex items-center gap-1 text-[9px] text-white/35">
+            <span key={m} className="mm-mood-bar__legend-item">
               <span
-                className="w-1.5 h-1.5 rounded-full shrink-0"
+                className="mm-mood-bar__dot"
                 style={{ backgroundColor: MOOD_COLORS[m] }}
               />
               {MOOD_LABELS[m]} {Math.round((counts[m] / total) * 100)} %
