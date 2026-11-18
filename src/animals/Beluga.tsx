@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -42,7 +42,8 @@ export function Beluga({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = BELUGA_FUR[mood];
@@ -56,7 +57,7 @@ export function Beluga({
             size={size}
             viewBoxWidth={104}
             shivering={isCold || isFrozen}
-            ariaLabel={`Beluga: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <PetShadow cx={33} />
             <g transform="scale(1.40) translate(-2, -1)">

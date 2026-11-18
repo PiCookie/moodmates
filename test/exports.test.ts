@@ -5,6 +5,7 @@ import * as api from '../src/index';
 const CORE_EXPORTS = [
   'ALL_PET_TYPES',
   'MESSAGES_DE',
+  'MESSAGES_EN',
   'moodFromTemperature',
   'pickEventMessage',
   'pickMessage',

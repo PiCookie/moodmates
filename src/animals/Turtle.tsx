@@ -14,7 +14,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -53,7 +53,7 @@ const TURTLE_BELLY: Record<Mood, string> = {
   warm:    '#dcc038',
 };
 
-export function Turtle({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Turtle({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const limb  = TURTLE_LIMB[mood];
@@ -62,7 +62,7 @@ export function Turtle({ temperature, size = 80, blinking = false, mood: moodOve
   const belly = TURTLE_BELLY[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Schildkröten: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 

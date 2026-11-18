@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, vereiste Platten, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -34,14 +34,14 @@ const STEG_PLATE: Record<Mood, string> = {
   warm:    '#f97316',
 };
 
-export function Stegosaurus({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Stegosaurus({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body  = STEG_BODY[mood];
   const plate = STEG_PLATE[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Stegosaurus: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={73} leftX={17} rightX={39} />
 

@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Augen (weiß auf schwarz), Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -29,13 +29,13 @@ const PANDA_FUR: Record<Mood, string> = {
 const PANDA_BLACK = '#1e1e1e';
 const PANDA_NOSE  = '#3d2b1f';
 
-export function Panda({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Panda({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur = PANDA_FUR[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Panda: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 

@@ -10,7 +10,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { PetProps } from '../shared';
+import type { AnimalProps } from '../shared';
 import { resolveMood, BODY_FILL, OUTLINE, PINK } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -18,13 +18,13 @@ import {
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-export function Dog({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Dog({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body = BODY_FILL[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Hunde: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={30} />
       <PetIcicles mood={mood} y={73} />
 

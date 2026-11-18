@@ -10,3 +10,4 @@ export type { EventKind, DetectedEvent } from './events';
 export { pickMessage, resolveMessages } from './messages';
 export type { PetMessages } from './messages';
 export { MESSAGES_DE } from './messages.de';
+export { MESSAGES_EN } from './messages.en';

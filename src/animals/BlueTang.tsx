@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Auge, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -52,7 +52,8 @@ export function BlueTang({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = PALETTEN_FUR[mood];
@@ -66,7 +67,7 @@ export function BlueTang({
         <PetSvg
             size={size}
             shivering={isCold || isFrozen}
-            ariaLabel={`Palettenfisch: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <PetShadow cx={29} />
             <PetIcicles mood={mood} y={66} />

@@ -10,7 +10,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -32,14 +32,14 @@ const CAPY_DARK: Record<Mood, string> = {
   warm:    '#8b5e1a',
 };
 
-export function Capybara({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Capybara({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body = CAPY_BODY[mood];
   const dark = CAPY_DARK[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Capybara: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       {/* Capybara icicles sit slightly higher and wider than other animals */}
       <PetIcicles mood={mood} y={70} leftX={17} rightX={43} />

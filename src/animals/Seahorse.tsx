@@ -15,7 +15,7 @@
  */
 
 import { useId } from "react";
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -57,7 +57,8 @@ export function Seahorse({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = SEE_FUR[mood];
@@ -73,7 +74,7 @@ export function Seahorse({
         <PetSvg
             size={size}
             shivering={isCold || isFrozen}
-            ariaLabel={`Seepferdchen: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <defs>
                 <clipPath id={clipId}>

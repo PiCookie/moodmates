@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -27,13 +27,13 @@ const BRACHIO_BODY: Record<Mood, string> = {
   warm:    '#fbbf24',
 };
 
-export function Brachiosaurus({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Brachiosaurus({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body  = BRACHIO_BODY[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Brachiosaurus: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={36} />
       <PetIcicles mood={mood} y={74} leftX={20} rightX={42} />
 
