@@ -3,6 +3,8 @@
 Small animated SVG animals that show a mood. 45 species, speech bubbles, a mood history bar.
 For React 19, no runtime dependencies, no Tailwind needed.
 
+**[Live demo](https://picookie.github.io/moodmates/demo/)**: all 45 species, every mood, search, speech bubbles.
+
 **Honest scope:** the moods are a five-step cold-to-hot scale (`frozen`, `cold`, `neutral`, `warm`, `hot`),
 and the drawings (icicles, scarf, sunglasses, sweat drops) and default phrases are built around it. It fits
 anything you can place on a cold-to-hot axis: a temperature, room climate, CPU or server load (cold = idle,
