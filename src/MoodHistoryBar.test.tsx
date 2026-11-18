@@ -15,7 +15,7 @@ describe('MoodHistoryBar mit Stimmungen', () => {
     const { container } = render(<MoodHistoryBar moods={['cold', 'warm', 'warm', 'warm']} />);
 
     expect(container.querySelector('.mm-mood-bar__legend')?.textContent).toContain('Warm 75 %');
-    expect(container.querySelector('.mm-mood-bar__legend')?.textContent).toContain('Kalt 25 %');
+    expect(container.querySelector('.mm-mood-bar__legend')?.textContent).toContain('Cold 25 %');
   });
 
   it('liefert dasselbe wie die passenden Temperaturen', () => {

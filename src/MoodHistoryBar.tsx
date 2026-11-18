@@ -17,7 +17,7 @@ interface Props {
   tempValues?: number[];
   /** Fertige Stimmungen je Stunde; gewinnt gegen tempValues, wenn beides übergeben wird */
   moods?: Mood[];
-  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
   messages?: Partial<PetMessages>;
 }
 

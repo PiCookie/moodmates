@@ -1,7 +1,7 @@
 import type { PetMessages } from './messages';
 
-// Deutsche Standardtexte. Sie entsprechen dem bisherigen Verhalten der App und sind der Standard,
-// wenn keine eigenen Texte übergeben werden.
+// Deutsche Texte, die bisherigen Texte der Wetterstation. Sie sind nicht der Standard des Pakets (das ist
+// MESSAGES_EN), die App übergibt sie ausdrücklich.
 export const MESSAGES_DE: PetMessages = {
   speech: {
     frozen: [
