@@ -5,7 +5,7 @@ import { MoodHistoryBar } from './MoodHistoryBar';
 import type { EventKind } from './pet.events';
 
 // Die Tiere sollen ohne Tailwind und ohne CSS der App funktionieren (ADR-0006): Jede Klasse in
-// ihrem Markup muss zu pet.css gehören, also das Präfix "mm-" tragen.
+// ihrem Markup muss zu styles.css gehören, also das Präfix "mm-" tragen.
 function foreignClasses(container: HTMLElement): string[] {
   return [...container.querySelectorAll('[class]')]
     .flatMap((el) => (el.getAttribute('class') ?? '').split(/\s+/))

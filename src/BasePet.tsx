@@ -8,7 +8,6 @@
 import type { ReactNode } from 'react';
 import type { Mood } from './pet.shared';
 import { OUTLINE } from './pet.shared';
-import './pet.css';
 
 // ─── SVG Wrapper ─────────────────────────────────────────────────────────────
 

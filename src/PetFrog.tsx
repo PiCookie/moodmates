@@ -10,7 +10,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import { useRef } from 'react';
+import { useId } from 'react';
 import type { Mood, PetProps } from './pet.shared';
 import { resolveMood, OUTLINE } from './pet.shared';
 import {
@@ -38,8 +38,10 @@ export function PetFrog({ temperature, size = 80, blinking = false, mood: moodOv
   const isHot  = temperature !== null && temperature >= 28;
   const body   = FROG_BODY[mood];
   const dark   = FROG_DARK[mood];
-  // Eindeutige Mask-ID — mehrere SVG-Instanzen können gleichzeitig im DOM sein
-  const maskId = useRef(`fm-${Math.floor(Math.random() * 1e9)}`).current;
+  // Eindeutige Mask-ID, da mehrere SVG-Instanzen gleichzeitig im DOM sein können. useId statt
+  // Math.random: gleiche ID auf Server und Client (keine Hydration-Warnung), rein beim Rendern.
+  // Sonderzeichen der useId-Ausgabe entfernen, damit url(#…) sicher bleibt.
+  const maskId = `fm-${useId().replace(/[^A-Za-z0-9_-]/g, '')}`;
 
   return (
     <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Frosch-Pet: ${mood}`}>
