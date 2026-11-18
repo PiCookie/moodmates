@@ -60,6 +60,7 @@
     "test": "vitest run",
     "test:dist": "vitest run --config vitest.dist.config.ts",
     "typecheck": "tsc --noEmit",
+    "gen:overview": "node scripts/gen-overview.mjs",
     "lint": "eslint src test test-dist"
   },
   "peerDependencies": {
