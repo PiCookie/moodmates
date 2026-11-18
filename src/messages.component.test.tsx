@@ -4,8 +4,8 @@ import { Moodmate } from './Moodmate';
 import { MoodHistoryBar } from './MoodHistoryBar';
 import type { PetMessages } from './messages';
 
-const ENGLISH: Partial<PetMessages> = {
-  tapPet: 'Tap the pet',
+const CUSTOM: Partial<PetMessages> = {
+  tapPet: 'Tap me',
   speech: {
     frozen: ['Brrr!'],
     cold: ['A bit chilly.'],
@@ -19,26 +19,26 @@ const ENGLISH: Partial<PetMessages> = {
     'heat-record': ['Record heat!'],
     'back-online': ['Back online!'],
   },
-  moodLabels: { frozen: 'Frozen', cold: 'Cold', neutral: 'Normal', warm: 'Warm' },
-  moodBarAriaLabel: 'Mood distribution today',
-  moodBarHourTitle: (hour, moodLabel) => `${hour}:00 - ${moodLabel}`,
+  moodLabels: { frozen: 'Icy', cold: 'Chilly', neutral: 'Fine', warm: 'Toasty' },
+  moodBarAriaLabel: 'Moods of the day',
+  moodBarHourTitle: (hour, moodLabel) => `${hour}h - ${moodLabel}`,
 };
 
 describe('Moodmate: Texte', () => {
-  it('nutzt ohne eigene Texte die deutschen Standardtexte', () => {
+  it('nutzt ohne eigene Texte die englischen Standardtexte', () => {
     render(<Moodmate temperature={20} />);
-
-    expect(screen.getByRole('button', { name: 'Tier antippen' })).toBeInTheDocument();
-  });
-
-  it('nutzt die eigene Beschriftung für Screenreader', () => {
-    render(<Moodmate temperature={20} messages={ENGLISH} />);
 
     expect(screen.getByRole('button', { name: 'Tap the pet' })).toBeInTheDocument();
   });
 
+  it('nutzt die eigene Beschriftung für Screenreader', () => {
+    render(<Moodmate temperature={20} messages={CUSTOM} />);
+
+    expect(screen.getByRole('button', { name: 'Tap me' })).toBeInTheDocument();
+  });
+
   it('zeigt beim Antippen einen Spruch aus den eigenen Texten', () => {
-    render(<Moodmate temperature={20} messages={ENGLISH} />);
+    render(<Moodmate temperature={20} messages={CUSTOM} />);
 
     fireEvent.click(screen.getByRole('button'));
 
@@ -47,15 +47,15 @@ describe('Moodmate: Texte', () => {
 
   it('zeigt bei einem Ereignis den eigenen Ereignistext', () => {
     render(
-      <Moodmate temperature={-2} messages={ENGLISH} event={{ kind: 'first-frost' }} />,
+      <Moodmate temperature={-2} messages={CUSTOM} event={{ kind: 'first-frost' }} />,
     );
 
     expect(screen.getByText('First frost of the year!')).toBeInTheDocument();
   });
 
   it('nutzt nach einem Wechsel der Texte beim nächsten Antippen die neuen Texte', () => {
-    const { rerender } = render(<Moodmate temperature={20} messages={ENGLISH} />);
-    const german = { speech: { ...ENGLISH.speech!, neutral: ['Schöner Tag.'] } };
+    const { rerender } = render(<Moodmate temperature={20} messages={CUSTOM} />);
+    const german = { speech: { ...CUSTOM.speech!, neutral: ['Schöner Tag.'] } };
 
     rerender(<Moodmate temperature={20} messages={german} />);
     fireEvent.click(screen.getByRole('button'));
@@ -74,8 +74,8 @@ describe('Moodmate: automatische Sprüche', () => {
   it('nutzt für den automatischen Spruch die zuletzt übergebenen Texte', () => {
     vi.useFakeTimers();
     vi.spyOn(Math, 'random').mockReturnValue(0);
-    const { rerender } = render(<Moodmate temperature={20} messages={ENGLISH} />);
-    const german = { speech: { ...ENGLISH.speech!, neutral: ['Schöner Tag.'] } };
+    const { rerender } = render(<Moodmate temperature={20} messages={CUSTOM} />);
+    const german = { speech: { ...CUSTOM.speech!, neutral: ['Schöner Tag.'] } };
 
     rerender(<Moodmate temperature={20} messages={german} />);
     act(() => { vi.advanceTimersByTime(10_001); });
@@ -85,19 +85,19 @@ describe('Moodmate: automatische Sprüche', () => {
 });
 
 describe('MoodHistoryBar: Texte', () => {
-  it('nutzt ohne eigene Texte die deutschen Standardtexte', () => {
+  it('nutzt ohne eigene Texte die englischen Standardtexte', () => {
     render(<MoodHistoryBar tempValues={[3, 12]} />);
 
-    expect(screen.getByRole('img', { name: 'Stimmungsverteilung heute' })).toBeInTheDocument();
-    expect(screen.getByText(/Kalt 50 %/)).toBeInTheDocument();
-    expect(screen.getByTitle('00:00 – Kalt')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Mood distribution today' })).toBeInTheDocument();
+    expect(screen.getByText(/Cold 50 %/)).toBeInTheDocument();
+    expect(screen.getByTitle('00:00 – Cold')).toBeInTheDocument();
   });
 
   it('nutzt eigene Beschriftung, Stundentitel und Legende', () => {
-    render(<MoodHistoryBar tempValues={[3, 12]} messages={ENGLISH} />);
+    render(<MoodHistoryBar tempValues={[3, 12]} messages={CUSTOM} />);
 
-    expect(screen.getByRole('img', { name: 'Mood distribution today' })).toBeInTheDocument();
-    expect(screen.getByTitle('00:00 - Cold')).toBeInTheDocument();
-    expect(screen.getByText(/Normal 50 %/)).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Moods of the day' })).toBeInTheDocument();
+    expect(screen.getByTitle('00h - Chilly')).toBeInTheDocument();
+    expect(screen.getByText(/Fine 50 %/)).toBeInTheDocument();
   });
 });

@@ -33,7 +33,7 @@ export interface MoodmateProps {
   event?: DetectedEvent | null;
   /** Überschreibt die aus der Temperatur abgeleitete Stimmung (Tier, Sprüche und Hüpfen folgen ihr) */
   mood?: Mood;
-  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
   messages?: Partial<PetMessages>;
 }
 

@@ -7,7 +7,7 @@ import { PET_COMPONENTS } from './registry';
 
 export interface MoodmateSpriteProps extends PetProps {
   type: PetType;
-  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
   messages?: Partial<PetMessages>;
 }
 

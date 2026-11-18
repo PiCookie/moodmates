@@ -1,7 +1,7 @@
 import type { PetMessages } from './messages';
 
-// Englische Texte. Sie sind eine Alternative zu MESSAGES_DE und werden über die Prop `messages`
-// übergeben, der Standard bleibt Deutsch.
+// Englische Texte und der Standard des Pakets. Andere Sprachen übergibt man über die Prop `messages`
+// (Typ PetMessages); sie gehören zur nutzenden Anwendung, nicht in das Paket.
 export const MESSAGES_EN: PetMessages = {
   speech: {
     frozen: [

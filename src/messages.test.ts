@@ -3,7 +3,6 @@ import { pickMessage, resolveMessages } from './messages';
 import type { PetMessages } from './messages';
 import { pickEventMessage } from './events';
 import type { EventKind } from './events';
-import { MESSAGES_DE } from './messages.de';
 import { MESSAGES_EN } from './messages.en';
 import { ALL_PET_TYPES } from './pets';
 import type { Mood } from './shared';
@@ -21,35 +20,21 @@ const ENGLISH_SPEECH: PetMessages['speech'] = {
 
 afterEach(() => vi.restoreAllMocks());
 
-describe('MESSAGES_DE', () => {
-  it.each([...MOODS, 'hot' as const])('hat Sprüche für die Stimmung %s', (mood) => {
-    expect(MESSAGES_DE.speech[mood].length).toBeGreaterThan(0);
-  });
-
-  it.each(EVENT_KINDS)('hat Texte für das Ereignis %s', (kind) => {
-    expect(MESSAGES_DE.events[kind].length).toBeGreaterThan(0);
-  });
-
-  it.each(MOODS)('hat ein Label für die Stimmung %s', (mood) => {
-    expect(MESSAGES_DE.moodLabels[mood]).not.toBe('');
-  });
-});
-
 describe('resolveMessages', () => {
-  it('liefert ohne Angabe die deutschen Standardtexte', () => {
-    expect(resolveMessages()).toEqual(MESSAGES_DE);
+  it('liefert ohne Angabe die englischen Standardtexte', () => {
+    expect(resolveMessages()).toEqual(MESSAGES_EN);
   });
 
   it('überschreibt nur die angegebenen Felder und behält den Rest', () => {
     const resolved = resolveMessages({ tapPet: 'Tap the pet' });
 
     expect(resolved.tapPet).toBe('Tap the pet');
-    expect(resolved.speech).toBe(MESSAGES_DE.speech);
-    expect(resolved.events).toBe(MESSAGES_DE.events);
+    expect(resolved.speech).toBe(MESSAGES_EN.speech);
+    expect(resolved.events).toBe(MESSAGES_EN.events);
   });
 
   it('behandelt ein ausdrücklich auf undefined gesetztes Feld wie ein fehlendes', () => {
-    expect(resolveMessages({ tapPet: undefined }).tapPet).toBe(MESSAGES_DE.tapPet);
+    expect(resolveMessages({ tapPet: undefined }).tapPet).toBe(MESSAGES_EN.tapPet);
   });
 });
 
@@ -57,7 +42,7 @@ describe('pickMessage', () => {
   it('nutzt die Standardtexte, wenn nichts übergeben wird', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
 
-    expect(pickMessage('neutral', 20)).toBe(MESSAGES_DE.speech.neutral[0]);
+    expect(pickMessage('neutral', 20)).toBe(MESSAGES_EN.speech.neutral[0]);
   });
 
   it('wählt aus den übergebenen Texten', () => {
@@ -94,7 +79,9 @@ describe('pickEventMessage mit eigenen Texten', () => {
   });
 });
 
-describe.each([['MESSAGES_DE', MESSAGES_DE], ['MESSAGES_EN', MESSAGES_EN]] as const)('%s ist vollständig', (_name, messages) => {
+describe('MESSAGES_EN ist vollständig', () => {
+  const messages = MESSAGES_EN;
+
   it.each([...ALL_PET_TYPES])('hat einen Namen für %s', (type) => {
     expect(messages.petNames[type]).toBeTruthy();
   });
@@ -118,9 +105,9 @@ describe.each([['MESSAGES_DE', MESSAGES_DE], ['MESSAGES_EN', MESSAGES_EN]] as co
 });
 
 describe('MESSAGES_EN', () => {
-  it('ist tatsächlich englisch und nicht eine Kopie der deutschen Texte', () => {
+  it('ist englisch', () => {
     expect(MESSAGES_EN.petNames.cat).toBe('Cat');
-    expect(MESSAGES_EN.speech.neutral).not.toEqual(MESSAGES_DE.speech.neutral);
-    expect(MESSAGES_EN.tapPet).not.toBe(MESSAGES_DE.tapPet);
+    expect(MESSAGES_EN.tapPet).toBe('Tap the pet');
+    expect(MESSAGES_EN.moodLabels.neutral).toBe('Normal');
   });
 });

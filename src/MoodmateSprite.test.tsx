@@ -4,7 +4,6 @@ import { act } from 'react';
 import { ALL_PET_TYPES } from './pets';
 import { MoodmateSprite } from './MoodmateSprite';
 import { Moodmate } from './Moodmate';
-import { MESSAGES_DE } from './messages.de';
 import { MESSAGES_EN } from './messages.en';
 
 afterEach(() => vi.useRealTimers());
@@ -60,19 +59,20 @@ describe('MoodmateSprite', () => {
     it.each([...ALL_PET_TYPES])('%s: Name und Stimmung aus den Texten, nicht aus dem Tier selbst', (type) => {
       const { container } = render(<MoodmateSprite type={type} temperature={15} />);
 
-      expect(label(container)).toBe(MESSAGES_DE.spriteLabel(MESSAGES_DE.petNames[type], MESSAGES_DE.moodLabels.neutral));
+      expect(label(container)).toBe(MESSAGES_EN.spriteLabel(MESSAGES_EN.petNames[type], MESSAGES_EN.moodLabels.neutral));
     });
 
     it('folgt einer übergebenen Stimmung', () => {
       const { container } = render(<MoodmateSprite type="cat" temperature={25} mood="frozen" />);
 
-      expect(label(container)).toBe(MESSAGES_DE.spriteLabel(MESSAGES_DE.petNames.cat, MESSAGES_DE.moodLabels.frozen));
+      expect(label(container)).toBe(MESSAGES_EN.spriteLabel(MESSAGES_EN.petNames.cat, MESSAGES_EN.moodLabels.frozen));
     });
 
     it('nutzt eigene Texte', () => {
-      const { container } = render(<MoodmateSprite type="cat" temperature={15} messages={MESSAGES_EN} />);
+      const messages = { spriteLabel: (name: string, mood: string) => `${mood} ${name}` };
+      const { container } = render(<MoodmateSprite type="cat" temperature={15} messages={messages} />);
 
-      expect(label(container)).toBe('Cat: Normal');
+      expect(label(container)).toBe('Normal Cat');
     });
 
     it('fällt bei fehlendem Namen auf die Art zurück statt "undefined" zu zeigen', () => {
@@ -84,9 +84,10 @@ describe('MoodmateSprite', () => {
     });
 
     it('Moodmate reicht seine Texte an das Tier weiter', () => {
-      const { container } = render(<Moodmate type="dog" temperature={15} messages={MESSAGES_EN} />);
+      const messages = { spriteLabel: (name: string, mood: string) => `${mood} ${name}` };
+      const { container } = render(<Moodmate type="dog" temperature={15} messages={messages} />);
 
-      expect(label(container)).toBe('Dog: Normal');
+      expect(label(container)).toBe('Normal Dog');
     });
   });
 });
