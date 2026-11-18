@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>moodmates demo</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@19.0.0",
+      "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+      "react-dom/client": "https://esm.sh/react-dom@19.0.0/client"
+    }
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --bg: #fafaf7; --fg: #2b2b2b; --card: #fff; --line: #e3e1da; --accent: #d9622b; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #1b1b1a; --fg: #eee; --card: #262625; --line: #3a3a38; --accent: #f08a57; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0 16px 48px; background: var(--bg); color: var(--fg);
+           font: 16px/1.5 system-ui, sans-serif; }
+    main { max-width: 1000px; margin: 0 auto; }
+    h1 { margin: 32px 0 4px; }
+    .lead { margin: 0 0 24px; opacity: .75; }
+    .controls { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px 20px;
+                align-items: center; padding: 12px 0; background: var(--bg); border-bottom: 1px solid var(--line); }
+    .moods { display: flex; gap: 6px; flex-wrap: wrap; }
+    button.mood, label.live { font: inherit; border: 1px solid var(--line); background: var(--card);
+                              color: inherit; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
+    button.mood[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+    input[type="search"] { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
+                           background: var(--card); color: inherit; }
+    h2 { margin: 32px 0 12px; font-size: 1.1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .card { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; padding: 12px 6px;
+            min-width: 0;
+            background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+    .card code { font-size: .8rem; opacity: .7; }
+    .live-area { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; padding: 16px;
+                 background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+    /* The bar is compact by default (max-width 200px); the demo shows it wider. */
+    .wide-bar { --mm-legend-color: var(--fg); }
+    .wide-bar .mm-mood-bar { max-width: 520px; }
+    .wide-bar .mm-mood-bar__bar { height: 0.75rem; }
+    .wide-bar .mm-mood-bar__legend-item { font-size: 13px; }
+    #status { padding: 24px 0; opacity: .7; }
+    footer { margin-top: 40px; font-size: .85rem; opacity: .65; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>moodmates</h1>
+  <p class="lead">All species on one page. Pick a mood, search by name, tap a living animal.</p>
+  <div id="root"><p id="status">Loading…</p></div>
+  <footer>
+    Loads <code>../dist</code> when it exists (after <code>pnpm build</code>), otherwise the
+    <a href="https://www.npmjs.com/package/moodmates">npm package</a>. The texts are the English defaults.
+  </footer>
+</main>
+
+<script type="module">
+  const status = document.getElementById('status');
+  let lib, css;
+  try {
+    lib = await import('../dist/index.js');
+    css = '../dist/styles.css';
+  } catch {
+    try {
+      lib = await import('https://esm.sh/moodmates?external=react');
+      css = 'https://cdn.jsdelivr.net/npm/moodmates/dist/styles.css';
+    } catch (e) {
+      status.textContent = 'Could not load moodmates. Run "pnpm build" and serve the repo root (e.g. npx serve).';
+      throw e;
+    }
+  }
+  document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: css }));
+
+  const React = await import('react');
+  const { createRoot } = await import('react-dom/client');
+  const { Moodmate, MoodmateSprite, MoodHistoryBar, ALL_PET_TYPES, MESSAGES_EN } = lib;
+  const { useState } = React;
+
+  const MOODS = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
+  const h = React.createElement;
+
+  function App() {
+    const [mood, setMood] = useState('neutral');
+    const [query, setQuery] = useState('');
+    const [live, setLive] = useState(false);
+    const q = query.trim().toLowerCase();
+    const types = ALL_PET_TYPES.filter((t) =>
+      !q || t.includes(q) || (MESSAGES_EN.petNames[t] ?? '').toLowerCase().includes(q));
+    const Pet = live ? Moodmate : MoodmateSprite;
+
+    return h(React.Fragment, null,
+      h('div', { className: 'controls' },
+        h('div', { className: 'moods', role: 'group', 'aria-label': 'Mood' },
+          MOODS.map((m) => h('button', { key: m, className: 'mood', 'aria-pressed': m === mood,
+            onClick: () => setMood(m) }, MESSAGES_EN.moodLabels[m] ?? m))),
+        h('input', { type: 'search', placeholder: `Search ${ALL_PET_TYPES.length} species`,
+          'aria-label': 'Search species', value: query, onChange: (e) => setQuery(e.target.value) }),
+        h('label', { className: 'live' },
+          h('input', { type: 'checkbox', checked: live, onChange: (e) => setLive(e.target.checked) }),
+          ' Living (blink, talk)')),
+      h('h2', null, `Species (${types.length} of ${ALL_PET_TYPES.length})`),
+      h('div', { className: 'grid' },
+        types.map((t) => h('div', { key: t, className: 'card' },
+          h(Pet, { type: t, mood, size: 84 }),
+          h('code', null, t)))),
+      h('h2', null, 'History bar'),
+      h('div', { className: 'wide-bar' },
+        h(MoodHistoryBar, { moods: ['frozen', 'cold', 'cold', 'neutral', 'neutral', 'warm', 'hot', 'hot', 'warm', 'neutral'] })),
+      h('h2', null, 'All moods of one animal'),
+      h('div', { className: 'live-area' },
+        MOODS.map((m) => h(Moodmate, { key: m, type: 'cat', mood: m, name: MESSAGES_EN.moodLabels[m] ?? m, size: 96 }))));
+  }
+
+  createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>

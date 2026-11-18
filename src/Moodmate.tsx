@@ -6,6 +6,7 @@ import type { Mood }                   from './shared';
 import { pickMessage, resolveMessages } from './messages';
 import type { PetMessages } from './messages';
 import type { PetType }      from './pets';
+import { bubbleLeftPx }      from './bubble';
 import { MoodmateSprite }  from './MoodmateSprite';
 
 type SpeechVariant = 'frost' | 'summer' | 'heat' | 'online';
@@ -36,15 +37,12 @@ export interface MoodmateProps {
   messages?: Partial<PetMessages>;
 }
 
-function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: SpeechVariant | null; leftPx?: number }) {
+function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: SpeechVariant | null; leftPx: number }) {
   const tailFill  = variant ? VARIANT_TAIL[variant] : 'white';
   const textClass = variant ? `mm-bubble__text mm-bubble__text--${variant}` : 'mm-bubble__text';
 
-  const posClass = leftPx === undefined ? ' mm-bubble--side' : '';
-  const posStyle = leftPx !== undefined ? { left: leftPx + 12 } : undefined;
-
   return (
-    <div className={`mm-bubble${posClass}`} style={posStyle}>
+    <div className="mm-bubble" style={{ left: leftPx }}>
       <div className="mm-bubble__inner">
         {/*
           Comic-Sprechblasen-Schwanz:
@@ -178,14 +176,17 @@ export function Moodmate({ mood, type, size = 80, name, event, messages }: Moodm
 
   return (
     <div className="mm-pet">
-      {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={type === 'blue-whale' || type === 'sperm-whale' || type === 'killer-whale' || type === 'beluga' || type === 'narwhal' ? size : undefined} />}
-      <div
-        className={`mm-pet__body${hopping && !shivering ? ' mm-hop' : ''}`}
-        onClick={showSpeech}
-        role="button"
-        aria-label={text.tapPet}
-      >
-        <MoodmateSprite type={type} messages={messages} {...spriteProps} />
+      {/* Die Blase hängt an der Tiergrafik, nicht am ganzen Container: ein langes Namensschild verschiebt sie nicht */}
+      <div className="mm-pet__stage">
+        {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={bubbleLeftPx(type, size)} />}
+        <div
+          className={`mm-pet__body${hopping && !shivering ? ' mm-hop' : ''}`}
+          onClick={showSpeech}
+          role="button"
+          aria-label={text.tapPet}
+        >
+          <MoodmateSprite type={type} messages={messages} {...spriteProps} />
+        </div>
       </div>
       {name && (
         <span className="mm-pet__name">{name}</span>
