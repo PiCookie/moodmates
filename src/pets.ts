@@ -13,6 +13,17 @@ export const ALL_PET_TYPES = [
 
 export type PetType = (typeof ALL_PET_TYPES)[number];
 
+// Arten, die schon nutzbar, aber noch nicht fertig gezeichnet sind. Sie bleiben in ALL_PET_TYPES (wer sie
+// schon benutzt, bekommt keinen Bruch), werden aber in Demo und Übersichtsbild als "Coming soon" gezeigt
+// und von randomPetType() nicht gewählt. Ist eine Art fertig, wird sie hier gestrichen.
+export const COMING_SOON_PET_TYPES = [
+  'trex', 'triceratops', 'stegosaurus', 'brachiosaurus', 'pteranodon', 'ankylosaurus',
+] as const satisfies readonly PetType[];
+
+const RANDOM_POOL: readonly PetType[] = ALL_PET_TYPES.filter(
+  (type) => !(COMING_SOON_PET_TYPES as readonly PetType[]).includes(type),
+);
+
 export function randomPetType(): PetType {
-  return ALL_PET_TYPES[Math.floor(Math.random() * ALL_PET_TYPES.length)];
+  return RANDOM_POOL[Math.floor(Math.random() * RANDOM_POOL.length)];
 }

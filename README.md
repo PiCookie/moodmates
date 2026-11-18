@@ -56,7 +56,7 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 
 | Prop | Type | Default | |
 |---|---|---|---|
-| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` |
+| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` (six are still [coming soon](#coming-soon)) |
 | `mood` | `Mood` | required | Look, phrases and hopping follow it |
 | `size` | `number` | `80` | Pixels |
 | `name` | `string` | none | Name tag below the animal |
@@ -107,8 +107,15 @@ Two CSS variables: `--mm-name-color` (name tag) and `--mm-legend-color` (history
 
 ## Without React
 
-`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `randomPetType()`, `pickMessage()`,
+`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `COMING_SOON_PET_TYPES`, `randomPetType()`, `pickMessage()`,
 `pickEventMessage()`, `resolveMessages()`, `MESSAGES_EN` and the types. Useful on a server.
+
+## Coming soon
+
+The six dinosaurs (`trex`, `triceratops`, `stegosaurus`, `brachiosaurus`, `pteranodon`, `ankylosaurus`) are
+usable but not finished yet: the drawings may still change. The demo and the picture above show them blurred.
+`COMING_SOON_PET_TYPES` lists them, and `randomPetType()` does not pick them. Once a species is done it
+leaves that list.
 
 ## Limitations (0.x)
 

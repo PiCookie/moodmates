@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { render } from '@testing-library/react';
-import { ALL_PET_TYPES, randomPetType } from './pets';
+import { ALL_PET_TYPES, COMING_SOON_PET_TYPES, randomPetType } from './pets';
 import { Moodmate } from './Moodmate';
 
 describe('ALL_PET_TYPES', () => {
@@ -30,5 +30,20 @@ describe('randomPetType', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0.999999);
 
     expect(randomPetType()).toBe(ALL_PET_TYPES[ALL_PET_TYPES.length - 1]);
+  });
+});
+
+describe('COMING_SOON_PET_TYPES', () => {
+  it('enthält nur echte Arten, ohne Doppelte', () => {
+    for (const type of COMING_SOON_PET_TYPES) expect(ALL_PET_TYPES).toContain(type);
+    expect(new Set(COMING_SOON_PET_TYPES).size).toBe(COMING_SOON_PET_TYPES.length);
+  });
+
+  it('randomPetType wählt keine Art, die noch nicht fertig ist', () => {
+    for (let i = 0; i <= 200; i++) {
+      vi.spyOn(Math, 'random').mockReturnValue(i / 200 === 1 ? 0.999999 : i / 200);
+      expect(COMING_SOON_PET_TYPES as readonly string[]).not.toContain(randomPetType());
+    }
+    vi.restoreAllMocks();
   });
 });
