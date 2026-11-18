@@ -26,19 +26,19 @@ const CUSTOM: Partial<PetMessages> = {
 
 describe('Moodmate: Texte', () => {
   it('nutzt ohne eigene Texte die englischen Standardtexte', () => {
-    render(<Moodmate mood="neutral" />);
+    render(<Moodmate type="cat" mood="neutral" />);
 
     expect(screen.getByRole('button', { name: 'Tap the pet' })).toBeInTheDocument();
   });
 
   it('nutzt die eigene Beschriftung für Screenreader', () => {
-    render(<Moodmate mood="neutral" messages={CUSTOM} />);
+    render(<Moodmate type="cat" mood="neutral" messages={CUSTOM} />);
 
     expect(screen.getByRole('button', { name: 'Tap me' })).toBeInTheDocument();
   });
 
   it('zeigt beim Antippen einen Spruch aus den eigenen Texten', () => {
-    render(<Moodmate mood="neutral" messages={CUSTOM} />);
+    render(<Moodmate type="cat" mood="neutral" messages={CUSTOM} />);
 
     fireEvent.click(screen.getByRole('button'));
 
@@ -47,17 +47,17 @@ describe('Moodmate: Texte', () => {
 
   it('zeigt bei einem Ereignis den eigenen Ereignistext', () => {
     render(
-      <Moodmate mood="frozen" messages={CUSTOM} event={{ kind: 'first-frost' }} />,
+      <Moodmate type="cat" mood="frozen" messages={CUSTOM} event={{ kind: 'first-frost' }} />,
     );
 
     expect(screen.getByText('First frost of the year!')).toBeInTheDocument();
   });
 
   it('nutzt nach einem Wechsel der Texte beim nächsten Antippen die neuen Texte', () => {
-    const { rerender } = render(<Moodmate mood="neutral" messages={CUSTOM} />);
+    const { rerender } = render(<Moodmate type="cat" mood="neutral" messages={CUSTOM} />);
     const german = { speech: { ...CUSTOM.speech!, neutral: ['Schöner Tag.'] } };
 
-    rerender(<Moodmate mood="neutral" messages={german} />);
+    rerender(<Moodmate type="cat" mood="neutral" messages={german} />);
     fireEvent.click(screen.getByRole('button'));
 
     expect(screen.getByText('Schöner Tag.')).toBeInTheDocument();
@@ -74,10 +74,10 @@ describe('Moodmate: automatische Sprüche', () => {
   it('nutzt für den automatischen Spruch die zuletzt übergebenen Texte', () => {
     vi.useFakeTimers();
     vi.spyOn(Math, 'random').mockReturnValue(0);
-    const { rerender } = render(<Moodmate mood="neutral" messages={CUSTOM} />);
+    const { rerender } = render(<Moodmate type="cat" mood="neutral" messages={CUSTOM} />);
     const german = { speech: { ...CUSTOM.speech!, neutral: ['Schöner Tag.'] } };
 
-    rerender(<Moodmate mood="neutral" messages={german} />);
+    rerender(<Moodmate type="cat" mood="neutral" messages={german} />);
     act(() => { vi.advanceTimersByTime(10_001); });
 
     expect(screen.getByText('Schöner Tag.')).toBeInTheDocument();

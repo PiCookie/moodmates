@@ -91,3 +91,17 @@ describe('MoodmateSprite', () => {
     });
   });
 });
+
+describe('type ist Pflicht', () => {
+  it('Moodmate und MoodmateSprite verlangen eine Tierart (Typprüfung)', () => {
+    // Läuft nicht zur Laufzeit ab, sondern wird von `pnpm typecheck` geprüft: Ohne Fehler an diesen
+    // Stellen wäre `type` wieder optional und das @ts-expect-error unbenutzt.
+    const check = () => [
+      // @ts-expect-error type fehlt
+      <Moodmate mood="warm" />,
+      // @ts-expect-error type fehlt
+      <MoodmateSprite mood="warm" />,
+    ];
+    expect(check).toBeTypeOf('function');
+  });
+});

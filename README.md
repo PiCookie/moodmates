@@ -45,8 +45,8 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 
 | Prop | Type | Default | |
 |---|---|---|---|
+| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` |
 | `mood` | `Mood` | required | Look, phrases and hopping follow it |
-| `type` | `PetType` | `'cat'` | One of 45 species, see `ALL_PET_TYPES` |
 | `size` | `number` | `80` | Pixels |
 | `name` | `string` | none | Name tag below the animal |
 | `event` | `{ kind: EventKind } \| null` | none | Shows an event bubble and hops three times (`'first-frost'`, `'first-summer'`, `'heat-record'`, `'back-online'`) |

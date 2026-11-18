@@ -29,7 +29,7 @@ export interface MoodmateProps {
   /** Stimmung des Tiers; Aussehen, Sprüche und Hüpfen folgen ihr. Die Anwendung entscheidet, wann welche gilt. */
   mood: Mood;
   size?: number;
-  type?: PetType;
+  type: PetType;
   name?: string;
   event?: DetectedEvent | null;
   /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
@@ -71,7 +71,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ mood, size = 80, type = 'cat', name, event, messages }: MoodmateProps) {
+export function Moodmate({ mood, type, size = 80, name, event, messages }: MoodmateProps) {
   const text = resolveMessages(messages);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);

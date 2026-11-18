@@ -60,7 +60,7 @@ describe('Moodmate: Sprüche folgen der Stimmung', () => {
     ['warm', 'Warm!'],
     ['hot', 'Too hot!'],
   ] as const)('mood="%s" sagt %s', (mood, expected) => {
-    render(<Moodmate mood={mood} messages={{ speech: SPEECH }} />);
+    render(<Moodmate type="cat" mood={mood} messages={{ speech: SPEECH }} />);
 
     fireEvent.click(screen.getByRole('button'));
 
