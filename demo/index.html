@@ -38,6 +38,8 @@
             min-width: 0;
             background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
     .card code { font-size: .8rem; opacity: .7; }
+    .card.soon .pet { filter: blur(3px); opacity: .55; pointer-events: none; }
+    .card .badge { font-size: .7rem; font-style: italic; color: var(--accent); }
     .live-area { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; padding: 16px;
                  background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
     /* The bar is compact by default (max-width 200px); the demo shows it wider. */
@@ -80,7 +82,7 @@
 
   const React = await import('react');
   const { createRoot } = await import('react-dom/client');
-  const { Moodmate, MoodmateSprite, MoodHistoryBar, ALL_PET_TYPES, MESSAGES_EN } = lib;
+  const { Moodmate, MoodmateSprite, MoodHistoryBar, ALL_PET_TYPES, COMING_SOON_PET_TYPES, MESSAGES_EN } = lib;
   const { useState } = React;
 
   const MOODS = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
@@ -107,9 +109,13 @@
           ' Living (blink, talk)')),
       h('h2', null, `Species (${types.length} of ${ALL_PET_TYPES.length})`),
       h('div', { className: 'grid' },
-        types.map((t) => h('div', { key: t, className: 'card' },
-          h(Pet, { type: t, mood, size: 84 }),
-          h('code', null, t)))),
+        types.map((t) => {
+          const soon = COMING_SOON_PET_TYPES.includes(t);
+          return h('div', { key: t, className: soon ? 'card soon' : 'card' },
+            h('div', { className: 'pet' }, h(Pet, { type: t, mood, size: 84 })),
+            h('code', null, t),
+            soon && h('span', { className: 'badge' }, 'coming soon'));
+        })),
       h('h2', null, 'History bar'),
       h('div', { className: 'wide-bar' },
         h(MoodHistoryBar, { moods: ['frozen', 'cold', 'cold', 'neutral', 'neutral', 'warm', 'hot', 'hot', 'warm', 'neutral'] })),

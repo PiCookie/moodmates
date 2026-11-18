@@ -11,7 +11,7 @@ For React 19, no runtime dependencies, no Tailwind needed.
 and the drawings (icicles, scarf, sunglasses, sweat drops) and default phrases are built around it. It fits
 anything you can place on a cold-to-hot axis: a temperature, room climate, CPU or server load (cold = idle,
 hot = overloaded), a comfort level. It is **not** a general emotion set yet. Moods like sad, angry and happy,
-more events and more generic phrases are planned, see [DECISIONS.md](DECISIONS.md).
+more events and more generic phrases are planned, see [IDEAS.md](IDEAS.md).
 
 The package knows moods, not data: your app decides which value leads to which mood.
 
@@ -56,7 +56,7 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 
 | Prop | Type | Default | |
 |---|---|---|---|
-| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` |
+| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` (six are still [coming soon](#coming-soon)) |
 | `mood` | `Mood` | required | Look, phrases and hopping follow it |
 | `size` | `number` | `80` | Pixels |
 | `name` | `string` | none | Name tag below the animal |
@@ -107,8 +107,15 @@ Two CSS variables: `--mm-name-color` (name tag) and `--mm-legend-color` (history
 
 ## Without React
 
-`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `randomPetType()`, `pickMessage()`,
+`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `COMING_SOON_PET_TYPES`, `randomPetType()`, `pickMessage()`,
 `pickEventMessage()`, `resolveMessages()`, `MESSAGES_EN` and the types. Useful on a server.
+
+## Coming soon
+
+The six dinosaurs (`trex`, `triceratops`, `stegosaurus`, `brachiosaurus`, `pteranodon`, `ankylosaurus`) are
+usable but not finished yet: the drawings may still change. The demo and the picture above show them blurred.
+`COMING_SOON_PET_TYPES` lists them, and `randomPetType()` does not pick them. Once a species is done it
+leaves that list.
 
 ## Limitations (0.x)
 
@@ -137,6 +144,6 @@ pnpm build && pnpm gen:overview   # regenerate docs/moodmates.svg (the picture a
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Design decisions and roadmap: [DECISIONS.md](DECISIONS.md).
+MIT, see [LICENSE](LICENSE). Roadmap, ideas and design decisions: [IDEAS.md](IDEAS.md).
 
 This is a hobby project. It is not affiliated with any other product or company that uses a similar name.
