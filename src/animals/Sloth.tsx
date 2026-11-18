@@ -7,29 +7,29 @@
  * Schichten (hinten → vorne):
  *   Ast → Arme → Körper → Kopf → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Schlafaugen, breites Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetWorriedBrows,
 } from '../petParts';
 
-const FAULTIER_FUR: Record<Mood, string> = {
+const FAULTIER_FUR: Record<Look, string> = {
   frozen:  '#c7d2fe', // eisblau
   cold:    '#94a3b8', // kühles Grau
   neutral: '#78716c', // graubraun
   warm:    '#a8895a', // warmes Braun
 };
 
-const FAULTIER_BELLY: Record<Mood, string> = {
+const FAULTIER_BELLY: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#cbd5e1',
   neutral: '#a8a29e',
@@ -39,9 +39,7 @@ const FAULTIER_BELLY: Record<Mood, string> = {
 const BRANCH   = '#8b5e3c';
 const EYE_MASK = '#1a1208'; // dunkle Augenmasken — Faultier-Hauptmerkmal
 
-export function Sloth({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Sloth({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = FAULTIER_FUR[mood];
   const belly = FAULTIER_BELLY[mood];
 

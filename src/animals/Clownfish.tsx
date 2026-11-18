@@ -4,15 +4,15 @@
  * Erkennungsmerkmale: oranger Körper mit zwei schwarz umrandeten
  * weißen Querstreifen, breites schwarzes Auge.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -23,7 +23,7 @@ import {
     PetScarf,
 } from "../petParts";
 
-const CLOWN_FUR: Record<Mood, string> = {
+const CLOWN_FUR: Record<Look, string> = {
     frozen: "#fed7aa",
     cold: "#c2410c",
     neutral: "#ea580c",
@@ -31,14 +31,12 @@ const CLOWN_FUR: Record<Mood, string> = {
 };
 
 export function Clownfish({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = CLOWN_FUR[mood];
     const isWarm = mood === "warm";
     const isCold = mood === "cold";

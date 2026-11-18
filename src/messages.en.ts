@@ -87,6 +87,7 @@ export const MESSAGES_EN: PetMessages = {
     cold:    'Cold',
     neutral: 'Normal',
     warm:    'Warm',
+    hot:     'Hot',
   },
   petNames: {
     'cat': 'Cat',

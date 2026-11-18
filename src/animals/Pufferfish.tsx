@@ -4,45 +4,43 @@
  * Erkennungsmerkmale: Kugelrunder Körper mit Stacheln (Hauptmerkmal),
  * riesige Augen, kleine Seitenflossen.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspannter Ausdruck
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const KUGEL_FUR: Record<Mood, string> = {
+const KUGEL_FUR: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#7dd3fc',
   neutral: '#fbbf24',
   warm:    '#f59e0b',
 };
 
-const KUGEL_BELLY: Record<Mood, string> = {
+const KUGEL_BELLY: Record<Look, string> = {
   frozen:  '#eff6ff',
   cold:    '#e0f2fe',
   neutral: '#fef9c3',
   warm:    '#fef3c7',
 };
 
-const KUGEL_SPINE: Record<Mood, string> = {
+const KUGEL_SPINE: Record<Look, string> = {
   frozen:  '#6366f1',
   cold:    '#0284c7',
   neutral: '#92400e',
   warm:    '#78350f',
 };
 
-export function Pufferfish({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Pufferfish({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = KUGEL_FUR[mood];
   const belly = KUGEL_BELLY[mood];
   const spine = KUGEL_SPINE[mood];

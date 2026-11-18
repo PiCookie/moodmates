@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ALL_PET_TYPES } from './pets';
 import { Moodmate } from './Moodmate';
-import { moodFromTemperature, resolveMood } from './shared';
+import { MoodmateSprite } from './MoodmateSprite';
 import type { PetMessages } from './messages';
 
 const SPEECH: PetMessages['speech'] = {
@@ -13,78 +13,72 @@ const SPEECH: PetMessages['speech'] = {
   hot: ['Too hot!'],
 };
 
-describe('moodFromTemperature', () => {
-  it('leitet die Stimmung aus der Temperatur ab', () => {
-    expect(moodFromTemperature(-1)).toBe('frozen');
-    expect(moodFromTemperature(5)).toBe('cold');
-    expect(moodFromTemperature(15)).toBe('neutral');
-    expect(moodFromTemperature(25)).toBe('warm');
-    expect(moodFromTemperature(null)).toBe('neutral');
-  });
-});
+// PetSweat zeichnet einen Tropfen in dieser Farbe; kein anderes Teil nutzt sie mit dieser Deckkraft
+const SWEAT = 'svg path[fill="#93c5fd"][opacity="0.85"]';
 
-describe('resolveMood', () => {
-  it('nutzt die Temperatur, wenn keine Stimmung übergeben wird', () => {
-    expect(resolveMood(-5)).toBe('frozen');
-    expect(resolveMood(25, undefined)).toBe('warm');
-  });
-
-  it('lässt eine übergebene Stimmung die Temperatur überstimmen', () => {
-    expect(resolveMood(25, 'frozen')).toBe('frozen');
-    expect(resolveMood(-5, 'warm')).toBe('warm');
-    expect(resolveMood(null, 'cold')).toBe('cold');
-  });
-});
-
-describe('Moodmate: mood als Überschreibwert', () => {
+describe('Moodmate: Stimmung bestimmt das Aussehen', () => {
   // Jedes Tier setzt "shivering" aus seiner eigenen Stimmung: so fällt ein Tier auf, das mood ignoriert.
-  it.each([...ALL_PET_TYPES])('%s zittert bei mood="frozen", obwohl es warm ist', (type) => {
-    const { container } = render(<Moodmate temperature={25} mood="frozen" type={type} />);
-
-    expect(container.querySelector('svg.mm-shiver')).not.toBeNull();
+  it.each([...ALL_PET_TYPES])('%s zittert bei "frozen" und "cold"', (type) => {
+    for (const mood of ['frozen', 'cold'] as const) {
+      const { container, unmount } = render(<Moodmate mood={mood} type={type} />);
+      expect(container.querySelector('svg.mm-shiver'), mood).not.toBeNull();
+      unmount();
+    }
   });
 
-  it.each([...ALL_PET_TYPES])('%s zittert bei mood="warm" nicht, obwohl es friert', (type) => {
-    const { container } = render(<Moodmate temperature={-5} mood="warm" type={type} />);
-
-    expect(container.querySelector('svg.mm-shiver')).toBeNull();
+  it.each([...ALL_PET_TYPES])('%s zittert bei "neutral", "warm" und "hot" nicht', (type) => {
+    for (const mood of ['neutral', 'warm', 'hot'] as const) {
+      const { container, unmount } = render(<Moodmate mood={mood} type={type} />);
+      expect(container.querySelector('svg.mm-shiver'), mood).toBeNull();
+      unmount();
+    }
   });
 
-  it('leitet die Stimmung ohne mood weiter aus der Temperatur ab', () => {
-    const cold = render(<Moodmate temperature={-5} type="cat" />);
-    expect(cold.container.querySelector('svg.mm-shiver')).not.toBeNull();
-    cold.unmount();
+  it.each([...ALL_PET_TYPES])('%s schwitzt bei "hot", bei "warm" nicht', (type) => {
+    const hot = render(<MoodmateSprite mood="hot" type={type} />);
+    expect(hot.container.querySelector(SWEAT)).not.toBeNull();
+    hot.unmount();
 
-    const warm = render(<Moodmate temperature={25} type="cat" />);
-    expect(warm.container.querySelector('svg.mm-shiver')).toBeNull();
+    const warm = render(<MoodmateSprite mood="warm" type={type} />);
+    expect(warm.container.querySelector(SWEAT)).toBeNull();
   });
 
-  it('nutzt für den Spruch die übergebene Stimmung, nicht den Hitze-Pool der Temperatur', () => {
-    render(<Moodmate temperature={30} mood="cold" messages={{ speech: SPEECH }} />);
+  it('zeigt "hot" sonst wie "warm" (Gesicht, Körperfarbe)', () => {
+    // Das Label nennt die Stimmung ("Cat: Hot" gegen "Cat: Warm") und gehört nicht zur Zeichnung
+    const drawing = (mood: 'hot' | 'warm') =>
+      render(<MoodmateSprite mood={mood} type="cat" />).container.innerHTML.replace(/ aria-label="[^"]*"/, '');
+
+    expect(drawing('hot').replace(SWEAT_PATH, '')).toBe(drawing('warm'));
+  });
+});
+
+const SWEAT_PATH = /<path d="[^"]*" fill="#93c5fd" opacity="0.85"><\/path>/;
+
+describe('Moodmate: Sprüche folgen der Stimmung', () => {
+  it.each([
+    ['cold', 'A bit chilly.'],
+    ['warm', 'Warm!'],
+    ['hot', 'Too hot!'],
+  ] as const)('mood="%s" sagt %s', (mood, expected) => {
+    render(<Moodmate mood={mood} messages={{ speech: SPEECH }} />);
 
     fireEvent.click(screen.getByRole('button'));
 
-    expect(screen.getByText('A bit chilly.')).toBeInTheDocument();
+    expect(screen.getByText(expected)).toBeInTheDocument();
   });
+});
 
-  it('nutzt ohne mood weiterhin den Hitze-Pool ab 28 Grad', () => {
-    render(<Moodmate temperature={30} messages={{ speech: SPEECH }} />);
-
-    fireEvent.click(screen.getByRole('button'));
-
-    expect(screen.getByText('Too hot!')).toBeInTheDocument();
-  });
-
-  it('lässt ein Tier mit mood="warm" hüpfen, obwohl die Temperatur Kälte meldet', () => {
-    const { container } = render(<Moodmate temperature={-5} mood="warm" type="cat" />);
+describe('Moodmate: Hüpfen', () => {
+  it.each(['neutral', 'warm', 'hot'] as const)('hüpft bei mood="%s" nach dem Antippen', (mood) => {
+    const { container } = render(<Moodmate mood={mood} type="cat" />);
 
     fireEvent.click(screen.getByRole('button'));
 
     expect(container.querySelector('.mm-pet__body.mm-hop')).not.toBeNull();
   });
 
-  it('lässt ein Tier mit mood="frozen" nicht hüpfen, obwohl die Temperatur warm ist', () => {
-    const { container } = render(<Moodmate temperature={25} mood="frozen" type="cat" />);
+  it.each(['frozen', 'cold'] as const)('hüpft bei mood="%s" nicht', (mood) => {
+    const { container } = render(<Moodmate mood={mood} type="cat" />);
 
     fireEvent.click(screen.getByRole('button'));
 

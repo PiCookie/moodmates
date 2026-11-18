@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { DetectedEvent, EventKind } from './events';
 import { pickEventMessage } from './events';
-import { resolveMood }                  from './shared';
+import { lookOf }                      from './shared';
 import type { Mood }                   from './shared';
 import { pickMessage, resolveMessages } from './messages';
 import type { PetMessages } from './messages';
@@ -26,13 +26,12 @@ const EVENT_TO_VARIANT: Record<EventKind, SpeechVariant> = {
 };
 
 export interface MoodmateProps {
-  temperature: number | null;
+  /** Stimmung des Tiers; Aussehen, Sprüche und Hüpfen folgen ihr. Die Anwendung entscheidet, wann welche gilt. */
+  mood: Mood;
   size?: number;
   type?: PetType;
   name?: string;
   event?: DetectedEvent | null;
-  /** Überschreibt die aus der Temperatur abgeleitete Stimmung (Tier, Sprüche und Hüpfen folgen ihr) */
-  mood?: Mood;
   /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
   messages?: Partial<PetMessages>;
 }
@@ -72,7 +71,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ temperature, size = 80, type = 'cat', name, event, messages, mood: moodOverride }: MoodmateProps) {
+export function Moodmate({ mood, size = 80, type = 'cat', name, event, messages }: MoodmateProps) {
   const text = resolveMessages(messages);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
@@ -80,14 +79,10 @@ export function Moodmate({ temperature, size = 80, type = 'cat', name, event, me
   const [speechVariant,  setSpeechVariant]  = useState<SpeechVariant | null>(null);
 
   // Refs damit die Timers immer den aktuellen Zustand lesen, ohne neu zu starten
-  const moodRef = useRef(resolveMood(temperature, moodOverride));
-  const tempRef = useRef(temperature);
+  const moodRef = useRef(mood);
   const textRef = useRef(text);
   useEffect(() => {
-    moodRef.current = resolveMood(temperature, moodOverride);
-    // Der Hitze-Pool (ab 28 Grad) leitet sich aus der Temperatur ab. Mit ausdrücklicher Stimmung
-    // soll sie gelten und nicht die Temperatur.
-    tempRef.current = moodOverride === undefined ? temperature : null;
+    moodRef.current = mood;
     textRef.current = text;
   });
 
@@ -105,7 +100,7 @@ export function Moodmate({ temperature, size = 80, type = 'cat', name, event, me
 
   function showSpeech() {
     if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
-    setSpeechText(pickMessage(moodRef.current, tempRef.current, textRef.current));
+    setSpeechText(pickMessage(moodRef.current, textRef.current));
     setSpeechVariant(null);
     setHopping(true);
     setTimeout(() => setHopping(false), 450);
@@ -129,9 +124,9 @@ export function Moodmate({ temperature, size = 80, type = 'cat', name, event, me
     }, 8000);
   }, [event]);
 
-  const mood      = resolveMood(temperature, moodOverride);
-  const shivering = mood === 'cold' || mood === 'frozen';
-  const canHop    = mood === 'neutral' || mood === 'warm';
+  const { look }  = lookOf(mood);
+  const shivering = look === 'cold' || look === 'frozen';
+  const canHop    = look === 'neutral' || look === 'warm';
 
   // ── Blinzeln (alle paar Sekunden) ────────────────────────────────────────
   useEffect(() => {
@@ -179,7 +174,7 @@ export function Moodmate({ temperature, size = 80, type = 'cat', name, event, me
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const spriteProps = { temperature, size, blinking, mood };
+  const spriteProps = { mood, size, blinking };
 
   return (
     <div className="mm-pet">

@@ -7,7 +7,7 @@
  * Schichten (hinten → vorne):
  *   Stacheln → Körper → Kopf → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
@@ -15,59 +15,57 @@
  */
 
 import { useId } from 'react';
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const IGEL_FUR: Record<Mood, string> = {
+const IGEL_FUR: Record<Look, string> = {
   frozen:  '#d3dcfe',
   cold:    '#c2ccd8',
   neutral: '#c8996a',
   warm:    '#d89c49',
 };
 
-const IGEL_BELLY: Record<Mood, string> = {
+const IGEL_BELLY: Record<Look, string> = {
   frozen:  '#e0e7ff',
   cold:    '#e2e8f0',
   neutral: '#fef3c7',
   warm:    '#fde68a',
 };
 
-const IGEL_HEAD: Record<Mood, string> = {
+const IGEL_HEAD: Record<Look, string> = {
   frozen:  '#d3dcfe', // EULE_FUR #c7d2fe + EULE_BELLY #e0e7ff @ 50%
   cold:    '#c2ccd8', // EULE_FUR #94a3b8 + EULE_BELLY #f1f5f9 @ 50%
   neutral: '#c8996a', // EULE_FUR #92400e + EULE_BELLY #fef3c7 @ 50%
   warm:    '#d89c49', // EULE_FUR #b45309 + EULE_BELLY #fde68a @ 50%
 };
 
-const IGEL_SNOUT: Record<Mood, string> = {
+const IGEL_SNOUT: Record<Look, string> = {
   frozen:  '#c7d2fe',
   cold:    '#94a3b8',
   neutral: '#a16207',
   warm:    '#b45309',
 };
 
-const SPINE_BASE: Record<Mood, string> = {
+const SPINE_BASE: Record<Look, string> = {
   frozen:  '#4338ca',
   cold:    '#334155',
   neutral: '#1c1917',
   warm:    '#0c0a09',
 };
 
-const SPINE_TIP: Record<Mood, string> = {
+const SPINE_TIP: Record<Look, string> = {
   frozen:  '#a5b4fc',
   cold:    '#94a3b8',
   neutral: '#a16207',
   warm:    '#92400e',
 };
 
-export function Hedgehog({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood   = resolveMood(temperature, moodOverride);
-  const isHot  = temperature !== null && temperature >= 28;
+export function Hedgehog({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur    = IGEL_FUR[mood];
   const belly  = IGEL_BELLY[mood];
   const head   = IGEL_HEAD[mood];

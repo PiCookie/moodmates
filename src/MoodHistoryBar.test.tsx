@@ -18,21 +18,14 @@ describe('MoodHistoryBar mit Stimmungen', () => {
     expect(container.querySelector('.mm-mood-bar__legend')?.textContent).toContain('Cold 25 %');
   });
 
-  it('liefert dasselbe wie die passenden Temperaturen', () => {
-    const fromTemps = render(<MoodHistoryBar tempValues={[-5, 3, 15, 25]} />);
-    const fromMoods = render(<MoodHistoryBar moods={['frozen', 'cold', 'neutral', 'warm']} />);
+  it('zeigt "hot" als eigene Stimmung mit Label', () => {
+    const { container } = render(<MoodHistoryBar moods={['warm', 'hot']} />);
 
-    expect(fromMoods.container.innerHTML).toBe(fromTemps.container.innerHTML);
+    expect(container.querySelector('.mm-mood-bar__legend')?.textContent).toContain('Hot 50 %');
+    expect(container.querySelector('.mm-mood-bar__legend')?.textContent).toContain('Warm 50 %');
   });
 
   it('zeigt nichts ohne Daten', () => {
     expect(render(<MoodHistoryBar moods={[]} />).container.innerHTML).toBe('');
-    expect(render(<MoodHistoryBar />).container.innerHTML).toBe('');
-  });
-
-  it('bevorzugt moods, wenn beides übergeben wird', () => {
-    const { container } = render(<MoodHistoryBar tempValues={[25, 25]} moods={['frozen']} />);
-
-    expect(segments(container)).toHaveLength(1);
   });
 });

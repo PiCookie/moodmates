@@ -1,4 +1,3 @@
-import { moodFromTemperature } from './shared';
 import type { Mood } from './shared';
 import { resolveMessages } from './messages';
 import type { PetMessages } from './messages';
@@ -8,28 +7,26 @@ const MOOD_COLORS: Record<Mood, string> = {
   cold:    '#7dd3fc',  // Sky-Blau
   neutral: '#6ee7b7',  // Smaragdgrün
   warm:    '#fbbf24',  // Amber
+  hot:     '#f87171',  // Rot
 };
 
-const MOOD_ORDER: Mood[] = ['frozen', 'cold', 'neutral', 'warm'];
+const MOOD_ORDER: Mood[] = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
 
 interface Props {
-  /** Stündliche Rohtemperaturen (°C) für heute — aus group='hourly' History */
-  tempValues?: number[];
-  /** Fertige Stimmungen je Stunde; gewinnt gegen tempValues, wenn beides übergeben wird */
-  moods?: Mood[];
+  /** Stimmung je Stunde; die Anwendung bestimmt sie (das Paket kennt keine Temperaturen) */
+  moods: Mood[];
   /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
   messages?: Partial<PetMessages>;
 }
 
-export function MoodHistoryBar({ tempValues = [], moods: givenMoods, messages }: Props) {
-  const moods = givenMoods ?? tempValues.map((t) => moodFromTemperature(t));
+export function MoodHistoryBar({ moods, messages }: Props) {
   if (moods.length === 0) return null;
 
   const text = resolveMessages(messages);
 
   const counts = moods.reduce<Record<Mood, number>>(
     (acc, m) => { acc[m]++; return acc; },
-    { frozen: 0, cold: 0, neutral: 0, warm: 0 },
+    { frozen: 0, cold: 0, neutral: 0, warm: 0, hot: 0 },
   );
 
   const total = moods.length;

@@ -8,29 +8,29 @@
  * Basis: Bear — identische Struktur, andere Farben.
  * Kategorie: 🐧 Antarktis
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const EISBEAR_FUR: Record<Mood, string> = {
+const EISBEAR_FUR: Record<Look, string> = {
   frozen:  '#93c5fd', // eisblau
   cold:    '#bfdbfe', // helles eisblau
   neutral: '#f0f9ff', // nahezu weiß
   warm:    '#fef9f0', // cremefarben
 };
 
-const EISBEAR_BELLY: Record<Mood, string> = {
+const EISBEAR_BELLY: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#eff6ff',
   neutral: '#ffffff',
@@ -39,9 +39,7 @@ const EISBEAR_BELLY: Record<Mood, string> = {
 
 const EISBEAR_EAR_INNER = '#fcd5ce';
 
-export function PolarBear({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function PolarBear({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = EISBEAR_FUR[mood];
   const belly = EISBEAR_BELLY[mood];
 

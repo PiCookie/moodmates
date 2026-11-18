@@ -1,32 +1,33 @@
-export type Mood = 'frozen' | 'cold' | 'neutral' | 'warm';
+/**
+ * Die Stimmung eines Moodmates. Das Paket kennt keine Temperaturen: Welche Messwerte oder
+ * Ereignisse zu welcher Stimmung führen, entscheidet die nutzende Anwendung.
+ * "hot" sieht aus wie "warm", mit Schweißtropfen und eigenen Sprüchen.
+ */
+export type Mood = 'frozen' | 'cold' | 'neutral' | 'warm' | 'hot';
 
-export interface PetProps {
-  temperature: number | null;
-  size?: number;
-  blinking?: boolean;
-  /** Überschreibt die aus der Temperatur abgeleitete Stimmung */
-  mood?: Mood;
+/** Das Aussehen: die Stimmung ohne "hot", das als "warm" plus Schweiß gezeichnet wird. */
+export type Look = Exclude<Mood, 'hot'>;
+
+export function lookOf(mood: Mood): { look: Look; isHot: boolean } {
+  return mood === 'hot' ? { look: 'warm', isHot: true } : { look: mood, isHot: false };
 }
 
-/** Was ein Tier von MoodmateSprite bekommt: PetProps plus die fertige Beschriftung für Screenreader */
-export interface AnimalProps extends PetProps {
+export interface PetProps {
+  mood: Mood;
+  size?: number;
+  blinking?: boolean;
+}
+
+/** Was ein Tier von MoodmateSprite bekommt: das Aussehen, ob es schwitzt, und die Beschriftung für Screenreader */
+export interface AnimalProps {
+  mood: Look;
+  isHot: boolean;
+  size?: number;
+  blinking?: boolean;
   ariaLabel: string;
 }
 
-export function moodFromTemperature(temp: number | null): Mood {
-  if (temp === null) return 'neutral';
-  if (temp < 0)     return 'frozen';
-  if (temp < 8)     return 'cold';
-  if (temp < 22)    return 'neutral';
-  return 'warm';
-}
-
-/** Eine ausdrücklich übergebene Stimmung gewinnt gegen die Temperatur. */
-export function resolveMood(temperature: number | null, override?: Mood): Mood {
-  return override ?? moodFromTemperature(temperature);
-}
-
-export const BODY_FILL: Record<Mood, string> = {
+export const BODY_FILL: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#eff6ff',
   neutral: '#f5efe5',

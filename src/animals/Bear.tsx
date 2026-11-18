@@ -4,29 +4,29 @@
  * Erkennungsmerkmale: Breiter ovaler Kopf, runder kompakter Körper,
  * kleine runde Stummelohren, heller Bauch/Gesichtsmitte.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const BAER_FUR: Record<Mood, string> = {
+const BAER_FUR: Record<Look, string> = {
   frozen:  '#c8d8e8',
   cold:    '#c8b090',
   neutral: '#a07248',
   warm:    '#8b5e30',
 };
 
-const BAER_BELLY: Record<Mood, string> = {
+const BAER_BELLY: Record<Look, string> = {
   frozen:  '#e4eef8',
   cold:    '#e0d0b0',
   neutral: '#c89860',
@@ -35,9 +35,7 @@ const BAER_BELLY: Record<Mood, string> = {
 
 const BAER_EAR_INNER = '#e8a090';
 
-export function Bear({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Bear({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = BAER_FUR[mood];
   const belly = BAER_BELLY[mood];
 

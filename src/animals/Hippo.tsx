@@ -5,38 +5,36 @@
  * winzige Augen hoch am Kopf, kleine runde Ohren oben auf dem Kopf.
  * Warm: weit aufgerissenes Maul mit sichtbaren Zähnen.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + offenes Maul mit Zähnen + Wangenrouge
  *   neutral  8–22 °C  runde Augen, geschlossenes Maul
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const NILPFERD_FUR: Record<Mood, string> = {
+const NILPFERD_FUR: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#cbd5e1',
   neutral: '#94a3b8',
   warm:    '#7c8fa0',
 };
 
-const NILPFERD_MUZZLE: Record<Mood, string> = {
+const NILPFERD_MUZZLE: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#e2e8f0',
   neutral: '#b4bec8',
   warm:    '#a8b8c4',
 };
 
-export function Hippo({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Hippo({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur    = NILPFERD_FUR[mood];
   const muzzle = NILPFERD_MUZZLE[mood];
 

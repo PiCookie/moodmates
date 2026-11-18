@@ -4,15 +4,15 @@
  * Körperstruktur vom Blauwal abgeleitet.
  * Erkennungsmerkmale: grauer Körper mit hellem Bauch, langer Spiralstoßzahn.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Wasserfontäne
  *   neutral  8–22 °C  Lächeln + Wasserfontäne
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -23,21 +23,21 @@ import {
     PetScarf,
 } from "../petParts";
 
-const NARWAL_FUR: Record<Mood, string> = {
+const NARWAL_FUR: Record<Look, string> = {
     frozen: "#cbd5e1",
     cold: "#94a3b8",
     neutral: "#64748b",
     warm: "#475569",
 };
 
-const NARWAL_BELLY: Record<Mood, string> = {
+const NARWAL_BELLY: Record<Look, string> = {
     frozen: "#f1f5f9",
     cold: "#e2e8f0",
     neutral: "#cbd5e1",
     warm: "#b0bec5",
 };
 
-const NARWAL_WATER: Record<Mood, string> = {
+const NARWAL_WATER: Record<Look, string> = {
     frozen: "#bae6fd",
     cold: "#7dd3fc",
     neutral: "#98c4e8",
@@ -48,14 +48,12 @@ const TUSK = "#f5f0d8";
 const TUSK_SPIRAL = "#c8b890";
 
 export function Narwhal({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = NARWAL_FUR[mood];
     const belly = NARWAL_BELLY[mood];
     const water = NARWAL_WATER[mood];

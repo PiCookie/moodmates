@@ -3,7 +3,7 @@
  *
  * Erkennungsmerkmale: Breiter Kopf, hervorquellende Kulleraugen, klebrige Zunge (warm).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Zunge + Wangenrouge
  *   neutral  8–22 °C  Kulleraugen, breites Grinsen
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
@@ -11,31 +11,29 @@
  */
 
 import { useId } from 'react';
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const FROG_BODY: Record<Mood, string> = {
+const FROG_BODY: Record<Look, string> = {
   frozen:  '#c7d2fe',
   cold:    '#a5f3fc',
   neutral: '#86efac',
   warm:    '#d9f99d',
 };
 
-const FROG_DARK: Record<Mood, string> = {
+const FROG_DARK: Record<Look, string> = {
   frozen:  '#6366f1',
   cold:    '#0891b2',
   neutral: '#16a34a',
   warm:    '#65a30d',
 };
 
-export function Frog({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood   = resolveMood(temperature, moodOverride);
-  const isHot  = temperature !== null && temperature >= 28;
+export function Frog({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body   = FROG_BODY[mood];
   const dark   = FROG_DARK[mood];
   // Eindeutige Mask-ID, da mehrere SVG-Instanzen gleichzeitig im DOM sein können. useId statt

@@ -3,40 +3,38 @@
  *
  * Erkennungsmerkmale: Große Lederflügel beiderseits, langer Schnabel,
  * spitzer Kopfkamm, kleiner Körper in der Mitte, kurze Füße.
- * Mood-Details: Flügel leuchten (warm), Flügel hängen schlaff (frozen).
+ * Look-Details: Flügel leuchten (warm), Flügel hängen schlaff (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Wangenrouge + Sonne + leuchtende Flügelränder
  *   neutral  8–22 °C  Flügel offen, runde Augen, Lächeln
  *   cold     0–8 °C  Flügel enger, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Flügel hängen, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const PTERO_BODY: Record<Mood, string> = {
+const PTERO_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#e0f2fe',
   neutral: '#7dd3fc',
   warm:    '#fbbf24',
 };
 
-const PTERO_WING: Record<Mood, string> = {
+const PTERO_WING: Record<Look, string> = {
   frozen:  '#93c5fd',
   cold:    '#bae6fd',
   neutral: '#38bdf8',
   warm:    '#f97316',
 };
 
-export function Pteranodon({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Pteranodon({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body  = PTERO_BODY[mood];
   const wing  = PTERO_WING[mood];
 

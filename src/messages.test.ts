@@ -7,7 +7,7 @@ import { MESSAGES_EN } from './messages.en';
 import { ALL_PET_TYPES } from './pets';
 import type { Mood } from './shared';
 
-const MOODS: Mood[] = ['frozen', 'cold', 'neutral', 'warm'];
+const MOODS: Mood[] = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
 const EVENT_KINDS: EventKind[] = ['first-frost', 'first-summer', 'heat-record', 'back-online'];
 
 const ENGLISH_SPEECH: PetMessages['speech'] = {
@@ -42,26 +42,26 @@ describe('pickMessage', () => {
   it('nutzt die Standardtexte, wenn nichts übergeben wird', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
 
-    expect(pickMessage('neutral', 20)).toBe(MESSAGES_EN.speech.neutral[0]);
+    expect(pickMessage('neutral')).toBe(MESSAGES_EN.speech.neutral[0]);
   });
 
   it('wählt aus den übergebenen Texten', () => {
     const messages = resolveMessages({ speech: ENGLISH_SPEECH });
 
-    expect(pickMessage('cold', 5, messages)).toBe('A bit chilly.');
+    expect(pickMessage('cold', messages)).toBe('A bit chilly.');
   });
 
   it('nutzt ab 28 Grad den Hitze-Pool, unabhängig von der Stimmung', () => {
     const messages = resolveMessages({ speech: ENGLISH_SPEECH });
 
-    expect(pickMessage('warm', 28, messages)).toBe('Too hot!');
-    expect(pickMessage('warm', 27.9, messages)).toBe('Warm!');
+    expect(pickMessage('hot', messages)).toBe('Too hot!');
+    expect(pickMessage('warm', messages)).toBe('Warm!');
   });
 
-  it('nutzt den Stimmungs-Pool, wenn die Temperatur fehlt', () => {
+  it('nutzt den Pool der übergebenen Stimmung', () => {
     const messages = resolveMessages({ speech: ENGLISH_SPEECH });
 
-    expect(pickMessage('neutral', null, messages)).toBe('Lovely day.');
+    expect(pickMessage('neutral', messages)).toBe('Lovely day.');
   });
 });
 
@@ -91,7 +91,7 @@ describe('MESSAGES_EN ist vollständig', () => {
     expect(messages.spriteLabel('X', 'Y')).toContain('Y');
   });
 
-  it.each([...MOODS, 'hot' as const])('hat Sprüche für %s', (mood) => {
+  it.each(MOODS)('hat Sprüche für %s', (mood) => {
     expect(messages.speech[mood].length).toBeGreaterThan(0);
   });
 

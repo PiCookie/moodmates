@@ -1,6 +1,6 @@
 import type { PetType } from './pets';
 import type { PetProps } from './shared';
-import { resolveMood } from './shared';
+import { lookOf } from './shared';
 import { resolveMessages } from './messages';
 import type { PetMessages } from './messages';
 import { PET_COMPONENTS } from './registry';
@@ -20,8 +20,8 @@ export function MoodmateSprite({ type, messages, ...petProps }: MoodmateSpritePr
   const known: PetType = type in PET_COMPONENTS ? type : 'cat';
   const Pet = PET_COMPONENTS[known];
   const text = resolveMessages(messages);
-  const mood = resolveMood(petProps.temperature, petProps.mood);
   // Teil-Objekte ersetzen petNames als Ganzes; ein fehlender Name darf nicht als "undefined" erscheinen
-  const ariaLabel = text.spriteLabel(text.petNames[known] ?? known, text.moodLabels[mood]);
-  return <Pet {...petProps} ariaLabel={ariaLabel} />;
+  const ariaLabel = text.spriteLabel(text.petNames[known] ?? known, text.moodLabels[petProps.mood]);
+  const { look, isHot } = lookOf(petProps.mood);
+  return <Pet mood={look} isHot={isHot} size={petProps.size} blinking={petProps.blinking} ariaLabel={ariaLabel} />;
 }

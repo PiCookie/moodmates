@@ -4,15 +4,15 @@
  * Erkennungsmerkmale: fünf dicke, organisch gerundete Arme (Q-Bezier),
  * weißer Punktdekor auf den Armen, heller Bauchkreis, lächelndes Gesicht.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  zusammengekniffen-fröhliche Augen, Lächeln
  *   cold     0–8 °C  runde besorgte Augen, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Schneeflocken, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -22,7 +22,7 @@ import {
     PetScarf,
 } from "../petParts";
 
-const SEESTERN_COLOR: Record<Mood, string> = {
+const SEESTERN_COLOR: Record<Look, string> = {
     frozen: "#fde8d0",
     cold: "#fdba74",
     neutral: "#f97316",
@@ -30,14 +30,12 @@ const SEESTERN_COLOR: Record<Mood, string> = {
 };
 
 export function Starfish({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const color = SEESTERN_COLOR[mood];
     const isWarm = mood === "warm";
     const isCold = mood === "cold";

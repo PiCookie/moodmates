@@ -7,7 +7,7 @@
  * Schichten (hinten → vorne):
  *   Schwanz → Körper → Rückenflosse → Brustflosse → Kopf → Krone → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Mono-Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  einzelnes rundes Auge
  *   cold     0–8 °C  besorgte Braue, Schal, Schneeflocken, Zittern
@@ -15,8 +15,8 @@
  */
 
 import { useId } from "react";
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -27,21 +27,21 @@ import {
     PetScarf,
 } from "../petParts";
 
-const SEE_FUR: Record<Mood, string> = {
+const SEE_FUR: Record<Look, string> = {
     frozen: "#bfdbfe",
     cold: "#93c5fd",
     neutral: "#f59e0b",
     warm: "#d97706",
 };
 
-const SEE_BELLY: Record<Mood, string> = {
+const SEE_BELLY: Record<Look, string> = {
     frozen: "#eff6ff",
     cold: "#dbeafe",
     neutral: "#fde68a",
     warm: "#fcd34d",
 };
 
-const SEE_CROWN: Record<Mood, string> = {
+const SEE_CROWN: Record<Look, string> = {
     frozen: "#6366f1",
     cold: "#2563eb",
     neutral: "#92400e",
@@ -53,14 +53,12 @@ const BODY =
     "M27,33 Q17,42 18,52 Q19,61 28,65 Q32,67 36,64 Q40,60 42,50 Q42,41 37,33 Z";
 
 export function Seahorse({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = SEE_FUR[mood];
     const belly = SEE_BELLY[mood];
     const crown = SEE_CROWN[mood];

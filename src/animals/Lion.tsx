@@ -4,22 +4,22 @@
  * Erkennungsmerkmale: Orangefarbene Mähne, Schwanz mit Quaste, Schnurrhaare.
  * Abweichend: Sonne links (cx=8) statt rechts — Mähne belegt rechte Ecke.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Zunge + Wangenrouge
  *   neutral  8–22 °C  runde Augen, breites Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun, PetSweat,
   PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const LION_BODY: Record<Mood, string> = {
+const LION_BODY: Record<Look, string> = {
   frozen:  '#e2e8f0',
   cold:    '#fef9c3',
   neutral: '#fef08a',
@@ -29,9 +29,7 @@ const LION_BODY: Record<Mood, string> = {
 const LION_MANE = '#f97316';
 const LION_NOSE = '#92400e';
 
-export function Lion({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Lion({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body = LION_BODY[mood];
 
   return (

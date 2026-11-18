@@ -5,15 +5,15 @@
  * Rückenflosse, heterozerkale Schwanzflosse, Kiemenschlitze,
  * heller Bauch.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Auge + leicht geöffnetes Maul
  *   cold     0–8 °C  besorgte Braue, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Auge, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -24,14 +24,14 @@ import {
     PetScarf,
 } from "../petParts";
 
-const HAI_FUR: Record<Mood, string> = {
+const HAI_FUR: Record<Look, string> = {
     frozen: "#bfdbfe",
     cold: "#7dd3fc",
     neutral: "#64748b",
     warm: "#475569",
 };
 
-const HAI_BELLY: Record<Mood, string> = {
+const HAI_BELLY: Record<Look, string> = {
     frozen: "#f0f9ff",
     cold: "#e0f2fe",
     neutral: "#e2e8f0",
@@ -39,14 +39,12 @@ const HAI_BELLY: Record<Mood, string> = {
 };
 
 export function Shark({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = HAI_FUR[mood];
     const belly = HAI_BELLY[mood];
     const isWarm = mood === "warm";

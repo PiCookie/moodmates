@@ -3,24 +3,24 @@
  *
  * Erkennungsmerkmale: Grüner Körper (mood-tinted), Hörner, Flügelstummel,
  * geschwungener Schwanz, Schlitzaugen.
- * Mood-Details: Feueratem (warm), Eisatem (frozen).
+ * Look-Details: Feueratem (warm), Eisatem (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Feueratem + Wangenrouge
  *   neutral  8–22 °C  Schlitzaugen, geschlossenes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eisatem, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const DRAGON_BODY: Record<Mood, string> = {
+const DRAGON_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#bbf7d0',
   neutral: '#4ade80',
@@ -30,11 +30,9 @@ const DRAGON_BODY: Record<Mood, string> = {
 const DRAGON_HORN  = '#16a34a';  // dunkelgrüne Hörner
 const DRAGON_SCALE = '#15803d';  // Schuppen-Akzente
 
-export function Dragon({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Dragon({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body = DRAGON_BODY[mood];
-  // Schuppen passen sich der Mood-Farbe an
+  // Schuppen passen sich der Look-Farbe an
   const scaleColor = mood === 'frozen' ? '#3b82f6' : mood === 'cold' ? '#059669' : mood === 'warm' ? '#d97706' : DRAGON_SCALE;
 
   return (

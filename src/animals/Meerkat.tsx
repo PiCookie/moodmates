@@ -5,29 +5,29 @@
  * charakteristische dunkle Augenringe, heller Bauch, schlanker Körper.
  * Vorderpfoten auf Brusthöhe angehoben.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen mit dunklen Ringen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen (weiß auf dunklen Ringen), Eiszapfen, Schal
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetWorriedBrows,
 } from '../petParts';
 
-const ERDMAENNCHEN_FUR: Record<Mood, string> = {
+const ERDMAENNCHEN_FUR: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#fef3c7',
   neutral: '#c4a882',
   warm:    '#b08060',
 };
 
-const ERDMAENNCHEN_BELLY: Record<Mood, string> = {
+const ERDMAENNCHEN_BELLY: Record<Look, string> = {
   frozen:  '#eff6ff',
   cold:    '#fffde7',
   neutral: '#e8d5b7',
@@ -36,9 +36,7 @@ const ERDMAENNCHEN_BELLY: Record<Mood, string> = {
 
 const EYE_RING = '#4a3220';
 
-export function Meerkat({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Meerkat({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur    = ERDMAENNCHEN_FUR[mood];
   const belly  = ERDMAENNCHEN_BELLY[mood];
 
