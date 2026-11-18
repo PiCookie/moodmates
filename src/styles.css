@@ -62,6 +62,10 @@
   gap: 0.25rem;
 }
 
+.mm-pet__stage {
+  position: relative;
+}
+
 .mm-pet__body {
   cursor: pointer;
 }
@@ -88,12 +92,6 @@
   pointer-events: none;
   transform-origin: left;
   animation: mm-bubble-in 0.18s ease-out forwards;
-}
-
-/* Standardposition rechts neben dem Tier (große Tiere setzen "left" per Inline-Style) */
-.mm-bubble--side {
-  left: 100%;
-  margin-left: 0.75rem;
 }
 
 .mm-bubble__inner {
