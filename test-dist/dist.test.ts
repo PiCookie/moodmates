@@ -12,8 +12,8 @@ const DIST = resolve(ROOT, 'dist');
 const require = createRequire(import.meta.url);
 
 const CORE_EXPORTS = [
-  'ALL_PET_TYPES', 'MESSAGES_EN', 'moodFromTemperature', 'pickEventMessage',
-  'pickMessage', 'randomPetType', 'resolveMessages', 'resolveMood',
+  'ALL_PET_TYPES', 'MESSAGES_EN', 'pickEventMessage',
+  'pickMessage', 'randomPetType', 'resolveMessages',
 ];
 
 function exportTargets(): string[] {
@@ -50,7 +50,7 @@ describe('gebautes Paket (dist)', () => {
     const core = require(resolve(DIST, 'core.cjs'));
 
     expect(Object.keys(core).sort()).toEqual([...CORE_EXPORTS].sort());
-    expect(core.moodFromTemperature(-3)).toBe('frozen');
+    expect(core.pickMessage('hot', core.MESSAGES_EN)).toEqual(expect.any(String));
   });
 
   it('core zieht weder React noch CSS mit', () => {
@@ -75,7 +75,7 @@ describe('gebautes Paket (dist)', () => {
   it('rendert ein Tier aus dem gebauten Paket serverseitig', async () => {
     const { Moodmate } = await import(resolve(DIST, 'index.js'));
 
-    const html = renderToString(createElement(Moodmate, { temperature: 20, type: 'cat', name: 'Mimi' }));
+    const html = renderToString(createElement(Moodmate, { mood: 'neutral', type: 'cat', name: 'Mimi' }));
 
     expect(html).toContain('<svg');
     expect(html).toContain('mm-pet');

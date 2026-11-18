@@ -3,7 +3,7 @@
  *
  * Erkennungsmerkmale: Hängeohren, runde Pupillenaugen, große Nase, Zunge (warm).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Zunge + Wangenrouge
  *   neutral  8–22 °C  runde Augen, Hundelächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
@@ -11,16 +11,14 @@
  */
 
 import type { AnimalProps } from '../shared';
-import { resolveMood, BODY_FILL, OUTLINE, PINK } from '../shared';
+import { BODY_FILL, OUTLINE, PINK } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-export function Dog({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Dog({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body = BODY_FILL[mood];
 
   return (

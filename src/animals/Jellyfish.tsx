@@ -4,45 +4,43 @@
  * Erkennungsmerkmale: Runder Schirm (Hauptmerkmal), herabhängende
  * Tentakel, große sanfte Augen, transluzente Farbtöne.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspannter Ausdruck
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const QUALLE_BELL: Record<Mood, string> = {
+const QUALLE_BELL: Record<Look, string> = {
   frozen:  '#c7d2fe',
   cold:    '#a5b4fc',
   neutral: '#c084fc',
   warm:    '#e879f9',
 };
 
-const QUALLE_INNER: Record<Mood, string> = {
+const QUALLE_INNER: Record<Look, string> = {
   frozen:  '#e0e7ff',
   cold:    '#c7d2fe',
   neutral: '#e9d5ff',
   warm:    '#f5d0fe',
 };
 
-const QUALLE_TENTACLE: Record<Mood, string> = {
+const QUALLE_TENTACLE: Record<Look, string> = {
   frozen:  '#818cf8',
   cold:    '#7c3aed',
   neutral: '#9333ea',
   warm:    '#c026d3',
 };
 
-export function Jellyfish({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood     = resolveMood(temperature, moodOverride);
-  const isHot    = temperature !== null && temperature >= 28;
+export function Jellyfish({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const bell     = QUALLE_BELL[mood];
   const inner    = QUALLE_INNER[mood];
   const tentacle = QUALLE_TENTACLE[mood];

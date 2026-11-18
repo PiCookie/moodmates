@@ -2,33 +2,31 @@
  * T-Rex im Retro-Stil
  *
  * Erkennungsmerkmale: Riesenkopf, winzige Arme, massige Beine, Stachelschwanz.
- * Mood-Details: Feueratem (warm), Eisatem (frozen).
+ * Look-Details: Feueratem (warm), Eisatem (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Feueratem + Wangenrouge
  *   neutral  8–22 °C  runde Augen, geschlossenes Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eisatem, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const TREX_BODY: Record<Mood, string> = {
+const TREX_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#bbf7d0',
   neutral: '#4ade80',
   warm:    '#fbbf24',
 };
 
-export function Trex({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Trex({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body  = TREX_BODY[mood];
 
   return (

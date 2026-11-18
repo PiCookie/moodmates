@@ -4,22 +4,22 @@
  * Erkennungsmerkmale: Weiß-schwarzes Fell, schwarze Augenringe (das Panda-Merkmal),
  * schwarze Ohren und Arme.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen (weiß auf schwarz), Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetWorriedBrows,
 } from '../petParts';
 
-const PANDA_FUR: Record<Mood, string> = {
+const PANDA_FUR: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#f1f5f9',
   neutral: '#f8f5f0',
@@ -29,9 +29,7 @@ const PANDA_FUR: Record<Mood, string> = {
 const PANDA_BLACK = '#1e1e1e';
 const PANDA_NOSE  = '#3d2b1f';
 
-export function Panda({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Panda({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur = PANDA_FUR[mood];
 
   return (

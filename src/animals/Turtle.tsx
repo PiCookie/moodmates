@@ -7,15 +7,15 @@
  * Schichten (hinten → vorne):
  *   Panzer → Plastron → Muster → Gliedmaßen → Kopf
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, kleines Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -23,14 +23,14 @@ import {
 } from '../petParts';
 
 /** Gliedmaßen + Kopf */
-const TURTLE_LIMB: Record<Mood, string> = {
+const TURTLE_LIMB: Record<Look, string> = {
   frozen:  '#c7d2fe',
   cold:    '#ccfbf1',
   neutral: '#86efac',
   warm:    '#d9f99d',
 };
 
-const TURTLE_LIMB_DARK: Record<Mood, string> = {
+const TURTLE_LIMB_DARK: Record<Look, string> = {
   frozen:  '#6366f1',
   cold:    '#0d9488',
   neutral: '#15803d',
@@ -38,7 +38,7 @@ const TURTLE_LIMB_DARK: Record<Mood, string> = {
 };
 
 /** Panzer (Carapax) — braun/olive */
-const TURTLE_SHELL: Record<Mood, string> = {
+const TURTLE_SHELL: Record<Look, string> = {
   frozen:  '#6878a0',
   cold:    '#7a6030',
   neutral: '#7a5c1e',
@@ -46,16 +46,14 @@ const TURTLE_SHELL: Record<Mood, string> = {
 };
 
 /** Plastron (Bauch) — gelblich-creme */
-const TURTLE_BELLY: Record<Mood, string> = {
+const TURTLE_BELLY: Record<Look, string> = {
   frozen:  '#b8c8dc',
   cold:    '#d8cc88',
   neutral: '#d4c458',
   warm:    '#dcc038',
 };
 
-export function Turtle({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Turtle({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const limb  = TURTLE_LIMB[mood];
   const lDark = TURTLE_LIMB_DARK[mood];
   const shell = TURTLE_SHELL[mood];

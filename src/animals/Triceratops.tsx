@@ -3,40 +3,38 @@
  *
  * Erkennungsmerkmale: 3 Hörner (2 lang, 1 kurz über Nase), breites Nackenschild,
  * gedrungener Körper, quadruped.
- * Mood-Details: Sonne auf Hornspitzen (warm), Nackenschild vereist (frozen).
+ * Look-Details: Sonne auf Hornspitzen (warm), Nackenschild vereist (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille zwischen Hörnern + Wangenrouge + Sonne
  *   neutral  8–22 °C  runde Augen, geschlossenes Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const TRIC_BODY: Record<Mood, string> = {
+const TRIC_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#d9f99d',
   neutral: '#84cc16',
   warm:    '#fbbf24',
 };
 
-const TRIC_HORN: Record<Mood, string> = {
+const TRIC_HORN: Record<Look, string> = {
   frozen:  '#93c5fd',
   cold:    '#65a30d',
   neutral: '#4d7c0f',
   warm:    '#d97706',
 };
 
-export function Triceratops({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Triceratops({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body  = TRIC_BODY[mood];
   const horn  = TRIC_HORN[mood];
 

@@ -4,15 +4,15 @@
  * Erkennungsmerkmale: blauer ovaler Körper, gelbe gegabelte Schwanzflosse,
  * schwarzes Palettenstreifen-Muster (Signatur-Merkmal), Auge links.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Lächeln
  *   cold     0–8 °C  besorgte Braue, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Auge, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -23,21 +23,21 @@ import {
     PetScarf,
 } from "../petParts";
 
-const PALETTEN_FUR: Record<Mood, string> = {
+const PALETTEN_FUR: Record<Look, string> = {
     frozen: "#bfdbfe",
     cold: "#60a5fa",
     neutral: "#1d4ed8",
     warm: "#2563eb",
 };
 
-const PALETTEN_BELLY: Record<Mood, string> = {
+const PALETTEN_BELLY: Record<Look, string> = {
     frozen: "#eff6ff",
     cold: "#dbeafe",
     neutral: "#93c5fd",
     warm: "#60a5fa",
 };
 
-const PALETTEN_TAIL: Record<Mood, string> = {
+const PALETTEN_TAIL: Record<Look, string> = {
     frozen: "#e0f2fe",
     cold: "#fde68a",
     neutral: "#fbbf24",
@@ -48,14 +48,12 @@ const BODY =
     "M11,43 Q11,30 25,29 Q40,30 47,38 Q51,43 47,49 Q40,57 25,57 Q11,57 11,43 Z";
 
 export function BlueTang({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = PALETTEN_FUR[mood];
     const belly = PALETTEN_BELLY[mood];
     const tail = PALETTEN_TAIL[mood];

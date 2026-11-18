@@ -3,40 +3,38 @@
  *
  * Erkennungsmerkmale: Doppelreihe Rückenplatten, Stachelschwanz (Thagomizer),
  * kleiner Kopf im Verhältnis zum Körper, quadruped.
- * Mood-Details: Platten leuchten warm (warm), Platten vereist (frozen).
+ * Look-Details: Platten leuchten warm (warm), Platten vereist (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Platten in Warmton + Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Normalplatten, runde Augen, Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, vereiste Platten, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const STEG_BODY: Record<Mood, string> = {
+const STEG_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#d9f99d',
   neutral: '#86efac',
   warm:    '#fcd34d',
 };
 
-const STEG_PLATE: Record<Mood, string> = {
+const STEG_PLATE: Record<Look, string> = {
   frozen:  '#93c5fd',
   cold:    '#4ade80',
   neutral: '#22c55e',
   warm:    '#f97316',
 };
 
-export function Stegosaurus({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Stegosaurus({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body  = STEG_BODY[mood];
   const plate = STEG_PLATE[mood];
 

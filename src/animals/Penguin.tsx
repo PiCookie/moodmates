@@ -3,7 +3,7 @@
  *
  * Erkennungsmerkmale: Dunkler Frack mit hellem Bauch/Gesicht, Flossen, Orangeschnabel + -füße.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, Schnabel leicht geöffnet
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
@@ -11,7 +11,7 @@
  */
 
 import type { AnimalProps } from '../shared';
-import { resolveMood, BODY_FILL, OUTLINE } from '../shared';
+import { BODY_FILL, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
@@ -21,9 +21,7 @@ import {
 const PENGUIN_BODY = '#1e3a5f';
 const ORANGE       = '#f97316';
 
-export function Penguin({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Penguin({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const face = BODY_FILL[mood];   // helles Bauch/Gesichts-Oval
 
   return (

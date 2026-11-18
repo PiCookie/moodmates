@@ -5,22 +5,22 @@
  * einfarbiges braun-oranges Gesicht, kleine runde Ohren,
  * kleine schwarze Knopfaugen hoch am Kopf.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Knopfaugen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const HAMSTER_FUR: Record<Mood, string> = {
+const HAMSTER_FUR: Record<Look, string> = {
   frozen:  '#9fc8e8',
   cold:    '#d4aa7c',
   neutral: '#d08a45',
@@ -29,9 +29,7 @@ const HAMSTER_FUR: Record<Mood, string> = {
 
 const EAR_INNER = '#e8a090';
 
-export function Hamster({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Hamster({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = HAMSTER_FUR[mood];
 
   return (

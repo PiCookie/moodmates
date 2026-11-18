@@ -7,36 +7,36 @@
  * Schichten (hinten → vorne):
  *   Schwanz → Füße → Körper → Körperstreifen → Arme → Ohren → Kopf → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const TIGER_FUR: Record<Mood, string> = {
+const TIGER_FUR: Record<Look, string> = {
   frozen:  '#c7d2fe',
   cold:    '#fed7aa',
   neutral: '#fb923c',
   warm:    '#ea580c',
 };
 
-const TIGER_DARK: Record<Mood, string> = {
+const TIGER_DARK: Record<Look, string> = {
   frozen:  '#4338ca',
   cold:    '#9a3412',
   neutral: '#9a3412',
   warm:    '#7c2d12',
 };
 
-const TIGER_STRIPE: Record<Mood, string> = {
+const TIGER_STRIPE: Record<Look, string> = {
   frozen:  '#3730a3',
   cold:    '#431407',
   neutral: '#1c1917',
@@ -45,9 +45,7 @@ const TIGER_STRIPE: Record<Mood, string> = {
 
 const TIGER_EAR_INNER = '#fff1f2';
 
-export function Tiger({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood   = resolveMood(temperature, moodOverride);
-  const isHot  = temperature !== null && temperature >= 28;
+export function Tiger({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur    = TIGER_FUR[mood];
   const dark   = TIGER_DARK[mood];
   const stripe = TIGER_STRIPE[mood];

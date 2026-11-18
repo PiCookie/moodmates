@@ -7,38 +7,36 @@
  * Schichten (hinten → vorne):
  *   Heckflossen → Körper → Bauch → Vorderflossen → Kopf → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const ROBBE_FUR: Record<Mood, string> = {
+const ROBBE_FUR: Record<Look, string> = {
   frozen:  '#bfdbfe', // eisblau
   cold:    '#94a3b8', // kältliches Grau
   neutral: '#64748b', // slate-grau
   warm:    '#78716c', // warmgrau/braun
 };
 
-const ROBBE_BELLY: Record<Mood, string> = {
+const ROBBE_BELLY: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#e2e8f0',
   neutral: '#cbd5e1',
   warm:    '#d6d3d1',
 };
 
-export function Seal({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Seal({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = ROBBE_FUR[mood];
   const belly = ROBBE_BELLY[mood];
 

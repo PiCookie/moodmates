@@ -7,36 +7,36 @@
  * Schichten (hinten → vorne):
  *   Schwanz → Füße → Körper → Arme → Ohren → Kopf → Muster → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetWorriedBrows,
 } from '../petParts';
 
-const ROTER_PANDA_FUR: Record<Mood, string> = {
+const ROTER_PANDA_FUR: Record<Look, string> = {
   frozen:  '#c7d2fe',
   cold:    '#fca5a5',
   neutral: '#b45309',
   warm:    '#92400e',
 };
 
-const ROTER_PANDA_DARK: Record<Mood, string> = {
+const ROTER_PANDA_DARK: Record<Look, string> = {
   frozen:  '#4338ca',
   cold:    '#7f1d1d',
   neutral: '#7c2d12',
   warm:    '#431407',
 };
 
-const ROTER_PANDA_STRIPE: Record<Mood, string> = {
+const ROTER_PANDA_STRIPE: Record<Look, string> = {
   frozen:  '#312e81',
   cold:    '#450a0a',
   neutral: '#1c0a06',
@@ -50,9 +50,7 @@ const MUZZLE   = '#fef9f0';
 /** Weiße Ohreninnenseite */
 const EAR_INNER = '#fef2f2';
 
-export function RedPanda({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood   = resolveMood(temperature, moodOverride);
-  const isHot  = temperature !== null && temperature >= 28;
+export function RedPanda({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur    = ROTER_PANDA_FUR[mood];
   const dark   = ROTER_PANDA_DARK[mood];
   const stripe = ROTER_PANDA_STRIPE[mood];

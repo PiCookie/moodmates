@@ -4,15 +4,15 @@
  * Körperstruktur identisch zum Blauwal.
  * Farbe: schwarz (Körper) + weiß (Bauch) + weißer Augenfleck — typische Orca-Färbung.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Wasserfontäne
  *   neutral  8–22 °C  Lächeln + Wasserfontäne
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -23,21 +23,21 @@ import {
     PetScarf,
 } from "../petParts";
 
-const KILLERWAL_FUR: Record<Mood, string> = {
+const KILLERWAL_FUR: Record<Look, string> = {
     frozen: "#4a5568",
     cold: "#2d3748",
     neutral: "#1a202c",
     warm: "#171923",
 };
 
-const KILLERWAL_BELLY: Record<Mood, string> = {
+const KILLERWAL_BELLY: Record<Look, string> = {
     frozen: "#f7fafc",
     cold: "#edf2f7",
     neutral: "#e2e8f0",
     warm: "#d8e0e8",
 };
 
-const KILLERWAL_WATER: Record<Mood, string> = {
+const KILLERWAL_WATER: Record<Look, string> = {
     frozen: "#bae6fd",
     cold: "#7dd3fc",
     neutral: "#98c4e8",
@@ -45,14 +45,12 @@ const KILLERWAL_WATER: Record<Mood, string> = {
 };
 
 export function KillerWhale({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = KILLERWAL_FUR[mood];
     const belly = KILLERWAL_BELLY[mood];
     const water = KILLERWAL_WATER[mood];

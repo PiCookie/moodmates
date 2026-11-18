@@ -5,15 +5,15 @@
  * kleine Ohrstummel oben, sechs kurze dicke Tentakel-Blobs unten
  * (3 links, 3 rechts), zwei große runde Augen.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -24,14 +24,14 @@ import {
     PetScarf,
 } from "../petParts";
 
-const KRAKEN_FUR: Record<Mood, string> = {
+const KRAKEN_FUR: Record<Look, string> = {
     frozen: "#c4b5fd",
     cold: "#a78bfa",
     neutral: "#7c3aed",
     warm: "#9333ea",
 };
 
-const KRAKEN_SPOT: Record<Mood, string> = {
+const KRAKEN_SPOT: Record<Look, string> = {
     frozen: "#ede9fe",
     cold: "#c4b5fd",
     neutral: "#8b5cf6",
@@ -41,14 +41,12 @@ const KRAKEN_SPOT: Record<Mood, string> = {
 const HEAD = "M9,47 Q8,26 32,24 Q56,26 55,47 Q56,72 32,74 Q8,72 9,47 Z";
 
 export function Octopus({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = KRAKEN_FUR[mood];
     const spot = KRAKEN_SPOT[mood];
     const isWarm = mood === "warm";

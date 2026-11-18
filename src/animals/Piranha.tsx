@@ -4,15 +4,15 @@
  * Erkennungsmerkmale: silber-grauer Körper mit rotem Bauch
  * (typisch für den Roten Piranha), riesiges Maul mit Zähnen.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + breites Grinsen
  *   neutral  8–22 °C  runde Augen, offenes Maul mit Zähnen + Zunge
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -27,14 +27,14 @@ import {
     PetWorriedBrows,
 } from "../petParts";
 
-const PIRANHA_FUR: Record<Mood, string> = {
+const PIRANHA_FUR: Record<Look, string> = {
     frozen: "#cbd5e1",
     cold: "#94a3b8",
     neutral: "#64748b",
     warm: "#475569",
 };
 
-const PIRANHA_BELLY: Record<Mood, string> = {
+const PIRANHA_BELLY: Record<Look, string> = {
     frozen: "#fecaca",
     cold: "#f87171",
     neutral: "#ef4444",
@@ -42,14 +42,12 @@ const PIRANHA_BELLY: Record<Mood, string> = {
 };
 
 export function Piranha({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = PIRANHA_FUR[mood];
     const belly = PIRANHA_BELLY[mood];
     const throat = "#94a3b8";

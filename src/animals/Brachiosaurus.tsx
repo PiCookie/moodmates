@@ -3,33 +3,31 @@
  *
  * Erkennungsmerkmale: Langer geschwungener Hals, kleiner Kopf weit oben,
  * massiger Körper unten, kurzer Schwanz rechts, vierbeinig.
- * Mood-Details: Kopf reckt sich zur Sonne (warm), hängt schlaff (frozen).
+ * Look-Details: Kopf reckt sich zur Sonne (warm), hängt schlaff (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Sonne
  *   neutral  8–22 °C  runde Augen, Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal am Hals, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const BRACHIO_BODY: Record<Mood, string> = {
+const BRACHIO_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#bbf7d0',
   neutral: '#4ade80',
   warm:    '#fbbf24',
 };
 
-export function Brachiosaurus({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Brachiosaurus({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body  = BRACHIO_BODY[mood];
 
   return (

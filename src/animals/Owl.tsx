@@ -8,45 +8,43 @@
  * Schichten (hinten → vorne):
  *   Körper → Flügel → Kopf → Federbüschel → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  riesige Augen, entspannter Ausdruck
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const EULE_FUR: Record<Mood, string> = {
+const EULE_FUR: Record<Look, string> = {
   frozen:  '#c7d2fe', // eisblau
   cold:    '#94a3b8', // kühles Grau
   neutral: '#92400e', // warmes Braun
   warm:    '#b45309', // satteres Braun
 };
 
-const EULE_BELLY: Record<Mood, string> = {
+const EULE_BELLY: Record<Look, string> = {
   frozen:  '#e0e7ff',
   cold:    '#f1f5f9',
   neutral: '#fef3c7',
   warm:    '#fde68a',
 };
 
-const EYE_RING: Record<Mood, string> = {
+const EYE_RING: Record<Look, string> = {
   frozen:  '#4338ca',
   cold:    '#475569',
   neutral: '#78350f',
   warm:    '#92400e',
 };
 
-export function Owl({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood    = resolveMood(temperature, moodOverride);
-  const isHot   = temperature !== null && temperature >= 28;
+export function Owl({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur     = EULE_FUR[mood];
   const belly   = EULE_BELLY[mood];
   const eyeRing = EYE_RING[mood];

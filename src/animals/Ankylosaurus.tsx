@@ -4,40 +4,38 @@
  * Erkennungsmerkmale: Breiter gepanzerter Körper mit ovalen Schutzplatten auf
  * dem Rücken, markante Keule am Schwanzende (Thagomizer-Keule), kurze Beine,
  * kleiner Kopf mit seitlichen Hörnchen.
- * Mood-Details: Panzerplatten leuchten (warm), vereist (frozen).
+ * Look-Details: Panzerplatten leuchten (warm), vereist (frozen).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Panzer-Glanz
  *   neutral  8–22 °C  Standardpanzer, runde Augen, Lächeln
  *   cold     0–8 °C  besorgte Brauen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, gefrorener Panzer, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const ANKY_BODY: Record<Mood, string> = {
+const ANKY_BODY: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#d9f99d',
   neutral: '#86efac',
   warm:    '#fcd34d',
 };
 
-const ANKY_ARMOR: Record<Mood, string> = {
+const ANKY_ARMOR: Record<Look, string> = {
   frozen:  '#93c5fd',
   cold:    '#4ade80',
   neutral: '#16a34a',
   warm:    '#d97706',
 };
 
-export function Ankylosaurus({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Ankylosaurus({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body  = ANKY_BODY[mood];
   const armor = ANKY_ARMOR[mood];
 

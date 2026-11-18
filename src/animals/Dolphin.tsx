@@ -9,38 +9,36 @@
  *   Schwanzflosse → Brustflossen → Rückenflosse → Körper/Kopf (ein Pfad)
  *   → Bauch → Rostrum → Gesicht
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Zunge
  *   neutral  8–22 °C  runde Augen, entspannter Ausdruck
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const DELFIN_FUR: Record<Mood, string> = {
+const DELFIN_FUR: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#93c5fd',
   neutral: '#64748b',
   warm:    '#475569',
 };
 
-const DELFIN_BELLY: Record<Mood, string> = {
+const DELFIN_BELLY: Record<Look, string> = {
   frozen:  '#f0f9ff',
   cold:    '#e0f2fe',
   neutral: '#e2e8f0',
   warm:    '#cbd5e1',
 };
 
-export function Dolphin({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Dolphin({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = DELFIN_FUR[mood];
   const belly = DELFIN_BELLY[mood];
 

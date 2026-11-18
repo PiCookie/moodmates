@@ -3,38 +3,36 @@
  *
  * Erkennungsmerkmale: Großer Körper, breite rechteckig-runde Schnauze, kleine Ohren, hohe Augen.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge
  *   neutral  8–22 °C  runde Augen, kleines Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const CAPY_BODY: Record<Mood, string> = {
+const CAPY_BODY: Record<Look, string> = {
   frozen:  '#ccd8e8',
   cold:    '#b8c4cc',
   neutral: '#c4956a',
   warm:    '#d4a040',
 };
 
-const CAPY_DARK: Record<Mood, string> = {
+const CAPY_DARK: Record<Look, string> = {
   frozen:  '#4a5870',
   cold:    '#4a5870',
   neutral: '#7a4e1e',
   warm:    '#8b5e1a',
 };
 
-export function Capybara({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Capybara({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const body = CAPY_BODY[mood];
   const dark = CAPY_DARK[mood];
 

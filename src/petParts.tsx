@@ -6,7 +6,7 @@
  */
 
 import type { ReactNode } from 'react';
-import type { Mood } from './shared';
+import type { Look } from './shared';
 import { OUTLINE } from './shared';
 
 // ─── SVG Wrapper ─────────────────────────────────────────────────────────────
@@ -45,7 +45,7 @@ export function PetShadow({ cx = 32 }: { cx?: number }) {
 // leftX/rightX: x of left edge of outer icicles; center icicle is always at x=29–37
 
 interface IciclesProps {
-  mood: Mood;
+  mood: Look;
   y?: number;     // top y of icicles (default 73)
   leftX?: number; // default 19
   rightX?: number;// default 41
@@ -70,7 +70,7 @@ export function PetIcicles({ mood, y = 73, leftX = 19, rightX = 41 }: IciclesPro
 // Default right-corner position (cx=58, cy=12).
 // Pass cx/cy to reposition — e.g. Lion uses cx=8, cy=10 (left corner, mane blocks right).
 
-export function PetSun({ mood, cx = 58, cy = 12 }: { mood: Mood; cx?: number; cy?: number }) {
+export function PetSun({ mood, cx = 58, cy = 12 }: { mood: Look; cx?: number; cy?: number }) {
   if (mood !== 'warm') return null;
   return (
     <g opacity="0.9">
@@ -119,7 +119,7 @@ function Snowflake({ cx, cy, r, diag, strokeWidth, opacity, color }: {
 }
 
 interface SnowflakesProps {
-  mood: Mood;
+  mood: Look;
   left: SnowflakeCenter;
   right?: SnowflakeCenter;
 }
@@ -140,7 +140,7 @@ export function PetSnowflakes({ mood, left, right }: SnowflakesProps) {
 // small=true: thinner scarf (height=9, rx=4.5, knotR=5) for turtle/capybara.
 
 interface ScarfProps {
-  mood: Mood;
+  mood: Look;
   x: number;
   y: number;
   width: number;
@@ -167,7 +167,7 @@ export function PetScarf({ mood, x, y, width, knotCx, knotCy, small = false }: S
 // ─── Cheek Blush ─────────────────────────────────────────────────────────────
 
 interface BlushProps {
-  mood: Mood;
+  mood: Look;
   leftCx: number;
   rightCx: number;
   cy: number;
@@ -193,7 +193,7 @@ export function PetBlush({ mood, leftCx, rightCx, cy, rx = 7, ry = 4 }: BlushPro
 // stegY: y of the nose bridge; defaults to leftTemple[1] - 1.
 
 interface SunglassesProps {
-  mood: Mood;
+  mood: Look;
   frame: { y: number; w: number; h: number; rx: number };
   leftX: number;
   rightX: number;
@@ -236,7 +236,7 @@ export function PetSunglasses({
 interface EyeBox { l: number; t: number; r: number; b: number }
 
 export function PetFrozenEyes({ mood, leftBox, rightBox }: {
-  mood: Mood;
+  mood: Look;
   leftBox: EyeBox;
   rightBox: EyeBox;
 }) {
@@ -257,7 +257,7 @@ export function PetFrozenEyes({ mood, leftBox, rightBox }: {
 interface BrowLine { x1: number; y1: number; x2: number; y2: number }
 
 export function PetWorriedBrows({ mood, leftBrow, rightBrow }: {
-  mood: Mood;
+  mood: Look;
   leftBrow: BrowLine;
   rightBrow: BrowLine;
 }) {

@@ -6,8 +6,8 @@ import { MESSAGES_EN } from './messages.en';
 // Alle Texte, die die Tiere selbst anzeigen. Eigene Texte werden als Teil-Objekt übergeben,
 // fehlende Felder fallen auf die englischen Standardtexte zurück (siehe resolveMessages).
 export interface PetMessages {
-  /** Sprüche beim Antippen und zwischendurch je Stimmung; "hot" gilt ab 28 °C */
-  speech: Record<Mood | 'hot', readonly string[]>;
+  /** Sprüche beim Antippen und zwischendurch je Stimmung */
+  speech: Record<Mood, readonly string[]>;
   /** Sprechblasen bei Ereignissen (erster Frost, Rekord, …) */
   events: Record<EventKind, readonly string[]>;
   moodLabels: Record<Mood, string>;
@@ -27,12 +27,7 @@ export function resolveMessages(overrides?: Partial<PetMessages>): PetMessages {
   return { ...MESSAGES_EN, ...Object.fromEntries(given) };
 }
 
-export function pickMessage(
-  mood: Mood,
-  temperature: number | null,
-  messages: PetMessages = MESSAGES_EN,
-): string {
-  const pool =
-    temperature !== null && temperature >= 28 ? messages.speech.hot : messages.speech[mood];
+export function pickMessage(mood: Mood, messages: PetMessages = MESSAGES_EN): string {
+  const pool = messages.speech[mood];
   return pool[Math.floor(Math.random() * pool.length)];
 }

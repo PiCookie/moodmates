@@ -4,38 +4,36 @@
  * Erkennungsmerkmale: Langer Rüssel (Hauptmerkmal), große Fächerohren,
  * Stoßzähne (neutral/warm), mood-tinted Grautöne.
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Stoßzähne
  *   neutral  8–22 °C  runde Augen, Stoßzähne, entspanntes Lächeln
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from '../shared';
-import { resolveMood, OUTLINE } from '../shared';
+import type { Look, AnimalProps } from '../shared';
+import { OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
   PetSweat, PetSnowflakes, PetScarf, PetBlush,
   PetSunglasses, PetFrozenEyes, PetWorriedBrows,
 } from '../petParts';
 
-const ELEFANT_FUR: Record<Mood, string> = {
+const ELEFANT_FUR: Record<Look, string> = {
   frozen:  '#bfdbfe',
   cold:    '#cbd5e1',
   neutral: '#94a3b8',
   warm:    '#a8a29e',
 };
 
-const ELEFANT_EAR_INNER: Record<Mood, string> = {
+const ELEFANT_EAR_INNER: Record<Look, string> = {
   frozen:  '#dbeafe',
   cold:    '#e2e8f0',
   neutral: '#b4bec8',
   warm:    '#c4b5a5',
 };
 
-export function Elephant({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
-  const mood  = resolveMood(temperature, moodOverride);
-  const isHot = temperature !== null && temperature >= 28;
+export function Elephant({ mood, isHot, size = 80, blinking = false, ariaLabel }: AnimalProps) {
   const fur   = ELEFANT_FUR[mood];
   const earInner = ELEFANT_EAR_INNER[mood];
 

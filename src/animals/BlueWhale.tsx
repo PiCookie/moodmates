@@ -4,15 +4,15 @@
  * Körperstruktur exakt vom Referenz-SVG (300×200) skaliert auf 66×88 viewBox.
  * Skalierungsfaktor 0.29, Zentrum des Originals (160, 117) → (33, 45).
  *
- * Mood → temperature:
+ * Look (the ranges below are only an example, the app decides):
  *   warm    ≥ 22 °C  Sonnenbrille + Wangenrouge + Wasserfontäne
  *   neutral  8–22 °C  Lächeln + Wasserfontäne
  *   cold     0–8 °C  besorgte Augen, Schal, Schneeflocken, Zittern
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, AnimalProps } from "../shared";
-import { resolveMood, OUTLINE } from "../shared";
+import type { Look, AnimalProps } from "../shared";
+import { OUTLINE } from "../shared";
 import {
     PetSvg,
     PetShadow,
@@ -23,21 +23,21 @@ import {
     PetScarf,
 } from "../petParts";
 
-const BLAUWAL_FUR: Record<Mood, string> = {
+const BLAUWAL_FUR: Record<Look, string> = {
     frozen: "#a8c4e0",
     cold: "#78a8d0",
     neutral: "#4878b8",
     warm: "#2c5ca0",
 };
 
-const BLAUWAL_BELLY: Record<Mood, string> = {
+const BLAUWAL_BELLY: Record<Look, string> = {
     frozen: "#e4f0fc",
     cold: "#c0d8f0",
     neutral: "#98c4e8",
     warm: "#70b0e0",
 };
 
-const BLAUWAL_WATER: Record<Mood, string> = {
+const BLAUWAL_WATER: Record<Look, string> = {
     frozen: "#bae6fd",
     cold: "#7dd3fc",
     neutral: "#98c4e8",
@@ -45,14 +45,12 @@ const BLAUWAL_WATER: Record<Mood, string> = {
 };
 
 export function BlueWhale({
-    temperature,
+    isHot,
     size = 80,
     blinking = false,
-    mood: moodOverride,
+    mood,
     ariaLabel,
 }: AnimalProps) {
-    const mood = resolveMood(temperature, moodOverride);
-    const isHot = temperature !== null && temperature >= 28;
     const fur = BLAUWAL_FUR[mood];
     const belly = BLAUWAL_BELLY[mood];
     const water = BLAUWAL_WATER[mood];

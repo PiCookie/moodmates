@@ -17,7 +17,7 @@ const EVENT_KINDS: EventKind[] = ['first-frost', 'first-summer', 'heat-record', 
 describe('selbstenthaltenes Styling', () => {
   it.each(EVENT_KINDS)('Moodmate mit Sprechblase (%s) nutzt nur mm- Klassen', (kind) => {
     const { container } = render(
-      <Moodmate temperature={-5} type="cat" name="Mimi" event={{ kind }} />,
+      <Moodmate mood="frozen" type="cat" name="Mimi" event={{ kind }} />,
     );
 
     expect(container.querySelector('.mm-bubble')).not.toBeNull();
@@ -26,20 +26,20 @@ describe('selbstenthaltenes Styling', () => {
 
   it('nutzt auch für große Tiere mit eigener Blasenposition nur mm- Klassen', () => {
     const { container } = render(
-      <Moodmate temperature={10} type="blue-whale" event={{ kind: 'first-frost' }} />,
+      <Moodmate mood="neutral" type="blue-whale" event={{ kind: 'first-frost' }} />,
     );
 
     expect(foreignClasses(container)).toEqual([]);
   });
 
   it('lässt ein frierendes Tier zittern', () => {
-    const { container } = render(<Moodmate temperature={-5} type="dog" />);
+    const { container } = render(<Moodmate mood="frozen" type="dog" />);
 
     expect(container.querySelector('svg.mm-shiver')).not.toBeNull();
   });
 
   it('lässt ein warmes Tier nach einem Klick hüpfen', () => {
-    const { container } = render(<Moodmate temperature={24} type="cat" />);
+    const { container } = render(<Moodmate mood="warm" type="cat" />);
 
     fireEvent.click(screen.getByRole('button'));
 
@@ -47,7 +47,7 @@ describe('selbstenthaltenes Styling', () => {
   });
 
   it('MoodHistoryBar nutzt nur mm- Klassen', () => {
-    const { container } = render(<MoodHistoryBar tempValues={[-5, 3, 12, 24]} />);
+    const { container } = render(<MoodHistoryBar moods={['frozen', 'cold', 'neutral', 'warm']} />);
 
     expect(container.querySelector('.mm-mood-bar')).not.toBeNull();
     expect(foreignClasses(container)).toEqual([]);
