@@ -1,5 +1,5 @@
 /*
- * Selbstenthaltenes Styling der Tiere (ADR-0006): keine Tailwind-Klassen, keine CSS der App nötig.
+ * Selbstenthaltenes Styling der Tiere: keine Tailwind-Klassen, keine CSS der App nötig.
  * Wird von der Anwendung einmal importiert: `import 'moodmates/styles.css'`. Ohne diese Datei
  * erscheinen die Tiere ohne Layout und ohne Animationen.
  * Alle Klassen und Keyframes tragen das Präfix "mm-", damit sie in anderen Projekten nicht mit

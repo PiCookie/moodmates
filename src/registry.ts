@@ -1,4 +1,4 @@
-// Zuordnung Tierart -> Zeichnung. Die Tiere sind nicht öffentlich exportiert (ADR-0006), nur diese
+// Zuordnung Tierart -> Zeichnung. Die Tiere sind nicht öffentlich exportiert, nur diese
 // Zuordnung kennt sie. Der Typ Record<PetType, ...> erzwingt, dass jede Tierart eine Zeichnung hat.
 import type { ComponentType } from 'react';
 import type { PetType } from './pets';

@@ -3,7 +3,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 // Das Paket kennt nur Stimmungen. Welche Messwerte zu welcher Stimmung führen, entscheidet die
-// Anwendung (ADR-0006). Eine Prop oder Variable "temperature" wäre der Weg zurück in die Kopplung.
+// Anwendung. Eine Prop oder Variable "temperature" wäre der Weg zurück in die Kopplung.
 const SRC = resolve(__dirname, '../src');
 const SKIPPED = /\.test\.tsx?$|messages\.en\.ts$/; // Tests und englische Nutzertexte ("Perfect temperature")
 

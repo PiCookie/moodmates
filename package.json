@@ -1,9 +1,27 @@
 {
   "name": "moodmates",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "type": "module",
-  "description": "Animierte SVG-Tiere, deren Stimmung auf einen Wert reagiert (zunächst die Temperatur).",
+  "description": "Animated SVG animals that show a mood. 45 species, speech bubbles, a mood history bar. React 19, no dependencies, bring your own texts.",
+  "keywords": [
+    "react",
+    "svg",
+    "mascot",
+    "pet",
+    "animals",
+    "mood",
+    "weather"
+  ],
+  "license": "MIT",
+  "author": "PiCookie",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiCookie/moodmates.git"
+  },
+  "homepage": "https://github.com/PiCookie/moodmates#readme",
+  "bugs": {
+    "url": "https://github.com/PiCookie/moodmates/issues"
+  },
   "sideEffects": [
     "*.css"
   ],
@@ -62,5 +80,9 @@
     "tsup": "^9.0.0",
     "typescript": "^5.9.3",
     "vitest": "^2.1.9"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=20"
   }
 }

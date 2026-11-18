@@ -1,5 +1,5 @@
 // Haupteinstiegspunkt: Komponenten (benötigt React) plus alles aus core.
-// Die einzelnen Tiere sind bewusst nicht exportiert (ADR-0006), sie sind über `type` wählbar.
+// Die einzelnen Tiere sind bewusst nicht exportiert, sie sind über `type` wählbar.
 export * from './core';
 export { Moodmate } from './Moodmate';
 export type { MoodmateProps } from './Moodmate';

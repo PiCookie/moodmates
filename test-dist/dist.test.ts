@@ -11,9 +11,6 @@ const ROOT = resolve(__dirname, '..');
 const DIST = resolve(ROOT, 'dist');
 const require = createRequire(import.meta.url);
 
-// Die fremde Marke steht nicht als Wort im Quelltext (siehe test/neutral-names.test.ts)
-const BRAND = ['tama', 'gotchi'].join('');
-
 const CORE_EXPORTS = [
   'ALL_PET_TYPES', 'MESSAGES_EN', 'pickEventMessage',
   'pickMessage', 'randomPetType', 'resolveMessages',
@@ -64,14 +61,14 @@ describe('gebautes Paket (dist)', () => {
     }
   });
 
-  it('der Haupteinstieg lässt sich als ESM und CommonJS laden und exportiert nur die vorgesehenen Komponenten', async () => {
+  it('der Haupteinstieg lässt sich als ESM und CommonJS laden und exportiert genau die vorgesehenen Werte', async () => {
     const esm = await import(resolve(DIST, 'index.js'));
     const cjs = require(resolve(DIST, 'index.cjs'));
 
     for (const api of [esm, cjs]) {
       for (const name of ['Moodmate', 'MoodmateSprite', 'MoodHistoryBar']) expect(api).toHaveProperty(name);
-      const leaked = Object.keys(api).filter((n) => n.toLowerCase().includes(BRAND));
-      expect(leaked).toEqual([]);
+      // Die einzelnen Tiere sind intern: öffentlich sind nur der Kern und die drei Komponenten
+      expect(Object.keys(api).sort()).toEqual([...CORE_EXPORTS, 'MoodHistoryBar', 'Moodmate', 'MoodmateSprite'].sort());
     }
   });
 
