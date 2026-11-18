@@ -5,5 +5,5 @@ export { Moodmate } from './Moodmate';
 export type { MoodmateProps } from './Moodmate';
 export { MoodmateSprite } from './MoodmateSprite';
 export type { MoodmateSpriteProps } from './MoodmateSprite';
-export type { PetProps } from './pet.shared';
+export type { PetProps } from './shared';
 export { MoodHistoryBar } from './MoodHistoryBar';

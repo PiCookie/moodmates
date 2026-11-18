@@ -1,4 +1,4 @@
-import type { PetMessages } from './pet.messages';
+import type { PetMessages } from './messages';
 
 // Deutsche Standardtexte. Sie entsprechen dem bisherigen Verhalten der App und sind der Standard,
 // wenn keine eigenen Texte übergeben werden.

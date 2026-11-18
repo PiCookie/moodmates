@@ -1,5 +1,5 @@
 import type { PetType } from './pets';
-import type { PetProps } from './pet.shared';
+import type { PetProps } from './shared';
 import { PET_COMPONENTS } from './registry';
 
 export interface MoodmateSpriteProps extends PetProps {

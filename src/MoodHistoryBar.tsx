@@ -1,7 +1,7 @@
-import { moodFromTemperature } from './pet.shared';
-import type { Mood } from './pet.shared';
-import { resolveMessages } from './pet.messages';
-import type { PetMessages } from './pet.messages';
+import { moodFromTemperature } from './shared';
+import type { Mood } from './shared';
+import { resolveMessages } from './messages';
+import type { PetMessages } from './messages';
 
 const MOOD_COLORS: Record<Mood, string> = {
   frozen:  '#818cf8',  // Indigo
