@@ -5,6 +5,8 @@ For React 19, no runtime dependencies, no Tailwind needed.
 
 **[Live demo](https://picookie.github.io/moodmates/demo/)**: all 45 species, every mood, search, speech bubbles.
 
+![All 45 species and one animal in five moods](https://raw.githubusercontent.com/PiCookie/moodmates/master/docs/moodmates.svg)
+
 **Honest scope:** the moods are a five-step cold-to-hot scale (`frozen`, `cold`, `neutral`, `warm`, `hot`),
 and the drawings (icicles, scarf, sunglasses, sweat drops) and default phrases are built around it. It fits
 anything you can place on a cold-to-hot axis: a temperature, room climate, CPU or server load (cold = idle,
@@ -130,6 +132,7 @@ pnpm install
 pnpm test          # unit tests
 pnpm lint && pnpm typecheck
 pnpm build && pnpm test:dist   # build and smoke-test the built package
+pnpm build && pnpm gen:overview   # regenerate docs/moodmates.svg (the picture at the top; test:dist fails if it is stale)
 ```
 
 ## License
