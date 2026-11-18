@@ -30,7 +30,7 @@ describe('core.ts', () => {
 
   it('erreicht die Module, die es exportieren soll', () => {
     const names = [...files].map((f) => f.slice(SRC.length + 1));
-    expect(names).toEqual(expect.arrayContaining(['pets.ts', 'pet.shared.ts', 'pet.events.ts', 'pet.messages.ts', 'messages.de.ts']));
+    expect(names).toEqual(expect.arrayContaining(['pets.ts', 'shared.ts', 'events.ts', 'messages.ts', 'messages.de.ts']));
   });
 
   // Das Backend lädt nur core. Es darf dafür weder React noch CSS mitziehen.

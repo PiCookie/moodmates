@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import type { DetectedEvent, EventKind } from './pet.events';
-import { pickEventMessage } from './pet.events';
-import { resolveMood }                  from './pet.shared';
-import type { Mood }                   from './pet.shared';
-import { pickMessage, resolveMessages } from './pet.messages';
-import type { PetMessages } from './pet.messages';
+import type { DetectedEvent, EventKind } from './events';
+import { pickEventMessage } from './events';
+import { resolveMood }                  from './shared';
+import type { Mood }                   from './shared';
+import { pickMessage, resolveMessages } from './messages';
+import type { PetMessages } from './messages';
 import type { PetType }      from './pets';
 import { MoodmateSprite }  from './MoodmateSprite';
 

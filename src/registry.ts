@@ -2,97 +2,97 @@
 // Zuordnung kennt sie. Der Typ Record<PetType, ...> erzwingt, dass jede Tierart eine Zeichnung hat.
 import type { ComponentType } from 'react';
 import type { PetType } from './pets';
-import type { PetProps } from './pet.shared';
-import { PetAnkylosaurus } from './PetAnkylosaurus';
-import { PetBaer } from './PetBaer';
-import { PetBeluga } from './PetBeluga';
-import { PetBlauwal } from './PetBlauwal';
-import { PetBrachiosaurus } from './PetBrachiosaurus';
-import { PetCapybara } from './PetCapybara';
-import { PetCat } from './PetCat';
-import { PetClownfisch } from './PetClownfisch';
-import { PetDelfin } from './PetDelfin';
-import { PetDog } from './PetDog';
-import { PetDrache } from './PetDrache';
-import { PetEisbaer } from './PetEisbaer';
-import { PetElefant } from './PetElefant';
-import { PetErdmaennchen } from './PetErdmaennchen';
-import { PetEule } from './PetEule';
-import { PetFaultier } from './PetFaultier';
-import { PetFrog } from './PetFrog';
-import { PetFuchs } from './PetFuchs';
-import { PetHai } from './PetHai';
-import { PetHamster } from './PetHamster';
-import { PetHase } from './PetHase';
-import { PetIgel } from './PetIgel';
-import { PetKillerwal } from './PetKillerwal';
-import { PetKraken } from './PetKraken';
-import { PetKugelfisch } from './PetKugelfisch';
-import { PetLama } from './PetLama';
-import { PetLion } from './PetLion';
-import { PetNarwal } from './PetNarwal';
-import { PetNilpferd } from './PetNilpferd';
-import { PetPalettenfisch } from './PetPalettenfisch';
-import { PetPanda } from './PetPanda';
-import { PetPenguin } from './PetPenguin';
-import { PetPiranha } from './PetPiranha';
-import { PetPottwal } from './PetPottwal';
-import { PetPteranodon } from './PetPteranodon';
-import { PetQualle } from './PetQualle';
-import { PetRobbe } from './PetRobbe';
-import { PetRoterPanda } from './PetRoterPanda';
-import { PetSeepferdchen } from './PetSeepferdchen';
-import { PetSeestern } from './PetSeestern';
-import { PetStegosaurus } from './PetStegosaurus';
-import { PetTRex } from './PetTRex';
-import { PetTiger } from './PetTiger';
-import { PetTriceratops } from './PetTriceratops';
-import { PetTurtle } from './PetTurtle';
+import type { PetProps } from './shared';
+import { Ankylosaurus } from './animals/Ankylosaurus';
+import { Bear } from './animals/Bear';
+import { Beluga } from './animals/Beluga';
+import { BlueWhale } from './animals/BlueWhale';
+import { Brachiosaurus } from './animals/Brachiosaurus';
+import { Capybara } from './animals/Capybara';
+import { Cat } from './animals/Cat';
+import { Clownfish } from './animals/Clownfish';
+import { Dolphin } from './animals/Dolphin';
+import { Dog } from './animals/Dog';
+import { Dragon } from './animals/Dragon';
+import { PolarBear } from './animals/PolarBear';
+import { Elephant } from './animals/Elephant';
+import { Meerkat } from './animals/Meerkat';
+import { Owl } from './animals/Owl';
+import { Sloth } from './animals/Sloth';
+import { Frog } from './animals/Frog';
+import { Fox } from './animals/Fox';
+import { Shark } from './animals/Shark';
+import { Hamster } from './animals/Hamster';
+import { Rabbit } from './animals/Rabbit';
+import { Hedgehog } from './animals/Hedgehog';
+import { KillerWhale } from './animals/KillerWhale';
+import { Octopus } from './animals/Octopus';
+import { Pufferfish } from './animals/Pufferfish';
+import { Llama } from './animals/Llama';
+import { Lion } from './animals/Lion';
+import { Narwhal } from './animals/Narwhal';
+import { Hippo } from './animals/Hippo';
+import { BlueTang } from './animals/BlueTang';
+import { Panda } from './animals/Panda';
+import { Penguin } from './animals/Penguin';
+import { Piranha } from './animals/Piranha';
+import { SpermWhale } from './animals/SpermWhale';
+import { Pteranodon } from './animals/Pteranodon';
+import { Jellyfish } from './animals/Jellyfish';
+import { Seal } from './animals/Seal';
+import { RedPanda } from './animals/RedPanda';
+import { Seahorse } from './animals/Seahorse';
+import { Starfish } from './animals/Starfish';
+import { Stegosaurus } from './animals/Stegosaurus';
+import { Trex } from './animals/Trex';
+import { Tiger } from './animals/Tiger';
+import { Triceratops } from './animals/Triceratops';
+import { Turtle } from './animals/Turtle';
 
 export const PET_COMPONENTS: Record<PetType, ComponentType<PetProps>> = {
-  cat: PetCat,
-  dog: PetDog,
-  rabbit: PetHase,
-  hamster: PetHamster,
-  penguin: PetPenguin,
-  frog: PetFrog,
-  turtle: PetTurtle,
-  lion: PetLion,
-  capybara: PetCapybara,
-  panda: PetPanda,
-  dragon: PetDrache,
-  elephant: PetElefant,
-  hippo: PetNilpferd,
-  meerkat: PetErdmaennchen,
-  bear: PetBaer,
-  tiger: PetTiger,
-  'red-panda': PetRoterPanda,
-  'polar-bear': PetEisbaer,
-  seal: PetRobbe,
-  llama: PetLama,
-  sloth: PetFaultier,
-  hedgehog: PetIgel,
-  owl: PetEule,
-  fox: PetFuchs,
-  trex: PetTRex,
-  triceratops: PetTriceratops,
-  stegosaurus: PetStegosaurus,
-  brachiosaurus: PetBrachiosaurus,
-  pteranodon: PetPteranodon,
-  ankylosaurus: PetAnkylosaurus,
-  shark: PetHai,
-  piranha: PetPiranha,
-  'blue-whale': PetBlauwal,
-  'sperm-whale': PetPottwal,
-  'killer-whale': PetKillerwal,
-  beluga: PetBeluga,
-  narwhal: PetNarwal,
-  dolphin: PetDelfin,
-  clownfish: PetClownfisch,
-  'blue-tang': PetPalettenfisch,
-  pufferfish: PetKugelfisch,
-  jellyfish: PetQualle,
-  seahorse: PetSeepferdchen,
-  starfish: PetSeestern,
-  octopus: PetKraken,
+  cat: Cat,
+  dog: Dog,
+  rabbit: Rabbit,
+  hamster: Hamster,
+  penguin: Penguin,
+  frog: Frog,
+  turtle: Turtle,
+  lion: Lion,
+  capybara: Capybara,
+  panda: Panda,
+  dragon: Dragon,
+  elephant: Elephant,
+  hippo: Hippo,
+  meerkat: Meerkat,
+  bear: Bear,
+  tiger: Tiger,
+  'red-panda': RedPanda,
+  'polar-bear': PolarBear,
+  seal: Seal,
+  llama: Llama,
+  sloth: Sloth,
+  hedgehog: Hedgehog,
+  owl: Owl,
+  fox: Fox,
+  trex: Trex,
+  triceratops: Triceratops,
+  stegosaurus: Stegosaurus,
+  brachiosaurus: Brachiosaurus,
+  pteranodon: Pteranodon,
+  ankylosaurus: Ankylosaurus,
+  shark: Shark,
+  piranha: Piranha,
+  'blue-whale': BlueWhale,
+  'sperm-whale': SpermWhale,
+  'killer-whale': KillerWhale,
+  beluga: Beluga,
+  narwhal: Narwhal,
+  dolphin: Dolphin,
+  clownfish: Clownfish,
+  'blue-tang': BlueTang,
+  pufferfish: Pufferfish,
+  jellyfish: Jellyfish,
+  seahorse: Seahorse,
+  starfish: Starfish,
+  octopus: Octopus,
 };
