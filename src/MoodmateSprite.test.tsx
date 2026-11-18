@@ -4,7 +4,6 @@ import { act } from 'react';
 import { ALL_PET_TYPES } from './pets';
 import { MoodmateSprite } from './MoodmateSprite';
 import { Moodmate } from './Moodmate';
-import { MESSAGES_DE } from './messages.de';
 import { MESSAGES_EN } from './messages.en';
 
 afterEach(() => vi.useRealTimers());
@@ -69,10 +68,11 @@ describe('MoodmateSprite', () => {
       expect(label(container)).toBe(MESSAGES_EN.spriteLabel(MESSAGES_EN.petNames.cat, MESSAGES_EN.moodLabels.frozen));
     });
 
-    it('nutzt eigene Texte, z. B. die deutschen', () => {
-      const { container } = render(<MoodmateSprite type="cat" temperature={15} messages={MESSAGES_DE} />);
+    it('nutzt eigene Texte', () => {
+      const messages = { spriteLabel: (name: string, mood: string) => `${mood} ${name}` };
+      const { container } = render(<MoodmateSprite type="cat" temperature={15} messages={messages} />);
 
-      expect(label(container)).toBe('Katze: Normal');
+      expect(label(container)).toBe('Normal Cat');
     });
 
     it('fällt bei fehlendem Namen auf die Art zurück statt "undefined" zu zeigen', () => {
@@ -84,9 +84,10 @@ describe('MoodmateSprite', () => {
     });
 
     it('Moodmate reicht seine Texte an das Tier weiter', () => {
-      const { container } = render(<Moodmate type="dog" temperature={15} messages={MESSAGES_DE} />);
+      const messages = { spriteLabel: (name: string, mood: string) => `${mood} ${name}` };
+      const { container } = render(<Moodmate type="dog" temperature={15} messages={messages} />);
 
-      expect(label(container)).toBe('Hund: Normal');
+      expect(label(container)).toBe('Normal Dog');
     });
   });
 });
