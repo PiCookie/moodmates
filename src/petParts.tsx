@@ -28,6 +28,7 @@ export function PetSvg({ size, shivering, ariaLabel, children, viewBoxWidth = 66
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={shivering ? 'mm-shiver' : undefined}
+      role="img"
       aria-label={ariaLabel}
     >
       {children}

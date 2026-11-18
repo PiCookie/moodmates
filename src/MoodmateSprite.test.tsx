@@ -62,6 +62,15 @@ describe('MoodmateSprite', () => {
       expect(label(container)).toBe(MESSAGES_EN.spriteLabel(MESSAGES_EN.petNames[type], MESSAGES_EN.moodLabels.neutral));
     });
 
+    // Ein SVG mit aria-label ohne role="img" wird von manchen Screenreadern übersprungen
+    it.each([...ALL_PET_TYPES])('%s: das SVG ist als Bild mit Beschriftung ausgezeichnet', (type) => {
+      const { container } = render(<MoodmateSprite type={type} mood="neutral" />);
+      const svg = container.querySelector('svg');
+
+      expect(svg?.getAttribute('role')).toBe('img');
+      expect(svg?.getAttribute('aria-label')).toBeTruthy();
+    });
+
     it('folgt einer übergebenen Stimmung', () => {
       const { container } = render(<MoodmateSprite type="cat" mood="frozen" />);
 

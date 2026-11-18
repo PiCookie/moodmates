@@ -1,8 +1,15 @@
 # moodmates
 
 Small animated SVG animals that show a mood. 45 species, speech bubbles, a mood history bar.
-For React 19, no runtime dependencies, no Tailwind needed. Your app decides when which mood applies;
-the animals only know moods, not temperatures, scores or any other data.
+For React 19, no runtime dependencies, no Tailwind needed.
+
+**Honest scope:** the moods are a five-step cold-to-hot scale (`frozen`, `cold`, `neutral`, `warm`, `hot`),
+and the drawings (icicles, scarf, sunglasses, sweat drops) and default phrases are built around it. It fits
+anything you can place on a cold-to-hot axis: a temperature, room climate, CPU or server load (cold = idle,
+hot = overloaded), a comfort level. It is **not** a general emotion set yet. Moods like sad, angry and happy,
+more events and more generic phrases are planned, see [DECISIONS.md](DECISIONS.md).
+
+The package knows moods, not data: your app decides which value leads to which mood.
 
 ```tsx
 import { Moodmate } from 'moodmates';
@@ -99,6 +106,21 @@ Two CSS variables: `--mm-name-color` (name tag) and `--mm-legend-color` (history
 `moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `randomPetType()`, `pickMessage()`,
 `pickEventMessage()`, `resolveMessages()`, `MESSAGES_EN` and the types. Useful on a server.
 
+## Limitations (0.x)
+
+- The mood scale is cold-to-hot only, and the event kinds are a fixed list (`first-frost`, `first-summer`,
+  `heat-record`, `back-online`). The default phrases are weather flavored; pass your own via `messages`.
+- `Moodmate` talks, blinks and hops on a fixed schedule. There is no switch to turn the speech off yet;
+  use `MoodmateSprite` for a silent picture.
+- All 45 species are in one bundle (about 173 kB minified, 31 kB gzip).
+- The API may still change before 1.0.
+
+## Accessibility
+
+Every animal is an SVG with `role="img"` and a label made from `petNames`, `moodLabels` and `spriteLabel`.
+The tappable `Moodmate` is a button labeled by `tapPet`. With `prefers-reduced-motion`, shivering, hopping and the bubble animation are turned off (blinking and the timing of the speech still run).
+This is covered by unit tests, not yet by tests with real screen readers.
+
 ## Development
 
 ```sh
@@ -110,6 +132,6 @@ pnpm build && pnpm test:dist   # build and smoke-test the built package
 
 ## License
 
-MIT, see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE). Design decisions and roadmap: [DECISIONS.md](DECISIONS.md).
 
 This is a hobby project. It is not affiliated with any other product or company that uses a similar name.
