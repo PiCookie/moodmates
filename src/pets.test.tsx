@@ -10,8 +10,8 @@ describe('ALL_PET_TYPES', () => {
   });
 
   // Schlägt fehl, wenn ein Tier in der Liste steht, aber in Moodmate nicht gerendert wird.
-  it.each([...ALL_PET_TYPES])('renders %s as an SVG', (petType) => {
-    const { container } = render(<Moodmate temperature={15} petType={petType} />);
+  it.each([...ALL_PET_TYPES])('renders %s as an SVG', (type) => {
+    const { container } = render(<Moodmate temperature={15} type={type} />);
 
     expect(container.querySelector('svg')).not.toBeNull();
   });

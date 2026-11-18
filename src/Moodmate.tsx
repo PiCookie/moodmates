@@ -1,56 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import type { DetectedEvent, EventKind } from './pet.events';
 import { pickEventMessage } from './pet.events';
-import { PetCat }     from './PetCat';
-import { PetDog }     from './PetDog';
-import { PetPenguin } from './PetPenguin';
-import { PetFrog }    from './PetFrog';
-import { PetTurtle }  from './PetTurtle';
-import { PetLion }    from './PetLion';
-import { PetCapybara } from './PetCapybara';
-import { PetHase }    from './PetHase';
-import { PetHamster } from './PetHamster';
-import { PetBaer }    from './PetBaer';
-import { PetTiger }        from './PetTiger';
-import { PetRoterPanda }   from './PetRoterPanda';
-import { PetPanda }        from './PetPanda';
-import { PetDrache }       from './PetDrache';
-import { PetElefant }      from './PetElefant';
-import { PetNilpferd }     from './PetNilpferd';
-import { PetErdmaennchen } from './PetErdmaennchen';
-import { PetEisbaer }      from './PetEisbaer';
-import { PetRobbe }        from './PetRobbe';
-import { PetLama }         from './PetLama';
-import { PetFaultier }     from './PetFaultier';
-import { PetIgel }         from './PetIgel';
-import { PetEule }         from './PetEule';
-import { PetFuchs }        from './PetFuchs';
-import { PetTRex }          from './PetTRex';
-import { PetTriceratops }   from './PetTriceratops';
-import { PetStegosaurus }   from './PetStegosaurus';
-import { PetBrachiosaurus } from './PetBrachiosaurus';
-import { PetPteranodon }    from './PetPteranodon';
-import { PetAnkylosaurus }  from './PetAnkylosaurus';
-import { PetHai }          from './PetHai';
-import { PetPiranha }      from './PetPiranha';
-import { PetBlauwal }      from './PetBlauwal';
-import { PetPottwal }      from './PetPottwal';
-import { PetKillerwal }    from './PetKillerwal';
-import { PetBeluga }       from './PetBeluga';
-import { PetNarwal }       from './PetNarwal';
-import { PetDelfin }       from './PetDelfin';
-import { PetKugelfisch }   from './PetKugelfisch';
-import { PetQualle }       from './PetQualle';
-import { PetSeepferdchen } from './PetSeepferdchen';
-import { PetClownfisch }    from './PetClownfisch';
-import { PetPalettenfisch } from './PetPalettenfisch';
-import { PetSeestern }     from './PetSeestern';
-import { PetKraken }       from './PetKraken';
 import { resolveMood }                  from './pet.shared';
 import type { Mood }                   from './pet.shared';
 import { pickMessage, resolveMessages } from './pet.messages';
 import type { PetMessages } from './pet.messages';
 import type { PetType }      from './pets';
+import { MoodmateSprite }  from './MoodmateSprite';
 
 type SpeechVariant = 'frost' | 'summer' | 'heat' | 'online';
 
@@ -69,10 +25,10 @@ const EVENT_TO_VARIANT: Record<EventKind, SpeechVariant> = {
   'back-online':  'online',
 };
 
-interface Props {
+export interface MoodmateProps {
   temperature: number | null;
   size?: number;
-  petType?: PetType;
+  type?: PetType;
   name?: string;
   event?: DetectedEvent | null;
   /** Überschreibt die aus der Temperatur abgeleitete Stimmung (Tier, Sprüche und Hüpfen folgen ihr) */
@@ -116,7 +72,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ temperature, size = 80, petType = 'cat', name, event, messages, mood: moodOverride }: Props) {
+export function Moodmate({ temperature, size = 80, type = 'cat', name, event, messages, mood: moodOverride }: MoodmateProps) {
   const text = resolveMessages(messages);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
@@ -223,62 +179,18 @@ export function Moodmate({ temperature, size = 80, petType = 'cat', name, event,
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const petProps = { temperature, size, blinking, mood };
+  const spriteProps = { temperature, size, blinking, mood };
 
   return (
     <div className="mm-pet">
-      {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={petType === 'blue-whale' || petType === 'sperm-whale' || petType === 'killer-whale' || petType === 'beluga' || petType === 'narwhal' ? size : undefined} />}
+      {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={type === 'blue-whale' || type === 'sperm-whale' || type === 'killer-whale' || type === 'beluga' || type === 'narwhal' ? size : undefined} />}
       <div
         className={`mm-pet__body${hopping && !shivering ? ' mm-hop' : ''}`}
         onClick={showSpeech}
         role="button"
         aria-label={text.tapPet}
       >
-        {petType === 'dog'     && <PetDog     {...petProps} />}
-        {petType === 'rabbit'  && <PetHase    {...petProps} />}
-        {petType === 'hamster' && <PetHamster {...petProps} />}
-        {petType === 'penguin' && <PetPenguin {...petProps} />}
-        {petType === 'frog'    && <PetFrog    {...petProps} />}
-        {petType === 'turtle'  && <PetTurtle  {...petProps} />}
-        {petType === 'lion'    && <PetLion    {...petProps} />}
-        {petType === 'capybara' && <PetCapybara {...petProps} />}
-        {petType === 'panda'    && <PetPanda        {...petProps} />}
-        {petType === 'dragon'   && <PetDrache       {...petProps} />}
-        {petType === 'elephant' && <PetElefant      {...petProps} />}
-        {petType === 'hippo'    && <PetNilpferd     {...petProps} />}
-        {petType === 'meerkat'  && <PetErdmaennchen {...petProps} />}
-        {petType === 'bear'      && <PetBaer       {...petProps} />}
-        {petType === 'tiger'     && <PetTiger      {...petProps} />}
-        {petType === 'red-panda'  && <PetRoterPanda {...petProps} />}
-        {petType === 'polar-bear' && <PetEisbaer   {...petProps} />}
-        {petType === 'seal'       && <PetRobbe     {...petProps} />}
-        {petType === 'llama'      && <PetLama      {...petProps} />}
-        {petType === 'sloth'      && <PetFaultier  {...petProps} />}
-        {petType === 'hedgehog'   && <PetIgel      {...petProps} />}
-        {petType === 'owl'        && <PetEule      {...petProps} />}
-        {petType === 'fox'        && <PetFuchs     {...petProps} />}
-        {petType === 'trex'           && <PetTRex          {...petProps} />}
-        {petType === 'triceratops'    && <PetTriceratops   {...petProps} />}
-        {petType === 'stegosaurus'    && <PetStegosaurus   {...petProps} />}
-        {petType === 'brachiosaurus'  && <PetBrachiosaurus {...petProps} />}
-        {petType === 'pteranodon'     && <PetPteranodon    {...petProps} />}
-        {petType === 'ankylosaurus'   && <PetAnkylosaurus  {...petProps} />}
-        {petType === 'shark'      && <PetHai          {...petProps} />}
-        {petType === 'piranha'    && <PetPiranha      {...petProps} />}
-        {petType === 'blue-whale'   && <PetBlauwal        {...petProps} />}
-        {petType === 'sperm-whale'  && <PetPottwal        {...petProps} />}
-        {petType === 'killer-whale' && <PetKillerwal      {...petProps} />}
-        {petType === 'beluga'       && <PetBeluga          {...petProps} />}
-        {petType === 'narwhal'      && <PetNarwal          {...petProps} />}
-        {petType === 'dolphin'    && <PetDelfin        {...petProps} />}
-        {petType === 'pufferfish' && <PetKugelfisch    {...petProps} />}
-        {petType === 'jellyfish'  && <PetQualle        {...petProps} />}
-        {petType === 'seahorse'   && <PetSeepferdchen  {...petProps} />}
-        {petType === 'clownfish'  && <PetClownfisch    {...petProps} />}
-        {petType === 'blue-tang'  && <PetPalettenfisch {...petProps} />}
-        {petType === 'starfish'   && <PetSeestern       {...petProps} />}
-        {petType === 'octopus'    && <PetKraken         {...petProps} />}
-        {(petType === 'cat' || !petType) && <PetCat {...petProps} />}
+        <MoodmateSprite type={type} {...spriteProps} />
       </div>
       {name && (
         <span className="mm-pet__name">{name}</span>
