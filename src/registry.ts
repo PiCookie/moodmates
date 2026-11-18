@@ -2,7 +2,7 @@
 // Zuordnung kennt sie. Der Typ Record<PetType, ...> erzwingt, dass jede Tierart eine Zeichnung hat.
 import type { ComponentType } from 'react';
 import type { PetType } from './pets';
-import type { PetProps } from './shared';
+import type { AnimalProps } from './shared';
 import { Ankylosaurus } from './animals/Ankylosaurus';
 import { Bear } from './animals/Bear';
 import { Beluga } from './animals/Beluga';
@@ -49,7 +49,7 @@ import { Tiger } from './animals/Tiger';
 import { Triceratops } from './animals/Triceratops';
 import { Turtle } from './animals/Turtle';
 
-export const PET_COMPONENTS: Record<PetType, ComponentType<PetProps>> = {
+export const PET_COMPONENTS: Record<PetType, ComponentType<AnimalProps>> = {
   cat: Cat,
   dog: Dog,
   rabbit: Rabbit,

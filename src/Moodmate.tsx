@@ -190,7 +190,7 @@ export function Moodmate({ temperature, size = 80, type = 'cat', name, event, me
         role="button"
         aria-label={text.tapPet}
       >
-        <MoodmateSprite type={type} {...spriteProps} />
+        <MoodmateSprite type={type} messages={messages} {...spriteProps} />
       </div>
       {name && (
         <span className="mm-pet__name">{name}</span>

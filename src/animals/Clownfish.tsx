@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -35,7 +35,8 @@ export function Clownfish({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = CLOWN_FUR[mood];
@@ -47,7 +48,7 @@ export function Clownfish({
         <PetSvg
             size={size}
             shivering={isCold || isFrozen}
-            ariaLabel={`Clownfisch: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <PetShadow cx={30} />
             <PetIcicles mood={mood} y={66} />

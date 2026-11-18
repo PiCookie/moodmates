@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Flügel hängen, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -34,7 +34,7 @@ const PTERO_WING: Record<Mood, string> = {
   warm:    '#f97316',
 };
 
-export function Pteranodon({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Pteranodon({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body  = PTERO_BODY[mood];
@@ -45,7 +45,7 @@ export function Pteranodon({ temperature, size = 80, blinking = false, mood: moo
   const wingOpenRight = mood === 'warm' || mood === 'neutral';
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Pteranodon: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={80} leftX={24} rightX={36} />
 

@@ -10,7 +10,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { PetProps } from '../shared';
+import type { AnimalProps } from '../shared';
 import { resolveMood, BODY_FILL, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -21,13 +21,13 @@ import {
 const PENGUIN_BODY = '#1e3a5f';
 const ORANGE       = '#f97316';
 
-export function Penguin({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Penguin({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const face = BODY_FILL[mood];   // helles Bauch/Gesichts-Oval
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Pinguin: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 

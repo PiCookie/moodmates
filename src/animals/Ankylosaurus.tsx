@@ -13,7 +13,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, gefrorener Panzer, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -35,14 +35,14 @@ const ANKY_ARMOR: Record<Mood, string> = {
   warm:    '#d97706',
 };
 
-export function Ankylosaurus({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Ankylosaurus({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body  = ANKY_BODY[mood];
   const armor = ANKY_ARMOR[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Ankylosaurus: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={30} />
       <PetIcicles mood={mood} y={74} leftX={14} rightX={36} />
 

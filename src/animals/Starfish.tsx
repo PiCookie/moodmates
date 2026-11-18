@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Augen, Schneeflocken, starkes Zittern
  */
 
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -34,7 +34,8 @@ export function Starfish({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const color = SEESTERN_COLOR[mood];
@@ -46,7 +47,7 @@ export function Starfish({
         <PetSvg
             size={size}
             shivering={isCold || isFrozen}
-            ariaLabel={`Seestern: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <PetShadow cx={33} />
 

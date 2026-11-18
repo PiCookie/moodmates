@@ -4,6 +4,8 @@ import type { PetMessages } from './messages';
 import { pickEventMessage } from './events';
 import type { EventKind } from './events';
 import { MESSAGES_DE } from './messages.de';
+import { MESSAGES_EN } from './messages.en';
+import { ALL_PET_TYPES } from './pets';
 import type { Mood } from './shared';
 
 const MOODS: Mood[] = ['frozen', 'cold', 'neutral', 'warm'];
@@ -89,5 +91,36 @@ describe('pickEventMessage mit eigenen Texten', () => {
     const messages = resolveMessages({ events });
 
     expect(pickEventMessage('heat-record', messages)).toBe('Record heat!');
+  });
+});
+
+describe.each([['MESSAGES_DE', MESSAGES_DE], ['MESSAGES_EN', MESSAGES_EN]] as const)('%s ist vollständig', (_name, messages) => {
+  it.each([...ALL_PET_TYPES])('hat einen Namen für %s', (type) => {
+    expect(messages.petNames[type]).toBeTruthy();
+  });
+
+  it('beschriftet ein Tier mit Name und Stimmung', () => {
+    expect(messages.spriteLabel('X', 'Y')).toContain('X');
+    expect(messages.spriteLabel('X', 'Y')).toContain('Y');
+  });
+
+  it.each([...MOODS, 'hot' as const])('hat Sprüche für %s', (mood) => {
+    expect(messages.speech[mood].length).toBeGreaterThan(0);
+  });
+
+  it.each(EVENT_KINDS)('hat Texte für %s', (kind) => {
+    expect(messages.events[kind].length).toBeGreaterThan(0);
+  });
+
+  it.each(MOODS)('hat ein Label für %s', (mood) => {
+    expect(messages.moodLabels[mood]).toBeTruthy();
+  });
+});
+
+describe('MESSAGES_EN', () => {
+  it('ist tatsächlich englisch und nicht eine Kopie der deutschen Texte', () => {
+    expect(MESSAGES_EN.petNames.cat).toBe('Cat');
+    expect(MESSAGES_EN.speech.neutral).not.toEqual(MESSAGES_DE.speech.neutral);
+    expect(MESSAGES_EN.tapPet).not.toBe(MESSAGES_DE.tapPet);
   });
 });

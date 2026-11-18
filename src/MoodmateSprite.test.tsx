@@ -3,6 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { act } from 'react';
 import { ALL_PET_TYPES } from './pets';
 import { MoodmateSprite } from './MoodmateSprite';
+import { Moodmate } from './Moodmate';
+import { MESSAGES_DE } from './messages.de';
+import { MESSAGES_EN } from './messages.en';
 
 afterEach(() => vi.useRealTimers());
 
@@ -49,5 +52,41 @@ describe('MoodmateSprite', () => {
     const unknown = render(<MoodmateSprite type={'gibt-es-nicht' as never} temperature={15} />);
 
     expect(unknown.container.innerHTML).toBe(cat.container.innerHTML);
+  });
+
+  describe('Beschriftung für Screenreader', () => {
+    const label = (c: HTMLElement) => c.querySelector('svg')?.getAttribute('aria-label');
+
+    it.each([...ALL_PET_TYPES])('%s: Name und Stimmung aus den Texten, nicht aus dem Tier selbst', (type) => {
+      const { container } = render(<MoodmateSprite type={type} temperature={15} />);
+
+      expect(label(container)).toBe(MESSAGES_DE.spriteLabel(MESSAGES_DE.petNames[type], MESSAGES_DE.moodLabels.neutral));
+    });
+
+    it('folgt einer übergebenen Stimmung', () => {
+      const { container } = render(<MoodmateSprite type="cat" temperature={25} mood="frozen" />);
+
+      expect(label(container)).toBe(MESSAGES_DE.spriteLabel(MESSAGES_DE.petNames.cat, MESSAGES_DE.moodLabels.frozen));
+    });
+
+    it('nutzt eigene Texte', () => {
+      const { container } = render(<MoodmateSprite type="cat" temperature={15} messages={MESSAGES_EN} />);
+
+      expect(label(container)).toBe('Cat: Normal');
+    });
+
+    it('fällt bei fehlendem Namen auf die Art zurück statt "undefined" zu zeigen', () => {
+      const messages = { petNames: { dog: 'Hund' } } as never;
+      const { container } = render(<MoodmateSprite type="cat" temperature={15} messages={messages} />);
+
+      expect(label(container)).not.toContain('undefined');
+      expect(label(container)).toContain('cat');
+    });
+
+    it('Moodmate reicht seine Texte an das Tier weiter', () => {
+      const { container } = render(<Moodmate type="dog" temperature={15} messages={MESSAGES_EN} />);
+
+      expect(label(container)).toBe('Dog: Normal');
+    });
   });
 });

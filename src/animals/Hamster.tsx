@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -29,13 +29,13 @@ const HAMSTER_FUR: Record<Mood, string> = {
 
 const EAR_INNER = '#e8a090';
 
-export function Hamster({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Hamster({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = HAMSTER_FUR[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Hamster: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={75} />
 

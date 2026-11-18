@@ -15,7 +15,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -33,13 +33,13 @@ const FUCHS_FUR: Record<Mood, string> = {
 const FUCHS_WHITE = '#f8fafc'; // Bauch, Gesichtsmaske, Schwanzspitze, Ohrinnen
 const TAIL_TIP    = '#f1f5f9'; // leicht getönte weiße Schwanzspitze
 
-export function Fox({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Fox({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = FUCHS_FUR[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Fuchs: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={77} />
 

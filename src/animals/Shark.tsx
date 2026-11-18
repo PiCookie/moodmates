@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Auge, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -43,7 +43,8 @@ export function Shark({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = HAI_FUR[mood];
@@ -57,7 +58,7 @@ export function Shark({
             size={size}
             viewBoxWidth={104}
             shivering={isCold || isFrozen}
-            ariaLabel={`Hai: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <PetShadow cx={33} />
             <g transform="scale(1.55, 1.40) translate(-3, -1)">

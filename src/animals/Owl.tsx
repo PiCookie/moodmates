@@ -15,7 +15,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -44,7 +44,7 @@ const EYE_RING: Record<Mood, string> = {
   warm:    '#92400e',
 };
 
-export function Owl({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Owl({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood    = resolveMood(temperature, moodOverride);
   const isHot   = temperature !== null && temperature >= 28;
   const fur     = EULE_FUR[mood];
@@ -52,7 +52,7 @@ export function Owl({ temperature, size = 80, blinking = false, mood: moodOverri
   const eyeRing = EYE_RING[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Eule: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={77} />
 

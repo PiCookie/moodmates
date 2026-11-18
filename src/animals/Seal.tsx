@@ -14,7 +14,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -36,14 +36,14 @@ const ROBBE_BELLY: Record<Mood, string> = {
   warm:    '#d6d3d1',
 };
 
-export function Seal({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Seal({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = ROBBE_FUR[mood];
   const belly = ROBBE_BELLY[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Robbe: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={76} />
 

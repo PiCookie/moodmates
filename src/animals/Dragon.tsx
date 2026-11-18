@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Augen, Eisatem, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -30,7 +30,7 @@ const DRAGON_BODY: Record<Mood, string> = {
 const DRAGON_HORN  = '#16a34a';  // dunkelgrüne Hörner
 const DRAGON_SCALE = '#15803d';  // Schuppen-Akzente
 
-export function Dragon({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Dragon({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body = DRAGON_BODY[mood];
@@ -38,7 +38,7 @@ export function Dragon({ temperature, size = 80, blinking = false, mood: moodOve
   const scaleColor = mood === 'frozen' ? '#3b82f6' : mood === 'cold' ? '#059669' : mood === 'warm' ? '#d97706' : DRAGON_SCALE;
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Drachen: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={33} />
       <PetIcicles mood={mood} y={74} />
 

@@ -1,5 +1,6 @@
 import type { Mood } from './shared';
 import type { EventKind } from './events';
+import type { PetType } from './pets';
 import { MESSAGES_DE } from './messages.de';
 
 // Alle Texte, die die Tiere selbst anzeigen. Eigene Texte werden als Teil-Objekt übergeben,
@@ -10,6 +11,10 @@ export interface PetMessages {
   /** Sprechblasen bei Ereignissen (erster Frost, Rekord, …) */
   events: Record<EventKind, readonly string[]>;
   moodLabels: Record<Mood, string>;
+  /** Anzeigename je Tierart, z. B. für die Beschriftung für Screenreader */
+  petNames: Record<PetType, string>;
+  /** Beschriftung des Tierbilds für Screenreader, z. B. "Katze: Warm" */
+  spriteLabel: (petName: string, moodLabel: string) => string;
   /** Beschriftung für Screenreader am antippbaren Tier */
   tapPet: string;
   moodBarAriaLabel: string;

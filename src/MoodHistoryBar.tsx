@@ -14,17 +14,18 @@ const MOOD_ORDER: Mood[] = ['frozen', 'cold', 'neutral', 'warm'];
 
 interface Props {
   /** Stündliche Rohtemperaturen (°C) für heute — aus group='hourly' History */
-  tempValues: number[];
+  tempValues?: number[];
+  /** Fertige Stimmungen je Stunde; gewinnt gegen tempValues, wenn beides übergeben wird */
+  moods?: Mood[];
   /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Deutsch zurück */
   messages?: Partial<PetMessages>;
 }
 
-export function MoodHistoryBar({ tempValues, messages }: Props) {
-  if (tempValues.length === 0) return null;
+export function MoodHistoryBar({ tempValues = [], moods: givenMoods, messages }: Props) {
+  const moods = givenMoods ?? tempValues.map((t) => moodFromTemperature(t));
+  if (moods.length === 0) return null;
 
   const text = resolveMessages(messages);
-
-  const moods = tempValues.map((t) => moodFromTemperature(t));
 
   const counts = moods.reduce<Record<Mood, number>>(
     (acc, m) => { acc[m]++; return acc; },

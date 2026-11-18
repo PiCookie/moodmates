@@ -12,7 +12,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -34,14 +34,14 @@ const TRIC_HORN: Record<Mood, string> = {
   warm:    '#d97706',
 };
 
-export function Triceratops({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Triceratops({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body  = TRIC_BODY[mood];
   const horn  = TRIC_HORN[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Triceratops: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={73} leftX={18} rightX={40} />
 

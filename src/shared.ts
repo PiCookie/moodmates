@@ -8,6 +8,11 @@ export interface PetProps {
   mood?: Mood;
 }
 
+/** Was ein Tier von MoodmateSprite bekommt: PetProps plus die fertige Beschriftung für Screenreader */
+export interface AnimalProps extends PetProps {
+  ariaLabel: string;
+}
+
 export function moodFromTemperature(temp: number | null): Mood {
   if (temp === null) return 'neutral';
   if (temp < 0)     return 'frozen';

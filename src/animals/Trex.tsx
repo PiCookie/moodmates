@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Augen, Eisatem, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -26,13 +26,13 @@ const TREX_BODY: Record<Mood, string> = {
   warm:    '#fbbf24',
 };
 
-export function Trex({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Trex({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const body  = TREX_BODY[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`T-Rex: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={74} />
 

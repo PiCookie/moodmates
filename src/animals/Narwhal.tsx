@@ -11,7 +11,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from "../shared";
+import type { Mood, AnimalProps } from "../shared";
 import { resolveMood, OUTLINE } from "../shared";
 import {
     PetSvg,
@@ -52,7 +52,8 @@ export function Narwhal({
     size = 80,
     blinking = false,
     mood: moodOverride,
-}: PetProps) {
+    ariaLabel,
+}: AnimalProps) {
     const mood = resolveMood(temperature, moodOverride);
     const isHot = temperature !== null && temperature >= 28;
     const fur = NARWAL_FUR[mood];
@@ -67,7 +68,7 @@ export function Narwhal({
             size={size}
             viewBoxWidth={132}
             shivering={isCold || isFrozen}
-            ariaLabel={`Narwal: ${mood}`}
+            ariaLabel={ariaLabel}
         >
             <PetShadow cx={58} />
             {/* translate(18, -1): Körper nach rechts verschoben, links Platz für langen Stoßzahn */}

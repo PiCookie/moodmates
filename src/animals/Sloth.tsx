@@ -14,7 +14,7 @@
  *   frozen    < 0 °C  X-Augen, Eiszapfen, Schal, starkes Zittern
  */
 
-import type { Mood, PetProps } from '../shared';
+import type { Mood, AnimalProps } from '../shared';
 import { resolveMood, OUTLINE } from '../shared';
 import {
   PetSvg, PetShadow, PetIcicles, PetSun,
@@ -39,14 +39,14 @@ const FAULTIER_BELLY: Record<Mood, string> = {
 const BRANCH   = '#8b5e3c';
 const EYE_MASK = '#1a1208'; // dunkle Augenmasken — Faultier-Hauptmerkmal
 
-export function Sloth({ temperature, size = 80, blinking = false, mood: moodOverride }: PetProps) {
+export function Sloth({ temperature, size = 80, blinking = false, mood: moodOverride, ariaLabel }: AnimalProps) {
   const mood  = resolveMood(temperature, moodOverride);
   const isHot = temperature !== null && temperature >= 28;
   const fur   = FAULTIER_FUR[mood];
   const belly = FAULTIER_BELLY[mood];
 
   return (
-    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={`Faultier: ${mood}`}>
+    <PetSvg size={size} shivering={mood === 'cold' || mood === 'frozen'} ariaLabel={ariaLabel}>
       <PetShadow cx={32} />
       <PetIcicles mood={mood} y={77} />
 
