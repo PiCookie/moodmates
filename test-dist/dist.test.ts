@@ -61,22 +61,21 @@ describe('gebautes Paket (dist)', () => {
     }
   });
 
-  it('der Haupteinstieg lässt sich als ESM und CommonJS laden und enthält alle 45 Tiere', async () => {
+  it('der Haupteinstieg lässt sich als ESM und CommonJS laden und exportiert nur die vorgesehenen Komponenten', async () => {
     const esm = await import(resolve(DIST, 'index.js'));
     const cjs = require(resolve(DIST, 'index.cjs'));
 
     for (const api of [esm, cjs]) {
-      const animals = Object.keys(api).filter((n) => n.startsWith('Pet') && n !== 'Moodmate');
-      expect(animals).toHaveLength(45);
-      expect(api).toHaveProperty('Moodmate');
-      expect(api).toHaveProperty('MoodHistoryBar');
+      for (const name of ['Moodmate', 'MoodmateSprite', 'MoodHistoryBar']) expect(api).toHaveProperty(name);
+      const leaked = Object.keys(api).filter((n) => n.startsWith('Pet'));
+      expect(leaked).toEqual([]);
     }
   });
 
   it('rendert ein Tier aus dem gebauten Paket serverseitig', async () => {
     const { Moodmate } = await import(resolve(DIST, 'index.js'));
 
-    const html = renderToString(createElement(Moodmate, { temperature: 20, petType: 'cat', name: 'Mimi' }));
+    const html = renderToString(createElement(Moodmate, { temperature: 20, type: 'cat', name: 'Mimi' }));
 
     expect(html).toContain('<svg');
     expect(html).toContain('mm-pet');

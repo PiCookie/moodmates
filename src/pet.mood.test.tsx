@@ -38,24 +38,24 @@ describe('resolveMood', () => {
 
 describe('Moodmate: mood als Überschreibwert', () => {
   // Jedes Tier setzt "shivering" aus seiner eigenen Stimmung: so fällt ein Tier auf, das mood ignoriert.
-  it.each([...ALL_PET_TYPES])('%s zittert bei mood="frozen", obwohl es warm ist', (petType) => {
-    const { container } = render(<Moodmate temperature={25} mood="frozen" petType={petType} />);
+  it.each([...ALL_PET_TYPES])('%s zittert bei mood="frozen", obwohl es warm ist', (type) => {
+    const { container } = render(<Moodmate temperature={25} mood="frozen" type={type} />);
 
     expect(container.querySelector('svg.mm-shiver')).not.toBeNull();
   });
 
-  it.each([...ALL_PET_TYPES])('%s zittert bei mood="warm" nicht, obwohl es friert', (petType) => {
-    const { container } = render(<Moodmate temperature={-5} mood="warm" petType={petType} />);
+  it.each([...ALL_PET_TYPES])('%s zittert bei mood="warm" nicht, obwohl es friert', (type) => {
+    const { container } = render(<Moodmate temperature={-5} mood="warm" type={type} />);
 
     expect(container.querySelector('svg.mm-shiver')).toBeNull();
   });
 
   it('leitet die Stimmung ohne mood weiter aus der Temperatur ab', () => {
-    const cold = render(<Moodmate temperature={-5} petType="cat" />);
+    const cold = render(<Moodmate temperature={-5} type="cat" />);
     expect(cold.container.querySelector('svg.mm-shiver')).not.toBeNull();
     cold.unmount();
 
-    const warm = render(<Moodmate temperature={25} petType="cat" />);
+    const warm = render(<Moodmate temperature={25} type="cat" />);
     expect(warm.container.querySelector('svg.mm-shiver')).toBeNull();
   });
 
@@ -76,7 +76,7 @@ describe('Moodmate: mood als Überschreibwert', () => {
   });
 
   it('lässt ein Tier mit mood="warm" hüpfen, obwohl die Temperatur Kälte meldet', () => {
-    const { container } = render(<Moodmate temperature={-5} mood="warm" petType="cat" />);
+    const { container } = render(<Moodmate temperature={-5} mood="warm" type="cat" />);
 
     fireEvent.click(screen.getByRole('button'));
 
@@ -84,7 +84,7 @@ describe('Moodmate: mood als Überschreibwert', () => {
   });
 
   it('lässt ein Tier mit mood="frozen" nicht hüpfen, obwohl die Temperatur warm ist', () => {
-    const { container } = render(<Moodmate temperature={25} mood="frozen" petType="cat" />);
+    const { container } = render(<Moodmate temperature={25} mood="frozen" type="cat" />);
 
     fireEvent.click(screen.getByRole('button'));
 

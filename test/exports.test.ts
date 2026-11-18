@@ -22,10 +22,8 @@ describe('öffentliche Oberfläche', () => {
     for (const name of CORE_EXPORTS) expect(api).toHaveProperty(name);
   });
 
-  it('index exportiert Moodmate, MoodHistoryBar und alle 45 Tiere', () => {
-    expect(api).toHaveProperty('Moodmate');
-    expect(api).toHaveProperty('MoodHistoryBar');
-    const animals = Object.keys(api).filter((n) => n.startsWith('Pet') && n !== 'Moodmate');
-    expect(animals).toHaveLength(45);
+  it('index exportiert genau Moodmate, MoodmateSprite und MoodHistoryBar zusätzlich zu core', () => {
+    const components = Object.keys(api).filter((n) => !CORE_EXPORTS.includes(n));
+    expect(components.sort()).toEqual(['MoodHistoryBar', 'Moodmate', 'MoodmateSprite']);
   });
 });
