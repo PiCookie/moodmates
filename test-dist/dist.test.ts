@@ -11,6 +11,9 @@ const ROOT = resolve(__dirname, '..');
 const DIST = resolve(ROOT, 'dist');
 const require = createRequire(import.meta.url);
 
+// Die fremde Marke steht nicht als Wort im Quelltext (siehe test/neutral-names.test.ts)
+const BRAND = ['tama', 'gotchi'].join('');
+
 const CORE_EXPORTS = [
   'ALL_PET_TYPES', 'MESSAGES_EN', 'pickEventMessage',
   'pickMessage', 'randomPetType', 'resolveMessages',
@@ -67,7 +70,7 @@ describe('gebautes Paket (dist)', () => {
 
     for (const api of [esm, cjs]) {
       for (const name of ['Moodmate', 'MoodmateSprite', 'MoodHistoryBar']) expect(api).toHaveProperty(name);
-      const leaked = Object.keys(api).filter((n) => n.startsWith('Pet'));
+      const leaked = Object.keys(api).filter((n) => n.toLowerCase().includes(BRAND));
       expect(leaked).toEqual([]);
     }
   });

@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
-// "Pet" ist eine Marke und soll im veröffentlichten Paket nirgends vorkommen
-// (ADR-0006). Das Wort wird hier zusammengesetzt, damit dieser Test sich nicht selbst findet.
+// Der Name einer fremden Marke soll im veröffentlichten Paket nirgends vorkommen (ADR-0006).
+// Das Wort wird hier zusammengesetzt, damit dieser Test sich nicht selbst findet.
 const BRAND = new RegExp(['tama', 'gotchi'].join(''), 'i');
 const SRC = resolve(__dirname, '../src');
 
