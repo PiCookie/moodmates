@@ -19,13 +19,16 @@
       :root { --bg: #1b1b1a; --fg: #eee; --card: #262625; --line: #3a3a38; --accent: #f08a57; }
     }
     * { box-sizing: border-box; }
-    body { margin: 0; padding: 0 16px 48px; background: var(--bg); color: var(--fg);
+    /* Eine Sprechblase am Rand soll keinen seitlichen Scrollbalken erzeugen. */
+    body { overflow-x: clip; margin: 0; padding: 0 16px 48px; background: var(--bg); color: var(--fg);
            font: 16px/1.5 system-ui, sans-serif; }
     main { max-width: 1000px; margin: 0 auto; }
     h1 { margin: 32px 0 4px; }
     .lead { margin: 0 0 24px; opacity: .75; }
-    .controls { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px 20px;
+    .controls { z-index: 5; display: flex; flex-wrap: wrap; gap: 12px 20px;
                 align-items: center; padding: 12px 0; background: var(--bg); border-bottom: 1px solid var(--line); }
+    /* Auf dem Handy nimmt die Leiste zu viel Platz weg, deshalb klebt sie nur auf breiten Bildschirmen. */
+    @media (min-width: 700px) { .controls { position: sticky; top: 0; } }
     .moods { display: flex; gap: 6px; flex-wrap: wrap; }
     button.mood, label.live { font: inherit; border: 1px solid var(--line); background: var(--card);
                               color: inherit; padding: 4px 12px; border-radius: 999px; cursor: pointer; }

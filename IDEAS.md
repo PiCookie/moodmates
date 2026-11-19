@@ -82,8 +82,8 @@ species today.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
 - [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
   bubble on a tap (events still show theirs); `onTap` is called on every tap.
-- [x] **Readable legend on light backgrounds.** The default of `--mm-legend-color` is the page's text color,
-  toned down, instead of semi-transparent white. `--mm-name-color` still defaults to white.
+- [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
+  `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white.
 - [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`).
 
 ## Decisions made (why it looks like this)
