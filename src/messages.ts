@@ -1,6 +1,7 @@
 import type { Mood } from './shared';
 import type { EventKind } from './events';
 import type { PetType } from './pets';
+import type { PetCategory } from './categories';
 import { MESSAGES_EN } from './messages.en';
 
 // Alle Texte, die die Tiere selbst anzeigen. Eigene Texte werden als Teil-Objekt übergeben,
@@ -13,6 +14,8 @@ export interface PetMessages {
   moodLabels: Record<Mood, string>;
   /** Anzeigename je Tierart, z. B. für die Beschriftung für Screenreader */
   petNames: Record<PetType, string>;
+  /** Anzeigename je Kategorie, z. B. für Überschriften in einer Auswahlliste */
+  categoryNames: Record<PetCategory, string>;
   /** Beschriftung des Tierbilds für Screenreader, z. B. "Katze: Warm" */
   spriteLabel: (petName: string, moodLabel: string) => string;
   /** Beschriftung für Screenreader am antippbaren Tier */

@@ -3,6 +3,8 @@
 // exportiert wird, darf weder React noch CSS importieren (siehe core.test.ts).
 export { ALL_PET_TYPES, COMING_SOON_PET_TYPES, randomPetType } from './pets';
 export type { PetType } from './pets';
+export { PET_CATEGORIES, petCategoryOf, petTypesIn } from './categories';
+export type { PetCategory } from './categories';
 export type { Mood } from './shared';
 export { pickEventMessage } from './events';
 export type { EventKind, DetectedEvent } from './events';

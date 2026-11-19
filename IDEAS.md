@@ -30,9 +30,6 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
   - **Phoenix:** bird-like body, flaming feathers (blue = frozen, orange-red = warm), spread wings as its
     trademark.
   - **Mermaid:** human upper body, fish tail with scale pattern, long hair.
-- [ ] **Species categories** (pets, Africa, Asia, sea, ...) for pickers. The weather station app sorted its
-  picker this way. The package has no categories today, and may not need them: an app can group by
-  `ALL_PET_TYPES` itself.
 - [ ] A way to show your own sentence on demand (for example a `say` prop or a ref method).
 - [ ] Per-animal imports so apps that use one species do not ship all 45 (about 173 kB minified, 31 kB gzip
   today).
@@ -82,6 +79,11 @@ species today.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
 - [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
   bubble on a tap (events still show theirs); `onTap` is called on every tap.
+- [x] **Species categories** for pickers and overviews: pets, Africa, Asia, South America, Antarctica,
+  nature & worldwide, sea and dinosaurs. Every species is in exactly one (`PET_CATEGORIES`, `petCategoryOf()`,
+  `petTypesIn()`, `categoryNames` in `PetMessages`). The demo and the README picture show them grouped.
+  Judgement calls: the dragon is in Asia, the piranha in South America (it lives in rivers there, not in the
+  sea), the polar bear in Antarctica as in the weather station app, narwhal and beluga in the sea.
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white.
 - [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`).
