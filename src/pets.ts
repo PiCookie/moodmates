@@ -18,6 +18,7 @@ export type PetType = (typeof ALL_PET_TYPES)[number];
 // und von randomPetType() nicht gewählt. Ist eine Art fertig, wird sie hier gestrichen.
 export const COMING_SOON_PET_TYPES = [
   'trex', 'triceratops', 'stegosaurus', 'brachiosaurus', 'pteranodon', 'ankylosaurus',
+  'elephant', 'capybara', 'polar-bear', 'bear', 'hedgehog',
 ] as const satisfies readonly PetType[];
 
 const RANDOM_POOL: readonly PetType[] = ALL_PET_TYPES.filter(

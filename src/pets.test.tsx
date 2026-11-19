@@ -39,6 +39,13 @@ describe('COMING_SOON_PET_TYPES', () => {
     expect(new Set(COMING_SOON_PET_TYPES).size).toBe(COMING_SOON_PET_TYPES.length);
   });
 
+  it('enthält die sechs Dinosaurier und fünf weitere Arten', () => {
+    expect([...COMING_SOON_PET_TYPES].sort()).toEqual([
+      'ankylosaurus', 'bear', 'brachiosaurus', 'capybara', 'elephant', 'hedgehog',
+      'polar-bear', 'pteranodon', 'stegosaurus', 'trex', 'triceratops',
+    ]);
+  });
+
   it('randomPetType wählt keine Art, die noch nicht fertig ist', () => {
     for (let i = 0; i <= 200; i++) {
       vi.spyOn(Math, 'random').mockReturnValue(i / 200 === 1 ? 0.999999 : i / 200);

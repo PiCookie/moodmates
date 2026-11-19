@@ -56,7 +56,7 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 
 | Prop | Type | Default | |
 |---|---|---|---|
-| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` (six are still [coming soon](#coming-soon)); each belongs to one [category](#categories) |
+| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` (eleven are still [coming soon](#coming-soon)); each belongs to one [category](#categories) |
 | `mood` | `Mood` | required | Look, phrases and hopping follow it |
 | `size` | `number` | `80` | Pixels |
 | `name` | `string` | none | Name tag below the animal |
@@ -131,8 +131,9 @@ The demo and the picture above group the species this way.
 
 ## Coming soon
 
-The six dinosaurs (`trex`, `triceratops`, `stegosaurus`, `brachiosaurus`, `pteranodon`, `ankylosaurus`) are
-usable but not finished yet: the drawings may still change. The demo and the picture above show them blurred.
+Eleven species are usable but not finished yet: the six dinosaurs (`trex`, `triceratops`, `stegosaurus`,
+`brachiosaurus`, `pteranodon`, `ankylosaurus`) and the `elephant`, `capybara`, `polar-bear`, `bear` and
+`hedgehog`. The drawings may still change. The demo and the picture above show them blurred.
 `COMING_SOON_PET_TYPES` lists them, and `randomPetType()` does not pick them. Once a species is done it
 leaves that list.
 
