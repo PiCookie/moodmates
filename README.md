@@ -105,7 +105,7 @@ const german: Partial<PetMessages> = { tapPet: 'Tier antippen', moodLabels: { /*
 ## Styling
 
 `moodmates/styles.css` is self-contained (classes are prefixed with `mm-`, `prefers-reduced-motion` is respected).
-Two CSS variables: `--mm-name-color` (name tag) and `--mm-legend-color` (history bar legend).
+Two CSS variables: `--mm-name-color` (name tag) and `--mm-legend-color` (history bar legend, by default the text color of the page, toned down).
 
 ## Without React
 

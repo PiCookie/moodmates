@@ -5,9 +5,9 @@
  * Alle Klassen und Keyframes tragen das Präfix "mm-", damit sie in anderen Projekten nicht mit
  * eigenen Namen kollidieren. Die Werte entsprechen den bisherigen Tailwind-Klassen.
  *
- * Anpassbar über CSS-Variablen (Standard: heller Text auf dunklem Hintergrund):
- *   --mm-name-color    Name unter dem Tier
- *   --mm-legend-color  Legende der Stimmungsleiste
+ * Anpassbar über CSS-Variablen:
+ *   --mm-name-color    Name unter dem Tier (Standard: halbtransparentes Weiß, für dunklen Hintergrund)
+ *   --mm-legend-color  Legende der Stimmungsleiste (Standard: die Textfarbe der Seite, abgeschwächt)
  */
 
 /* ── Animationen ──────────────────────────────────────────────────────────── */
@@ -182,7 +182,7 @@
   align-items: center;
   gap: 0.25rem;
   font-size: 9px;
-  color: var(--mm-legend-color, rgb(255 255 255 / 0.35));
+  color: var(--mm-legend-color, color-mix(in srgb, currentColor 60%, transparent));
 }
 
 .mm-mood-bar__dot {

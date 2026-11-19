@@ -39,8 +39,6 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
 - [ ] More theming than the two CSS variables.
 - [ ] Checking the screen reader output with real assistive technology (every animal is a `role="img"`
   with a label, but this has only been tested in unit tests).
-- [ ] A darker default for `--mm-legend-color` on the history bar. The default is semi-transparent white and
-  almost invisible on light backgrounds.
 - [ ] Check the demo page on a phone and in the light color scheme (only looked at on a desktop in dark mode).
 - [ ] **A release process.** Tag, GitHub release and `npm publish` are all done by hand today. That is how
   the GitHub releases for `v0.1.1` and `v0.1.2` were forgotten at first, and how 0.1.3 ended up merged but
@@ -84,6 +82,8 @@ species today.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
 - [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
   bubble on a tap (events still show theirs); `onTap` is called on every tap.
+- [x] **Readable legend on light backgrounds.** The default of `--mm-legend-color` is the page's text color,
+  toned down, instead of semi-transparent white. `--mm-name-color` still defaults to white.
 - [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`).
 
 ## Decisions made (why it looks like this)
