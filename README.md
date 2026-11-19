@@ -62,6 +62,8 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 | `name` | `string` | none | Name tag below the animal |
 | `event` | `{ kind: EventKind } \| null` | none | Shows an event bubble and hops three times (`'first-frost'`, `'first-summer'`, `'heat-record'`, `'back-online'`) |
 | `messages` | `Partial<PetMessages>` | English | Your own texts, see below |
+| `talk` | `boolean` | `true` | `false` keeps it quiet: no speech from time to time and no bubble on a tap (it still hops). An `event` still shows its bubble, because your app passes it on purpose |
+| `onTap` | `() => void` | none | Called on every tap, also with `talk={false}` |
 
 ### `<MoodmateSprite>`: just the picture
 
@@ -121,8 +123,8 @@ leaves that list.
 
 - The mood scale is cold-to-hot only, and the event kinds are a fixed list (`first-frost`, `first-summer`,
   `heat-record`, `back-online`). The default phrases are weather flavored; pass your own via `messages`.
-- `Moodmate` talks, blinks and hops on a fixed schedule. There is no switch to turn the speech off yet;
-  use `MoodmateSprite` for a silent picture.
+- `Moodmate` blinks and hops on a fixed schedule. The speech can be switched off with `talk={false}`, but
+  you cannot yet show your own sentence on demand. Use `MoodmateSprite` for a silent picture.
 - All 45 species are in one bundle (about 173 kB minified, 31 kB gzip).
 - The API may still change before 1.0.
 

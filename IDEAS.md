@@ -33,8 +33,7 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
 - [ ] **Species categories** (pets, Africa, Asia, sea, ...) for pickers. The weather station app sorted its
   picker this way. The package has no categories today, and may not need them: an app can group by
   `ALL_PET_TYPES` itself.
-- [ ] `talk` prop to switch the periodic speech off, and a way to show your own sentence on demand.
-- [ ] `onTap` callback.
+- [ ] A way to show your own sentence on demand (for example a `say` prop or a ref method).
 - [ ] Per-animal imports so apps that use one species do not ship all 45 (about 173 kB minified, 31 kB gzip
   today).
 - [ ] More theming than the two CSS variables.
@@ -50,8 +49,7 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
   the one-time password typed by hand.
 - [ ] **Visible gaps in the API.** Apps notice these first. Each one is tracked in its own entry; tick this
   box when all of them are done:
-  - No way to switch the speech bubble off: see the `talk` prop above.
-  - No `onTap` callback: see above.
+  - ~~No way to switch the speech bubble off~~ and ~~no `onTap` callback~~: done, see "Done".
   - The mood scale only goes from cold to hot: see "More moods" under Planned.
   - The default phrases are about the weather: see "More generic default phrases" under Planned.
 
@@ -84,6 +82,8 @@ species today.
   Pages workflow came after it.
 - [x] A picture of all species in the README (`docs/moodmates.svg`), kept current by a test.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
+- [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
+  bubble on a tap (events still show theirs); `onTap` is called on every tap.
 - [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`).
 
 ## Decisions made (why it looks like this)

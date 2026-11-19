@@ -35,6 +35,13 @@ export interface MoodmateProps {
   event?: DetectedEvent | null;
   /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
   messages?: Partial<PetMessages>;
+  /**
+   * Ob das Tier von sich aus spricht (alle paar Sekunden) und beim Antippen eine Sprechblase zeigt.
+   * Mit `false` bleibt es still; Ereignisse (`event`) zeigen ihre Blase weiterhin, weil die Anwendung sie ausdrücklich übergibt.
+   */
+  talk?: boolean;
+  /** Wird bei jedem Antippen aufgerufen, auch wenn `talk` aus ist. */
+  onTap?: () => void;
 }
 
 function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: SpeechVariant | null; leftPx: number }) {
@@ -69,7 +76,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ mood, type, size = 80, name, event, messages }: MoodmateProps) {
+export function Moodmate({ mood, type, size = 80, name, event, messages, talk = true, onTap }: MoodmateProps) {
   const text = resolveMessages(messages);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
@@ -82,6 +89,13 @@ export function Moodmate({ mood, type, size = 80, name, event, messages }: Moodm
   useEffect(() => {
     moodRef.current = mood;
     textRef.current = text;
+  });
+
+  const onTapRef = useRef(onTap);
+  const showSpeechRef = useRef<() => void>(() => {});
+  useEffect(() => {
+    onTapRef.current = onTap;
+    showSpeechRef.current = showSpeech;
   });
 
   // Ref für den Auto-Clear-Timer der Sprechblase (damit Click den Timer resetten kann)
@@ -100,12 +114,22 @@ export function Moodmate({ mood, type, size = 80, name, event, messages }: Moodm
     if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
     setSpeechText(pickMessage(moodRef.current, textRef.current));
     setSpeechVariant(null);
-    setHopping(true);
-    setTimeout(() => setHopping(false), 450);
+    hop();
     speechClearTimerRef.current = setTimeout(() => {
       setSpeechText(null);
       speechClearTimerRef.current = null;
     }, 4500);
+  }
+
+  function hop() {
+    setHopping(true);
+    setTimeout(() => setHopping(false), 450);
+  }
+
+  function handleTap() {
+    if (talk) showSpeech();
+    else hop();
+    onTapRef.current?.();
   }
 
   // ── Ereignis-Reaktion ──────────────────────────────────────────────────────
@@ -159,10 +183,11 @@ export function Moodmate({ mood, type, size = 80, name, event, messages }: Moodm
 
   // ── Sprechblase (alle 20-45 Sekunden, erste nach 10-18 s) ─────────────────
   useEffect(() => {
+    if (!talk) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
     const schedule = (delay: number) => {
       const t1 = setTimeout(() => {
-        showSpeech();
+        showSpeechRef.current();
         const t2 = setTimeout(() => schedule(20000 + Math.random() * 25000), 4500);
         timers.push(t2);
       }, delay);
@@ -170,7 +195,7 @@ export function Moodmate({ mood, type, size = 80, name, event, messages }: Moodm
     };
     schedule(10000 + Math.random() * 8000);
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [talk]);
 
   const spriteProps = { mood, size, blinking };
 
@@ -181,7 +206,7 @@ export function Moodmate({ mood, type, size = 80, name, event, messages }: Moodm
         {speechText && <SpeechBubble text={speechText} variant={speechVariant} leftPx={bubbleLeftPx(type, size)} />}
         <div
           className={`mm-pet__body${hopping && !shivering ? ' mm-hop' : ''}`}
-          onClick={showSpeech}
+          onClick={handleTap}
           role="button"
           aria-label={text.tapPet}
         >
