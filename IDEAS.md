@@ -43,6 +43,17 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
 - [ ] A darker default for `--mm-legend-color` on the history bar. The default is semi-transparent white and
   almost invisible on light backgrounds.
 - [ ] Check the demo page on a phone and in the light color scheme (only looked at on a desktop in dark mode).
+- [ ] **A release process.** Tag, GitHub release and `npm publish` are all done by hand today. That is how
+  the GitHub releases for `v0.1.1` and `v0.1.2` were forgotten at first, and how 0.1.3 ended up merged but
+  not published. Idea: a workflow that creates the GitHub release when a `v*` tag is pushed, with the notes
+  taken from a file or the merged PRs. Publishing to npm would need a token or trusted publishing instead of
+  the one-time password typed by hand.
+- [ ] **Visible gaps in the API.** Apps notice these first. Each one is tracked in its own entry; tick this
+  box when all of them are done:
+  - No way to switch the speech bubble off: see the `talk` prop above.
+  - No `onTap` callback: see above.
+  - The mood scale only goes from cold to hot: see "More moods" under Planned.
+  - The default phrases are about the weather: see "More generic default phrases" under Planned.
 
 ## Done
 
