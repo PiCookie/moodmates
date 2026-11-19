@@ -14,8 +14,9 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
 - [ ] **More events such as level up.** `EventKind` is a fixed list today (`first-frost`, `first-summer`,
   `heat-record`, `back-online`). It will grow, and eventually let apps define their own.
 - [ ] **More generic default phrases** that are not about the weather, so the defaults fit other uses too.
-- [ ] **Finish the six dinosaurs** (`trex`, `triceratops`, `stegosaurus`, `brachiosaurus`, `pteranodon`,
-  `ankylosaurus`). They are drawn, but not finished, so they are marked "coming soon". When one is done,
+- [ ] **Finish the eleven "coming soon" species:** the six dinosaurs (`trex`, `triceratops`, `stegosaurus`,
+  `brachiosaurus`, `pteranodon`, `ankylosaurus`) and, added later, `elephant`, `capybara`, `polar-bear`, `bear`
+  and `hedgehog`. They are drawn, but not finished, so they are marked "coming soon". When one is done,
   remove it from `COMING_SOON_PET_TYPES` in `src/pets.ts` and run `pnpm build && pnpm gen:overview`.
 
 ## Ideas (not decided)
@@ -111,7 +112,7 @@ animals can be added, renamed or redrawn without breaking anyone. `MoodmateSprit
 (no timers, no bubble, no name) for lists, avatars and pickers.
 
 **Unfinished animals stay usable and are marked "coming soon".**
-Species that are not finished yet (the six dinosaurs today) stay in `ALL_PET_TYPES` and keep working, so
+Species that are not finished yet (the six dinosaurs, elephant, capybara, polar bear, bear and hedgehog today) stay in `ALL_PET_TYPES` and keep working, so
 nobody who already uses them breaks. They are listed in `COMING_SOON_PET_TYPES`, shown blurred with a note
 in the demo and the README picture, and left out of `randomPetType()`. Removing them would have been an API
 break, and a separate long-lived branch would drift away from the rest of the code.
