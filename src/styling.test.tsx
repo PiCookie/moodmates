@@ -56,13 +56,17 @@ describe('selbstenthaltenes Styling', () => {
   });
 });
 
-describe('Legende der Stimmungsleiste', () => {
-  // Ein festes helles Weiß war auf hellem Hintergrund kaum zu sehen. Der Standard folgt der Textfarbe der Seite.
-  it('hat als Standardfarbe die abgeschwächte Textfarbe statt eines festen Weiß', () => {
-    const css = readFileSync(resolve(process.cwd(), 'src/styles.css'), 'utf8');
-    const rule = css.match(/\.mm-mood-bar__legend-item\s*\{[^}]*\}/)?.[0] ?? '';
+describe('Standardfarben von Legende und Namensschild', () => {
+  // Ein festes helles Weiß war auf hellem Hintergrund kaum zu sehen. Die Standards folgen der Textfarbe der Seite.
+  const css = readFileSync(resolve(process.cwd(), 'src/styles.css'), 'utf8');
 
-    expect(rule).toContain('var(--mm-legend-color, color-mix(in srgb, currentColor');
+  it.each([
+    ['.mm-mood-bar__legend-item', '--mm-legend-color'],
+    ['.mm-pet__name', '--mm-name-color'],
+  ])('%s hat als Standardfarbe die abgeschwächte Textfarbe statt eines festen Weiß', (selector, variable) => {
+    const rule = css.match(new RegExp(`${selector.replace('.', '\\.')}\\s*\\{[^}]*\\}`))?.[0] ?? '';
+
+    expect(rule).toContain(`var(${variable}, color-mix(in srgb, currentColor`);
     expect(rule).not.toMatch(/rgb\(255 255 255/);
   });
 });
