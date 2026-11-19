@@ -3,7 +3,9 @@
 // vergebenen SVG-IDs (Frosch, Seepferdchen, Igel) im Bild eindeutig bleiben.
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { ALL_PET_TYPES, COMING_SOON_PET_TYPES, MESSAGES_EN, MoodmateSprite } from '../dist/index.js';
+import {
+  ALL_PET_TYPES, COMING_SOON_PET_TYPES, MESSAGES_EN, MoodmateSprite, PET_CATEGORIES, petTypesIn,
+} from '../dist/index.js';
 
 const SIZE = 64;
 const COLS = 9;
@@ -12,6 +14,7 @@ const CELL_H = 136;
 const PAD = 24;
 const TITLE_H = 60;
 const SECTION_GAP = 28;
+const CATEGORY_H = 34;
 const MOODS = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
 
 const INK = '#3d2b1f';
@@ -49,14 +52,26 @@ function cell(x, y, type, mood, label) {
 }
 
 export function renderOverview() {
-  const rows = Math.ceil(ALL_PET_TYPES.length / COLS);
   const width = PAD * 2 + COLS * CELL_W;
   const gridTop = PAD + TITLE_H;
-  const moodTop = gridTop + rows * CELL_H + SECTION_GAP;
-  const height = moodTop + 40 + CELL_H + PAD;
 
-  const grid = ALL_PET_TYPES.map((type, i) =>
-    cell(PAD + (i % COLS) * CELL_W, gridTop + Math.floor(i / COLS) * CELL_H, type, 'neutral', type));
+  // Eine Überschrift und ein Raster je Kategorie, in der Reihenfolge von PET_CATEGORIES.
+  let y = gridTop;
+  const grid = PET_CATEGORIES.flatMap((category) => {
+    const types = petTypesIn(category);
+    const top = y;
+    y += CATEGORY_H + Math.ceil(types.length / COLS) * CELL_H;
+    return [
+      h('text', {
+        key: `category-${category}`, x: PAD, y: top + 20, fontFamily: FONT, fontSize: 16, fontWeight: 600, fill: ACCENT,
+      }, MESSAGES_EN.categoryNames[category]),
+      ...types.map((type, i) =>
+        cell(PAD + (i % COLS) * CELL_W, top + CATEGORY_H + Math.floor(i / COLS) * CELL_H, type, 'neutral', type)),
+    ];
+  });
+
+  const moodTop = y + SECTION_GAP;
+  const height = moodTop + 40 + CELL_H + PAD;
 
   const moodX = (width - MOODS.length * CELL_W) / 2;
   const moods = MOODS.map((mood, i) =>

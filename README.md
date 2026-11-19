@@ -56,7 +56,7 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 
 | Prop | Type | Default | |
 |---|---|---|---|
-| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` (six are still [coming soon](#coming-soon)) |
+| `type` | `PetType` | required | One of 45 species, see `ALL_PET_TYPES` (six are still [coming soon](#coming-soon)); each belongs to one [category](#categories) |
 | `mood` | `Mood` | required | Look, phrases and hopping follow it |
 | `size` | `number` | `80` | Pixels |
 | `name` | `string` | none | Name tag below the animal |
@@ -93,6 +93,7 @@ Missing fields fall back to English. Copy `MESSAGES_EN` from `src/messages.en.ts
 | `events` | Phrases per event kind |
 | `moodLabels` | Names of the moods (legend, tooltips, screen reader) |
 | `petNames` | Display name per species |
+| `categoryNames` | Display name per category |
 | `spriteLabel(petName, moodLabel)` | Screen reader label of the picture, e.g. "Cat: Warm" |
 | `tapPet` | Screen reader label of the tappable animal |
 | `moodBarAriaLabel`, `moodBarHourTitle(hour, label)` | Labels of the history bar |
@@ -107,9 +108,25 @@ const german: Partial<PetMessages> = { tapPet: 'Tier antippen', moodLabels: { /*
 `moodmates/styles.css` is self-contained (classes are prefixed with `mm-`, `prefers-reduced-motion` is respected).
 Two CSS variables: `--mm-name-color` (name tag, by default the text color of the page, toned down) and `--mm-legend-color` (history bar legend, by default the text color of the page, toned down).
 
+## Categories
+
+Every species belongs to exactly one category, for pickers and overviews: `pets`, `africa`, `asia`,
+`south-america`, `antarctica`, `nature`, `sea` and `dinosaurs` (in this order, listed in `PET_CATEGORIES`).
+
+```ts
+import { PET_CATEGORIES, petCategoryOf, petTypesIn, MESSAGES_EN } from 'moodmates/core';
+
+petCategoryOf('lion');                  // 'africa'
+petTypesIn('pets');                     // ['cat', 'dog', 'rabbit', 'hamster']
+MESSAGES_EN.categoryNames['sea'];       // 'Sea'
+```
+
+The display names are `categoryNames` in `PetMessages`, so they can be translated like the species names.
+The demo and the picture above group the species this way.
+
 ## Without React
 
-`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `COMING_SOON_PET_TYPES`, `randomPetType()`, `pickMessage()`,
+`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `COMING_SOON_PET_TYPES`, `PET_CATEGORIES`, `petCategoryOf()`, `petTypesIn()`, `randomPetType()`, `pickMessage()`,
 `pickEventMessage()`, `resolveMessages()`, `MESSAGES_EN` and the types. Useful on a server.
 
 ## Coming soon

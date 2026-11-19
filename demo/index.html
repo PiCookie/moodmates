@@ -36,6 +36,7 @@
     input[type="search"] { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
                            background: var(--card); color: inherit; }
     h2 { margin: 32px 0 12px; font-size: 1.1rem; }
+    h3 { margin: 24px 0 8px; font-size: .95rem; color: var(--accent); }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
     .card { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; padding: 12px 6px;
             min-width: 0;
@@ -87,6 +88,8 @@
   const { Moodmate, MoodmateSprite, MoodHistoryBar, ALL_PET_TYPES, MESSAGES_EN } = lib;
   // Ältere Versionen (z. B. das npm-Paket als Rückfall oder ein altes dist im Cache) kennen die Liste noch nicht.
   const COMING_SOON_PET_TYPES = lib.COMING_SOON_PET_TYPES ?? [];
+  // Ebenso die Kategorien: ohne sie bleibt es bei einer Liste.
+  const PET_CATEGORIES = lib.PET_CATEGORIES ?? null;
   const { useState } = React;
 
   const MOODS = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
@@ -100,6 +103,11 @@
     const types = ALL_PET_TYPES.filter((t) =>
       !q || t.includes(q) || (MESSAGES_EN.petNames[t] ?? '').toLowerCase().includes(q));
     const Pet = live ? Moodmate : MoodmateSprite;
+    const groups = PET_CATEGORIES
+      ? PET_CATEGORIES
+          .map((c) => ({ key: c, title: MESSAGES_EN.categoryNames?.[c] ?? c, types: lib.petTypesIn(c).filter((t) => types.includes(t)) }))
+          .filter((g) => g.types.length > 0)
+      : [{ key: 'all', title: null, types }];
 
     return h(React.Fragment, null,
       h('div', { className: 'controls' },
@@ -112,14 +120,16 @@
           h('input', { type: 'checkbox', checked: live, onChange: (e) => setLive(e.target.checked) }),
           ' Living (blink, talk)')),
       h('h2', null, `Species (${types.length} of ${ALL_PET_TYPES.length})`),
-      h('div', { className: 'grid' },
-        types.map((t) => {
-          const soon = COMING_SOON_PET_TYPES.includes(t);
-          return h('div', { key: t, className: soon ? 'card soon' : 'card' },
-            h('div', { className: 'pet' }, h(Pet, { type: t, mood, size: 84 })),
-            h('code', null, t),
-            soon && h('span', { className: 'badge' }, 'coming soon'));
-        })),
+      groups.map((g) => h('section', { key: g.key },
+        g.title && h('h3', null, `${g.title} (${g.types.length})`),
+        h('div', { className: 'grid' },
+          g.types.map((t) => {
+            const soon = COMING_SOON_PET_TYPES.includes(t);
+            return h('div', { key: t, className: soon ? 'card soon' : 'card' },
+              h('div', { className: 'pet' }, h(Pet, { type: t, mood, size: 84 })),
+              h('code', null, t),
+              soon && h('span', { className: 'badge' }, 'coming soon'));
+          })))),
       h('h2', null, 'History bar'),
       h('div', { className: 'wide-bar' },
         h(MoodHistoryBar, { moods: ['frozen', 'cold', 'cold', 'neutral', 'neutral', 'warm', 'hot', 'hot', 'warm', 'neutral'] })),

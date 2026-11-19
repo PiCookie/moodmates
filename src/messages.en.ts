@@ -89,6 +89,16 @@ export const MESSAGES_EN: PetMessages = {
     warm:    'Warm',
     hot:     'Hot',
   },
+  categoryNames: {
+    'pets': 'Pets',
+    'africa': 'Africa',
+    'asia': 'Asia',
+    'south-america': 'South America',
+    'antarctica': 'Antarctica',
+    'nature': 'Nature & worldwide',
+    'sea': 'Sea',
+    'dinosaurs': 'Dinosaurs',
+  },
   petNames: {
     'cat': 'Cat',
     'dog': 'Dog',
