@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Moodmate } from './Moodmate';
@@ -51,5 +53,16 @@ describe('selbstenthaltenes Styling', () => {
 
     expect(container.querySelector('.mm-mood-bar')).not.toBeNull();
     expect(foreignClasses(container)).toEqual([]);
+  });
+});
+
+describe('Legende der Stimmungsleiste', () => {
+  // Ein festes helles Weiß war auf hellem Hintergrund kaum zu sehen. Der Standard folgt der Textfarbe der Seite.
+  it('hat als Standardfarbe die abgeschwächte Textfarbe statt eines festen Weiß', () => {
+    const css = readFileSync(resolve(process.cwd(), 'src/styles.css'), 'utf8');
+    const rule = css.match(/\.mm-mood-bar__legend-item\s*\{[^}]*\}/)?.[0] ?? '';
+
+    expect(rule).toContain('var(--mm-legend-color, color-mix(in srgb, currentColor');
+    expect(rule).not.toMatch(/rgb\(255 255 255/);
   });
 });
