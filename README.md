@@ -3,15 +3,15 @@
 Small animated SVG animals that show a mood. 45 species, speech bubbles, a mood history bar.
 For React 19, no runtime dependencies, no Tailwind needed.
 
-**[Live demo](https://picookie.github.io/moodmates/demo/)**: all 45 species, every mood, search, speech bubbles.
+**[Live demo](https://picookie.github.io/moodmates/demo/)**: all 45 species by category, every mood, search, speech bubbles.
 
 ![All 45 species and one animal in five moods](https://raw.githubusercontent.com/PiCookie/moodmates/master/docs/moodmates.svg)
 
 **Honest scope:** the moods are a five-step cold-to-hot scale (`frozen`, `cold`, `neutral`, `warm`, `hot`),
 and the drawings (icicles, scarf, sunglasses, sweat drops) and default phrases are built around it. It fits
 anything you can place on a cold-to-hot axis: a temperature, room climate, CPU or server load (cold = idle,
-hot = overloaded), a comfort level. It is **not** a general emotion set yet. Moods like sad, angry and happy,
-more events and more generic phrases are planned, see [IDEAS.md](IDEAS.md).
+hot = overloaded), a comfort level. It is **not** a general emotion set yet. Moods like sad, angry and happy
+and more events are planned, see [IDEAS.md](IDEAS.md).
 
 The package knows moods, not data: your app decides which value leads to which mood.
 
@@ -140,11 +140,11 @@ leaves that list.
 ## Limitations (0.x)
 
 - The mood scale is cold-to-hot only, and the event kinds are a fixed list (`first-frost`, `first-summer`,
-  `heat-record`, `back-online`). The speech phrases are about comfort (cold to hot), not about the weather, but the event phrases (`first-frost`,
-  `first-summer`, `heat-record`) still are; pass your own via `messages`.
+  `heat-record`, `back-online`). The speech phrases are about comfort, not about the weather, but the phrases of
+  the first three events still are; pass your own via `messages`.
 - `Moodmate` blinks and hops on a fixed schedule. The speech can be switched off with `talk={false}`, but
   you cannot yet show your own sentence on demand. Use `MoodmateSprite` for a silent picture.
-- All 45 species are in one bundle (about 173 kB minified, 31 kB gzip).
+- All 45 species are in one bundle (about 170 kB minified, 30 kB gzip).
 - The API may still change before 1.0.
 
 ## Accessibility
@@ -168,7 +168,8 @@ pnpm build && pnpm gen:overview   # regenerate docs/moodmates.svg (the picture a
 1. Raise `version` in `package.json` in a pull request and merge it.
 2. On `master`: `git tag -a vX.Y.Z -m vX.Y.Z && git push origin vX.Y.Z`. The `Release` workflow then creates the
    GitHub release with generated notes (it checks that the tag matches `package.json` and lies on `master`).
-3. `npm publish` (by hand for now). Edit the generated notes on GitHub if they need more explanation.
+3. `npm publish` (by hand for now; check `npm whoami` first, an expired login shows up as a 404). Edit the generated
+   notes on GitHub if they need more explanation.
 
 ## License
 
