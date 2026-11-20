@@ -1,0 +1,48 @@
+name: Release
+
+# Legt das GitHub-Release an, sobald ein Tag v* gepusht wird. Den Tag setzt man nach dem Merge der
+# Versions-PR auf master (git tag -a vX.Y.Z -m vX.Y.Z && git push origin vX.Y.Z).
+# npm publish läuft weiterhin von Hand (siehe IDEAS.md).
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Tag muss zur Version in package.json passen
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} passt nicht zu package.json (Version ${version})"
+            exit 1
+          fi
+
+      - name: Tag muss auf master liegen
+        run: |
+          git fetch origin master
+          if ! git merge-base --is-ancestor "${GITHUB_SHA}" origin/master; then
+            echo "::error::Tag ${GITHUB_REF_NAME} liegt nicht auf master"
+            exit 1
+          fi
+
+      - name: GitHub-Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            echo "Release ${GITHUB_REF_NAME} gibt es schon, nichts zu tun."
+            exit 0
+          fi
+          flags=""
+          case "${GITHUB_REF_NAME}" in *-*) flags="--prerelease" ;; esac
+          gh release create "${GITHUB_REF_NAME}" --verify-tag --title "${GITHUB_REF_NAME}" --generate-notes $flags

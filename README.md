@@ -162,6 +162,13 @@ pnpm build && pnpm test:dist   # build and smoke-test the built package
 pnpm build && pnpm gen:overview   # regenerate docs/moodmates.svg (the picture at the top; test:dist fails if it is stale)
 ```
 
+### Releasing
+
+1. Raise `version` in `package.json` in a pull request and merge it.
+2. On `master`: `git tag -a vX.Y.Z -m vX.Y.Z && git push origin vX.Y.Z`. The `Release` workflow then creates the
+   GitHub release with generated notes (it checks that the tag matches `package.json` and lies on `master`).
+3. `npm publish` (by hand for now). Edit the generated notes on GitHub if they need more explanation.
+
 ## License
 
 MIT, see [LICENSE](LICENSE). Roadmap, ideas and design decisions: [IDEAS.md](IDEAS.md).
