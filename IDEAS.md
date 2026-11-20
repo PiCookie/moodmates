@@ -6,20 +6,36 @@ How to use this file: write new ideas under "Ideas". When something is decided, 
 it is finished, tick the box and move it to "Done" with the version it shipped in. The release notes on GitHub
 are the changelog.
 
+Each of the three lists has two parts. **Moodmates** is about the animals themselves: new species, new
+moods and faces, and explicit design changes (a species that should look different, a mood that needs another
+icon). **Package and project** is everything else: API, tooling, demo, docs and releases.
+
 ## Planned (decided, not built yet)
+
+### Moodmates
+
+New animals, faces and design changes that are decided. For a design change, write down the species, what
+should look different and why.
 
 - [ ] **More moods such as sad, angry and happy.** They come as an additional set next to the cold-to-hot
   scale, with their own faces. Note: adding values to `Mood` is a type-level change for code that builds a
   `Record<Mood, ...>` (for example a custom `PetMessages`). It will be announced in the release notes and
   released as a minor version while the package is 0.x.
-- [ ] **More events such as level up.** `EventKind` is a fixed list today (`first-frost`, `first-summer`,
-  `heat-record`, `back-online`). It will grow, and eventually let apps define their own.
 - [ ] **Finish the eleven "coming soon" species:** the six dinosaurs (`trex`, `triceratops`, `stegosaurus`,
   `brachiosaurus`, `pteranodon`, `ankylosaurus`) and, added later, `elephant`, `capybara`, `polar-bear`, `bear`
   and `hedgehog`. They are drawn, but not finished, so they are marked "coming soon". When one is done,
   remove it from `COMING_SOON_PET_TYPES` in `src/pets.ts` and run `pnpm build && pnpm gen:overview`.
 
+### Package and project
+
+- [ ] **More events such as level up.** `EventKind` is a fixed list today (`first-frost`, `first-summer`,
+  `heat-record`, `back-online`). It will grow, and eventually let apps define their own.
+
 ## Ideas (not decided)
+
+### Moodmates
+
+Ideas for new animals and for how existing ones could look or change.
 
 - [ ] **Growth stages.** The animal grows over time: baby, adult, senior, with small changes of the icons
   per stage. Idea from the weather station app, where the stage was kept in `localStorage`. In the package
@@ -31,6 +47,9 @@ are the changelog.
   - **Phoenix:** bird-like body, flaming feathers (blue = frozen, orange-red = warm), spread wings as its
     trademark.
   - **Mermaid:** human upper body, fish tail with scale pattern, long hair.
+
+### Package and project
+
 - [ ] A way to show your own sentence on demand (for example a `say` prop or a ref method).
 - [ ] Per-animal imports so apps that use one species do not ship all 45 (about 170 kB minified, 30 kB gzip
   today).
@@ -56,6 +75,8 @@ are the changelog.
 History from the weather station app, where the package grew before it got its own repo. The package has 45
 species today.
 
+### Moodmates
+
 - [x] **Species**, in the order they were added. Each has its own trademark and follows the five moods:
   - Lion, turtle and capybara (broad snout, eyes high on the head).
   - Panda (eye rings, white X eyes when frozen) and dragon (horns, fire breath when warm, ice breath when
@@ -72,6 +93,16 @@ species today.
   - Dinosaurs: T. rex, triceratops, stegosaurus, brachiosaurus, pteranodon and ankylosaurus are drawn, but
     not finished (see "Planned").
 - [x] **Feet for all animals.** Cat, dog and frog got flat foot ovals at the bottom like the penguin.
+- [x] **Species categories** for pickers and overviews: pets, Africa, Asia, South America, Antarctica,
+  nature & worldwide, sea and dinosaurs. Every species is in exactly one (`PET_CATEGORIES`, `petCategoryOf()`,
+  `petTypesIn()`, `categoryNames` in `PetMessages`). The demo and the README picture show them grouped (0.3.0).
+  Judgement calls: the dragon is in Asia, the piranha in South America (it lives in rivers there, not in the
+  sea), the polar bear in Antarctica as in the weather station app, narwhal and beluga in the sea.
+- [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`): the six
+  dinosaurs in 0.1.3, elephant, capybara, polar bear, bear and hedgehog in 0.3.0.
+
+### Package and project
+
 - [x] **The animal talks when tapped.** A tap shows a bubble with a phrase for the current mood and makes
   the animal hop. A running clear timer is reset, so the bubble always stays 4.5 s. (`Moodmate`)
 - [x] **Mood history.** A small bar under the animal shows how long it was in which mood today.
@@ -82,11 +113,6 @@ species today.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
 - [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
   bubble on a tap (events still show theirs); `onTap` is called on every tap (0.2.0).
-- [x] **Species categories** for pickers and overviews: pets, Africa, Asia, South America, Antarctica,
-  nature & worldwide, sea and dinosaurs. Every species is in exactly one (`PET_CATEGORIES`, `petCategoryOf()`,
-  `petTypesIn()`, `categoryNames` in `PetMessages`). The demo and the README picture show them grouped (0.3.0).
-  Judgement calls: the dragon is in Asia, the piranha in South America (it lives in rivers there, not in the
-  sea), the polar bear in Antarctica as in the weather station app, narwhal and beluga in the sea.
 - [x] **GitHub releases are created by a workflow.** Pushing a tag `v*` runs `.github/workflows/release.yml`:
   it checks the tag against `package.json` and `master`, then creates the release with generated notes.
   The steps are in the README under "Releasing". First used for `v0.3.1`; the repository only, not part of
@@ -96,8 +122,6 @@ species today.
   words out of `speech`. The event phrases are still weather themed (0.3.1).
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white (0.2.1).
-- [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`): the six
-  dinosaurs in 0.1.3, elephant, capybara, polar bear, bear and hedgehog in 0.3.0.
 
 ## Decisions made (why it looks like this)
 
