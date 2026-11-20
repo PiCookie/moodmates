@@ -11,3 +11,6 @@ export type { EventKind, DetectedEvent } from './events';
 export { pickMessage, resolveMessages } from './messages';
 export type { PetMessages } from './messages';
 export { MESSAGES_EN } from './messages.en';
+export { MESSAGES_DE } from './messages.de';
+export { LANGUAGES } from './languages';
+export type { Language } from './languages';

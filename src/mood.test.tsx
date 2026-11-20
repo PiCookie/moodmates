@@ -3,6 +3,8 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import { ALL_PET_TYPES } from './pets';
 import { Moodmate } from './Moodmate';
 import { MoodmateSprite } from './MoodmateSprite';
+import { MoodHistoryBar } from './MoodHistoryBar';
+import { MESSAGES_DE } from './messages.de';
 import type { PetMessages } from './messages';
 
 const SPEECH: PetMessages['speech'] = {
@@ -147,5 +149,51 @@ describe('Moodmate: talk und onTap', () => {
 
     expect(first).not.toHaveBeenCalled();
     expect(second).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Sprache', () => {
+  afterEach(() => { vi.restoreAllMocks(); });
+
+  it('Moodmate mit language="de" sagt einen deutschen Spruch und hat ein deutsches Label', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    render(<Moodmate type="cat" mood="neutral" language="de" />);
+
+    expect(screen.getByRole('button', { name: MESSAGES_DE.tapPet })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button'));
+
+    expect(screen.getByText(MESSAGES_DE.speech.neutral[0])).toBeInTheDocument();
+  });
+
+  it('Moodmate mit language="de" nennt das Tier auf Deutsch für Screenreader', () => {
+    render(<Moodmate type="cat" mood="warm" language="de" />);
+
+    expect(screen.getByRole('img', { name: 'Katze: Warm' })).toBeInTheDocument();
+  });
+
+  it('eigene Texte gelten vor der Sprache', () => {
+    render(<Moodmate type="cat" mood="neutral" language="de" messages={{ tapPet: 'Streicheln' }} />);
+
+    expect(screen.getByRole('button', { name: 'Streicheln' })).toBeInTheDocument();
+  });
+
+  it('MoodmateSprite mit language="de" beschriftet auf Deutsch', () => {
+    render(<MoodmateSprite type="dog" mood="cold" language="de" />);
+
+    expect(screen.getByRole('img', { name: 'Hund: Kalt' })).toBeInTheDocument();
+  });
+
+  it('MoodHistoryBar mit language="de" beschriftet Balken und Legende auf Deutsch', () => {
+    render(<MoodHistoryBar moods={['cold', 'neutral']} language="de" />);
+
+    expect(screen.getByRole('img', { name: MESSAGES_DE.moodBarAriaLabel })).toBeInTheDocument();
+    expect(screen.getByText(/Kalt 50 %/)).toBeInTheDocument();
+    expect(screen.getByTitle('00:00 Uhr – Kalt')).toBeInTheDocument();
+  });
+
+  it('ohne language bleibt alles englisch', () => {
+    render(<Moodmate type="cat" mood="warm" />);
+
+    expect(screen.getByRole('img', { name: 'Cat: Warm' })).toBeInTheDocument();
   });
 });

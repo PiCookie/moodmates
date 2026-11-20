@@ -12,7 +12,7 @@ const DIST = resolve(ROOT, 'dist');
 const require = createRequire(import.meta.url);
 
 const CORE_EXPORTS = [
-  'ALL_PET_TYPES', 'COMING_SOON_PET_TYPES', 'MESSAGES_EN', 'PET_CATEGORIES', 'petCategoryOf', 'petTypesIn',
+  'ALL_PET_TYPES', 'COMING_SOON_PET_TYPES', 'LANGUAGES', 'MESSAGES_DE', 'MESSAGES_EN', 'PET_CATEGORIES', 'petCategoryOf', 'petTypesIn',
   'pickEventMessage', 'pickMessage', 'randomPetType', 'resolveMessages',
 ];
 

@@ -5,6 +5,7 @@ import { lookOf }                      from './shared';
 import type { Mood }                   from './shared';
 import { pickMessage, resolveMessages } from './messages';
 import type { PetMessages } from './messages';
+import type { Language } from './languages';
 import type { PetType }      from './pets';
 import { bubbleLeftPx }      from './bubble';
 import { MoodmateSprite }  from './MoodmateSprite';
@@ -33,7 +34,9 @@ export interface MoodmateProps {
   type: PetType;
   name?: string;
   event?: DetectedEvent | null;
-  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
+  /** Sprache der Texte (`'en'` oder `'de'`); Standard Englisch. Eigene Texte in `messages` gelten vor der Sprache. */
+  language?: Language;
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf die Sprache zurück */
   messages?: Partial<PetMessages>;
   /**
    * Ob das Tier von sich aus spricht (alle paar Sekunden) und beim Antippen eine Sprechblase zeigt.
@@ -76,8 +79,8 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ mood, type, size = 80, name, event, messages, talk = true, onTap }: MoodmateProps) {
-  const text = resolveMessages(messages);
+export function Moodmate({ mood, type, size = 80, name, event, messages, language, talk = true, onTap }: MoodmateProps) {
+  const text = resolveMessages(messages, language);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
   const [speechText,     setSpeechText]     = useState<string | null>(null);
@@ -210,7 +213,7 @@ export function Moodmate({ mood, type, size = 80, name, event, messages, talk = 
           role="button"
           aria-label={text.tapPet}
         >
-          <MoodmateSprite type={type} messages={messages} {...spriteProps} />
+          <MoodmateSprite type={type} messages={messages} language={language} {...spriteProps} />
         </div>
       </div>
       {name && (
