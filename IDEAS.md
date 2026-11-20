@@ -52,6 +52,9 @@ Ideas for new animals and for how existing ones could look or change.
   - **Child:** boy and girl.
   - **Adult:** man and woman.
   - **Grandparent:** grandfather and grandmother.
+- [ ] **Accessories.** A moodmate can wear things, for example glasses, a hat or something else. Open question:
+  how an app chooses them (probably an `accessory` prop) and how they fit the very different bodies of the
+  45 species, and how they combine with the mood icons (the scarf when cold, the sunglasses when warm).
 
 ### Package and project
 
