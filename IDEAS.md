@@ -47,6 +47,11 @@ Ideas for new animals and for how existing ones could look or change.
   - **Phoenix:** bird-like body, flaming feathers (blue = frozen, orange-red = warm), spread wings as its
     trademark.
   - **Mermaid:** human upper body, fish tail with scale pattern, long hair.
+- [ ] **Humans** as a new group (a new category next to pets, Africa and so on). Each follows the five moods like
+  the other animals. Six figures:
+  - **Child:** boy and girl.
+  - **Adult:** man and woman.
+  - **Grandparent:** grandfather and grandmother.
 
 ### Package and project
 
