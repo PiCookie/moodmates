@@ -3,13 +3,14 @@
 One place for what is planned, what is only an idea, what is done and why the package looks the way it does.
 
 How to use this file: write new ideas under "Ideas". When something is decided, move it to "Planned". When
-it is finished, tick the box and move it to "Done" with the version it shipped in.
+it is finished, tick the box and move it to "Done" with the version it shipped in. The release notes on GitHub
+are the changelog.
 
 ## Planned (decided, not built yet)
 
 - [ ] **More moods such as sad, angry and happy.** They come as an additional set next to the cold-to-hot
   scale, with their own faces. Note: adding values to `Mood` is a type-level change for code that builds a
-  `Record<Mood, ...>` (for example a custom `PetMessages`). It will be announced in the changelog and
+  `Record<Mood, ...>` (for example a custom `PetMessages`). It will be announced in the release notes and
   released as a minor version while the package is 0.x.
 - [ ] **More events such as level up.** `EventKind` is a fixed list today (`first-frost`, `first-summer`,
   `heat-record`, `back-online`). It will grow, and eventually let apps define their own.
@@ -31,12 +32,13 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
     trademark.
   - **Mermaid:** human upper body, fish tail with scale pattern, long hair.
 - [ ] A way to show your own sentence on demand (for example a `say` prop or a ref method).
-- [ ] Per-animal imports so apps that use one species do not ship all 45 (about 173 kB minified, 31 kB gzip
+- [ ] Per-animal imports so apps that use one species do not ship all 45 (about 170 kB minified, 30 kB gzip
   today).
 - [ ] More theming than the two CSS variables.
 - [ ] Checking the screen reader output with real assistive technology (every animal is a `role="img"`
   with a label, but this has only been tested in unit tests).
-- [ ] Check the demo page on a phone and in the light color scheme (only looked at on a desktop in dark mode).
+- [ ] Check the demo page on a real phone and in the real light color scheme. It was only simulated (a 390 px
+  wide frame, light colors forced); that found three problems, fixed in 0.2.1.
 - [ ] **Publish to npm from a workflow.** The GitHub release is created by the `Release` workflow now, but
   `npm publish` is still done by hand with a one-time password. A forgotten or failed publish (0.1.3 stayed
   unpublished for a while, an expired login shows up as a confusing 404) is the remaining gap. Needs npm
@@ -75,25 +77,27 @@ species today.
 - [x] **Mood history.** A small bar under the animal shows how long it was in which mood today.
   (`MoodHistoryBar`)
 - [x] A live demo page (`demo/index.html`, published with GitHub Pages). 0.1.2 contains the page, the
-  Pages workflow came after it.
+  Pages workflow came after it. Grouped by category since 0.3.0.
 - [x] A picture of all species in the README (`docs/moodmates.svg`), kept current by a test.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
 - [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
-  bubble on a tap (events still show theirs); `onTap` is called on every tap.
+  bubble on a tap (events still show theirs); `onTap` is called on every tap (0.2.0).
 - [x] **Species categories** for pickers and overviews: pets, Africa, Asia, South America, Antarctica,
   nature & worldwide, sea and dinosaurs. Every species is in exactly one (`PET_CATEGORIES`, `petCategoryOf()`,
-  `petTypesIn()`, `categoryNames` in `PetMessages`). The demo and the README picture show them grouped.
+  `petTypesIn()`, `categoryNames` in `PetMessages`). The demo and the README picture show them grouped (0.3.0).
   Judgement calls: the dragon is in Asia, the piranha in South America (it lives in rivers there, not in the
   sea), the polar bear in Antarctica as in the weather station app, narwhal and beluga in the sea.
 - [x] **GitHub releases are created by a workflow.** Pushing a tag `v*` runs `.github/workflows/release.yml`:
   it checks the tag against `package.json` and `master`, then creates the release with generated notes.
-  The steps are in the README under "Releasing".
+  The steps are in the README under "Releasing". First used for `v0.3.1`; the repository only, not part of
+  the package.
 - [x] **Speech phrases that are not about the weather.** Nine weather lines of the default phrases (spring,
   autumn, sunscreen, lake, barbecue, "lovely weather") were rewritten as comfort phrases; a test keeps weather
-  words out of `speech`. The event phrases are still weather themed.
+  words out of `speech`. The event phrases are still weather themed (0.3.1).
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
-  `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white.
-- [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`).
+  `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white (0.2.1).
+- [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`): the six
+  dinosaurs in 0.1.3, elephant, capybara, polar bear, bear and hedgehog in 0.3.0.
 
 ## Decisions made (why it looks like this)
 
@@ -118,8 +122,8 @@ animals can be added, renamed or redrawn without breaking anyone. `MoodmateSprit
 (no timers, no bubble, no name) for lists, avatars and pickers.
 
 **Unfinished animals stay usable and are marked "coming soon".**
-Species that are not finished yet (the six dinosaurs, elephant, capybara, polar bear, bear and hedgehog today) stay in `ALL_PET_TYPES` and keep working, so
-nobody who already uses them breaks. They are listed in `COMING_SOON_PET_TYPES`, shown blurred with a note
+Species that are not finished yet (the six dinosaurs, elephant, capybara, polar bear, bear and hedgehog today)
+stay in `ALL_PET_TYPES` and keep working, so nobody who already uses them breaks. They are listed in `COMING_SOON_PET_TYPES`, shown blurred with a note
 in the demo and the README picture, and left out of `randomPetType()`. Removing them would have been an API
 break, and a separate long-lived branch would drift away from the rest of the code.
 
