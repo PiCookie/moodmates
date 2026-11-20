@@ -13,7 +13,6 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
   released as a minor version while the package is 0.x.
 - [ ] **More events such as level up.** `EventKind` is a fixed list today (`first-frost`, `first-summer`,
   `heat-record`, `back-online`). It will grow, and eventually let apps define their own.
-- [ ] **More generic default phrases** that are not about the weather, so the defaults fit other uses too.
 - [ ] **Finish the eleven "coming soon" species:** the six dinosaurs (`trex`, `triceratops`, `stegosaurus`,
   `brachiosaurus`, `pteranodon`, `ankylosaurus`) and, added later, `elephant`, `capybara`, `polar-bear`, `bear`
   and `hedgehog`. They are drawn, but not finished, so they are marked "coming soon". When one is done,
@@ -47,7 +46,8 @@ it is finished, tick the box and move it to "Done" with the version it shipped i
   box when all of them are done:
   - ~~No way to switch the speech bubble off~~ and ~~no `onTap` callback~~: done, see "Done".
   - The mood scale only goes from cold to hot: see "More moods" under Planned.
-  - The default phrases are about the weather: see "More generic default phrases" under Planned.
+  - ~~The default phrases are about the weather~~: done for the speech phrases, see "Done". The event phrases
+    (`first-frost`, `first-summer`, `heat-record`) still are; they belong to "More events" under Planned.
 
 ## Done
 
@@ -88,6 +88,9 @@ species today.
 - [x] **GitHub releases are created by a workflow.** Pushing a tag `v*` runs `.github/workflows/release.yml`:
   it checks the tag against `package.json` and `master`, then creates the release with generated notes.
   The steps are in the README under "Releasing".
+- [x] **Speech phrases that are not about the weather.** Nine weather lines of the default phrases (spring,
+  autumn, sunscreen, lake, barbecue, "lovely weather") were rewritten as comfort phrases; a test keeps weather
+  words out of `speech`. The event phrases are still weather themed.
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white.
 - [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`).

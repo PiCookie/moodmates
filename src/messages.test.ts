@@ -20,6 +20,17 @@ const ENGLISH_SPEECH: PetMessages['speech'] = {
 
 afterEach(() => vi.restoreAllMocks());
 
+describe('Standardsprüche sind nicht wetterabhängig', () => {
+  // Die Stimmungen sind eine Komfortskala; die Sprüche sollen auch zu anderen Daten als Wetter passen.
+  const WEATHER = /weather|spring|autumn|summer|winter|sunscreen|\blake\b|barbecue|\brain|snow|forecast/i;
+
+  it.each(['frozen', 'cold', 'neutral', 'warm', 'hot'] as const)('%s: kein Spruch handelt vom Wetter', (mood) => {
+    const offending = MESSAGES_EN.speech[mood].filter((text) => WEATHER.test(text));
+
+    expect(offending).toEqual([]);
+  });
+});
+
 describe('resolveMessages', () => {
   it('liefert ohne Angabe die englischen Standardtexte', () => {
     expect(resolveMessages()).toEqual(MESSAGES_EN);
