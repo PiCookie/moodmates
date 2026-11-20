@@ -140,7 +140,8 @@ leaves that list.
 ## Limitations (0.x)
 
 - The mood scale is cold-to-hot only, and the event kinds are a fixed list (`first-frost`, `first-summer`,
-  `heat-record`, `back-online`). The default phrases are weather flavored; pass your own via `messages`.
+  `heat-record`, `back-online`). The speech phrases are about comfort (cold to hot), not about the weather, but the event phrases (`first-frost`,
+  `first-summer`, `heat-record`) still are; pass your own via `messages`.
 - `Moodmate` blinks and hops on a fixed schedule. The speech can be switched off with `talk={false}`, but
   you cannot yet show your own sentence on demand. Use `MoodmateSprite` for a silent picture.
 - All 45 species are in one bundle (about 173 kB minified, 31 kB gzip).
