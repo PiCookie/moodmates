@@ -124,7 +124,7 @@ export const MESSAGES_EN: PetMessages = {
     'hedgehog': 'Hedgehog',
     'owl': 'Owl',
     'fox': 'Fox',
-    'trex': 'T. rex',
+    'trex': 'T-Rex',
     'triceratops': 'Triceratops',
     'stegosaurus': 'Stegosaurus',
     'brachiosaurus': 'Brachiosaurus',
