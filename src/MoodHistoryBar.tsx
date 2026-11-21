@@ -1,6 +1,7 @@
 import type { Mood } from './shared';
 import { resolveMessages } from './messages';
 import type { PetMessages } from './messages';
+import type { Language } from './languages';
 
 const MOOD_COLORS: Record<Mood, string> = {
   frozen:  '#818cf8',  // Indigo
@@ -15,14 +16,16 @@ const MOOD_ORDER: Mood[] = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
 interface Props {
   /** Stimmung je Stunde; die Anwendung bestimmt sie (das Paket kennt keine Temperaturen) */
   moods: Mood[];
-  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
+  /** Sprache der Texte (`'en'` oder `'de'`); Standard Englisch */
+  language?: Language;
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf die Sprache zurück */
   messages?: Partial<PetMessages>;
 }
 
-export function MoodHistoryBar({ moods, messages }: Props) {
+export function MoodHistoryBar({ moods, messages, language }: Props) {
   if (moods.length === 0) return null;
 
-  const text = resolveMessages(messages);
+  const text = resolveMessages(messages, language);
 
   const counts = moods.reduce<Record<Mood, number>>(
     (acc, m) => { acc[m]++; return acc; },

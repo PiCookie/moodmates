@@ -59,7 +59,7 @@ Ideas for new animals and for how existing ones could look or change.
 ### Package and project
 
 - [ ] A way to show your own sentence on demand (for example a `say` prop or a ref method).
-- [ ] Per-animal imports so apps that use one species do not ship all 45 (about 170 kB minified, 30 kB gzip
+- [ ] Per-animal imports so apps that use one species do not ship all 45 (about 180 kB minified, 34 kB gzip
   today).
 - [ ] More theming than the two CSS variables.
 - [ ] Checking the screen reader output with real assistive technology (every animal is a `role="img"`
@@ -128,6 +128,9 @@ species today.
 - [x] **Speech phrases that are not about the weather.** Nine weather lines of the default phrases (spring,
   autumn, sunscreen, lake, barbecue, "lovely weather") were rewritten as comfort phrases; a test keeps weather
   words out of `speech`. The event phrases are still weather themed (0.3.1).
+- [x] **German as a second built-in language.** `language="de"` on `Moodmate`, `MoodmateSprite` and
+  `MoodHistoryBar` (`MESSAGES_DE`, `LANGUAGES`): phrases, mood names, species and category names and screen
+  reader labels. The demo has a language switch. Not released yet.
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white (0.2.1).
 
@@ -144,9 +147,12 @@ app, and the same animals should work for other data.
 drops) and the default phrases are built around it. `hot` looks like `warm` plus sweat drops and has its own
 phrases. This is a comfort scale, not a general emotion scale. Emotions are planned, see "Planned" above.
 
-**English is the default language, other languages are passed in.**
-The package ships English only (`MESSAGES_EN`). Any other language is a `PetMessages` object passed as
-`messages`; the app owns its translations and its personality. Missing fields fall back to English.
+**English is the default language, German is built in, other languages are passed in.**
+The package ships English (`MESSAGES_EN`, the default) and German (`MESSAGES_DE`), chosen with the `language`
+prop. Up to 0.3.1 it shipped English only and left every translation to the app; German was added later. Any other
+language is still a `PetMessages` object passed as `messages`, and the app owns its translations and its
+personality. The order is: your own
+`messages`, then the chosen language, then English. A language the package does not know falls back to English.
 
 **The 45 animals are internal.**
 They are chosen with the required `type` prop. Every public animal would be a compatibility promise, so

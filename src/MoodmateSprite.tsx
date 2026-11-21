@@ -3,11 +3,14 @@ import type { PetProps } from './shared';
 import { lookOf } from './shared';
 import { resolveMessages } from './messages';
 import type { PetMessages } from './messages';
+import type { Language } from './languages';
 import { PET_COMPONENTS } from './registry';
 
 export interface MoodmateSpriteProps extends PetProps {
   type: PetType;
-  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf Englisch zurück */
+  /** Sprache der Texte (`'en'` oder `'de'`); Standard Englisch. Hier nur für die Beschriftung für Screenreader. */
+  language?: Language;
+  /** Eigene Texte (Teil-Objekt); fehlende Felder fallen auf die Sprache zurück */
   messages?: Partial<PetMessages>;
 }
 
@@ -15,11 +18,11 @@ export interface MoodmateSpriteProps extends PetProps {
  * Das Tier als reines Bild in einer Stimmung: keine Timer, keine Sprechblase, kein Name.
  * Gedacht für Listen, Avatare und Auswahlen, in denen viele Tiere nebeneinander stehen.
  */
-export function MoodmateSprite({ type, messages, ...petProps }: MoodmateSpriteProps) {
+export function MoodmateSprite({ type, messages, language, ...petProps }: MoodmateSpriteProps) {
   // Einstellungen können Arten aus älteren Versionen enthalten; dann lieber die Katze als ein Absturz
   const known: PetType = type in PET_COMPONENTS ? type : 'cat';
   const Pet = PET_COMPONENTS[known];
-  const text = resolveMessages(messages);
+  const text = resolveMessages(messages, language);
   // Teil-Objekte ersetzen petNames als Ganzes; ein fehlender Name darf nicht als "undefined" erscheinen
   const ariaLabel = text.spriteLabel(text.petNames[known] ?? known, text.moodLabels[petProps.mood]);
   const { look, isHot } = lookOf(petProps.mood);

@@ -5,6 +5,8 @@ import * as api from '../src/index';
 const CORE_EXPORTS = [
   'ALL_PET_TYPES',
   'COMING_SOON_PET_TYPES',
+  'LANGUAGES',
+  'MESSAGES_DE',
   'MESSAGES_EN',
   'PET_CATEGORIES',
   'petCategoryOf',

@@ -33,6 +33,8 @@
     button.mood, label.live { font: inherit; border: 1px solid var(--line); background: var(--card);
                               color: inherit; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
     button.mood[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+    select { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
+             background: var(--card); color: inherit; }
     input[type="search"] { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
                            background: var(--card); color: inherit; }
     h2 { margin: 32px 0 12px; font-size: 1.1rem; }
@@ -90,6 +92,8 @@
   const COMING_SOON_PET_TYPES = lib.COMING_SOON_PET_TYPES ?? [];
   // Ebenso die Kategorien: ohne sie bleibt es bei einer Liste.
   const PET_CATEGORIES = lib.PET_CATEGORIES ?? null;
+  // Und die Sprachen: ohne MESSAGES_DE gibt es keine Auswahl.
+  const MESSAGES_DE = lib.MESSAGES_DE ?? null;
   const { useState } = React;
 
   const MOODS = ['frozen', 'cold', 'neutral', 'warm', 'hot'];
@@ -99,13 +103,15 @@
     const [mood, setMood] = useState('neutral');
     const [query, setQuery] = useState('');
     const [live, setLive] = useState(false);
+    const [language, setLanguage] = useState('en');
+    const M = language === 'de' && MESSAGES_DE ? MESSAGES_DE : MESSAGES_EN;
     const q = query.trim().toLowerCase();
     const types = ALL_PET_TYPES.filter((t) =>
-      !q || t.includes(q) || (MESSAGES_EN.petNames[t] ?? '').toLowerCase().includes(q));
+      !q || t.includes(q) || (M.petNames[t] ?? '').toLowerCase().includes(q));
     const Pet = live ? Moodmate : MoodmateSprite;
     const groups = PET_CATEGORIES
       ? PET_CATEGORIES
-          .map((c) => ({ key: c, title: MESSAGES_EN.categoryNames?.[c] ?? c, types: lib.petTypesIn(c).filter((t) => types.includes(t)) }))
+          .map((c) => ({ key: c, title: M.categoryNames?.[c] ?? c, types: lib.petTypesIn(c).filter((t) => types.includes(t)) }))
           .filter((g) => g.types.length > 0)
       : [{ key: 'all', title: null, types }];
 
@@ -113,7 +119,10 @@
       h('div', { className: 'controls' },
         h('div', { className: 'moods', role: 'group', 'aria-label': 'Mood' },
           MOODS.map((m) => h('button', { key: m, className: 'mood', 'aria-pressed': m === mood,
-            onClick: () => setMood(m) }, MESSAGES_EN.moodLabels[m] ?? m))),
+            onClick: () => setMood(m) }, M.moodLabels[m] ?? m))),
+        MESSAGES_DE && h('select', { 'aria-label': 'Language', value: language, onChange: (e) => setLanguage(e.target.value) },
+          h('option', { value: 'en' }, 'English'),
+          h('option', { value: 'de' }, 'Deutsch')),
         h('input', { type: 'search', placeholder: `Search ${ALL_PET_TYPES.length} species`,
           'aria-label': 'Search species', value: query, onChange: (e) => setQuery(e.target.value) }),
         h('label', { className: 'live' },
@@ -126,16 +135,16 @@
           g.types.map((t) => {
             const soon = COMING_SOON_PET_TYPES.includes(t);
             return h('div', { key: t, className: soon ? 'card soon' : 'card' },
-              h('div', { className: 'pet' }, h(Pet, { type: t, mood, size: 84 })),
+              h('div', { className: 'pet' }, h(Pet, { type: t, mood, language, size: 84 })),
               h('code', null, t),
               soon && h('span', { className: 'badge' }, 'coming soon'));
           })))),
       h('h2', null, 'History bar'),
       h('div', { className: 'wide-bar' },
-        h(MoodHistoryBar, { moods: ['frozen', 'cold', 'cold', 'neutral', 'neutral', 'warm', 'hot', 'hot', 'warm', 'neutral'] })),
+        h(MoodHistoryBar, { language, moods: ['frozen', 'cold', 'cold', 'neutral', 'neutral', 'warm', 'hot', 'hot', 'warm', 'neutral'] })),
       h('h2', null, 'All moods of one animal'),
       h('div', { className: 'live-area' },
-        MOODS.map((m) => h(Moodmate, { key: m, type: 'cat', mood: m, name: MESSAGES_EN.moodLabels[m] ?? m, size: 96 }))));
+        MOODS.map((m) => h(Moodmate, { key: m, type: 'cat', mood: m, language, name: M.moodLabels[m] ?? m, size: 96 }))));
   }
 
   createRoot(document.getElementById('root')).render(h(App));

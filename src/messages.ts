@@ -3,6 +3,8 @@ import type { EventKind } from './events';
 import type { PetType } from './pets';
 import type { PetCategory } from './categories';
 import { MESSAGES_EN } from './messages.en';
+import { MESSAGES_BY_LANGUAGE } from './languages';
+import type { Language } from './languages';
 
 // Alle Texte, die die Tiere selbst anzeigen. Eigene Texte werden als Teil-Objekt übergeben,
 // fehlende Felder fallen auf die englischen Standardtexte zurück (siehe resolveMessages).
@@ -25,9 +27,11 @@ export interface PetMessages {
   moodBarHourTitle: (hour: string, moodLabel: string) => string;
 }
 
-export function resolveMessages(overrides?: Partial<PetMessages>): PetMessages {
+// Reihenfolge: eigene Texte vor den Texten der gewählten Sprache vor Englisch. Eine unbekannte Sprache
+// (z. B. aus gespeicherten Einstellungen) fällt auf Englisch zurück.
+export function resolveMessages(overrides?: Partial<PetMessages>, language: Language = 'en'): PetMessages {
   const given = Object.entries(overrides ?? {}).filter(([, value]) => value !== undefined);
-  return { ...MESSAGES_EN, ...Object.fromEntries(given) };
+  return { ...MESSAGES_EN, ...(MESSAGES_BY_LANGUAGE[language] ?? MESSAGES_EN), ...Object.fromEntries(given) };
 }
 
 export function pickMessage(mood: Mood, messages: PetMessages = MESSAGES_EN): string {

@@ -61,7 +61,8 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 | `size` | `number` | `80` | Pixels |
 | `name` | `string` | none | Name tag below the animal |
 | `event` | `{ kind: EventKind } \| null` | none | Shows an event bubble and hops three times (`'first-frost'`, `'first-summer'`, `'heat-record'`, `'back-online'`) |
-| `messages` | `Partial<PetMessages>` | English | Your own texts, see below |
+| `language` | `'en' \| 'de'` | `'en'` | Language of the phrases and labels, see [Languages](#languages) |
+| `messages` | `Partial<PetMessages>` | the language | Your own texts, see below |
 | `talk` | `boolean` | `true` | `false` keeps it quiet: no speech from time to time and no bubble on a tap (it still hops). An `event` still shows its bubble, because your app passes it on purpose |
 | `onTap` | `() => void` | none | Called on every tap, also with `talk={false}` |
 
@@ -73,7 +74,8 @@ No timers, no bubble, no name. For lists, avatars and pickers.
 <MoodmateSprite type="owl" mood="cold" size={52} />
 ```
 
-Props: `type` (required), `mood` (required), `size`, `blinking`, `messages` (only used for the screen reader label).
+Props: `type` (required), `mood` (required), `size`, `blinking`, `language` and `messages` (both only used for the
+screen reader label).
 An unknown `type` falls back to the cat.
 
 ### `<MoodHistoryBar>`: a colored bar with one segment per hour
@@ -82,10 +84,26 @@ An unknown `type` falls back to the cat.
 <MoodHistoryBar moods={['cold', 'cold', 'neutral', 'warm', 'hot']} />
 ```
 
-## Your own texts (and other languages)
+Props: `moods` (required), `language`, `messages`.
 
-English is the default (`MESSAGES_EN`). To use another language, pass a `PetMessages` object.
-Missing fields fall back to English. Copy `MESSAGES_EN` from `src/messages.en.ts` as a template:
+## Languages
+
+English (`'en'`, the default) and German (`'de'`) are built in. Choose one with the `language` prop of
+`Moodmate`, `MoodmateSprite` and `MoodHistoryBar`; it changes the phrases, the mood names, the species and
+category names and the screen reader labels.
+
+```tsx
+<Moodmate type="cat" mood="warm" language="de" />
+```
+
+`LANGUAGES` lists them, and `MESSAGES_EN` and `MESSAGES_DE` hold the texts (for example for a server, see
+[Without React](#without-react)). Any other language is a `PetMessages` object, see below.
+
+## Your own texts
+
+Pass a `Partial<PetMessages>` as `messages` to change single texts or to add a language. Your texts win over the
+chosen `language`; fields you leave out come from that language (and from English if it lacks them). Copy
+`MESSAGES_EN` from `src/messages.en.ts` as a template:
 
 | Field | Content |
 |---|---|
@@ -126,8 +144,9 @@ The demo and the picture above group the species this way.
 
 ## Without React
 
-`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `COMING_SOON_PET_TYPES`, `PET_CATEGORIES`, `petCategoryOf()`, `petTypesIn()`, `randomPetType()`, `pickMessage()`,
-`pickEventMessage()`, `resolveMessages()`, `MESSAGES_EN` and the types. Useful on a server.
+`moodmates/core` has no React and no CSS: `ALL_PET_TYPES`, `COMING_SOON_PET_TYPES`, `PET_CATEGORIES`,
+`petCategoryOf()`, `petTypesIn()`, `randomPetType()`, `pickMessage()`, `pickEventMessage()`, `resolveMessages()`,
+`MESSAGES_EN`, `MESSAGES_DE`, `LANGUAGES` and the types. Useful on a server.
 
 ## Coming soon
 
@@ -144,7 +163,7 @@ leaves that list.
   the first three events still are; pass your own via `messages`.
 - `Moodmate` blinks and hops on a fixed schedule. The speech can be switched off with `talk={false}`, but
   you cannot yet show your own sentence on demand. Use `MoodmateSprite` for a silent picture.
-- All 45 species are in one bundle (about 170 kB minified, 30 kB gzip).
+- All 45 species are in one bundle (about 180 kB minified, 34 kB gzip, with both languages).
 - The API may still change before 1.0.
 
 ## Accessibility
