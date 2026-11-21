@@ -2,15 +2,14 @@
   "name": "moodmates",
   "version": "0.5.0",
   "type": "module",
-  "description": "Animated SVG animals that show a mood. 45 species, speech bubbles, a mood history bar. React 19, no dependencies, bring your own texts.",
+  "description": "Animated SVG animals that show a mood. 45 species, speech bubbles, a mood history bar. React 19, no dependencies, English and German texts built in.",
   "keywords": [
     "react",
     "svg",
     "mascot",
     "pet",
     "animals",
-    "mood",
-    "weather"
+    "mood"
   ],
   "license": "MIT",
   "author": "PiCookie",

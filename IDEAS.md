@@ -107,6 +107,8 @@ species today.
   sea), the polar bear in Antarctica as in the weather station app, narwhal and beluga in the sea.
 - [x] Unfinished species are marked "coming soon" instead of being removed (`COMING_SOON_PET_TYPES`): the six
   dinosaurs in 0.1.3, elephant, capybara, polar bear, bear and hedgehog in 0.3.0.
+- [x] **Display name "T-Rex".** `petNames.trex` is "T-Rex" instead of "T. rex" (English and German). The internal
+  type stays `trex`, so the API does not change. Not released yet.
 
 ### Package and project
 
