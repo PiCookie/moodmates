@@ -133,7 +133,7 @@ species today.
 - [x] **Own sentence on demand: the `say` prop on `Moodmate`.** `say={{ text, duration? }}` shows the sentence in
   the bubble (4.5 s by default) and hops once. A new object shows it again, also with the same text (like
   `event`); it replaces a running bubble and works with `talk={false}`. The text is not translated. A ref
-  method (`ref.current.say(...)`) was left out; it can be added later without changing the prop. Not released yet.
+  method (`ref.current.say(...)`) was left out; it can be added later without changing the prop (0.5.0).
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white (0.2.1).
 
