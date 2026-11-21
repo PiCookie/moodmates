@@ -58,7 +58,6 @@ Ideas for new animals and for how existing ones could look or change.
 
 ### Package and project
 
-- [ ] A way to show your own sentence on demand (for example a `say` prop or a ref method).
 - [ ] Per-animal imports so apps that use one species do not ship all 45 (about 180 kB minified, 34 kB gzip
   today).
 - [ ] More theming than the two CSS variables.
@@ -131,6 +130,10 @@ species today.
 - [x] **German as a second built-in language.** `language="de"` on `Moodmate`, `MoodmateSprite` and
   `MoodHistoryBar` (`MESSAGES_DE`, `LANGUAGES`): phrases, mood names, species and category names and screen
   reader labels. The demo has a language switch. (0.4.0).
+- [x] **Own sentence on demand: the `say` prop on `Moodmate`.** `say={{ text, duration? }}` shows the sentence in
+  the bubble (4.5 s by default) and hops once. A new object shows it again, also with the same text (like
+  `event`); it replaces a running bubble and works with `talk={false}`. The text is not translated. A ref
+  method (`ref.current.say(...)`) was left out; it can be added later without changing the prop. Not released yet.
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white (0.2.1).
 

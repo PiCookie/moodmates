@@ -152,6 +152,71 @@ describe('Moodmate: talk und onTap', () => {
   });
 });
 
+describe('Moodmate: say', () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('zeigt den eigenen Satz und lässt das Tier hüpfen', () => {
+    const { container } = render(<Moodmate type="cat" mood="neutral" say={{ text: 'Gespeichert ✓' }} />);
+
+    expect(screen.getByText('Gespeichert ✓')).toBeInTheDocument();
+    expect(container.querySelector('.mm-pet__body.mm-hop')).not.toBeNull();
+  });
+
+  it('zeigt nichts bei null oder ohne Prop', () => {
+    const { rerender } = render(<Moodmate type="cat" mood="neutral" say={null} />);
+    expect(document.querySelector('.mm-bubble')).toBeNull();
+    rerender(<Moodmate type="cat" mood="neutral" />);
+    expect(document.querySelector('.mm-bubble')).toBeNull();
+  });
+
+  it('zeigt den Satz auch mit talk={false}', () => {
+    render(<Moodmate type="cat" mood="neutral" talk={false} say={{ text: 'Hallo' }} />);
+
+    expect(screen.getByText('Hallo')).toBeInTheDocument();
+  });
+
+  it('lässt die Blase nach 4,5 s verschwinden und nach duration, wenn angegeben', () => {
+    vi.useFakeTimers();
+    const { rerender } = render(<Moodmate type="cat" mood="neutral" say={{ text: 'Standard' }} />);
+    act(() => { vi.advanceTimersByTime(4499); });
+    expect(screen.getByText('Standard')).toBeInTheDocument();
+    act(() => { vi.advanceTimersByTime(2); });
+    expect(screen.queryByText('Standard')).toBeNull();
+
+    rerender(<Moodmate type="cat" mood="neutral" say={{ text: 'Kurz', duration: 1000 }} />);
+    act(() => { vi.advanceTimersByTime(999); });
+    expect(screen.getByText('Kurz')).toBeInTheDocument();
+    act(() => { vi.advanceTimersByTime(2); });
+    expect(screen.queryByText('Kurz')).toBeNull();
+  });
+
+  it('zeigt denselben Text mit einem neuen Objekt erneut und setzt den Timer zurück', () => {
+    vi.useFakeTimers();
+    const { rerender } = render(<Moodmate type="cat" mood="neutral" say={{ text: 'Nochmal' }} />);
+    act(() => { vi.advanceTimersByTime(4000); });
+    rerender(<Moodmate type="cat" mood="neutral" say={{ text: 'Nochmal' }} />);
+    act(() => { vi.advanceTimersByTime(4000); });
+
+    expect(screen.getByText('Nochmal')).toBeInTheDocument();
+  });
+
+  it('ersetzt eine laufende Blase', () => {
+    const { rerender } = render(<Moodmate type="cat" mood="neutral" say={{ text: 'Eins' }} />);
+    rerender(<Moodmate type="cat" mood="neutral" say={{ text: 'Zwei' }} />);
+
+    expect(screen.queryByText('Eins')).toBeNull();
+    expect(screen.getByText('Zwei')).toBeInTheDocument();
+  });
+
+  it('übersetzt den Text nicht', () => {
+    render(<Moodmate type="cat" mood="neutral" language="de" say={{ text: 'Hello' }} />);
+
+    expect(screen.getByText('Hello')).toBeInTheDocument();
+  });
+});
+
 describe('Sprache', () => {
   afterEach(() => { vi.restoreAllMocks(); });
 

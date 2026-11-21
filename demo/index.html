@@ -35,7 +35,7 @@
     button.mood[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
     select { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
              background: var(--card); color: inherit; }
-    input[type="search"] { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
+    input[type="search"], input[type="text"] { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
                            background: var(--card); color: inherit; }
     h2 { margin: 32px 0 12px; font-size: 1.1rem; }
     h3 { margin: 24px 0 8px; font-size: .95rem; color: var(--accent); }
@@ -46,6 +46,8 @@
     .card code { font-size: .8rem; opacity: .7; }
     .card.soon .pet { filter: blur(3px); opacity: .55; pointer-events: none; }
     .card .badge { font-size: .7rem; font-style: italic; color: var(--accent); }
+    .say-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .say-row input { flex: 1 1 200px; min-width: 0; }
     .live-area { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; padding: 16px;
                  background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
     /* The bar is compact by default (max-width 200px); the demo shows it wider. */
@@ -104,6 +106,9 @@
     const [query, setQuery] = useState('');
     const [live, setLive] = useState(false);
     const [language, setLanguage] = useState('en');
+    const [sentence, setSentence] = useState('Hello from the demo! 👋');
+    // Jedes Anklicken legt ein neues Objekt an, so erscheint die Blase auch bei gleichem Text erneut.
+    const [say, setSay] = useState(null);
     const M = language === 'de' && MESSAGES_DE ? MESSAGES_DE : MESSAGES_EN;
     const q = query.trim().toLowerCase();
     const types = ALL_PET_TYPES.filter((t) =>
@@ -143,8 +148,12 @@
       h('div', { className: 'wide-bar' },
         h(MoodHistoryBar, { language, moods: ['frozen', 'cold', 'cold', 'neutral', 'neutral', 'warm', 'hot', 'hot', 'warm', 'neutral'] })),
       h('h2', null, 'All moods of one animal'),
+      h('p', { className: 'lead' }, 'Tap an animal, or make them all say your own sentence (the say prop).'),
+      h('div', { className: 'say-row' },
+        h('input', { type: 'text', 'aria-label': 'Sentence', value: sentence, onChange: (e) => setSentence(e.target.value) }),
+        h('button', { className: 'mood', onClick: () => setSay({ text: sentence }) }, 'Say it')),
       h('div', { className: 'live-area' },
-        MOODS.map((m) => h(Moodmate, { key: m, type: 'cat', mood: m, language, name: M.moodLabels[m] ?? m, size: 96 }))));
+        MOODS.map((m) => h(Moodmate, { key: m, type: 'cat', mood: m, language, say, name: M.moodLabels[m] ?? m, size: 96 }))));
   }
 
   createRoot(document.getElementById('root')).render(h(App));

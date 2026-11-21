@@ -2,7 +2,7 @@
 // Die einzelnen Tiere sind bewusst nicht exportiert, sie sind über `type` wählbar.
 export * from './core';
 export { Moodmate } from './Moodmate';
-export type { MoodmateProps } from './Moodmate';
+export type { MoodmateProps, MoodmateSay } from './Moodmate';
 export { MoodmateSprite } from './MoodmateSprite';
 export type { MoodmateSpriteProps } from './MoodmateSprite';
 export type { PetProps } from './shared';

@@ -64,6 +64,7 @@ Blinks, hops, shivers, talks from time to time and reacts to a tap.
 | `language` | `'en' \| 'de'` | `'en'` | Language of the phrases and labels, see [Languages](#languages) |
 | `messages` | `Partial<PetMessages>` | the language | Your own texts, see below |
 | `talk` | `boolean` | `true` | `false` keeps it quiet: no speech from time to time and no bubble on a tap (it still hops). An `event` still shows its bubble, because your app passes it on purpose |
+| `say` | `{ text: string; duration?: number } \| null` | none | Shows your own sentence in the bubble (default 4.5 s, `duration` in ms) and hops once. Pass a new object to show it again, also with the same text. Replaces a running bubble, works with `talk={false}`, is not translated |
 | `onTap` | `() => void` | none | Called on every tap, also with `talk={false}` |
 
 ### `<MoodmateSprite>`: just the picture
@@ -161,8 +162,7 @@ leaves that list.
 - The mood scale is cold-to-hot only, and the event kinds are a fixed list (`first-frost`, `first-summer`,
   `heat-record`, `back-online`). The speech phrases are about comfort, not about the weather, but the phrases of
   the first three events still are; pass your own via `messages`.
-- `Moodmate` blinks and hops on a fixed schedule. The speech can be switched off with `talk={false}`, but
-  you cannot yet show your own sentence on demand. Use `MoodmateSprite` for a silent picture.
+- `Moodmate` blinks and hops on a fixed schedule. The speech can be switched off with `talk={false}`. Use `MoodmateSprite` for a silent picture.
 - All 45 species are in one bundle (about 180 kB minified, 34 kB gzip, with both languages).
 - The API may still change before 1.0.
 
