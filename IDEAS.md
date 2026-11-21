@@ -130,7 +130,7 @@ species today.
   words out of `speech`. The event phrases are still weather themed (0.3.1).
 - [x] **German as a second built-in language.** `language="de"` on `Moodmate`, `MoodmateSprite` and
   `MoodHistoryBar` (`MESSAGES_DE`, `LANGUAGES`): phrases, mood names, species and category names and screen
-  reader labels. The demo has a language switch. Not released yet.
+  reader labels. The demo has a language switch. (0.4.0).
 - [x] **Readable legend and name tag on light backgrounds.** The defaults of `--mm-legend-color` and
   `--mm-name-color` are the page's text color, toned down, instead of semi-transparent white (0.2.1).
 
