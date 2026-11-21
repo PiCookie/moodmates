@@ -103,8 +103,8 @@ category names and the screen reader labels.
 ## Your own texts
 
 Pass a `Partial<PetMessages>` as `messages` to change single texts or to add a language. Your texts win over the
-chosen `language`; fields you leave out come from that language (and from English if it lacks them). Copy
-`MESSAGES_EN` from `src/messages.en.ts` as a template:
+chosen `language`; fields you leave out come from that language (and from English if it lacks them). Use
+`MESSAGES_EN` as a template (`import { MESSAGES_EN } from 'moodmates/core'`):
 
 | Field | Content |
 |---|---|
@@ -118,8 +118,8 @@ chosen `language`; fields you leave out come from that language (and from Englis
 | `moodBarAriaLabel`, `moodBarHourTitle(hour, label)` | Labels of the history bar |
 
 ```tsx
-const german: Partial<PetMessages> = { tapPet: 'Tier antippen', moodLabels: { /* ... */ } };
-<Moodmate type="cat" mood="neutral" messages={german} />
+const french: Partial<PetMessages> = { tapPet: 'Toucher l’animal', moodLabels: { /* ... */ } };
+<Moodmate type="cat" mood="neutral" messages={french} />
 ```
 
 ## Styling
