@@ -27,6 +27,15 @@ const EVENT_TO_VARIANT: Record<EventKind, SpeechVariant> = {
   'back-online':  'online',
 };
 
+/** Ein eigener Satz, den das Tier sagt. */
+export interface MoodmateSay {
+  text: string;
+  /** Wie lange die Blase steht, in Millisekunden; Standard 4500. */
+  duration?: number;
+}
+
+const DEFAULT_SAY_MS = 4500;
+
 export interface MoodmateProps {
   /** Stimmung des Tiers; Aussehen, Sprüche und Hüpfen folgen ihr. Die Anwendung entscheidet, wann welche gilt. */
   mood: Mood;
@@ -43,6 +52,12 @@ export interface MoodmateProps {
    * Mit `false` bleibt es still; Ereignisse (`event`) zeigen ihre Blase weiterhin, weil die Anwendung sie ausdrücklich übergibt.
    */
   talk?: boolean;
+  /**
+   * Ein eigener Satz auf Abruf. Jedes neue Objekt zeigt die Blase erneut (auch mit demselben Text),
+   * ersetzt eine laufende Blase und lässt das Tier einmal hüpfen. Gilt auch mit `talk={false}`,
+   * weil die Anwendung ihn ausdrücklich übergibt. Der Text wird nicht übersetzt.
+   */
+  say?: MoodmateSay | null;
   /** Wird bei jedem Antippen aufgerufen, auch wenn `talk` aus ist. */
   onTap?: () => void;
 }
@@ -79,7 +94,7 @@ function SpeechBubble({ text, variant, leftPx }: { text: string; variant?: Speec
   );
 }
 
-export function Moodmate({ mood, type, size = 80, name, event, messages, language, talk = true, onTap }: MoodmateProps) {
+export function Moodmate({ mood, type, size = 80, name, event, messages, language, say, talk = true, onTap }: MoodmateProps) {
   const text = resolveMessages(messages, language);
   const [blinking,       setBlinking]       = useState(false);
   const [hopping,        setHopping]        = useState(false);
@@ -96,9 +111,11 @@ export function Moodmate({ mood, type, size = 80, name, event, messages, languag
 
   const onTapRef = useRef(onTap);
   const showSpeechRef = useRef<() => void>(() => {});
+  const saySentenceRef = useRef<(sentence: MoodmateSay) => void>(() => {});
   useEffect(() => {
     onTapRef.current = onTap;
     showSpeechRef.current = showSpeech;
+    saySentenceRef.current = saySentence;
   });
 
   // Ref für den Auto-Clear-Timer der Sprechblase (damit Click den Timer resetten kann)
@@ -122,6 +139,17 @@ export function Moodmate({ mood, type, size = 80, name, event, messages, languag
       setSpeechText(null);
       speechClearTimerRef.current = null;
     }, 4500);
+  }
+
+  function saySentence(sentence: MoodmateSay) {
+    if (speechClearTimerRef.current) clearTimeout(speechClearTimerRef.current);
+    setSpeechText(sentence.text);
+    setSpeechVariant(null);
+    hop();
+    speechClearTimerRef.current = setTimeout(() => {
+      setSpeechText(null);
+      speechClearTimerRef.current = null;
+    }, sentence.duration ?? DEFAULT_SAY_MS);
   }
 
   function hop() {
@@ -148,6 +176,11 @@ export function Moodmate({ mood, type, size = 80, name, event, messages, languag
       speechClearTimerRef.current = null;
     }, 8000);
   }, [event]);
+
+  // ── Eigener Satz ───────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (say) saySentenceRef.current(say);
+  }, [say]);
 
   const { look }  = lookOf(mood);
   const shivering = look === 'cold' || look === 'frozen';
