@@ -97,7 +97,7 @@ species today.
   - Nature: hedgehog (spines with a gradient), owl (huge round eyes) and fox (white-tipped tail).
   - Sea: shark, whale (water spout when warm), seahorse (upright pose), dolphin (always smiling),
     pufferfish and jellyfish. The package later added more whales, fish and the octopus.
-  - Dinosaurs: T. rex, triceratops, stegosaurus, brachiosaurus, pteranodon and ankylosaurus are drawn, but
+  - Dinosaurs: T-Rex, triceratops, stegosaurus, brachiosaurus, pteranodon and ankylosaurus are drawn, but
     not finished (see "Planned").
 - [x] **Feet for all animals.** Cat, dog and frog got flat foot ovals at the bottom like the penguin.
 - [x] **Species categories** for pickers and overviews: pets, Africa, Asia, South America, Antarctica,
