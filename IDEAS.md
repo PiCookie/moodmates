@@ -117,7 +117,7 @@ species today.
 - [x] **Mood history.** A small bar under the animal shows how long it was in which mood today.
   (`MoodHistoryBar`)
 - [x] A live demo page (`demo/index.html`, published with GitHub Pages). 0.1.2 contains the page, the
-  Pages workflow came after it. Grouped by category since 0.3.0.
+  Pages workflow came after it. Grouped by category since 0.3.0; the animals are alive and tappable by default (the "Living" checkbox is gone).
 - [x] A picture of all species in the README (`docs/moodmates.svg`), kept current by a test.
 - [x] The speech bubble sits at the same place relative to the body for every species (0.1.2).
 - [x] **`talk` and `onTap` props on `Moodmate`.** `talk={false}` stops the speech from time to time and the
