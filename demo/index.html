@@ -30,7 +30,7 @@
     /* Auf dem Handy nimmt die Leiste zu viel Platz weg, deshalb klebt sie nur auf breiten Bildschirmen. */
     @media (min-width: 700px) { .controls { position: sticky; top: 0; } }
     .moods { display: flex; gap: 6px; flex-wrap: wrap; }
-    button.mood, label.live { font: inherit; border: 1px solid var(--line); background: var(--card);
+    button.mood { font: inherit; border: 1px solid var(--line); background: var(--card);
                               color: inherit; padding: 4px 12px; border-radius: 999px; cursor: pointer; }
     button.mood[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
     select { font: inherit; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px;
@@ -43,6 +43,9 @@
     .card { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; padding: 12px 6px;
             min-width: 0;
             background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+    .card { position: relative; }
+    /* Eine Sprechblase soll über den Nachbarkarten liegen, nicht darunter. */
+    .card:has(.mm-bubble) { z-index: 3; }
     .card code { font-size: .8rem; opacity: .7; }
     .card.soon .pet { filter: blur(3px); opacity: .55; pointer-events: none; }
     .card .badge { font-size: .7rem; font-style: italic; color: var(--accent); }
@@ -62,7 +65,7 @@
 <body>
 <main>
   <h1>moodmates</h1>
-  <p class="lead">All species on one page. Pick a mood, search by name, tap a living animal.</p>
+  <p class="lead">All species on one page. Pick a mood, search by name, tap an animal. They blink, hop and talk on their own.</p>
   <div id="root"><p id="status">Loading…</p></div>
   <footer>
     Loads <code>../dist</code> when it exists (after <code>pnpm build</code>), otherwise the
@@ -104,7 +107,6 @@
   function App() {
     const [mood, setMood] = useState('neutral');
     const [query, setQuery] = useState('');
-    const [live, setLive] = useState(false);
     const [language, setLanguage] = useState('en');
     const [sentence, setSentence] = useState('Hello from the demo! 👋');
     // Jedes Anklicken legt ein neues Objekt an, so erscheint die Blase auch bei gleichem Text erneut.
@@ -113,7 +115,6 @@
     const q = query.trim().toLowerCase();
     const types = ALL_PET_TYPES.filter((t) =>
       !q || t.includes(q) || (M.petNames[t] ?? '').toLowerCase().includes(q));
-    const Pet = live ? Moodmate : MoodmateSprite;
     const groups = PET_CATEGORIES
       ? PET_CATEGORIES
           .map((c) => ({ key: c, title: M.categoryNames?.[c] ?? c, types: lib.petTypesIn(c).filter((t) => types.includes(t)) }))
@@ -129,10 +130,7 @@
           h('option', { value: 'en' }, 'English'),
           h('option', { value: 'de' }, 'Deutsch')),
         h('input', { type: 'search', placeholder: `Search ${ALL_PET_TYPES.length} species`,
-          'aria-label': 'Search species', value: query, onChange: (e) => setQuery(e.target.value) }),
-        h('label', { className: 'live' },
-          h('input', { type: 'checkbox', checked: live, onChange: (e) => setLive(e.target.checked) }),
-          ' Living (blink, talk)')),
+          'aria-label': 'Search species', value: query, onChange: (e) => setQuery(e.target.value) })),
       h('h2', null, `Species (${types.length} of ${ALL_PET_TYPES.length})`),
       groups.map((g) => h('section', { key: g.key },
         g.title && h('h3', null, `${g.title} (${g.types.length})`),
@@ -140,7 +138,9 @@
           g.types.map((t) => {
             const soon = COMING_SOON_PET_TYPES.includes(t);
             return h('div', { key: t, className: soon ? 'card soon' : 'card' },
-              h('div', { className: 'pet' }, h(Pet, { type: t, mood, language, size: 84 })),
+              h('div', { className: 'pet' }, soon
+                ? h(MoodmateSprite, { type: t, mood, language, size: 84 })
+                : h(Moodmate, { type: t, mood, language, size: 84 })),
               h('code', null, t),
               soon && h('span', { className: 'badge' }, 'coming soon'));
           })))),
